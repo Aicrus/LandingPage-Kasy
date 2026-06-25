@@ -1,0 +1,117 @@
+{
+  "tool": "cinematic-doctor",
+  "version": 1,
+  "generatedAt": "2026-06-24T08:01:57.211Z",
+  "file": "components/mode-a/magnetic-cursor.html",
+  "threshold": 80,
+  "total": 99,
+  "pass": true,
+  "naCategories": [
+    "threed"
+  ],
+  "categories": [
+    {
+      "category": "taste",
+      "score": 96,
+      "weight": 30,
+      "normalizedWeight": 29.4,
+      "contribution": 28.24,
+      "findings": [
+        {
+          "level": "info",
+          "msg": "1 default/linear easing value(s) — acceptable for incidental UI, but cinematic motion needs custom curves (§4.1)",
+          "line": 53
+        },
+        {
+          "level": "pass",
+          "msg": "varied entrance vocabulary detected: fade, translate rise, letter-spacing scrub"
+        },
+        {
+          "level": "pass",
+          "msg": "2 custom cubic-bezier curve(s); no \"transition: all\""
+        }
+      ]
+    },
+    {
+      "category": "performance",
+      "score": 100,
+      "weight": 25,
+      "normalizedWeight": 24.5,
+      "contribution": 24.51,
+      "findings": [
+        {
+          "level": "pass",
+          "msg": "no layout-property animation found (transform/opacity only)"
+        },
+        {
+          "level": "pass",
+          "msg": "no render-blocking scripts in <head>"
+        }
+      ]
+    },
+    {
+      "category": "a11y",
+      "score": 100,
+      "weight": 20,
+      "normalizedWeight": 19.6,
+      "contribution": 19.61,
+      "findings": [
+        {
+          "level": "pass",
+          "msg": "prefers-reduced-motion handled (CSS + JS)",
+          "line": 73
+        },
+        {
+          "level": "info",
+          "msg": "no <img> elements (procedural/SVG imagery) — alt check N/A"
+        },
+        {
+          "level": "pass",
+          "msg": ":focus-visible style present",
+          "line": 45
+        },
+        {
+          "level": "pass",
+          "msg": "landmarks present: main",
+          "line": 83
+        }
+      ]
+    },
+    {
+      "category": "mobile",
+      "score": 100,
+      "weight": 15,
+      "normalizedWeight": 14.7,
+      "contribution": 14.71,
+      "findings": [
+        {
+          "level": "pass",
+          "msg": "viewport meta present",
+          "line": 5
+        },
+        {
+          "level": "pass",
+          "msg": ":hover used but a touch/pointer fallback exists (@media hover, touch events)"
+        },
+        {
+          "level": "pass",
+          "msg": "mobile path present: breakpoint(s)",
+          "line": 67
+        }
+      ]
+    },
+    {
+      "category": "tokens",
+      "score": 100,
+      "weight": 12,
+      "normalizedWeight": 11.8,
+      "contribution": 11.76,
+      "findings": [
+        {
+          "level": "pass",
+          "msg": "on the token contract: 30 var(--…) reference(s), no color/easing leaks"
+        }
+      ]
+    }
+  ]
+}
