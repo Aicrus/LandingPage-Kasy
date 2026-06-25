@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { MotionProvider } from "@/components/motion";
+import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeToggle } from "@/components/theme-toggle";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -27,9 +29,15 @@ export default function RootLayout({
     <html
       lang="pt-BR"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col">
-        <MotionProvider>{children}</MotionProvider>
+        <ThemeProvider>
+          <MotionProvider>
+            <ThemeToggle />
+            {children}
+          </MotionProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
