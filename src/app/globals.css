@@ -54,12 +54,15 @@
   --text-fluid-display--font-weight: 700;
   --text-fluid-body: clamp(0.9375rem, 0.8rem + 0.55vw, 1.1875rem);
   --text-fluid-body--line-height: 1.65;
+  --text-fluid-subtitle: clamp(0.8125rem, 0.68rem + 0.38vw, 0.9375rem);
+  --text-fluid-subtitle--line-height: 1.55;
   --spacing-page-x: clamp(1.25rem, 4vw, 4rem);
   --spacing-page-y: clamp(3rem, 8vh, 6rem);
   --spacing-stack: clamp(1.25rem, 2vw + 0.5rem, 2rem);
-  /* Largura em ch acompanha o font-size — mantém ~2 linhas estáveis enquanto o texto escala */
+  /* Largura em ch acompanha o font-size — mantém linhas estáveis enquanto o texto escala */
   --max-width-fluid-title: 36ch;
-  --max-width-fluid-body: 38ch;
+  --max-width-fluid-body: 72ch;
+  --max-width-fluid-subtitle: 68ch;
 }
 
 :root {

@@ -18,19 +18,14 @@ export function HeroIntro() {
         </BlurReveal>
       </h1>
 
-      <BlurReveal
-        as="p"
-        className="mx-auto max-w-5xl text-pretty text-fluid-body text-muted-foreground"
-        delay={0.28}
-      >
-        <span className="block">
+      <p className="w-full max-w-fluid-subtitle text-pretty text-fluid-subtitle text-muted-foreground md:text-balance">
+        <BlurReveal as="span" delay={0.28}>
           O único kit Flutter que chega completo. Backend, auth, pagamentos,
-        </span>
-        <span className="block">
+          <br className="hidden md:block" />
           UI e lógica prontos no dia um. Você foca no que torna o seu app
           único.
-        </span>
-      </BlurReveal>
+        </BlurReveal>
+      </p>
     </div>
   );
 }
