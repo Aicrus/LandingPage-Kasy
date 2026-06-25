@@ -1,1 +1,1 @@
-// Seções da landing page serão adicionadas aqui, uma por uma.
+export { HeroIntro } from "./hero-intro";
