@@ -333,11 +333,7 @@ export function SetupFolder() {
 
       <motion.div
         className="pointer-events-none absolute inset-x-0 z-20"
-        style={
-          reduced
-            ? { top: `${config.folderVh}vh` }
-            : { top: anchorTop }
-        }
+        style={reduced ? { top: `${config.folderVh}vh` } : { top: anchorTop }}
       >
         <FolderStage>
           {CARDS.map((c) => (
@@ -427,9 +423,7 @@ function FolderCard({
   });
 
   const card = (
-    <div
-      className="flex h-full w-full items-center justify-center rounded-[26px] border border-black/[0.06] bg-white shadow-[0_18px_44px_-20px_rgba(20,24,44,0.32)] dark:border-white/10 dark:shadow-[0_18px_44px_-18px_rgba(0,0,0,0.6)]"
-    >
+    <div className="flex h-full w-full items-center justify-center rounded-[26px] border border-black/[0.06] bg-white shadow-[0_18px_44px_-20px_rgba(20,24,44,0.32)] dark:border-white/10 dark:shadow-[0_18px_44px_-18px_rgba(0,0,0,0.6)]">
       <span title={logo.label}>{logo.node}</span>
     </div>
   );
