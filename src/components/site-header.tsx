@@ -90,10 +90,10 @@ function SiteHeaderMotion({ openWidth }: { openWidth: number }) {
     return value * max;
   });
   const blurAmount = useTransform(glass, [0, 1], [0, 16]);
-  const shellBackground = useMotionTemplate`color-mix(in oklch, var(--background) ${blurFill}%, transparent)`;
+  const shellBackground = useMotionTemplate`rgb(from var(--background) r g b / ${blurFill}%)`;
   const backdropFilter = useMotionTemplate`blur(${blurAmount}px)`;
-  const shellBorderMix = useTransform(glass, [0, 1], [0, 10]);
-  const shellBorderColor = useMotionTemplate`color-mix(in oklch, var(--foreground) ${shellBorderMix}%, transparent)`;
+  const shellBorderAlpha = useTransform(glass, [0, 1], [0, 10]);
+  const shellBorderColor = useMotionTemplate`rgb(from var(--foreground) r g b / ${shellBorderAlpha}%)`;
   const navGap = useTransform(progress, [0, 1], [24, 22]);
 
   return (

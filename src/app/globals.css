@@ -114,7 +114,8 @@
   --sidebar-border: #7a849c33;
   --sidebar-ring: #4a5270;
 
-  /* Header blur — mesma cor da página (--background), levemente translúcida */
+  /* Header blur — opacidade real do --background (não color-mix com transparent:
+     transparent = preto com alpha 0 e distorce a cor em oklch). */
   --header-blur-fill: 74%;
   --header-blur-amount: 16px;
 }
@@ -152,7 +153,7 @@
   --sidebar-border: #949eb833;
   --sidebar-ring: #8ba4e8;
 
-  /* Header blur — mesma cor da página; fill maior para não escurecer com o blur */
+  /* Header blur — fill um pouco maior no dark para compensar o backdrop-filter */
   --header-blur-fill: 82%;
   --header-blur-amount: 16px;
 }
@@ -188,16 +189,16 @@
     height: clamp(1.25rem, 1.05rem + 0.72vw, 1.75rem);
   }
 
-  /* Header sticky — blur nativo (Tailwind backdrop-filter) */
+  /* Header sticky — blur nativo; alpha relativo preserva o matiz do --background */
   .header-blur-surface {
-    background-color: color-mix(in oklch, var(--background) var(--header-blur-fill), transparent);
+    background-color: rgb(from var(--background) r g b / var(--header-blur-fill));
     -webkit-backdrop-filter: blur(var(--header-blur-amount));
     backdrop-filter: blur(var(--header-blur-amount));
   }
 
   @supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
     .header-blur-surface {
-      background-color: color-mix(in oklch, var(--background) 92%, transparent);
+      background-color: rgb(from var(--background) r g b / 92%);
     }
   }
 }
