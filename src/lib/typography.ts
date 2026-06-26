@@ -8,7 +8,7 @@
  * Tokens e utilitários: `src/app/globals.css`
  */
 export const type = {
-  /** Hero e títulos de seção — Inter regular (400), tracking apertado */
+  /** Hero e títulos de seção — Inter (~520), tracking apertado */
   display: "type-display",
   /** Subtítulos e stats — JetBrains Mono, escala menor */
   subtitle: "type-subtitle",
