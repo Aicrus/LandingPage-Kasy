@@ -210,9 +210,9 @@ export function FolderFront(props: SVGProps<SVGSVGElement>) {
           x2="0"
           y2="1"
         >
-          <stop offset="0" stopColor="#C9895C" />
-          <stop offset="0.5" stopColor="#B87A4F" />
-          <stop offset="1" stopColor="#9A6340" />
+          <stop offset="0" stopColor="#D9A06E" />
+          <stop offset="0.55" stopColor="#C9895C" />
+          <stop offset="1" stopColor="#B87A4F" />
         </linearGradient>
         <linearGradient
           id={`${uid}-front-side-left`}
@@ -282,7 +282,7 @@ export function FolderFront(props: SVGProps<SVGSVGElement>) {
 
       {/* faixa de espessura na base — borda 3D */}
       <path
-        d="M22 196 H278 Q286 196 288 200 V204 Q286 208 278 208 H22 Q14 208 12 204 V200 Q14 196 22 196 Z"
+        d="M22 196 H278 Q284 196 286 199 V202 Q284 205 278 205 H22 Q16 205 14 202 V199 Q16 196 22 196 Z"
         fill={`url(#${uid}-front-thickness)`}
       />
       <path
