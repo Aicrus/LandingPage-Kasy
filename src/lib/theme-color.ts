@@ -1,84 +1,54 @@
-/** Mesmos valores de --background em globals.css */
+/**
+ * Cor da status bar / safe-area do navegador mobile (meta `theme-color`).
+ * Os valores espelham `--background` do globals.css.
+ *
+ * Padrão robusto p/ a status bar do iOS Safari (a parte que "travava" no claro):
+ *  - UMA única <meta name="theme-color">, sempre MUTANDO o `content`.
+ *    Remover/recriar a meta — ou ter várias — faz o iOS travar na cor antiga.
+ *  - SEM atributo `media`: assim o tema escolhido no site vence o tema do SO
+ *    (com `media`, o iOS seguiria só o sistema e ignoraria o toggle do site).
+ *  - Só DOIS atores, sem concorrência: 1 script no <head> p/ o primeiro paint
+ *    (sem flash) e 1 observer em runtime. Nada de sync paralelo no React.
+ */
 export const THEME_BACKGROUND = {
   light: "#f2f4fa",
   dark: "#0f1218",
 } as const;
 
-export type ResolvedThemeMode = keyof typeof THEME_BACKGROUND;
-
-export function themeColorForMode(mode: ResolvedThemeMode) {
-  return THEME_BACKGROUND[mode];
-}
-
-/** Atualiza uma única meta theme-color (sem media query). */
-export function applyThemeColorMeta(mode: ResolvedThemeMode) {
-  if (typeof document === "undefined") return;
-
-  const color = themeColorForMode(mode);
-  const existing = document.querySelector<HTMLMetaElement>(
-    'meta[name="theme-color"]',
-  );
-
-  if (
-    existing &&
-    existing.content === color &&
-    !existing.hasAttribute("media")
-  ) {
-    return;
-  }
-
-  document
-    .querySelectorAll('meta[name="theme-color"]')
-    .forEach((meta) => meta.remove());
-
-  const meta = document.createElement("meta");
-  meta.name = "theme-color";
-  meta.content = color;
-  document.head.appendChild(meta);
-}
-
 /**
- * Primeiro paint — lê o mesmo localStorage do next-themes, antes do body.
- * Sem media query: iOS não pode ignorar o tema escolhido no site.
+ * Primeiro paint — roda no <head> ANTES do body. Lê o mesmo localStorage do
+ * next-themes e pinta a meta de forma síncrona, evitando flash de cor errada.
+ * Precisa ser <script> cru (não React) p/ a hidratação não reverter o content.
  */
-export const themeColorHeadInitScript = `(function(c){function d(){try{var t=localStorage.getItem("theme")||"system";return t==="dark"||(t==="system"&&window.matchMedia("(prefers-color-scheme: dark)").matches)}catch(e){return window.matchMedia("(prefers-color-scheme: dark)").matches}}function s(){var color=d()?c.dark:c.light;document.querySelectorAll('meta[name="theme-color"]').forEach(function(m){m.remove()});var m=document.createElement("meta");m.name="theme-color";m.content=color;document.head.appendChild(m)}s()})(${JSON.stringify(THEME_BACKGROUND)})`;
+export const themeColorHeadInitScript = `(function(c){function d(){try{var t=localStorage.getItem("theme")||"system";return t==="dark"||(t==="system"&&window.matchMedia("(prefers-color-scheme: dark)").matches)}catch(e){return window.matchMedia("(prefers-color-scheme: dark)").matches}}var color=d()?c.dark:c.light,m=document.querySelector('meta[name="theme-color"]:not([media])');if(!m){m=document.createElement("meta");m.name="theme-color";document.head.appendChild(m)}if(m.content!==color){m.content=color}})(${JSON.stringify(THEME_BACKGROUND)})`;
 
 /**
- * Depois do script do next-themes — observa a classe no <html>.
+ * Runtime — roda depois do next-themes. Observa a classe do <html> (sinal
+ * canônico: o next-themes alterna `.dark` tanto no toggle manual quanto no modo
+ * "system") e MUTA o content da meta única. O matchMedia cobre a troca de tema
+ * do SO enquanto o site está em "system".
  * @see https://github.com/pacocoursey/next-themes/issues/78
  */
 export function themeMetaSyncScript(colors: typeof THEME_BACKGROUND) {
-  function modeFromDom(): "light" | "dark" {
-    return document.documentElement.classList.contains("dark")
-      ? "dark"
-      : "light";
-  }
-
   function syncThemeColor() {
-    const mode = modeFromDom();
-    const color = colors[mode];
-    const existing = document.querySelector('meta[name="theme-color"]');
+    const color = document.documentElement.classList.contains("dark")
+      ? colors.dark
+      : colors.light;
 
-    if (
-      existing &&
-      existing.getAttribute("content") === color &&
-      !existing.hasAttribute("media")
-    ) {
-      return;
+    let meta = document.querySelector<HTMLMetaElement>(
+      'meta[name="theme-color"]:not([media])',
+    );
+    if (!meta) {
+      meta = document.createElement("meta");
+      meta.name = "theme-color";
+      document.head.appendChild(meta);
     }
-
-    document
-      .querySelectorAll('meta[name="theme-color"]')
-      .forEach((meta) => meta.remove());
-
-    const meta = document.createElement("meta");
-    meta.name = "theme-color";
-    meta.content = color;
-    document.head.appendChild(meta);
+    if (meta.getAttribute("content") !== color) {
+      meta.setAttribute("content", color);
+    }
   }
 
-  const htmlObserver = new MutationObserver(syncThemeColor);
-  htmlObserver.observe(document.documentElement, {
+  new MutationObserver(syncThemeColor).observe(document.documentElement, {
     attributes: true,
     attributeFilter: ["class"],
   });

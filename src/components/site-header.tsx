@@ -17,12 +17,16 @@ import {
 import { cn } from "@/lib/utils";
 
 const SCROLL_RANGE = 115;
+const MOBILE_MEDIA = "(max-width: 639px)";
 
 const headerShellBorderClass =
   "border-[0.5px] border-foreground/10 dark:border-foreground/15";
 
 const headerCtaButtonClass =
   "h-auto shrink-0 rounded-full border-transparent px-4 py-2 shadow-[0_1px_4px_rgba(26,30,44,0.05),0_12px_36px_-4px_rgba(26,30,44,0.11)] hover:shadow-[0_1px_4px_rgba(26,30,44,0.06),0_14px_40px_-4px_rgba(26,30,44,0.13)] dark:border-transparent dark:shadow-[0_1px_4px_rgba(0,0,0,0.22),0_12px_36px_-4px_rgba(0,0,0,0.3)] dark:hover:shadow-[0_1px_4px_rgba(0,0,0,0.24),0_14px_40px_-4px_rgba(0,0,0,0.34)]";
+
+const headerCtaButtonFlatClass =
+  "border-[0.5px] border-foreground/16 bg-card hover:bg-card/92 dark:border-foreground/20 dark:bg-input/30 dark:hover:bg-input/50 shadow-none hover:shadow-none dark:shadow-none dark:hover:shadow-none";
 
 function useOpenHeaderWidth() {
   const [openWidth, setOpenWidth] = useState(992);
@@ -40,16 +44,112 @@ function useOpenHeaderWidth() {
   return openWidth;
 }
 
+function useIsMobileViewport() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia(MOBILE_MEDIA);
+    const sync = () => setIsMobile(media.matches);
+
+    sync();
+    media.addEventListener("change", sync);
+    return () => media.removeEventListener("change", sync);
+  }, []);
+
+  return isMobile;
+}
+
+function HeaderBrand() {
+  return (
+    <Link
+      href="/"
+      className="rounded-sm outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+    >
+      <KasyLogo />
+    </Link>
+  );
+}
+
+function HeaderNav({
+  compactCta,
+  flatCta,
+  className,
+}: {
+  compactCta?: boolean;
+  flatCta?: boolean;
+  className?: string;
+}) {
+  return (
+    <nav className={cn("flex shrink-0 items-center gap-5 sm:gap-6", className)}>
+      <Link
+        href="/documentacao"
+        className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+      >
+        <span className="sm:hidden">Docs</span>
+        <span className="hidden sm:inline">Documentação</span>
+      </Link>
+      <Button
+        variant="outline"
+        nativeButton={false}
+        className={cn(
+          headerCtaButtonClass,
+          flatCta && headerCtaButtonFlatClass,
+          compactCta && "text-[0.8125rem]",
+        )}
+        render={<Link href="/obter-kasy" />}
+      >
+        Obter Kasy Pro
+      </Button>
+    </nav>
+  );
+}
+
+/** Mobile — fixo, fundo sólido, sem morph nem blur; o conteúdo rola por baixo. */
+function SiteHeaderMobile() {
+  return (
+    <header className="fixed inset-x-0 top-0 z-50 bg-background px-3.5">
+      <div className="flex w-full items-center justify-between py-4">
+        <HeaderBrand />
+        <HeaderNav className="gap-3" flatCta />
+      </div>
+    </header>
+  );
+}
+
+/** Placeholder pré-hidratação — mesma aparência expandida do desktop, sem animação. */
+function SiteHeaderPlaceholder({ openWidth }: { openWidth: number }) {
+  return (
+    <header className="sticky top-0 z-50 w-full px-page-x">
+      <div
+        className="mx-auto flex w-full items-center justify-between py-4"
+        style={{ maxWidth: openWidth }}
+      >
+        <HeaderBrand />
+        <HeaderNav />
+      </div>
+    </header>
+  );
+}
+
 export function SiteHeader() {
   const [mounted, setMounted] = useState(false);
   const reducedMotion = useReducedMotion();
   const openWidth = useOpenHeaderWidth();
+  const isMobile = useIsMobileViewport();
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  if (!mounted || reducedMotion) {
+  if (!mounted) {
+    return <SiteHeaderPlaceholder openWidth={openWidth} />;
+  }
+
+  if (isMobile) {
+    return <SiteHeaderMobile />;
+  }
+
+  if (reducedMotion) {
     return <SiteHeaderStatic openWidth={openWidth} />;
   }
 
@@ -132,12 +232,7 @@ function SiteHeaderMotion({ openWidth }: { openWidth: number }) {
           transition={headerMorphTransition}
           className="relative z-10 shrink-0"
         >
-          <Link
-            href="/"
-            className="rounded-sm outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
-          >
-            <KasyLogo />
-          </Link>
+          <HeaderBrand />
         </motion.div>
 
         <motion.nav
@@ -199,33 +294,8 @@ function SiteHeaderStatic({ openWidth }: { openWidth: number }) {
         )}
         style={!isCompact ? { maxWidth: openWidth } : undefined}
       >
-        <Link
-          href="/"
-          className="rounded-sm outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
-        >
-          <KasyLogo />
-        </Link>
-
-        <nav className="flex shrink-0 items-center gap-5 sm:gap-6">
-          <Link
-            href="/documentacao"
-            className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-          >
-            <span className="sm:hidden">Docs</span>
-            <span className="hidden sm:inline">Documentação</span>
-          </Link>
-          <Button
-            variant="outline"
-            nativeButton={false}
-            className={cn(
-              headerCtaButtonClass,
-              isCompact && "text-[0.8125rem]",
-            )}
-            render={<Link href="/obter-kasy" />}
-          >
-            Obter Kasy Pro
-          </Button>
-        </nav>
+        <HeaderBrand />
+        <HeaderNav compactCta={isCompact} />
       </div>
     </header>
   );
