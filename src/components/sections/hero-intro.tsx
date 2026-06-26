@@ -5,7 +5,7 @@ import { BlurReveal } from "@/components/motion/blur-reveal";
 export function HeroIntro() {
   return (
     <div className="mx-auto flex w-full flex-col items-center gap-stack text-center">
-      <h1 className="max-w-fluid-title text-balance text-fluid-display text-foreground">
+      <h1 className="max-w-fluid-title text-balance font-features-linear text-fluid-display text-foreground">
         <BlurReveal as="span" className="block" delay={0}>
           Do zero ao app Flutter
         </BlurReveal>
@@ -18,7 +18,7 @@ export function HeroIntro() {
         </BlurReveal>
       </h1>
 
-      <p className="w-full max-w-fluid-subtitle text-pretty text-fluid-subtitle text-muted-foreground md:text-balance">
+      <p className="w-full max-w-fluid-subtitle font-mono text-pretty text-fluid-subtitle text-muted-foreground md:text-balance">
         <BlurReveal as="span" delay={0.28}>
           O único kit Flutter que chega completo. Backend, auth, pagamentos,
           <br className="hidden md:block" />
