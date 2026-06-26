@@ -69,7 +69,9 @@
   --spacing-page-y-top: clamp(0.5rem, 1vh, 1.25rem);
   --spacing-page-y-bottom: clamp(9.5rem, 32vh, 18rem);
   --spacing-stack: clamp(1.25rem, 2vw + 0.5rem, 2rem);
-  --spacing-hero-title-to-lead: clamp(1.75rem, 2.5vw + 0.75rem, 2.75rem);
+  /* Hero — offset do topo (fluido, sem breakpoints); menor = bloco mais alto */
+  --spacing-hero-inset-top: clamp(2.75rem, 7.5vh, 4.25rem);
+  --spacing-hero-title-to-lead: clamp(1.375rem, 1.75vw + 0.5rem, 2rem);
   /* Largura em ch acompanha o font-size — mantém linhas estáveis enquanto o texto escala */
   --max-width-fluid-title: 36ch;
   --max-width-fluid-body: 72ch;

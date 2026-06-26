@@ -3,7 +3,7 @@ import { HeroIntro } from "@/components/sections";
 export default function Home() {
   return (
     <main className="bg-background">
-      <section className="flex min-h-screen flex-col items-center justify-center px-page-x pt-page-y-top pb-page-y-bottom">
+      <section className="flex min-h-screen flex-col items-center justify-start px-page-x pt-hero-inset-top pb-page-y-bottom">
         <HeroIntro />
       </section>
 
