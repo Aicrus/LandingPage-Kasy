@@ -77,8 +77,9 @@
   --max-width-fluid-body: 72ch;
   --max-width-fluid-subtitle: 80ch;
 
-  /* Header — largura da barra */
+  /* Header — largura da barra + altura do header fixo no mobile (< 640px) */
   --max-width-header: min(62rem, calc(100% - 2 * var(--spacing-page-x)));
+  --header-height-mobile: 4.375rem;
 }
 
 /* Paleta Kasy — fonte: landingpage.pen → frame "Paleta — Kasy" (CBQmi) */
@@ -178,17 +179,23 @@
     font-feature-settings: "cv01", "ss03";
   }
 
-  /* Logo provisório — fora do sistema tipográfico */
-  .logo-wordmark {
-    font-size: clamp(1.1875rem, 1rem + 0.72vw, 1.6875rem);
-    font-weight: 750;
-    letter-spacing: -0.025em;
-    line-height: 1;
+  /* Logo provisório — mark + wordmark em escala de título */
+  .logo-mark {
+    width: clamp(2rem, 1.875rem + 0.4vw, 2.25rem);
+    aspect-ratio: 1;
+    background: linear-gradient(
+      90deg,
+      var(--foreground) 0%,
+      var(--foreground) 46%,
+      transparent 100%
+    );
   }
 
-  .logo-icon {
-    width: clamp(1.25rem, 1.05rem + 0.72vw, 1.75rem);
-    height: clamp(1.25rem, 1.05rem + 0.72vw, 1.75rem);
+  .logo-wordmark {
+    font-size: clamp(1.0625rem, 0.94rem + 0.42vw, 1.25rem);
+    font-weight: var(--text-fluid-display--font-weight);
+    letter-spacing: var(--text-fluid-display--letter-spacing);
+    line-height: 1;
   }
 
   /* Header sticky — blur nativo; alpha relativo preserva o matiz do --background */

@@ -171,6 +171,12 @@ Skills são guias que o Cursor lê para produzir código com mais qualidade. Fic
 |---|---|
 | **cinematic-scroll** | Sites scroll-driven: parallax, capítulos fixos, tilt 3D, release pages. Inclui exemplos HTML/GSAP e template Next.js. Modo audit para revisar URLs. |
 
+### Skills de engenharia / tema
+
+| Skill | O que faz |
+|---|---|
+| **mobile-theme-color** | Faz a barra do navegador mobile (status bar do iOS Safari, toolbar do Android Chrome — a meta `theme-color`) acompanhar os modos claro/escuro/sistema, batendo com o `--background`. Padrão correto (meta única, mutar `content`, sem `media`, um só atualizador) para não travar no iOS. |
+
 ### Como as skills se complementam
 
 ```

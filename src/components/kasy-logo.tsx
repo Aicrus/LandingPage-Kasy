@@ -6,23 +6,10 @@ type KasyLogoProps = {
 
 export function KasyLogoIcon({ className }: KasyLogoProps) {
   return (
-    <svg
-      viewBox="0 0 20 20"
-      fill="none"
+    <span
       aria-hidden
-      className={cn("logo-icon shrink-0 text-foreground", className)}
-    >
-      <rect x="2.5" y="3" width="3.5" height="14" rx="0.75" fill="currentColor" />
-      <rect
-        x="10"
-        y="3"
-        width="3.5"
-        height="9"
-        rx="0.75"
-        fill="currentColor"
-        transform="rotate(14 11.75 7.5)"
-      />
-    </svg>
+      className={cn("logo-mark shrink-0 rounded-[22px]", className)}
+    />
   );
 }
 
@@ -35,7 +22,7 @@ export function KasyLogo({ className }: KasyLogoProps) {
       )}
     >
       <KasyLogoIcon />
-      <span className="logo-wordmark">Kasy</span>
+      <span className="logo-wordmark font-features-linear">Kasy</span>
     </span>
   );
 }
