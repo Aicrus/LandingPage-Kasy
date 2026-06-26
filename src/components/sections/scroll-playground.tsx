@@ -13,7 +13,7 @@ const PARAGRAPHS = [
 
 export function ScrollPlayground() {
   return (
-    <section className="relative bg-background px-page-x py-32 sm:py-40">
+    <section className="relative bg-background px-page-x pb-32 pt-[min(18vh,10rem)] sm:pb-40 sm:pt-[min(22vh,12rem)]">
       <div className="mx-auto flex w-full max-w-2xl flex-col gap-8">
         <h2 className="font-heading text-fluid-display text-foreground">
           Área de testes
