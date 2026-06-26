@@ -74,6 +74,9 @@
   --max-width-fluid-title: 36ch;
   --max-width-fluid-body: 72ch;
   --max-width-fluid-subtitle: 80ch;
+
+  /* Header — largura da barra */
+  --max-width-header: min(62rem, calc(100% - 2 * var(--spacing-page-x)));
 }
 
 /* Paleta Kasy — fonte: landingpage.pen → frame "Paleta — Kasy" (CBQmi) */
@@ -162,5 +165,18 @@
 @layer utilities {
   .font-features-linear {
     font-feature-settings: "cv01", "ss03";
+  }
+
+  /* Logo provisório — fora do sistema tipográfico */
+  .logo-wordmark {
+    font-size: clamp(1.1875rem, 1rem + 0.72vw, 1.6875rem);
+    font-weight: 750;
+    letter-spacing: -0.025em;
+    line-height: 1;
+  }
+
+  .logo-icon {
+    width: clamp(1.25rem, 1.05rem + 0.72vw, 1.75rem);
+    height: clamp(1.25rem, 1.05rem + 0.72vw, 1.75rem);
   }
 }
