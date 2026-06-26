@@ -85,7 +85,7 @@
 
   /* Header — largura da barra + altura do header fixo no mobile (< 640px) */
   --max-width-header: min(62rem, calc(100% - 2 * var(--spacing-page-x)));
-  --header-height-mobile: 4.375rem;
+  --header-height-mobile: 3.5rem;
 }
 
 /* Paleta Kasy — fonte: landingpage.pen → frame "Paleta — Kasy" (CBQmi) */

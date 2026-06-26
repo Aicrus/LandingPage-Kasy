@@ -12,7 +12,7 @@ export {
   domAnimation,
 } from "motion/react";
 
-export type { Transition, Variants } from "motion/react";
+export type { Transition, Variants, MotionValue } from "motion/react";
 
 import type { Transition, Variants } from "motion/react";
 

@@ -109,7 +109,7 @@ function HeaderNav({
 function SiteHeaderMobile() {
   return (
     <header className="fixed inset-x-0 top-0 z-50 bg-background px-3.5">
-      <div className="flex w-full items-center justify-between py-4">
+      <div className="flex w-full items-center justify-between py-2.5">
         <HeaderBrand />
         <HeaderNav className="gap-3" flatCta />
       </div>
