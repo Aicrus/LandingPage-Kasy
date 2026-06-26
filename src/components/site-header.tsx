@@ -64,7 +64,7 @@ function HeaderBrand() {
     <Link
       href="/"
       aria-label="Kasy"
-      className="rounded-sm outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+      className="flex rounded-sm outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
     >
       <KasyLogo />
     </Link>
@@ -231,7 +231,7 @@ function SiteHeaderMotion({ openWidth }: { openWidth: number }) {
         <motion.div
           layout
           transition={headerMorphTransition}
-          className="relative z-10 shrink-0"
+          className="relative z-10 flex shrink-0 items-center"
         >
           <HeaderBrand />
         </motion.div>

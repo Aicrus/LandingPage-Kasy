@@ -7,7 +7,7 @@ export function HeroIntro() {
     <div className="mx-auto flex w-full flex-col items-center gap-hero-title-to-lead text-center">
       <h1 className="max-w-fluid-title text-balance font-features-linear text-fluid-display text-foreground">
         <BlurReveal as="span" className="block" delay={0}>
-          Do zero ao app Flutter
+          App publicável
         </BlurReveal>
         <BlurReveal
           as="span"
