@@ -8,7 +8,7 @@ export default function Home() {
       </section>
 
       <section className="flex min-h-[70vh] items-center px-page-x py-page-y">
-        <p className="mx-auto max-w-fluid-title text-balance font-features-linear text-fluid-display text-muted-foreground">
+        <p className="mx-auto max-w-fluid-title text-balance font-heading text-fluid-display text-muted-foreground">
           Tudo que você precisa para lançar — sem começar do zero.
         </p>
       </section>
