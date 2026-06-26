@@ -33,6 +33,12 @@ const ANCHOR_Y = FOLDER_TOP + 24;
 const CARD_COUNT = 11;
 /** Fração da jornada do card em que o desfoque some (ease-out). */
 const BLUR_FADE_PORTION = 0.42;
+/**
+ * Convergência tardia — mantém o spread quase até a pasta.
+ * t^n com n>1: todos continuam descendo com o scroll; o colapso
+ * visual só acelera no trecho final.
+ */
+const CONVERGE_LATE_POWER = 4.25;
 
 const STAGE_SCALE =
   "scale-[0.46] sm:scale-[0.56] md:scale-[0.66] lg:scale-[0.74] xl:scale-[0.8]";
@@ -113,6 +119,11 @@ function cardProgress(
   const span = 1 - leadSpread;
   if (span <= 0) return journey;
   return Math.max(0, Math.min(1, (journey - start) / span));
+}
+
+/** Remapeia o progresso linear → fator de colapso (spread → pasta). */
+function convergeFactor(t: number): number {
+  return Math.pow(t, CONVERGE_LATE_POWER);
 }
 
 type Peek = { x: number; y: number; r: number };
@@ -388,19 +399,19 @@ function FolderCard({
   const packedR = spec.peek ? spec.peek.r : 0;
 
   const x = useTransform(journey, (j) => {
-    const t = cardProgress(j, spec.order, leadSpread);
+    const t = convergeFactor(cardProgress(j, spec.order, leadSpread));
     return lerp(spec.x, packedX, t);
   });
   const y = useTransform(journey, (j) => {
-    const t = cardProgress(j, spec.order, leadSpread);
+    const t = convergeFactor(cardProgress(j, spec.order, leadSpread));
     return lerp(spec.y, packedY, t);
   });
   const scale = useTransform(journey, (j) => {
-    const t = cardProgress(j, spec.order, leadSpread);
+    const t = convergeFactor(cardProgress(j, spec.order, leadSpread));
     return lerp(spec.scale, packedScale, t);
   });
   const rotate = useTransform(journey, (j) => {
-    const t = cardProgress(j, spec.order, leadSpread);
+    const t = convergeFactor(cardProgress(j, spec.order, leadSpread));
     return lerp(spec.r, packedR, t);
   });
 
