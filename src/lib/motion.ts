@@ -5,6 +5,9 @@ export {
   useInView,
   useScroll,
   useTransform,
+  useSpring,
+  useMotionTemplate,
+  useMotionValueEvent,
   LazyMotion,
   domAnimation,
 } from "motion/react";
@@ -39,6 +42,18 @@ export const blurRevealTransition: Transition = {
   type: "tween",
   duration: 0.85,
   ease: [0.16, 1, 0.3, 1],
+};
+
+/** Header morph — mola suave para convergência e pill de vidro */
+export const headerMorphSpring = {
+  stiffness: 110,
+  damping: 26,
+  mass: 0.9,
+};
+
+export const headerMorphTransition: Transition = {
+  type: "spring",
+  ...headerMorphSpring,
 };
 
 export const blurIn: Variants = {
