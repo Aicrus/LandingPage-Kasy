@@ -46,9 +46,9 @@ export const blurRevealTransition: Transition = {
 
 /** Header morph — mola suave para convergência e pill de vidro */
 export const headerMorphSpring = {
-  stiffness: 110,
-  damping: 26,
-  mass: 0.9,
+  stiffness: 130,
+  damping: 24,
+  mass: 0.85,
 };
 
 export const headerMorphTransition: Transition = {

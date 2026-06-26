@@ -61,16 +61,16 @@ function SiteHeaderMotion({ openWidth }: { openWidth: number }) {
 
   const rawProgress = useTransform(scrollY, [0, SCROLL_RANGE], [0, 1], { clamp: true });
   const progress = useSpring(rawProgress, {
-    stiffness: 90,
-    damping: 22,
-    mass: 1,
+    stiffness: 110,
+    damping: 20,
+    mass: 0.9,
   });
 
-  const rawGlass = useTransform(scrollY, [32, SCROLL_RANGE], [0, 1], { clamp: true });
+  const rawGlass = useTransform(scrollY, [24, SCROLL_RANGE], [0, 1], { clamp: true });
   const glass = useSpring(rawGlass, {
-    stiffness: 80,
-    damping: 24,
-    mass: 1,
+    stiffness: 100,
+    damping: 22,
+    mass: 0.9,
   });
 
   const shellMaxWidth = useTransform(progress, (value) => {
