@@ -105,15 +105,11 @@ function HeaderNav({
   );
 }
 
-/** Mobile — fixo, sólido no topo com fade na borda inferior; conteúdo rola por baixo. */
+/** Mobile — fixo, fundo sólido, sem morph nem blur; o conteúdo rola por baixo. */
 function SiteHeaderMobile() {
   return (
-    <header className="fixed inset-x-0 top-0 z-50 px-3.5">
-      <div
-        aria-hidden
-        className="header-mobile-fade pointer-events-none absolute inset-x-0 top-0"
-      />
-      <div className="relative flex w-full items-center justify-between py-4">
+    <header className="fixed inset-x-0 top-0 z-50 bg-background px-3.5">
+      <div className="flex w-full items-center justify-between py-4">
         <HeaderBrand />
         <HeaderNav className="gap-3" flatCta />
       </div>

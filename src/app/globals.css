@@ -86,8 +86,6 @@
   /* Header — largura da barra + altura do header fixo no mobile (< 640px) */
   --max-width-header: min(62rem, calc(100% - 2 * var(--spacing-page-x)));
   --header-height-mobile: 4.375rem;
-  /* Faixa extra abaixo do header mobile — só visual; não entra no padding da página */
-  --header-mobile-fade-height: 1.25rem;
 }
 
 /* Paleta Kasy — fonte: landingpage.pen → frame "Paleta — Kasy" (CBQmi) */
@@ -221,16 +219,6 @@
     .header-blur-surface {
       background-color: rgb(from var(--background) r g b / 92%);
     }
-  }
-
-  /* Mobile — sólido no topo, fade na borda inferior; conteúdo rola por baixo */
-  .header-mobile-fade {
-    height: calc(var(--header-height-mobile) + var(--header-mobile-fade-height));
-    background: linear-gradient(
-      to bottom,
-      var(--background) calc(100% - var(--header-mobile-fade-height)),
-      transparent 100%
-    );
   }
 }
 
