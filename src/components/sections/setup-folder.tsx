@@ -269,7 +269,15 @@ function FolderStage({
         className={`relative origin-bottom ${STAGE_SCALE}`}
         style={{ width: STAGE_W, height: STAGE_H }}
       >
-        {children}
+        <div
+          className="relative h-full w-full"
+          style={{
+            transform: "perspective(900px) rotateX(7deg)",
+            transformOrigin: "50% 88%",
+          }}
+        >
+          {children}
+        </div>
       </div>
     </div>
   );
@@ -309,12 +317,22 @@ export function SetupFolder() {
         <FolderStage>
           <div
             aria-hidden
-            className="absolute rounded-[50%] bg-[#c98b5e]/25 blur-2xl"
+            className="absolute rounded-[50%] bg-[#8b5a35]/18 blur-3xl"
             style={{
-              left: FOLDER_LEFT + 10,
-              top: FOLDER_TOP + FOLDER_H - 26,
-              width: FOLDER_W - 20,
-              height: 60,
+              left: FOLDER_LEFT - 8,
+              top: FOLDER_TOP + FOLDER_H - 18,
+              width: FOLDER_W + 16,
+              height: 72,
+            }}
+          />
+          <div
+            aria-hidden
+            className="absolute rounded-[50%] bg-[#c98b5e]/22 blur-2xl"
+            style={{
+              left: FOLDER_LEFT + 6,
+              top: FOLDER_TOP + FOLDER_H - 28,
+              width: FOLDER_W - 12,
+              height: 52,
             }}
           />
           <div
@@ -364,8 +382,11 @@ export function SetupFolder() {
           >
             <FolderFront className="absolute inset-0 h-full w-full" />
             <span
-              className="absolute inset-x-0 bottom-[14%] text-center font-rounded text-[15px] font-semibold tracking-wide text-[#9c6a45]"
-              style={{ textShadow: "0 1px 0 rgba(255,255,255,0.35)" }}
+              className="absolute inset-x-0 bottom-[16%] text-center font-rounded text-[14.5px] font-semibold tracking-[0.06em] text-[#8f5f3c]"
+              style={{
+                textShadow:
+                  "0 1px 0 rgba(255,255,255,0.45), 0 2px 6px rgba(139,90,53,0.12)",
+              }}
             >
               Seu projeto
             </span>
