@@ -2,8 +2,11 @@ import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { MotionProvider } from "@/components/motion";
 import { SiteHeader } from "@/components/site-header";
+import { ThemeColorSync } from "@/components/theme-color-sync";
+import { ThemeMetaSyncScript } from "@/components/theme-meta-sync";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { themeColorHeadInitScript } from "@/lib/theme-color";
 import "./globals.css";
 
 const inter = Inter({
@@ -34,8 +37,13 @@ export default function RootLayout({
       className={`${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeColorHeadInitScript }} />
+      </head>
       <body className="min-h-full flex flex-col">
         <ThemeProvider>
+          <ThemeMetaSyncScript />
+          <ThemeColorSync />
           <MotionProvider>
             <SiteHeader />
             <ThemeToggle />

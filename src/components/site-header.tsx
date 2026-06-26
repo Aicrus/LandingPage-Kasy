@@ -16,7 +16,7 @@ import {
 } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
-const SCROLL_RANGE = 140;
+const SCROLL_RANGE = 115;
 
 const headerShellBorderClass =
   "border-[0.5px] border-foreground/10 dark:border-foreground/15";

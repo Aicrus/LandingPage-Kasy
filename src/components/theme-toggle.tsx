@@ -5,6 +5,10 @@ import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import {
+  applyThemeColorMeta,
+  type ResolvedThemeMode,
+} from "@/lib/theme-color";
 
 const themes = ["light", "dark", "system"] as const;
 
@@ -31,6 +35,18 @@ export function ThemeToggle() {
     const index = themes.indexOf(currentTheme);
     const nextTheme = themes[(index + 1) % themes.length];
     setTheme(nextTheme);
+
+    let mode: ResolvedThemeMode;
+    if (nextTheme === "dark") {
+      mode = "dark";
+    } else if (nextTheme === "light") {
+      mode = "light";
+    } else {
+      mode = window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light";
+    }
+    applyThemeColorMeta(mode);
   };
 
   const Icon =
