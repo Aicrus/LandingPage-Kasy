@@ -31,6 +31,8 @@ const FOLDER_TOP = STAGE_H - FOLDER_H - 18;
 const ANCHOR_X = STAGE_W / 2;
 const ANCHOR_Y = FOLDER_TOP + 24;
 const CARD_COUNT = 11;
+/** Fração da jornada do card em que o desfoque some (ease-out). */
+const BLUR_FADE_PORTION = 0.42;
 
 const STAGE_SCALE =
   "scale-[0.46] sm:scale-[0.56] md:scale-[0.66] lg:scale-[0.74] xl:scale-[0.8]";
@@ -404,10 +406,18 @@ function FolderCard({
 
   const staticBlur = spec.depth > 0.35 ? 8 : spec.depth > 0.12 ? 4 : 0;
 
+  const filter = useTransform(journey, (j) => {
+    if (staticBlur === 0) return "none";
+    const t = cardProgress(j, spec.order, leadSpread);
+    const fadeT = Math.min(1, t / BLUR_FADE_PORTION);
+    const eased = fadeT * (2 - fadeT);
+    const blurPx = staticBlur * (1 - eased);
+    return blurPx < 0.05 ? "none" : `blur(${blurPx}px)`;
+  });
+
   const card = (
     <div
       className="flex h-full w-full items-center justify-center rounded-[26px] border border-black/[0.06] bg-white shadow-[0_18px_44px_-20px_rgba(20,24,44,0.32)] dark:border-white/10 dark:shadow-[0_18px_44px_-18px_rgba(0,0,0,0.6)]"
-      style={staticBlur > 0 ? { filter: `blur(${staticBlur}px)` } : undefined}
     >
       <span title={logo.label}>{logo.node}</span>
     </div>
@@ -446,6 +456,7 @@ function FolderCard({
         y,
         scale,
         rotate,
+        filter,
       }}
     >
       {card}
