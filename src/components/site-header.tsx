@@ -18,6 +18,12 @@ import { cn } from "@/lib/utils";
 
 const SCROLL_RANGE = 140;
 
+const headerShellBorderClass =
+  "border-[0.5px] border-foreground/10 dark:border-foreground/15";
+
+const headerCtaButtonClass =
+  "h-auto shrink-0 rounded-full border-transparent px-4 py-2 shadow-[0_1px_4px_rgba(26,30,44,0.05),0_12px_36px_-4px_rgba(26,30,44,0.11)] hover:shadow-[0_1px_4px_rgba(26,30,44,0.06),0_14px_40px_-4px_rgba(26,30,44,0.13)] dark:border-transparent dark:shadow-[0_1px_4px_rgba(0,0,0,0.22),0_12px_36px_-4px_rgba(0,0,0,0.3)] dark:hover:shadow-[0_1px_4px_rgba(0,0,0,0.24),0_14px_40px_-4px_rgba(0,0,0,0.34)]";
+
 function useOpenHeaderWidth() {
   const [openWidth, setOpenWidth] = useState(992);
 
@@ -68,12 +74,12 @@ function SiteHeaderMotion({ openWidth }: { openWidth: number }) {
   });
 
   const shellMaxWidth = useTransform(progress, (value) => {
-    const compact = Math.min(openWidth, Math.max(openWidth * 0.56, 380));
+    const compact = Math.min(openWidth, Math.max(openWidth * 0.76, 460));
     return openWidth + (compact - openWidth) * value;
   });
 
-  const shellPaddingY = useTransform(progress, [0, 1], [16, 10]);
-  const shellPaddingX = useTransform(progress, [0, 1], [0, 16]);
+  const shellPaddingY = useTransform(progress, [0, 1], [16, 11]);
+  const shellPaddingX = useTransform(progress, [0, 1], [0, 24]);
   const shellRadius = useTransform(glass, [0, 1], [0, 9999]);
   const topOffset = useTransform(progress, [0, 1], [0, 12]);
   const blurFill = useTransform(glass, (value) => {
@@ -86,11 +92,9 @@ function SiteHeaderMotion({ openWidth }: { openWidth: number }) {
   const blurAmount = useTransform(glass, [0, 1], [0, 16]);
   const shellBackground = useMotionTemplate`color-mix(in oklch, var(--background) ${blurFill}%, transparent)`;
   const backdropFilter = useMotionTemplate`blur(${blurAmount}px)`;
-  const shadowAlpha = useTransform(glass, [0, 1], [0, 0.1]);
-  const borderAlpha = useTransform(glass, [0, 1], [0, 0.28]);
-  const ringShadow = useMotionTemplate`inset 0 0 0 1px color-mix(in oklch, var(--border) ${borderAlpha}, transparent)`;
-  const boxShadow = useMotionTemplate`${ringShadow}, 0 6px 28px -8px rgba(26, 30, 44, ${shadowAlpha}), 0 1px 2px rgba(26, 30, 44, ${shadowAlpha})`;
-  const navGap = useTransform(progress, [0, 1], [24, 16]);
+  const shellBorderMix = useTransform(glass, [0, 1], [0, 10]);
+  const shellBorderColor = useMotionTemplate`color-mix(in oklch, var(--foreground) ${shellBorderMix}%, transparent)`;
+  const navGap = useTransform(progress, [0, 1], [24, 22]);
 
   return (
     <motion.header
@@ -109,15 +113,15 @@ function SiteHeaderMotion({ openWidth }: { openWidth: number }) {
           paddingLeft: shellPaddingX,
           paddingRight: shellPaddingX,
           borderRadius: shellRadius,
-          boxShadow,
         }}
       >
         <motion.div
           aria-hidden
-          className="pointer-events-none absolute inset-0 overflow-hidden"
+          className="pointer-events-none absolute inset-0 overflow-hidden border-[0.5px]"
           style={{
             backgroundColor: shellBackground,
             borderRadius: shellRadius,
+            borderColor: shellBorderColor,
             backdropFilter,
             WebkitBackdropFilter: backdropFilter,
           }}
@@ -152,7 +156,7 @@ function SiteHeaderMotion({ openWidth }: { openWidth: number }) {
           <Button
             variant="outline"
             nativeButton={false}
-            className="h-auto shrink-0 rounded-full px-4 py-2"
+            className={headerCtaButtonClass}
             render={<Link href="/obter-kasy" />}
           >
             Obter Kasy Pro
@@ -187,7 +191,10 @@ function SiteHeaderStatic({ openWidth }: { openWidth: number }) {
         className={cn(
           "relative mx-auto flex w-full items-center justify-between",
           isCompact
-            ? "header-blur-surface max-w-fit gap-4 rounded-full border border-border/35 py-2.5 px-4 shadow-[0_6px_28px_-8px_rgba(26,30,44,0.1)] sm:gap-4 sm:px-5 dark:border-border/25 dark:shadow-[0_6px_28px_-8px_rgba(0,0,0,0.35)]"
+            ? cn(
+                "header-blur-surface max-w-fit gap-5 rounded-full py-3 px-6 sm:gap-6 sm:px-6",
+                headerShellBorderClass,
+              )
             : "max-w-header py-4",
         )}
         style={!isCompact ? { maxWidth: openWidth } : undefined}
@@ -211,8 +218,8 @@ function SiteHeaderStatic({ openWidth }: { openWidth: number }) {
             variant="outline"
             nativeButton={false}
             className={cn(
-              "h-auto shrink-0 rounded-full",
-              isCompact ? "px-4 py-2 text-[0.8125rem]" : "px-4 py-2",
+              headerCtaButtonClass,
+              isCompact && "text-[0.8125rem]",
             )}
             render={<Link href="/obter-kasy" />}
           >
