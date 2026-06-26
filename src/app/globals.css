@@ -113,6 +113,10 @@
   --sidebar-accent-foreground: #4a5270;
   --sidebar-border: #7a849c33;
   --sidebar-ring: #4a5270;
+
+  /* Header blur — mesma cor da página (--background), levemente translúcida */
+  --header-blur-fill: 74%;
+  --header-blur-amount: 16px;
 }
 
 .dark {
@@ -147,6 +151,10 @@
   --sidebar-accent-foreground: #eceef6;
   --sidebar-border: #949eb833;
   --sidebar-ring: #8ba4e8;
+
+  /* Header blur — mesma cor da página; fill maior para não escurecer com o blur */
+  --header-blur-fill: 82%;
+  --header-blur-amount: 16px;
 }
 
 @layer base {
@@ -178,5 +186,18 @@
   .logo-icon {
     width: clamp(1.25rem, 1.05rem + 0.72vw, 1.75rem);
     height: clamp(1.25rem, 1.05rem + 0.72vw, 1.75rem);
+  }
+
+  /* Header sticky — blur nativo (Tailwind backdrop-filter) */
+  .header-blur-surface {
+    background-color: color-mix(in oklch, var(--background) var(--header-blur-fill), transparent);
+    -webkit-backdrop-filter: blur(var(--header-blur-amount));
+    backdrop-filter: blur(var(--header-blur-amount));
+  }
+
+  @supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+    .header-blur-surface {
+      background-color: color-mix(in oklch, var(--background) 92%, transparent);
+    }
   }
 }

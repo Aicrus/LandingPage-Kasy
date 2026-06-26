@@ -76,10 +76,17 @@ function SiteHeaderMotion({ openWidth }: { openWidth: number }) {
   const shellPaddingX = useTransform(progress, [0, 1], [0, 16]);
   const shellRadius = useTransform(glass, [0, 1], [0, 9999]);
   const topOffset = useTransform(progress, [0, 1], [0, 12]);
-  const glassOpacity = useTransform(glass, [0, 1], [0, 0.68]);
-  const blurAmount = useTransform(glass, [0, 1], [0, 14]);
-  const backdropFilter = useMotionTemplate`blur(${blurAmount}px) saturate(1.12)`;
-  const shadowAlpha = useTransform(glass, [0, 1], [0, 0.12]);
+  const blurFill = useTransform(glass, (value) => {
+    const raw = getComputedStyle(document.documentElement)
+      .getPropertyValue("--header-blur-fill")
+      .trim();
+    const max = Number.parseFloat(raw) || 74;
+    return value * max;
+  });
+  const blurAmount = useTransform(glass, [0, 1], [0, 16]);
+  const shellBackground = useMotionTemplate`color-mix(in oklch, var(--background) ${blurFill}%, transparent)`;
+  const backdropFilter = useMotionTemplate`blur(${blurAmount}px)`;
+  const shadowAlpha = useTransform(glass, [0, 1], [0, 0.1]);
   const borderAlpha = useTransform(glass, [0, 1], [0, 0.28]);
   const ringShadow = useMotionTemplate`inset 0 0 0 1px color-mix(in oklch, var(--border) ${borderAlpha}, transparent)`;
   const boxShadow = useMotionTemplate`${ringShadow}, 0 6px 28px -8px rgba(26, 30, 44, ${shadowAlpha}), 0 1px 2px rgba(26, 30, 44, ${shadowAlpha})`;
@@ -94,7 +101,7 @@ function SiteHeaderMotion({ openWidth }: { openWidth: number }) {
         layout
         layoutRoot
         transition={headerMorphTransition}
-        className="relative mx-auto flex w-full min-w-0 items-center justify-between"
+        className="relative mx-auto isolate flex w-full min-w-0 items-center justify-between"
         style={{
           maxWidth: shellMaxWidth,
           paddingTop: shellPaddingY,
@@ -107,11 +114,12 @@ function SiteHeaderMotion({ openWidth }: { openWidth: number }) {
       >
         <motion.div
           aria-hidden
-          className="pointer-events-none absolute inset-0 overflow-hidden bg-background"
+          className="pointer-events-none absolute inset-0 overflow-hidden"
           style={{
-            opacity: glassOpacity,
+            backgroundColor: shellBackground,
             borderRadius: shellRadius,
             backdropFilter,
+            WebkitBackdropFilter: backdropFilter,
           }}
         />
 
@@ -179,7 +187,7 @@ function SiteHeaderStatic({ openWidth }: { openWidth: number }) {
         className={cn(
           "relative mx-auto flex w-full items-center justify-between",
           isCompact
-            ? "max-w-fit gap-4 rounded-full border border-border/40 bg-background/68 py-2.5 px-4 shadow-[0_6px_28px_-8px_rgba(26,30,44,0.12)] backdrop-blur-md supports-[backdrop-filter]:bg-background/58 sm:gap-4 sm:px-5"
+            ? "header-blur-surface max-w-fit gap-4 rounded-full border border-border/35 py-2.5 px-4 shadow-[0_6px_28px_-8px_rgba(26,30,44,0.1)] sm:gap-4 sm:px-5 dark:border-border/25 dark:shadow-[0_6px_28px_-8px_rgba(0,0,0,0.35)]"
             : "max-w-header py-4",
         )}
         style={!isCompact ? { maxWidth: openWidth } : undefined}
