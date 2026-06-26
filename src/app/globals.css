@@ -86,6 +86,8 @@
   /* Header — largura da barra + altura do header fixo no mobile (< 640px) */
   --max-width-header: min(62rem, calc(100% - 2 * var(--spacing-page-x)));
   --header-height-mobile: 4.375rem;
+  /* Faixa extra abaixo do header mobile — só visual; não entra no padding da página */
+  --header-mobile-fade-height: 1.25rem;
 }
 
 /* Paleta Kasy — fonte: landingpage.pen → frame "Paleta — Kasy" (CBQmi) */
@@ -206,15 +208,29 @@
 
   /* Header sticky — blur nativo; alpha relativo preserva o matiz do --background */
   .header-blur-surface {
-    background-color: rgb(from var(--background) r g b / var(--header-blur-fill));
+    background-color: rgb(
+      from var(--background) r g b / var(--header-blur-fill)
+    );
     -webkit-backdrop-filter: blur(var(--header-blur-amount));
     backdrop-filter: blur(var(--header-blur-amount));
   }
 
-  @supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  @supports not (
+    (-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))
+  ) {
     .header-blur-surface {
       background-color: rgb(from var(--background) r g b / 92%);
     }
+  }
+
+  /* Mobile — sólido no topo, fade na borda inferior; conteúdo rola por baixo */
+  .header-mobile-fade {
+    height: calc(var(--header-height-mobile) + var(--header-mobile-fade-height));
+    background: linear-gradient(
+      to bottom,
+      var(--background) calc(100% - var(--header-mobile-fade-height)),
+      transparent 100%
+    );
   }
 }
 

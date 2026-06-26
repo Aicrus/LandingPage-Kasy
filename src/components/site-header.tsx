@@ -105,11 +105,15 @@ function HeaderNav({
   );
 }
 
-/** Mobile — fixo, fundo sólido, sem morph nem blur; o conteúdo rola por baixo. */
+/** Mobile — fixo, sólido no topo com fade na borda inferior; conteúdo rola por baixo. */
 function SiteHeaderMobile() {
   return (
-    <header className="fixed inset-x-0 top-0 z-50 bg-background px-3.5">
-      <div className="flex w-full items-center justify-between py-4">
+    <header className="fixed inset-x-0 top-0 z-50 px-3.5">
+      <div
+        aria-hidden
+        className="header-mobile-fade pointer-events-none absolute inset-x-0 top-0"
+      />
+      <div className="relative flex w-full items-center justify-between py-4">
         <HeaderBrand />
         <HeaderNav className="gap-3" flatCta />
       </div>
@@ -160,14 +164,18 @@ export function SiteHeader() {
 function SiteHeaderMotion({ openWidth }: { openWidth: number }) {
   const { scrollY } = useScroll();
 
-  const rawProgress = useTransform(scrollY, [0, SCROLL_RANGE], [0, 1], { clamp: true });
+  const rawProgress = useTransform(scrollY, [0, SCROLL_RANGE], [0, 1], {
+    clamp: true,
+  });
   const progress = useSpring(rawProgress, {
     stiffness: 110,
     damping: 20,
     mass: 0.9,
   });
 
-  const rawGlass = useTransform(scrollY, [24, SCROLL_RANGE], [0, 1], { clamp: true });
+  const rawGlass = useTransform(scrollY, [24, SCROLL_RANGE], [0, 1], {
+    clamp: true,
+  });
   const glass = useSpring(rawGlass, {
     stiffness: 100,
     damping: 22,
