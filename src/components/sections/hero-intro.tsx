@@ -11,20 +11,16 @@ import { HeroSocialProof } from "./hero-social-proof";
 export function HeroIntro() {
   return (
     <div className="mx-auto flex w-full flex-col items-center gap-hero-title-to-lead text-center">
-      <h1 className="max-w-fluid-title text-balance font-heading text-fluid-display text-foreground md:max-w-none">
-        <BlurReveal as="span" className="block md:inline" delay={0}>
+      <h1 className="whitespace-nowrap font-heading text-fluid-display text-foreground">
+        <BlurReveal as="span" delay={0}>
           App no ar
         </BlurReveal>{" "}
-        <BlurReveal
-          as="span"
-          className="block text-muted-foreground md:inline"
-          delay={0.14}
-        >
+        <BlurReveal as="span" className="text-muted-foreground" delay={0.14}>
           em 7 dias.
         </BlurReveal>
       </h1>
 
-      <p className="w-full max-w-fluid-subtitle font-rounded text-pretty text-fluid-subtitle text-muted-foreground">
+      <p className="w-full max-w-fluid-subtitle font-rounded text-pretty text-fluid-subtitle text-foreground">
         <BlurReveal as="span" className="md:block" delay={0.28}>
           O único kit Flutter completo: backend, auth, pagamentos, UI e lógica
           prontos.
