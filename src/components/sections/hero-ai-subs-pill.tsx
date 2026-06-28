@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 
-import { surfaceBorderClass } from "@/lib/surface-border";
+import { heroPillSurfaceClass, surfaceBorderClass } from "@/lib/surface-border";
 
 import { motion, useReducedMotion } from "@/lib/motion";
 import { cn } from "@/lib/utils";
@@ -90,7 +90,8 @@ export function HeroAiSubsPill() {
   return (
     <div
       className={cn(
-        "inline-flex max-w-full items-center gap-3 rounded-full border bg-card/75 px-3.5 py-2 backdrop-blur-sm dark:bg-card/55 sm:gap-3.5 sm:px-4 sm:py-2.5",
+        "inline-flex max-w-full items-center gap-3 rounded-full border-[1.5px] border-solid px-3.5 py-1 sm:gap-3.5 sm:px-4 sm:py-1.5",
+        heroPillSurfaceClass,
         surfaceBorderClass,
       )}
     >
@@ -99,12 +100,12 @@ export function HeroAiSubsPill() {
           <motion.span
             key={logo.src}
             className={cn(
-              "relative flex size-9 shrink-0 cursor-default overflow-hidden rounded-[0.5rem] border border-solid will-change-transform sm:size-10 sm:rounded-[0.55rem]",
+              "relative flex size-8 shrink-0 cursor-default overflow-hidden rounded-[0.45rem] border border-solid will-change-transform sm:size-[2.125rem] sm:rounded-[0.48rem]",
               surfaceBorderClass,
             )}
             style={{
               zIndex: index + 1,
-              marginLeft: index === 0 ? 0 : "-0.65rem",
+              marginLeft: index === 0 ? 0 : "-0.44rem",
               rotate: `${logo.rotate}deg`,
               backgroundColor: "bg" in logo ? logo.bg : undefined,
             }}
@@ -127,10 +128,10 @@ export function HeroAiSubsPill() {
 
       <span
         aria-hidden
-        className="h-6 w-px shrink-0 bg-border/80 sm:h-7"
+        className="h-3.5 w-px shrink-0 rounded-full bg-foreground/12 dark:bg-foreground/20 sm:h-4"
       />
 
-      <p className="min-w-0 text-left font-rounded text-fluid-pill-label font-bold text-muted-foreground sm:whitespace-nowrap">
+      <p className="min-w-0 text-left font-rounded text-fluid-pill-label font-semibold text-muted-foreground sm:whitespace-nowrap">
         Com sua IDE favorita.
       </p>
     </div>

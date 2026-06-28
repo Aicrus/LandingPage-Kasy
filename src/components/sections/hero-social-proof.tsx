@@ -1,4 +1,4 @@
-import { surfaceBorderClass } from "@/lib/surface-border";
+import { heroPillSurfaceClass, surfaceBorderClass } from "@/lib/surface-border";
 import { cn } from "@/lib/utils";
 
 function OnlineIndicator() {
@@ -17,14 +17,15 @@ export function HeroSocialProof() {
   return (
     <div
       className={cn(
-        "inline-flex max-w-full items-center gap-2 rounded-full border bg-card/70 px-2.5 py-1.5 backdrop-blur-sm dark:bg-card/50 sm:gap-2.5 sm:px-3 sm:py-1.5",
+        "inline-flex max-w-full items-center gap-2 rounded-full border px-2.5 py-1.5 shadow-[0_1px_2px_rgba(26,30,44,0.04),0_4px_14px_-6px_rgba(26,30,44,0.07)] dark:shadow-[0_1px_2px_rgba(0,0,0,0.2),0_4px_14px_-6px_rgba(0,0,0,0.24)] sm:gap-2.5 sm:px-3 sm:py-1.5",
+        heroPillSurfaceClass,
         surfaceBorderClass,
       )}
     >
       <OnlineIndicator />
       <p className="min-w-0 text-left font-rounded text-fluid-social-proof leading-[var(--text-fluid-social-proof--line-height)] sm:whitespace-nowrap">
-        <span className="font-normal text-muted-foreground">Amado por </span>
-        <span className="font-bold text-foreground">+70 usuários</span>
+        <span className="font-medium text-muted-foreground">Amado por </span>
+        <span className="font-extrabold text-foreground">+70 usuários</span>
       </p>
     </div>
   );
