@@ -4,6 +4,8 @@ import Image from "next/image";
 import type { ReactNode } from "react";
 
 import { BlurReveal } from "@/components/motion/blur-reveal";
+import { surfaceBorderClass } from "@/lib/surface-border";
+import { cn } from "@/lib/utils";
 
 const SCREENSHOT_SRC = "https://www.clonk.ai/clonk-screen.png";
 const SCREENSHOT_ALT =
@@ -28,7 +30,12 @@ export function HeroScreenReveal({ children }: HeroScreenRevealProps) {
       */}
       <div className="mx-auto w-full max-w-[min(94vw,72rem)] px-page-x pt-[min(72vh,40rem)] pb-[min(28vh,14rem)] sm:pt-[min(74vh,42rem)] sm:pb-[min(32vh,16rem)]">
         <BlurReveal as="div" delay={0.78} className="w-full">
-          <div className="overflow-hidden rounded-t-2xl border border-border/50 bg-card shadow-[0_24px_80px_-24px_rgba(26,30,44,0.22)] dark:shadow-[0_24px_80px_-24px_rgba(0,0,0,0.55)]">
+          <div
+            className={cn(
+              "overflow-hidden rounded-t-2xl border bg-card shadow-[0_24px_80px_-24px_rgba(26,30,44,0.22)] dark:shadow-[0_24px_80px_-24px_rgba(0,0,0,0.55)]",
+              surfaceBorderClass,
+            )}
+          >
             <Image
               src={SCREENSHOT_SRC}
               alt={SCREENSHOT_ALT}

@@ -5,6 +5,7 @@ import Image from "next/image";
 import { surfaceBorderClass } from "@/lib/surface-border";
 
 import { motion, useReducedMotion } from "@/lib/motion";
+import { cn } from "@/lib/utils";
 
 const IDE_LOGOS = [
   {
@@ -88,13 +89,19 @@ export function HeroAiSubsPill() {
 
   return (
     <div
-      className={`inline-flex max-w-full items-center gap-3 rounded-full border bg-card/75 px-3.5 py-2 backdrop-blur-sm dark:bg-card/55 sm:gap-3.5 sm:px-4 sm:py-2.5 ${surfaceBorderClass}`}
+      className={cn(
+        "inline-flex max-w-full items-center gap-3 rounded-full border bg-card/75 px-3.5 py-2 backdrop-blur-sm dark:bg-card/55 sm:gap-3.5 sm:px-4 sm:py-2.5",
+        surfaceBorderClass,
+      )}
     >
       <div className="flex shrink-0 items-center pl-0.5" aria-hidden>
         {IDE_LOGOS.map((logo, index) => (
           <motion.span
             key={logo.src}
-            className="relative flex size-7 shrink-0 cursor-default overflow-hidden rounded-[0.45rem] border border-solid border-border-surface-soft shadow-sm will-change-transform dark:border-border-surface sm:size-8 sm:rounded-[0.5rem]"
+            className={cn(
+              "relative flex size-7 shrink-0 cursor-default overflow-hidden rounded-[0.45rem] border border-solid will-change-transform sm:size-8 sm:rounded-[0.5rem]",
+              surfaceBorderClass,
+            )}
             style={{
               zIndex: index + 1,
               marginLeft: index === 0 ? 0 : "-0.55rem",
@@ -123,7 +130,7 @@ export function HeroAiSubsPill() {
         className="h-5 w-px shrink-0 bg-border/80 sm:h-6"
       />
 
-      <p className="min-w-0 text-left font-rounded text-xs font-medium leading-snug text-muted-foreground sm:text-sm sm:whitespace-nowrap">
+      <p className="min-w-0 text-left font-rounded text-fluid-pill-label font-semibold text-muted-foreground sm:whitespace-nowrap">
         Kasy funciona com sua IDE favorita
       </p>
     </div>

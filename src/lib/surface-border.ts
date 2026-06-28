@@ -1,6 +1,5 @@
-/** Contorno de superfícies — pill, ícones (dark = referência principal). */
+/**
+ * Contorno padrão de superfícies — pill IDE, ícones, botões outline, header.
+ * Um único token em light e dark (`--border` a 60%).
+ */
 export const surfaceBorderClass = "border-border-surface";
-
-/** Botões outline — light: contorno bem suave; dark: border-surface, sem sombra. */
-export const surfaceButtonOutlineClass =
-  "border-[0.5px] border-solid border-border-surface-soft dark:border-border-surface dark:shadow-none";
