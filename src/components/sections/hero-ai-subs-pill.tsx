@@ -58,7 +58,7 @@ function IdeLogo({
 }) {
   const isSvg = src.endsWith(".svg");
   const objectClass = fit === "contain" ? "object-contain p-0.5" : "object-cover";
-  const sizeClass = boost ? "size-full scale-[1.12]" : "size-full";
+  const sizeClass = boost ? "size-full scale-[1.14]" : "size-full";
 
   if (isSvg) {
     return (
@@ -76,8 +76,8 @@ function IdeLogo({
     <Image
       src={src}
       alt={alt}
-      width={64}
-      height={64}
+      width={72}
+      height={72}
       className={`${sizeClass} ${objectClass}`}
       draggable={false}
     />
@@ -99,12 +99,12 @@ export function HeroAiSubsPill() {
           <motion.span
             key={logo.src}
             className={cn(
-              "relative flex size-7 shrink-0 cursor-default overflow-hidden rounded-[0.45rem] border border-solid will-change-transform sm:size-8 sm:rounded-[0.5rem]",
+              "relative flex size-9 shrink-0 cursor-default overflow-hidden rounded-[0.5rem] border border-solid will-change-transform sm:size-10 sm:rounded-[0.55rem]",
               surfaceBorderClass,
             )}
             style={{
               zIndex: index + 1,
-              marginLeft: index === 0 ? 0 : "-0.55rem",
+              marginLeft: index === 0 ? 0 : "-0.65rem",
               rotate: `${logo.rotate}deg`,
               backgroundColor: "bg" in logo ? logo.bg : undefined,
             }}
@@ -127,11 +127,11 @@ export function HeroAiSubsPill() {
 
       <span
         aria-hidden
-        className="h-5 w-px shrink-0 bg-border/80 sm:h-6"
+        className="h-6 w-px shrink-0 bg-border/80 sm:h-7"
       />
 
       <p className="min-w-0 text-left font-rounded text-fluid-pill-label font-bold text-muted-foreground sm:whitespace-nowrap">
-        Utilize com sua IDE favorita
+        Com sua IDE favorita.
       </p>
     </div>
   );

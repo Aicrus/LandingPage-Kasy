@@ -7,7 +7,8 @@ function OnlineIndicator() {
       aria-hidden
       className="relative flex size-4 shrink-0 items-center justify-center rounded-full bg-[color-mix(in_oklch,#22c55e,transparent_78%)]"
     >
-      <span className="size-1.5 rounded-full bg-[#22c55e]" />
+      <span className="absolute inset-0 rounded-full bg-[#22c55e]/35 motion-safe:animate-[online-ping_2.4s_cubic-bezier(0.4,0,0.2,1)_infinite]" />
+      <span className="relative size-1.5 rounded-full bg-[#22c55e] motion-safe:animate-[online-pulse_2.4s_ease-in-out_infinite]" />
     </span>
   );
 }

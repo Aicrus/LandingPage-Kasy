@@ -234,12 +234,43 @@
   }
 }
 
-/* Reflexo "vidro" do CTA — varre a superfície e volta, em loop, só no hover */
+/* Indicador online — pulso leve no hero */
+@keyframes online-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes online-ping {
+  0% {
+    transform: scale(0.92);
+    opacity: 0.55;
+  }
+  75%,
+  100% {
+    transform: scale(1.45);
+    opacity: 0;
+  }
+}
+
+/* Reflexo do CTA — varredura única e suave no hover */
 @keyframes button-sheen {
   0% {
-    transform: translateX(-120%) skewX(-12deg);
+    transform: translateX(-150%) skewX(-14deg);
+    opacity: 0;
+  }
+  18% {
+    opacity: 0.9;
+  }
+  82% {
+    opacity: 0.55;
   }
   100% {
-    transform: translateX(280%) skewX(-12deg);
+    transform: translateX(340%) skewX(-14deg);
+    opacity: 0;
   }
 }
