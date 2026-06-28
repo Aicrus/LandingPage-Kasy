@@ -3,6 +3,8 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
 
+import { BlurReveal } from "@/components/motion/blur-reveal";
+
 const SCREENSHOT_SRC = "https://www.clonk.ai/clonk-screen.png";
 const SCREENSHOT_ALT =
   "Interface do Clonk — ambiente de desenvolvimento com assistente de IA";
@@ -25,18 +27,20 @@ export function HeroScreenReveal({ children }: HeroScreenRevealProps) {
         A altura da seção (~2 viewports) vem da imagem + respiro inferior.
       */}
       <div className="mx-auto w-full max-w-[min(94vw,72rem)] px-page-x pt-[min(72vh,40rem)] pb-[min(28vh,14rem)] sm:pt-[min(74vh,42rem)] sm:pb-[min(32vh,16rem)]">
-        <div className="overflow-hidden rounded-t-2xl border border-border/50 bg-card shadow-[0_24px_80px_-24px_rgba(26,30,44,0.22)] dark:shadow-[0_24px_80px_-24px_rgba(0,0,0,0.55)]">
-          <Image
-            src={SCREENSHOT_SRC}
-            alt={SCREENSHOT_ALT}
-            width={2400}
-            height={1500}
-            className="h-auto w-full select-none"
-            priority
-            sizes="(max-width: 768px) 94vw, 72rem"
-            draggable={false}
-          />
-        </div>
+        <BlurReveal as="div" delay={0.64} className="w-full">
+          <div className="overflow-hidden rounded-t-2xl border border-border/50 bg-card shadow-[0_24px_80px_-24px_rgba(26,30,44,0.22)] dark:shadow-[0_24px_80px_-24px_rgba(0,0,0,0.55)]">
+            <Image
+              src={SCREENSHOT_SRC}
+              alt={SCREENSHOT_ALT}
+              width={2400}
+              height={1500}
+              className="h-auto w-full select-none"
+              priority
+              sizes="(max-width: 768px) 94vw, 72rem"
+              draggable={false}
+            />
+          </div>
+        </BlurReveal>
       </div>
     </section>
   );
