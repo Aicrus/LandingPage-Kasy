@@ -53,7 +53,7 @@ export function HeroIntro() {
         </Button>
       </BlurReveal>
 
-      <BlurReveal as="div" delay={0.78} className="-mt-5 sm:-mt-4">
+      <BlurReveal as="div" delay={0.78} className="-mt-3.5 sm:-mt-3">
         <HeroSocialProof />
       </BlurReveal>
     </div>
