@@ -22,8 +22,8 @@ export function HeroSocialProof() {
     >
       <OnlineIndicator />
       <p className="min-w-0 text-left font-rounded text-fluid-social-proof leading-[var(--text-fluid-social-proof--line-height)] sm:whitespace-nowrap">
-        <span className="font-light text-muted-foreground">Amado por </span>
-        <span className="font-semibold text-foreground">+70 usuários</span>
+        <span className="font-normal text-muted-foreground">Amado por </span>
+        <span className="font-bold text-foreground">+70 usuários</span>
       </p>
     </div>
   );
