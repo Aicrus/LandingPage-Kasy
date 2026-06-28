@@ -7,9 +7,14 @@ import { BlurReveal } from "@/components/motion/blur-reveal";
 import { surfaceBorderClass } from "@/lib/surface-border";
 import { cn } from "@/lib/utils";
 
-const SCREENSHOT_SRC = "https://www.clonk.ai/clonk-screen.png";
+const SCREENSHOT_LIGHT_SRC = "/assets/kasy-screen-light.png";
+const SCREENSHOT_DARK_SRC = "/assets/kasy-screen-dark.png";
 const SCREENSHOT_ALT =
   "Interface do Clonk — ambiente de desenvolvimento com assistente de IA";
+const SCREENSHOT_WIDTH = 2940;
+const SCREENSHOT_HEIGHT = 1680;
+const FADE_MASK =
+  "[mask-image:linear-gradient(to_bottom,black_0%,black_76%,transparent_100%)]";
 
 type HeroScreenRevealProps = {
   children: ReactNode;
@@ -32,20 +37,50 @@ export function HeroScreenReveal({ children }: HeroScreenRevealProps) {
         <BlurReveal as="div" delay={0.78} className="w-full">
           <div
             className={cn(
-              "overflow-hidden rounded-t-2xl border bg-card shadow-[0_24px_80px_-24px_rgba(26,30,44,0.22)] dark:shadow-[0_24px_80px_-24px_rgba(0,0,0,0.55)]",
+              "relative overflow-hidden rounded-t-2xl border-t border-x-0 border-b-0 bg-card shadow-none",
               surfaceBorderClass,
             )}
           >
-            <Image
-              src={SCREENSHOT_SRC}
-              alt={SCREENSHOT_ALT}
-              width={2400}
-              height={1500}
-              className="h-auto w-full select-none"
-              priority
-              sizes="(max-width: 768px) 94vw, 72rem"
-              draggable={false}
-            />
+            <div className="relative">
+              <Image
+                src={SCREENSHOT_LIGHT_SRC}
+                alt={SCREENSHOT_ALT}
+                width={SCREENSHOT_WIDTH}
+                height={SCREENSHOT_HEIGHT}
+                className="h-auto w-full select-none dark:hidden"
+                priority
+                unoptimized
+                draggable={false}
+              />
+              <Image
+                src={SCREENSHOT_DARK_SRC}
+                alt={SCREENSHOT_ALT}
+                width={SCREENSHOT_WIDTH}
+                height={SCREENSHOT_HEIGHT}
+                className="hidden h-auto w-full select-none dark:block"
+                priority
+                unoptimized
+                draggable={false}
+              />
+              <div
+                aria-hidden
+                className={cn(
+                  "pointer-events-none absolute inset-y-0 left-0 z-[1] w-px bg-border-surface",
+                  FADE_MASK,
+                )}
+              />
+              <div
+                aria-hidden
+                className={cn(
+                  "pointer-events-none absolute inset-y-0 right-0 z-[1] w-px bg-border-surface",
+                  FADE_MASK,
+                )}
+              />
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] h-[22%] bg-gradient-to-t from-background via-background/40 via-55% to-transparent"
+              />
+            </div>
           </div>
         </BlurReveal>
       </div>
