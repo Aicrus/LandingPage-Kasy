@@ -5,6 +5,8 @@ import Link from "next/link";
 import { BlurReveal } from "@/components/motion/blur-reveal";
 import { Button } from "@/components/ui/button";
 
+import { HeroAiSubsPill } from "./hero-ai-subs-pill";
+
 export function HeroIntro() {
   return (
     <div className="mx-auto flex w-full flex-col items-center gap-hero-title-to-lead text-center">
@@ -32,6 +34,10 @@ export function HeroIntro() {
       </p>
 
       <BlurReveal as="div" delay={0.5} className="mt-2">
+        <HeroAiSubsPill />
+      </BlurReveal>
+
+      <BlurReveal as="div" delay={0.64} className="mt-5 sm:mt-6">
         <Button
           variant="default"
           nativeButton={false}
