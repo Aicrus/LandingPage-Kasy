@@ -38,7 +38,7 @@ export function HeroIntro() {
         <HeroAiSubsPill />
       </BlurReveal>
 
-      <BlurReveal as="div" delay={0.64} className="-mt-1.5 sm:-mt-1">
+      <BlurReveal as="div" delay={0.64} className="mt-2 sm:mt-2.5">
         <Button
           variant="default"
           nativeButton={false}
