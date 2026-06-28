@@ -13,6 +13,7 @@ import {
   Moon,
   Plus,
   Smartphone,
+  SquareDashedMousePointer,
   X,
 } from "lucide-react";
 import type { ReactNode } from "react";
@@ -22,6 +23,9 @@ import { cn } from "@/lib/utils";
 const PHONE_SRC = "/assets/phone-command.png";
 const PHONE_WIDTH = 1300;
 const PHONE_HEIGHT = 2642;
+
+const editorSurfaceClass = "bg-white dark:bg-[#0a0a0a]";
+const barSurfaceClass = "bg-[#f0f0f0] dark:bg-[#141414]";
 
 const ACTION_PILLS = [
   "Plan New Idea ⇥Tab",
@@ -112,41 +116,56 @@ function ToolbarDivider() {
   );
 }
 
-function InspectToolIcon() {
+function ToolbarIcon({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
   return (
-    <svg aria-hidden viewBox="0 0 16 16" className="size-[0.72em]" fill="none">
-      <rect
-        x="2.5"
-        y="2.5"
-        width="7.5"
-        height="7.5"
-        rx="1"
-        stroke="white"
-        strokeWidth="1.2"
-        strokeDasharray="1.6 1.4"
-      />
-      <path
-        d="M8.8 8.8 12.8 12.8"
-        stroke="white"
-        strokeWidth="1.2"
-        strokeLinecap="round"
-      />
-      <path
-        d="M11.2 12.8h1.6v-1.6"
-        stroke="white"
-        strokeWidth="1.2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
+    <span
+      className={cn(
+        "inline-flex size-[1.35em] shrink-0 items-center justify-center text-[#3a3a3c] dark:text-[#c8c8c8]",
+        className,
+      )}
+    >
+      {children}
+    </span>
+  );
+}
+
+function ToolbarTextToggle({
+  label,
+  className,
+}: {
+  label: "r" | "R";
+  className?: string;
+}) {
+  return (
+    <span
+      className={cn(
+        "inline-flex size-[1.35em] shrink-0 items-center justify-center rounded-[0.28em] border border-black/[0.08] font-medium leading-none text-[#3a3a3c] dark:border-white/[0.1] dark:text-[#d0d0d0]",
+        label === "r" ? "text-[0.58em]" : "text-[0.68em] font-semibold",
+        className,
+      )}
+    >
+      {label}
+    </span>
   );
 }
 
 function DeviceToolbar() {
+  const iconStroke = 1.85;
+
   return (
     <div
       aria-hidden
-      className="inline-flex h-[2.15em] max-w-full items-center rounded-full border border-black/[0.07] bg-white px-[0.45em] text-[#1c1c1e] shadow-[0_2px_12px_rgba(0,0,0,0.08),0_1px_2px_rgba(0,0,0,0.04)] dark:border-white/[0.1] dark:bg-[#f4f5f8] dark:text-[#10131a]"
+      className={cn(
+        "inline-flex h-[2.15em] max-w-full items-center rounded-full border border-black/[0.08] px-[0.45em] text-[#1c1c1e] shadow-[0_2px_12px_rgba(0,0,0,0.08),0_1px_2px_rgba(0,0,0,0.04)]",
+        barSurfaceClass,
+        "dark:border-white/[0.1] dark:text-[#e8e8e8]",
+      )}
     >
       <span className="flex items-center gap-[0.2em] px-[0.5em] text-[0.62em] font-medium">
         iOS
@@ -155,22 +174,32 @@ function DeviceToolbar() {
       <ToolbarDivider />
       <span className="px-[0.55em] text-[0.62em] font-medium">iPhone 16</span>
       <ToolbarDivider />
-      <span className="flex items-center gap-[0.45em] px-[0.4em] text-[#3a3a3c]">
-        <Smartphone className="size-[0.9em]" strokeWidth={1.9} />
-        <Moon className="size-[0.9em]" strokeWidth={1.9} />
-        <Camera className="size-[0.9em]" strokeWidth={1.9} />
+      <span className="flex items-center gap-[0.2em] px-[0.35em]">
+        <ToolbarIcon>
+          <Smartphone className="size-[0.9em]" strokeWidth={iconStroke} />
+        </ToolbarIcon>
+        <ToolbarIcon>
+          <Moon className="size-[0.9em]" strokeWidth={iconStroke} />
+        </ToolbarIcon>
+        <ToolbarIcon>
+          <Camera className="size-[0.9em]" strokeWidth={iconStroke} />
+        </ToolbarIcon>
       </span>
-      <span className="mx-[0.2em] flex size-[1.55em] shrink-0 items-center justify-center rounded-[0.32em] bg-[#0a84ff]">
-        <InspectToolIcon />
-      </span>
-      <Layers2 className="mx-[0.15em] size-[0.9em] text-[#3a3a3c]" strokeWidth={1.9} />
+      <ToolbarIcon className="mx-[0.2em] size-[1.55em] rounded-[0.32em] bg-[#0a84ff] text-white">
+        <SquareDashedMousePointer className="size-[0.78em]" strokeWidth={iconStroke} />
+      </ToolbarIcon>
+      <ToolbarIcon className="mx-[0.1em]">
+        <Layers2 className="size-[0.9em]" strokeWidth={iconStroke} />
+      </ToolbarIcon>
       <ToolbarDivider />
-      <span className="flex items-baseline gap-[0.08em] px-[0.45em] font-medium leading-none text-[#3a3a3c]">
-        <span className="text-[0.58em]">r</span>
-        <span className="text-[0.72em]">R</span>
+      <span className="flex items-center gap-[0.3em] px-[0.35em]">
+        <ToolbarTextToggle label="r" />
+        <ToolbarTextToggle label="R" />
       </span>
       <ToolbarDivider />
-      <X className="mx-[0.35em] size-[0.88em] text-[#3a3a3c]" strokeWidth={2} />
+      <ToolbarIcon className="mx-[0.2em]">
+        <X className="size-[0.88em]" strokeWidth={2} />
+      </ToolbarIcon>
     </div>
   );
 }
@@ -269,8 +298,18 @@ function TreeBranch({ node, depth = 0 }: { node: TreeNode; depth?: number }) {
 
 function ProjectExplorer() {
   return (
-    <aside className="flex w-[19%] shrink-0 flex-col border-r border-black/[0.07] bg-[#e9ebf1] dark:border-white/[0.07] dark:bg-[#13161e]">
-      <div className="flex items-center justify-between border-b border-black/[0.06] px-[0.6em] py-[0.5em] dark:border-white/[0.06]">
+    <aside
+      className={cn(
+        "flex w-[19%] shrink-0 flex-col border-r border-black/[0.07] dark:border-white/[0.07]",
+        editorSurfaceClass,
+      )}
+    >
+      <div
+        className={cn(
+          "flex items-center justify-between border-b border-black/[0.06] px-[0.6em] py-[0.5em] dark:border-white/[0.06]",
+          barSurfaceClass,
+        )}
+      >
         <span className="text-[0.62em] font-semibold tracking-[0.1em] text-[#5f677a] uppercase dark:text-[#8b93a7]">
           Explorer
         </span>
@@ -289,12 +328,17 @@ function ProjectExplorer() {
 
 function ChatPanel() {
   return (
-    <section className="flex min-w-0 flex-1 flex-col bg-[#ecedf2] px-[3%] pb-[2.5%] pt-[2%] dark:bg-[#0f1117]">
-      <div className="flex flex-1 flex-col justify-center">
+    <section
+      className={cn(
+        "flex min-w-0 flex-1 flex-col px-[3%] pb-[2.5%] pt-[2%]",
+        editorSurfaceClass,
+      )}
+    >
+      <div className="mt-auto flex flex-col">
         <div
           className={cn(
             "flex min-h-[62%] flex-col rounded-[1.2em] border border-black/[0.06] bg-white px-[4.5%] py-[4%] shadow-[0_1px_3px_rgba(26,30,44,0.05),0_10px_30px_-16px_rgba(26,30,44,0.12)]",
-            "dark:border-white/[0.07] dark:bg-[#171a23] dark:shadow-[0_12px_40px_-24px_rgba(0,0,0,0.65)]",
+            "dark:border-white/[0.08] dark:bg-[#0a0a0a] dark:shadow-none",
           )}
         >
           <div className="flex-1">
@@ -321,21 +365,30 @@ function ChatPanel() {
           ))}
         </div>
       </div>
-
-      <p className="mt-[2%] text-[0.54em] leading-relaxed text-[#8b93a7] dark:text-[#6f7890]">
-        Use{" "}
-        <span className="font-mono text-[#6d758a] dark:text-[#9aa3b8]">/create-subagent</span>{" "}
-        to set up specialized agents that Cursor can use to parallelize work.
-      </p>
     </section>
   );
 }
 
 function PhonePanel() {
   return (
-    <aside className="relative flex w-[34%] shrink-0 flex-col border-l border-black/[0.05] bg-[#fbfbfc] dark:border-white/[0.06] dark:bg-[#12151c]">
-      <div className="flex items-center gap-[0.55em] border-b border-black/[0.05] px-[3.5%] py-[1.1em] dark:border-white/[0.06]">
-        <div className="flex min-w-0 flex-1 items-center overflow-hidden rounded-[0.45em] border border-black/[0.06] bg-white dark:border-white/[0.08] dark:bg-[#1a1d27]">
+    <aside
+      className={cn(
+        "relative flex w-[34%] shrink-0 flex-col border-l border-black/[0.05] dark:border-white/[0.06]",
+        editorSurfaceClass,
+      )}
+    >
+      <div
+        className={cn(
+          "flex items-center gap-[0.55em] border-b border-black/[0.05] px-[3.5%] py-[1.1em] dark:border-white/[0.06]",
+          barSurfaceClass,
+        )}
+      >
+        <div
+          className={cn(
+            "flex min-w-0 flex-1 items-center overflow-hidden rounded-[0.45em] border border-black/[0.06] dark:border-white/[0.08]",
+            editorSurfaceClass,
+          )}
+        >
           <span className="shrink-0 border-r border-black/[0.05] px-[0.65em] py-[0.3em] text-[0.5em] text-[#6d758a] dark:border-white/[0.07] dark:text-[#8b93a7]">
             flutter run — web
           </span>
@@ -345,15 +398,12 @@ function PhonePanel() {
         </div>
       </div>
 
-      <div className="flex justify-center px-[3.5%] py-[0.85em]">
+      <div className={cn("flex justify-center px-[3.5%] py-[0.85em]", barSurfaceClass)}>
         <DeviceToolbar />
       </div>
 
       <div className="relative flex flex-1 items-start justify-center px-[4%] pb-[2%] pt-[0.5%]">
         <div className="relative w-[80%] max-w-[272px]">
-          <span className="pointer-events-none absolute -right-[0.35em] top-[1.8em] z-[2] rotate-45 bg-[#e5484d] px-[1.1em] py-[0.12em] text-[0.42em] font-bold tracking-[0.08em] text-white shadow-sm">
-            DEBUG
-          </span>
           <Image
             src={PHONE_SRC}
             alt="Interface mobile do Clonk — controle remoto dos agentes"
@@ -372,8 +422,18 @@ function PhonePanel() {
 
 export function HeroWorkspaceMock() {
   return (
-    <div className="flex aspect-[2940/1680] w-full flex-col select-none text-[clamp(0.56rem,0.38rem+0.48vw,0.82rem)]">
-      <header className="flex items-center gap-[0.65em] border-b border-black/[0.05] bg-[#e8eaef] px-[1.2%] py-[0.55em] dark:border-white/[0.06] dark:bg-[#10131a]">
+    <div
+      className={cn(
+        "flex aspect-[2940/1680] w-full flex-col select-none text-[clamp(0.56rem,0.38rem+0.48vw,0.82rem)]",
+        editorSurfaceClass,
+      )}
+    >
+      <header
+        className={cn(
+          "flex items-center gap-[0.65em] border-b border-black/[0.05] px-[1.2%] py-[0.55em] dark:border-white/[0.06]",
+          barSurfaceClass,
+        )}
+      >
         <WindowDots />
         <div className="flex items-center gap-[0.35em] text-[0.54em] text-[#8b93a7] dark:text-[#6f7890]">
           <span className="font-medium text-[#5f677a] dark:text-[#9aa3b8]">flutter_app</span>

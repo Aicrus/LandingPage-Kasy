@@ -26,7 +26,7 @@ export function HeroScreenReveal({ children }: HeroScreenRevealProps) {
         Mock do workspace — só desce no scroll da página.
         padding-top alto: no load aparece só uma faixa no fim da 1ª tela.
       */}
-      <div className="mx-auto w-full max-w-[min(94vw,72rem)] px-page-x pt-[min(72vh,40rem)] pb-[min(28vh,14rem)] sm:pt-[min(74vh,42rem)] sm:pb-[min(32vh,16rem)]">
+      <div className="mx-auto w-full max-w-[min(98vw,80rem)] px-[clamp(0.75rem,2.5vw,2rem)] pt-[min(72vh,40rem)] pb-[min(28vh,14rem)] sm:pt-[min(74vh,42rem)] sm:pb-[min(32vh,16rem)]">
         <BlurReveal as="div" delay={0.78} className="w-full">
           <div
             className={cn(
