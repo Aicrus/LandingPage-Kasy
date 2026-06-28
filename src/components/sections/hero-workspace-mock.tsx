@@ -36,6 +36,9 @@ const editorType = {
 /** Tipografia do explorer — levemente maior que o restante do mock */
 const explorerType = "text-[0.78em] leading-snug";
 
+/** Tipografia da barra superior do mock */
+const chromeHeaderType = "text-[0.82em] leading-snug";
+
 const chromeBarClass = "px-[0.75em] py-[0.55em]";
 
 const ACTION_PILLS = [
@@ -102,10 +105,10 @@ const PROJECT_TREE: TreeNode[] = [
 
 function WindowDots() {
   return (
-    <div className="flex shrink-0 items-center gap-[0.35em]">
-      <span className="size-[0.55em] rounded-full bg-[#ff5f57]" />
-      <span className="size-[0.55em] rounded-full bg-[#febc2e]" />
-      <span className="size-[0.55em] rounded-full bg-[#28c840]" />
+    <div className="flex shrink-0 items-center gap-[0.42em]">
+      <span className="size-[0.72em] rounded-full bg-[#ff5f57]" />
+      <span className="size-[0.72em] rounded-full bg-[#febc2e]" />
+      <span className="size-[0.72em] rounded-full bg-[#28c840]" />
     </div>
   );
 }
@@ -448,16 +451,16 @@ export function HeroWorkspaceMock() {
     >
       <header
         className={cn(
-          "flex items-center gap-[0.65em] border-b border-black/[0.05] dark:border-white/[0.06]",
-          chromeBarClass,
+          "flex items-center gap-[0.75em] border-b border-black/[0.05] dark:border-white/[0.06] py-[0.62em]",
+          "px-[0.75em]",
           editorSurfaceClass,
         )}
       >
         <WindowDots />
         <div
           className={cn(
-            "flex items-center gap-[0.35em] text-[#8b93a7] dark:text-[#6f7890]",
-            editorType.ui,
+            "flex items-center gap-[0.4em] text-[#8b93a7] dark:text-[#6f7890]",
+            chromeHeaderType,
           )}
         >
           <span className="font-medium text-[#5f677a] dark:text-[#9aa3b8]">flutter_app</span>
