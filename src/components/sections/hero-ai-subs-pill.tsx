@@ -130,7 +130,7 @@ export function HeroAiSubsPill() {
         className="h-5 w-px shrink-0 bg-border/80 sm:h-6"
       />
 
-      <p className="min-w-0 text-left font-rounded text-fluid-pill-label font-semibold text-muted-foreground sm:whitespace-nowrap">
+      <p className="min-w-0 text-left font-rounded text-fluid-pill-label font-bold text-muted-foreground sm:whitespace-nowrap">
         Utilize com sua IDE favorita
       </p>
     </div>

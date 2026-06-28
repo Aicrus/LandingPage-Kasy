@@ -33,11 +33,16 @@
   --text-fluid-subtitle--line-height: 1.55;
   --text-fluid-subtitle--font-weight: 500;
 
+  /* Social proof — pill compacto abaixo do CTA
+     ~375px ≈ 11px · ~768px ≈ 12px · >=1366px ≈ 13px */
+  --text-fluid-social-proof: clamp(0.6875rem, 0.64rem + 0.22vw, 0.8125rem);
+  --text-fluid-social-proof--line-height: 1.4;
+
   /* Pill IDE — frase ao lado dos logos; entre caption e subtitle
      ~375px ≈ 14px · ~768px ≈ 15px · >=1366px ≈ 17px */
   --text-fluid-pill-label: clamp(0.875rem, 0.8rem + 0.38vw, 1.0625rem);
   --text-fluid-pill-label--line-height: 1.45;
-  --text-fluid-pill-label--font-weight: 600;
+  --text-fluid-pill-label--font-weight: 700;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
