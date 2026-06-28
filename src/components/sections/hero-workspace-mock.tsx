@@ -33,6 +33,9 @@ const editorType = {
   body: "text-[0.75em] leading-[1.5]",
 } as const;
 
+/** Tipografia do explorer — levemente maior que o restante do mock */
+const explorerType = "text-[0.78em] leading-snug";
+
 const chromeBarClass = "px-[0.75em] py-[0.55em]";
 
 const ACTION_PILLS = [
@@ -254,8 +257,8 @@ function TreeBranch({ node, depth = 0 }: { node: TreeNode; depth?: number }) {
     <>
       <div
         className={cn(
-          "group flex items-center gap-[0.35em] rounded-[0.3em] py-[0.28em] pr-[0.35em] transition-colors",
-          editorType.ui,
+          "group flex items-center gap-[0.4em] rounded-[0.3em] py-[0.34em] pr-[0.35em] transition-colors",
+          explorerType,
           node.active
             ? "bg-[#e8e8e8] text-[#1e1e1e] dark:bg-[#37373d] dark:text-[#ffffff]"
             : "text-[#3c3c3c] hover:bg-black/[0.04] dark:text-[#cccccc] dark:hover:bg-white/[0.06]",
@@ -265,17 +268,17 @@ function TreeBranch({ node, depth = 0 }: { node: TreeNode; depth?: number }) {
         {isFolder ? (
           node.open ? (
             <ChevronDown
-              className="size-[0.85em] shrink-0 text-[#8b949e] opacity-80"
+              className="size-[1em] shrink-0 text-[#8b949e] opacity-80"
               strokeWidth={2.5}
             />
           ) : (
             <ChevronRight
-              className="size-[0.85em] shrink-0 text-[#8b949e] opacity-80"
+              className="size-[1em] shrink-0 text-[#8b949e] opacity-80"
               strokeWidth={2.5}
             />
           )
         ) : (
-          <span className="inline-block w-[0.85em] shrink-0" aria-hidden />
+          <span className="inline-block w-[1em] shrink-0" aria-hidden />
         )}
         {isFolder ? (
           <ExplorerFolderIcon open={node.open} />
@@ -296,7 +299,7 @@ function ProjectExplorer() {
   return (
     <aside
       className={cn(
-        "flex w-[19%] shrink-0 flex-col border-r border-black/[0.07] dark:border-white/[0.07]",
+        "flex w-[17%] shrink-0 flex-col border-r border-black/[0.07] dark:border-white/[0.07]",
         editorSurfaceClass,
       )}
     >
@@ -310,7 +313,7 @@ function ProjectExplorer() {
         <span
           className={cn(
             "font-semibold tracking-[0.08em] text-[#3c3c3c] uppercase dark:text-[#cccccc]",
-            editorType.ui,
+            explorerType,
           )}
         >
           Explorer
@@ -418,7 +421,7 @@ function PhonePanel() {
       </div>
 
       <div className="relative flex flex-1 items-start justify-center px-[4%] pb-[2%] pt-[0.5%]">
-        <div className="relative w-[80%] max-w-[272px]">
+        <div className="relative w-[80%] max-w-[272px] translate-y-[4px]">
           <Image
             src={PHONE_SRC}
             alt="Interface mobile do Clonk — controle remoto dos agentes"

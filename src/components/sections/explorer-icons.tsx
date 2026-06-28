@@ -2,7 +2,7 @@ import { Braces, File, Folder, FolderOpen } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
-const folderClass = "size-[1.1em] shrink-0 text-[#8da8c4] dark:text-[#90a4c0]";
+const folderClass = "size-[1.28em] shrink-0 text-[#8da8c4] dark:text-[#90a4c0]";
 
 export function ExplorerFolderIcon({
   open,
@@ -23,7 +23,7 @@ function DartFileIcon({ className }: { className?: string }) {
       alt=""
       aria-hidden
       draggable={false}
-      className={cn("size-[1.1em] shrink-0 object-contain", className)}
+      className={cn("size-[1.28em] shrink-0 object-contain", className)}
     />
   );
 }
@@ -32,7 +32,7 @@ function FlutterConfigIcon({ className }: { className?: string }) {
   return (
     <svg
       viewBox="0 0 16 16"
-      className={cn("size-[1.1em] shrink-0", className)}
+      className={cn("size-[1.28em] shrink-0", className)}
       aria-hidden
     >
       <path fill="#54C5F8" d="m8.1 1.5 4.4 4.4-4.4 4.4-4.4-4.4L8.1 1.5Z" />
@@ -68,7 +68,7 @@ export function ExplorerFileIcon({
   if (ext === "yaml" || ext === "yml") {
     return (
       <Braces
-        className={cn("size-[1.1em] shrink-0 text-[#cb171e]", className)}
+        className={cn("size-[1.28em] shrink-0 text-[#cb171e]", className)}
         strokeWidth={1.75}
         aria-hidden
       />
@@ -77,7 +77,7 @@ export function ExplorerFileIcon({
 
   return (
     <File
-      className={cn("size-[1.1em] shrink-0 text-[#8b949e]", className)}
+      className={cn("size-[1.28em] shrink-0 text-[#8b949e]", className)}
       strokeWidth={1.75}
       aria-hidden
     />
