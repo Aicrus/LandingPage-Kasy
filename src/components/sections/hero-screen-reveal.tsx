@@ -9,10 +9,15 @@ import { cn } from "@/lib/utils";
 
 const SCREENSHOT_LIGHT_SRC = "/assets/kasy-screen-light.png";
 const SCREENSHOT_DARK_SRC = "/assets/kasy-screen-dark.png";
+const PHONE_OVERLAY_SRC = "/assets/phone-command.png";
 const SCREENSHOT_ALT =
   "Interface do Clonk — ambiente de desenvolvimento com assistente de IA";
+const PHONE_OVERLAY_ALT =
+  "Interface mobile do Clonk — controle remoto dos agentes";
 const SCREENSHOT_WIDTH = 2940;
 const SCREENSHOT_HEIGHT = 1680;
+const PHONE_OVERLAY_WIDTH = 1300;
+const PHONE_OVERLAY_HEIGHT = 2642;
 const FADE_MASK =
   "[mask-image:linear-gradient(to_bottom,black_0%,black_76%,transparent_100%)]";
 
@@ -63,6 +68,22 @@ export function HeroScreenReveal({ children }: HeroScreenRevealProps) {
                 draggable={false}
               />
               <div
+                className={cn(
+                  "pointer-events-none absolute right-[1.5%] top-[17%] z-[3] w-[29%] min-w-[104px] max-w-[272px] drop-shadow-[0_28px_35px_rgba(0,0,0,0.22)] dark:drop-shadow-[0_28px_35px_rgba(0,0,0,0.45)] sm:right-[2%] sm:top-[16%] sm:w-[27%] md:w-[25%]",
+                )}
+              >
+                <Image
+                  src={PHONE_OVERLAY_SRC}
+                  alt={PHONE_OVERLAY_ALT}
+                  width={PHONE_OVERLAY_WIDTH}
+                  height={PHONE_OVERLAY_HEIGHT}
+                  className="h-auto w-full select-none"
+                  priority
+                  unoptimized
+                  draggable={false}
+                />
+              </div>
+              <div
                 aria-hidden
                 className={cn(
                   "pointer-events-none absolute inset-y-0 left-0 z-[1] w-px bg-border-surface",
@@ -78,7 +99,7 @@ export function HeroScreenReveal({ children }: HeroScreenRevealProps) {
               />
               <div
                 aria-hidden
-                className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] h-[22%] bg-gradient-to-t from-background via-background/40 via-55% to-transparent"
+                className="pointer-events-none absolute inset-x-0 bottom-0 z-[4] h-[22%] bg-gradient-to-t from-background via-background/40 via-55% to-transparent"
               />
             </div>
           </div>
