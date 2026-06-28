@@ -1,6 +1,5 @@
 /* ----------------------------------------------------------------------------
- * Seção de teste — bloco de texto longo usado para validar o scroll, a
- * transição vinda da pasta e o comportamento do header ao rolar.
+ * 2ª sessão — bloco de texto longo para validar scroll e header ao rolar.
  * -------------------------------------------------------------------------- */
 const PARAGRAPHS = [
   "Olá, tudo bom? Seja muito bem-vindo. Como é que você está hoje? Esperamos que a sua jornada por aqui seja leve, agradável e cheia de boas descobertas.",
