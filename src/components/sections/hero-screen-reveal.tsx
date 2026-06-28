@@ -1,23 +1,12 @@
 "use client";
 
-import Image from "next/image";
 import type { ReactNode } from "react";
 
 import { BlurReveal } from "@/components/motion/blur-reveal";
+import { HeroWorkspaceMock } from "@/components/sections/hero-workspace-mock";
 import { surfaceBorderClass } from "@/lib/surface-border";
 import { cn } from "@/lib/utils";
 
-const SCREENSHOT_LIGHT_SRC = "/assets/kasy-screen-light.png";
-const SCREENSHOT_DARK_SRC = "/assets/kasy-screen-dark.png";
-const PHONE_OVERLAY_SRC = "/assets/phone-command.png";
-const SCREENSHOT_ALT =
-  "Interface do Clonk — ambiente de desenvolvimento com assistente de IA";
-const PHONE_OVERLAY_ALT =
-  "Interface mobile do Clonk — controle remoto dos agentes";
-const SCREENSHOT_WIDTH = 2940;
-const SCREENSHOT_HEIGHT = 1680;
-const PHONE_OVERLAY_WIDTH = 1300;
-const PHONE_OVERLAY_HEIGHT = 2642;
 const FADE_MASK =
   "[mask-image:linear-gradient(to_bottom,black_0%,black_76%,transparent_100%)]";
 
@@ -34,9 +23,8 @@ export function HeroScreenReveal({ children }: HeroScreenRevealProps) {
       </div>
 
       {/*
-        Imagem full, já revelada — só desce no scroll da página.
+        Mock do workspace — só desce no scroll da página.
         padding-top alto: no load aparece só uma faixa no fim da 1ª tela.
-        A altura da seção (~2 viewports) vem da imagem + respiro inferior.
       */}
       <div className="mx-auto w-full max-w-[min(94vw,72rem)] px-page-x pt-[min(72vh,40rem)] pb-[min(28vh,14rem)] sm:pt-[min(74vh,42rem)] sm:pb-[min(32vh,16rem)]">
         <BlurReveal as="div" delay={0.78} className="w-full">
@@ -47,42 +35,8 @@ export function HeroScreenReveal({ children }: HeroScreenRevealProps) {
             )}
           >
             <div className="relative">
-              <Image
-                src={SCREENSHOT_LIGHT_SRC}
-                alt={SCREENSHOT_ALT}
-                width={SCREENSHOT_WIDTH}
-                height={SCREENSHOT_HEIGHT}
-                className="h-auto w-full select-none dark:hidden"
-                priority
-                unoptimized
-                draggable={false}
-              />
-              <Image
-                src={SCREENSHOT_DARK_SRC}
-                alt={SCREENSHOT_ALT}
-                width={SCREENSHOT_WIDTH}
-                height={SCREENSHOT_HEIGHT}
-                className="hidden h-auto w-full select-none dark:block"
-                priority
-                unoptimized
-                draggable={false}
-              />
-              <div
-                className={cn(
-                  "pointer-events-none absolute right-[1.5%] top-[17%] z-[3] w-[29%] min-w-[104px] max-w-[272px] drop-shadow-[0_28px_35px_rgba(0,0,0,0.22)] dark:drop-shadow-[0_28px_35px_rgba(0,0,0,0.45)] sm:right-[2%] sm:top-[16%] sm:w-[27%] md:w-[25%]",
-                )}
-              >
-                <Image
-                  src={PHONE_OVERLAY_SRC}
-                  alt={PHONE_OVERLAY_ALT}
-                  width={PHONE_OVERLAY_WIDTH}
-                  height={PHONE_OVERLAY_HEIGHT}
-                  className="h-auto w-full select-none"
-                  priority
-                  unoptimized
-                  draggable={false}
-                />
-              </div>
+              <HeroWorkspaceMock />
+
               <div
                 aria-hidden
                 className={cn(
