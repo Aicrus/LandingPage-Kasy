@@ -131,7 +131,7 @@ export function HeroAiSubsPill() {
       />
 
       <p className="min-w-0 text-left font-rounded text-fluid-pill-label font-semibold text-muted-foreground sm:whitespace-nowrap">
-        Kasy funciona com sua IDE favorita
+        Utilize com sua IDE favorita
       </p>
     </div>
   );
