@@ -14,7 +14,7 @@ import {
   X,
 } from "lucide-react";
 import type { ReactNode } from "react";
-import { useState } from "react";
+import { useId, useState } from "react";
 
 import { ExplorerFileIcon, ExplorerFolderIcon } from "@/components/sections/explorer-icons";
 import { cn } from "@/lib/utils";
@@ -388,6 +388,81 @@ function ChatPanel() {
         </div>
       </div>
     </section>
+  );
+}
+
+function PhonePanelCalloutArrow({ className }: { className?: string }) {
+  const markerId = useId();
+
+  return (
+    <svg
+      aria-hidden
+      viewBox="0 0 72 56"
+      fill="none"
+      className={cn("mx-auto mt-[0.35em] block h-[2.65em] w-[54%] sm:h-[2.85em] sm:w-[52%]", className)}
+    >
+      <defs>
+        <marker
+          id={markerId}
+          viewBox="0 0 10 10"
+          markerWidth="8"
+          markerHeight="8"
+          refX="9"
+          refY="5"
+          orient="auto"
+          markerUnits="strokeWidth"
+        >
+          <path
+            d="M0 1 L9 5 L0 9"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.15"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </marker>
+      </defs>
+      <path
+        d="M37 4 Q58 28 31 51"
+        stroke="currentColor"
+        strokeWidth="2.25"
+        strokeLinecap="round"
+        fill="none"
+        markerEnd={`url(#${markerId})`}
+      />
+    </svg>
+  );
+}
+
+export function HeroPhonePanelCallout() {
+  return (
+    <div
+      aria-hidden
+      className={cn(
+        "pointer-events-none absolute z-30 block w-[34%] min-w-[5.25rem] text-center",
+        "right-[-0.5%] top-[5.15%] translate-x-[0.7em] -translate-y-[calc(100%+0.55em)]",
+        "sm:right-[-1.1%] sm:w-[29%] sm:translate-x-[1.35em]",
+        "md:translate-x-[1.45em]",
+      )}
+    >
+      <p
+        className={cn(
+          "font-heading text-[clamp(0.78rem,0.66rem+0.38vw,1.28rem)] font-bold leading-[1.14] tracking-[-0.028em]",
+          "text-[#1a1e2c] [text-shadow:0_1px_2px_rgba(26,30,44,0.2),0_5px_18px_rgba(26,30,44,0.16)]",
+          "dark:text-white dark:[text-shadow:0_1px_3px_rgba(0,0,0,0.62),0_8px_28px_rgba(0,0,0,0.42)]",
+        )}
+      >
+        construa uma vez,
+        <br />
+        publique em todo lugar
+      </p>
+      <PhonePanelCalloutArrow
+        className={cn(
+          "text-[#1a1e2c] drop-shadow-[0_4px_12px_rgba(26,30,44,0.1)]",
+          "dark:text-white dark:drop-shadow-[0_4px_16px_rgba(0,0,0,0.45)]",
+        )}
+      />
+    </div>
   );
 }
 
