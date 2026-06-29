@@ -16,8 +16,12 @@ import {
 import type { ReactNode } from "react";
 import { useId, useState } from "react";
 
+import { BlurReveal } from "@/components/motion/blur-reveal";
 import { ExplorerFileIcon, ExplorerFolderIcon } from "@/components/sections/explorer-icons";
 import { cn } from "@/lib/utils";
+
+/** Continua o stagger do hero intro (último item em 0.78). */
+const HERO_CALLOUT_REVEAL_DELAY = 0.92;
 
 const PHONE_SRC = "/assets/phone-command.png";
 const PHONE_WIDTH = 1300;
@@ -189,7 +193,7 @@ function DeviceToolbar() {
     <div
       aria-hidden
       className={cn(
-        "inline-flex h-[2.15em] max-w-full items-center rounded-full border px-[0.45em] text-[#1c1c1e]",
+        "inline-flex h-[2.15em] max-w-full flex-nowrap items-center rounded-full border px-[0.45em] text-[#1c1c1e]",
         toolbarSurfaceClass,
         editorLineClass,
         "dark:text-[#e8e8e8]",
@@ -200,7 +204,9 @@ function DeviceToolbar() {
         <ChevronDown className="size-[0.75em] opacity-70" strokeWidth={2.25} />
       </span>
       <ToolbarDivider />
-      <span className={cn("px-[0.55em] font-medium", editorType.ui)}>iPhone 16</span>
+      <span className={cn("shrink-0 whitespace-nowrap px-[0.5em] font-medium", editorType.ui)}>
+        iPhone 16
+      </span>
       <ToolbarDivider />
       <span className="flex items-center gap-[0.2em] px-[0.35em]">
         <ToolbarIcon>
@@ -422,6 +428,16 @@ function PhonePanelCalloutArrow({ className }: { className?: string }) {
           />
         </marker>
       </defs>
+      {/* mobile: curva espelhada — aponta para o celular à direita */}
+      <path
+        d="M35 4 Q14 28 41 51"
+        stroke="currentColor"
+        strokeWidth="2.25"
+        strokeLinecap="round"
+        fill="none"
+        markerEnd={`url(#${markerId})`}
+        className="sm:hidden"
+      />
       <path
         d="M37 4 Q58 28 31 51"
         stroke="currentColor"
@@ -429,39 +445,60 @@ function PhonePanelCalloutArrow({ className }: { className?: string }) {
         strokeLinecap="round"
         fill="none"
         markerEnd={`url(#${markerId})`}
+        className="hidden sm:block"
       />
     </svg>
   );
 }
 
-function PhonePanelCallout() {
+function HeroMockBottomFade() {
   return (
     <div
       aria-hidden
       className={cn(
-        "pointer-events-none absolute bottom-full left-1/2 z-30 mb-[0.55em] block w-[108%] text-center",
-        "-translate-x-[43%]",
-        "sm:-translate-x-[44%]",
-        "md:-translate-x-[45%]",
+        "pointer-events-none absolute inset-x-0 bottom-0 z-[5]",
+        "h-hero-mock-fade-height",
+        "bg-gradient-to-t from-background from-[6%] via-background/50 via-[40%] to-transparent",
+      )}
+    />
+  );
+}
+
+export function HeroPhonePanelCallout() {
+  return (
+    <div
+      aria-hidden
+      className={cn(
+        "pointer-events-none absolute z-30 text-center",
+        /* mobile: sobrepõe o topo do editor, mais baixo no card */
+        "right-[1%] w-[36%]",
+        "top-[6.25%] -translate-y-[calc(100%-1.05em)] translate-x-[0.3em]",
+        /* sm+: posição original acima do painel do telefone */
+        "sm:block sm:min-w-[5.25rem] sm:right-[-1.1%] sm:top-[5.75%] sm:w-[29%]",
+        "sm:-translate-y-[calc(100%+0.35em)] sm:translate-x-[1.35em]",
+        "md:translate-x-[1.45em]",
       )}
     >
-      <p
-        className={cn(
-          "font-heading text-[clamp(0.78rem,0.66rem+0.38vw,1.28rem)] font-bold leading-[1.14] tracking-[-0.028em]",
-          "text-[#1a1e2c] [text-shadow:0_1px_2px_rgba(26,30,44,0.2),0_5px_18px_rgba(26,30,44,0.16)]",
-          "dark:text-white dark:[text-shadow:0_1px_3px_rgba(0,0,0,0.62),0_8px_28px_rgba(0,0,0,0.42)]",
-        )}
-      >
-        construa uma vez,
-        <br />
-        publique em todo lugar
-      </p>
-      <PhonePanelCalloutArrow
-        className={cn(
-          "text-[#1a1e2c] drop-shadow-[0_4px_12px_rgba(26,30,44,0.1)]",
-          "dark:text-white dark:drop-shadow-[0_4px_16px_rgba(0,0,0,0.45)]",
-        )}
-      />
+      <BlurReveal as="div" delay={HERO_CALLOUT_REVEAL_DELAY}>
+        <p
+          className={cn(
+            "font-heading font-bold leading-[1.14] tracking-[-0.028em]",
+            "text-[clamp(0.7rem,3.05vw,0.84rem)] sm:text-[clamp(0.78rem,0.66rem+0.38vw,1.28rem)]",
+            "text-[#1a1e2c] [text-shadow:0_1px_2px_rgba(26,30,44,0.2),0_5px_18px_rgba(26,30,44,0.16)]",
+            "dark:text-white dark:[text-shadow:0_1px_3px_rgba(0,0,0,0.62),0_8px_28px_rgba(0,0,0,0.42)]",
+          )}
+        >
+          <span className="block whitespace-nowrap">construa uma vez,</span>
+          <span className="block whitespace-nowrap">publique em todo lugar</span>
+        </p>
+        <PhonePanelCalloutArrow
+          className={cn(
+            "mt-[0.55em] max-sm:mt-[0.5em] max-sm:!mx-0 max-sm:ml-[18%] max-sm:mr-auto",
+            "text-[#1a1e2c] drop-shadow-[0_4px_12px_rgba(26,30,44,0.1)]",
+            "dark:text-white dark:drop-shadow-[0_4px_16px_rgba(0,0,0,0.45)]",
+          )}
+        />
+      </BlurReveal>
     </div>
   );
 }
@@ -475,7 +512,6 @@ function PhonePanel() {
         editorSurfaceClass,
       )}
     >
-      <PhonePanelCallout />
       <div
         className={cn(
           "flex items-center gap-[0.55em] border-b",
@@ -498,7 +534,7 @@ function PhonePanel() {
               editorType.ui,
             )}
           >
-            flutter run — web
+            flutter run
           </span>
           <span
             className={cn(
@@ -537,7 +573,8 @@ export function HeroWorkspaceMock() {
   return (
     <div
       className={cn(
-        "flex aspect-[2940/1680] w-full flex-col select-none text-[clamp(0.56rem,0.38rem+0.48vw,0.82rem)]",
+        "relative flex aspect-[2940/1680] w-full flex-col select-none",
+        "text-[clamp(0.56rem,0.38rem+0.48vw,0.82rem)]",
         editorFontClass,
         editorSurfaceClass,
       )}
@@ -561,9 +598,6 @@ export function HeroWorkspaceMock() {
               draggable={false}
             />
           </span>
-          <span className="font-cursor-gothic text-[0.68em] font-normal uppercase tracking-[0.08em] text-black dark:text-white">
-            Cursor
-          </span>
         </div>
       </header>
 
@@ -572,6 +606,8 @@ export function HeroWorkspaceMock() {
         <ChatPanel />
         <PhonePanel />
       </div>
+
+      <HeroMockBottomFade />
     </div>
   );
 }
