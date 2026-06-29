@@ -51,13 +51,6 @@ const chromeHeaderType = "text-[0.82em] leading-snug";
 
 const chromeBarClass = "px-[0.75em] py-[0.55em]";
 
-const ACTION_PILLS = [
-  "Plan New Idea ⇥Tab",
-  "Multitask",
-  "Run in Cloud",
-  "Design Mode",
-] as const;
-
 type TreeNode = {
   name: string;
   open?: boolean;
@@ -120,20 +113,6 @@ function WindowDots() {
       <span className="size-[0.72em] rounded-full bg-[#febc2e]" />
       <span className="size-[0.72em] rounded-full bg-[#28c840]" />
     </div>
-  );
-}
-
-function Pill({ children }: { children: ReactNode }) {
-  return (
-    <span
-      className={cn(
-        "inline-flex items-center rounded-full border bg-white px-[0.9em] py-[0.35em] font-medium text-foreground/80 shadow-[0_1px_2px_rgba(26,30,44,0.04)] dark:bg-[#1c1f29] dark:text-foreground/85 dark:shadow-none",
-        editorLineClass,
-        editorType.ui,
-      )}
-    >
-      {children}
-    </span>
   );
 }
 
@@ -317,7 +296,7 @@ function ProjectExplorer() {
   return (
     <aside
       className={cn(
-        "flex w-[17%] shrink-0 flex-col border-r",
+        "flex w-[17%] shrink-0 flex-col border-r max-sm:w-[19%]",
         editorLineClass,
         editorSurfaceClass,
       )}
@@ -362,7 +341,7 @@ function ChatPanel() {
   return (
     <section
       className={cn(
-        "flex min-w-0 flex-1 flex-col px-[3%] pb-[2.5%] pt-[2%]",
+        "flex min-w-0 flex-1 flex-col px-[3%] pb-[2.5%] pt-[2%] max-sm:w-[33%] max-sm:shrink-0 max-sm:flex-none",
         editorSurfaceClass,
       )}
     >
@@ -385,12 +364,6 @@ function ChatPanel() {
             )}
           />
           <ComposerToolbar />
-        </div>
-
-        <div className="mt-[1em] flex flex-wrap gap-[0.45em]">
-          {ACTION_PILLS.map((label) => (
-            <Pill key={label}>{label}</Pill>
-          ))}
         </div>
       </div>
     </section>
@@ -471,8 +444,8 @@ export function HeroPhonePanelCallout() {
       className={cn(
         "pointer-events-none absolute z-30 text-center",
         /* mobile: sobrepõe o topo do editor, mais baixo no card */
-        "right-[1%] w-[36%]",
-        "top-[6.25%] -translate-y-[calc(100%-1.05em)] translate-x-[0.3em]",
+        "right-[5%] w-[36%]",
+        "top-[6.25%] -translate-y-[calc(100%-1.05em)] -translate-x-[0.25em]",
         /* sm+: posição original acima do painel do telefone */
         "sm:block sm:min-w-[5.25rem] sm:right-[-1.1%] sm:top-[5.75%] sm:w-[29%]",
         "sm:-translate-y-[calc(100%+0.35em)] sm:translate-x-[1.35em]",
@@ -493,7 +466,7 @@ export function HeroPhonePanelCallout() {
         </p>
         <PhonePanelCalloutArrow
           className={cn(
-            "mt-[0.55em] max-sm:mt-[0.5em] max-sm:!mx-0 max-sm:ml-[18%] max-sm:mr-auto",
+            "mt-[0.55em] max-sm:mt-[0.5em] max-sm:!mx-0 max-sm:ml-[12%] max-sm:mr-auto",
             "text-[#1a1e2c] drop-shadow-[0_4px_12px_rgba(26,30,44,0.1)]",
             "dark:text-white dark:drop-shadow-[0_4px_16px_rgba(0,0,0,0.45)]",
           )}
@@ -507,7 +480,7 @@ function PhonePanel() {
   return (
     <aside
       className={cn(
-        "relative flex w-[34%] shrink-0 flex-col border-l",
+        "relative flex w-[34%] shrink-0 flex-col border-l max-sm:w-[48%]",
         editorLineClass,
         editorSurfaceClass,
       )}

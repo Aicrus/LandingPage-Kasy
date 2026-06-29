@@ -16,7 +16,6 @@ type HeroScreenRevealProps = {
 
 const heroEditorCardClass = cn(
   "overflow-hidden rounded-t-xl border border-b-0 border-black/[0.07] bg-card shadow-none dark:border-[#292821]",
-  "max-sm:rounded-none max-sm:border-x-0",
 );
 
 function HeroEditorBlock({ mobileBleed }: { mobileBleed: boolean }) {
@@ -29,19 +28,24 @@ function HeroEditorBlock({ mobileBleed }: { mobileBleed: boolean }) {
     >
       <HeroPhonePanelCallout />
 
-      <BlurReveal
-        as="div"
-        delay={HERO_EDITOR_REVEAL_DELAY}
-        className={cn(heroEditorCardClass, mobileBleed && "max-sm:pt-3")}
-      >
-        {mobileBleed ? (
-          <div className="relative left-1/2 w-[35rem] min-w-[35rem] translate-x-[calc(-50%+0.75rem)]">
-            <HeroWorkspaceMock />
-          </div>
-        ) : (
+      {mobileBleed ? (
+        /* Mobile: wrapper transparente — sem bg-card/borda (evita faixa visível no crop) */
+        <div className="overflow-hidden bg-transparent pt-3">
+          <BlurReveal as="div" delay={HERO_EDITOR_REVEAL_DELAY}>
+            <div className="relative left-1/2 w-[35rem] min-w-[35rem] translate-x-[calc(-50%+0.75rem)]">
+              <HeroWorkspaceMock />
+            </div>
+          </BlurReveal>
+        </div>
+      ) : (
+        <BlurReveal
+          as="div"
+          delay={HERO_EDITOR_REVEAL_DELAY}
+          className={heroEditorCardClass}
+        >
           <HeroWorkspaceMock />
-        )}
-      </BlurReveal>
+        </BlurReveal>
+      )}
     </div>
   );
 }
