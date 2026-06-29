@@ -15,7 +15,7 @@ type HeroScreenRevealProps = {
 };
 
 const heroEditorCardClass = cn(
-  "overflow-hidden rounded-t-xl border border-b-0 border-black/[0.07] bg-card shadow-none dark:border-[#292821]",
+  "overflow-hidden rounded-xl border border-black/[0.07] bg-card shadow-none dark:border-[#292821]",
 );
 
 function HeroEditorBlock({ mobileBleed }: { mobileBleed: boolean }) {

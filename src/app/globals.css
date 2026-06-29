@@ -95,7 +95,7 @@
   --spacing-hero-to-mock: clamp(3.75rem, 7.5vw + 0.75rem, 6.75rem);
   /* Mobile (<640px): mais respiro antes do editor full-bleed */
   --spacing-hero-to-mock-mobile: clamp(5.75rem, 9vw + 2.25rem, 7.75rem);
-  /* Fade inferior do mock — só rem/vw (sem % do container, que deslocava o fade) */
+  /* Fade inferior do mock — overlay por cima do conteúdo (não substitui a borda do card) */
   --spacing-hero-mock-fade-height: clamp(2.75rem, 4vw, 5.25rem);
   /* Largura em ch acompanha o font-size — mantém linhas estáveis enquanto o texto escala */
   --max-width-fluid-title: 36ch;

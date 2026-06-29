@@ -530,14 +530,14 @@ function PhonePanel() {
         <DeviceToolbar />
       </div>
 
-      <div className="relative flex flex-1 items-start justify-center px-[4%] pb-[2%] pt-[0.5%]">
-        <div className="relative w-[80%] max-w-[272px] translate-y-[4px]">
+      <div className="relative flex min-h-0 flex-1 justify-center px-[4%] pb-[3.5%] pt-[0.5%]">
+        <div className="relative h-full w-[76%] max-w-[258px]">
           <Image
             src={PHONE_SRC}
             alt="Interface mobile do Clonk — controle remoto dos agentes"
             width={PHONE_WIDTH}
             height={PHONE_HEIGHT}
-            className="h-auto w-full drop-shadow-[0_20px_36px_rgba(0,0,0,0.16)] dark:drop-shadow-[0_20px_36px_rgba(0,0,0,0.45)]"
+            className="h-full w-full object-contain object-top drop-shadow-[0_20px_36px_rgba(0,0,0,0.16)] dark:drop-shadow-[0_20px_36px_rgba(0,0,0,0.45)]"
             priority
             unoptimized
             draggable={false}
