@@ -22,9 +22,15 @@ import { cn } from "@/lib/utils";
 const PHONE_SRC = "/assets/phone-command.png";
 const PHONE_WIDTH = 1300;
 const PHONE_HEIGHT = 2642;
+const CURSOR_LOGO_SRC = "/assets/ide-logos/cursor-light.svg";
 
-const editorSurfaceClass = "bg-white dark:bg-[#0a0a0a]";
-const toolbarSurfaceClass = "bg-[#f7f7f8] dark:bg-[#141414]";
+const editorSurfaceClass = "bg-white dark:bg-[#13120a]";
+const chromeBarSurfaceClass = "bg-white dark:bg-[#1b1912]";
+const toolbarSurfaceClass = "bg-[#f7f7f8] dark:bg-[#1b1912]";
+const editorFontClass =
+  "font-[system-ui,-apple-system,BlinkMacSystemFont,'Segoe_UI',Helvetica,Arial,sans-serif]";
+const editorLineClass = "border-black/[0.07] dark:border-[#292821]";
+const editorDividerClass = "bg-black/[0.1] dark:bg-[#292821]";
 
 /** Escala tipográfica do mock — relativa ao root clamp do editor */
 const editorType = {
@@ -117,7 +123,8 @@ function Pill({ children }: { children: ReactNode }) {
   return (
     <span
       className={cn(
-        "inline-flex items-center rounded-full border border-black/[0.07] bg-white px-[0.9em] py-[0.35em] font-medium text-foreground/80 shadow-[0_1px_2px_rgba(26,30,44,0.04)] dark:border-white/[0.09] dark:bg-[#1c1f29] dark:text-foreground/85 dark:shadow-none",
+        "inline-flex items-center rounded-full border bg-white px-[0.9em] py-[0.35em] font-medium text-foreground/80 shadow-[0_1px_2px_rgba(26,30,44,0.04)] dark:bg-[#1c1f29] dark:text-foreground/85 dark:shadow-none",
+        editorLineClass,
         editorType.ui,
       )}
     >
@@ -130,7 +137,7 @@ function ToolbarDivider() {
   return (
     <span
       aria-hidden
-      className="mx-[0.1em] h-[1.15em] w-px bg-black/[0.1] dark:bg-white/[0.12]"
+      className={cn("mx-[0.1em] h-[1.15em] w-px", editorDividerClass)}
     />
   );
 }
@@ -164,7 +171,8 @@ function ToolbarTextToggle({
   return (
     <span
       className={cn(
-        "inline-flex size-[1.35em] shrink-0 items-center justify-center rounded-[0.28em] border border-black/[0.08] font-medium leading-none text-[#3a3a3c] dark:border-white/[0.1] dark:text-[#d0d0d0]",
+        "inline-flex size-[1.35em] shrink-0 items-center justify-center rounded-[0.28em] border font-medium leading-none text-[#3a3a3c] dark:text-[#d0d0d0]",
+        editorLineClass,
         label === "r" ? editorType.caption : "text-[0.6875em] font-semibold leading-none",
         className,
       )}
@@ -181,9 +189,10 @@ function DeviceToolbar() {
     <div
       aria-hidden
       className={cn(
-        "inline-flex h-[2.15em] max-w-full items-center rounded-full border border-black/[0.08] px-[0.45em] text-[#1c1c1e]",
+        "inline-flex h-[2.15em] max-w-full items-center rounded-full border px-[0.45em] text-[#1c1c1e]",
         toolbarSurfaceClass,
-        "dark:border-white/[0.1] dark:text-[#e8e8e8]",
+        editorLineClass,
+        "dark:text-[#e8e8e8]",
       )}
     >
       <span className={cn("flex items-center gap-[0.2em] px-[0.5em] font-medium", editorType.ui)}>
@@ -225,9 +234,9 @@ function DeviceToolbar() {
 
 function ComposerToolbar() {
   return (
-    <div className="flex items-center justify-between border-t border-black/[0.05] pt-[0.9em] dark:border-white/[0.07]">
+    <div className={cn("flex items-center justify-between border-t pt-[0.9em]", editorLineClass)}>
       <div className="flex items-center gap-[0.55em]">
-        <span className="flex size-[1.45em] items-center justify-center rounded-full border border-black/[0.08] text-foreground/70 dark:border-white/[0.1] dark:text-foreground/80">
+        <span className={cn("flex size-[1.45em] items-center justify-center rounded-full border text-foreground/70 dark:text-foreground/80", editorLineClass)}>
           <Plus className="size-[0.7em]" strokeWidth={2.25} />
         </span>
         <span className={cn("flex items-center gap-[0.25em] font-medium text-foreground/75", editorType.ui)}>
@@ -302,14 +311,16 @@ function ProjectExplorer() {
   return (
     <aside
       className={cn(
-        "flex w-[17%] shrink-0 flex-col border-r border-black/[0.07] dark:border-white/[0.07]",
+        "flex w-[17%] shrink-0 flex-col border-r",
+        editorLineClass,
         editorSurfaceClass,
       )}
     >
       <div
         className={cn(
-          "flex items-center justify-between border-b border-black/[0.06] dark:border-white/[0.06]",
+          "flex items-center justify-between border-b",
           chromeBarClass,
+          editorLineClass,
           editorSurfaceClass,
         )}
       >
@@ -352,8 +363,9 @@ function ChatPanel() {
       <div className="mt-auto flex flex-col">
         <div
           className={cn(
-            "flex min-h-[62%] flex-col rounded-[1.2em] border border-black/[0.06] bg-white px-[4.5%] py-[4%] shadow-[0_1px_3px_rgba(26,30,44,0.05),0_10px_30px_-16px_rgba(26,30,44,0.12)]",
-            "dark:border-white/[0.08] dark:bg-[#0a0a0a] dark:shadow-none",
+            "flex min-h-[62%] flex-col rounded-[0.85em] border bg-white px-[4.5%] py-[4%] shadow-[0_1px_3px_rgba(26,30,44,0.05),0_10px_30px_-16px_rgba(26,30,44,0.12)]",
+            editorLineClass,
+            "dark:bg-[#13120a] dark:shadow-none",
           )}
         >
           <textarea
@@ -383,26 +395,30 @@ function PhonePanel() {
   return (
     <aside
       className={cn(
-        "relative flex w-[34%] shrink-0 flex-col border-l border-black/[0.05] dark:border-white/[0.06]",
+        "relative flex w-[34%] shrink-0 flex-col border-l",
+        editorLineClass,
         editorSurfaceClass,
       )}
     >
       <div
         className={cn(
-          "flex items-center gap-[0.55em] border-b border-black/[0.05] dark:border-white/[0.06]",
+          "flex items-center gap-[0.55em] border-b",
           chromeBarClass,
+          editorLineClass,
           editorSurfaceClass,
         )}
       >
         <div
           className={cn(
-            "flex min-w-0 flex-1 items-center overflow-hidden rounded-[0.45em] border border-black/[0.06] dark:border-white/[0.08]",
+            "flex min-w-0 flex-1 items-center overflow-hidden rounded-[0.32em] border",
+            editorLineClass,
             editorSurfaceClass,
           )}
         >
           <span
             className={cn(
-              "shrink-0 border-r border-black/[0.05] px-[0.65em] py-[0.35em] text-[#6d758a] dark:border-white/[0.07] dark:text-[#8b93a7]",
+              "shrink-0 border-r px-[0.65em] py-[0.35em] text-[#6d758a] dark:text-[#8b93a7]",
+              editorLineClass,
               editorType.ui,
             )}
           >
@@ -446,32 +462,32 @@ export function HeroWorkspaceMock() {
     <div
       className={cn(
         "flex aspect-[2940/1680] w-full flex-col select-none text-[clamp(0.56rem,0.38rem+0.48vw,0.82rem)]",
+        editorFontClass,
         editorSurfaceClass,
       )}
     >
       <header
         className={cn(
-          "flex items-center gap-[0.75em] border-b border-black/[0.05] dark:border-white/[0.06] py-[0.62em]",
+          "flex items-center gap-[0.75em] border-b py-[0.62em]",
           "px-[0.75em]",
-          editorSurfaceClass,
+          editorLineClass,
+          chromeBarSurfaceClass,
         )}
       >
         <WindowDots />
-        <div
-          className={cn(
-            "flex items-center gap-[0.4em] text-[#8b93a7] dark:text-[#6f7890]",
-            chromeHeaderType,
-          )}
-        >
-          <span className="font-medium text-[#5f677a] dark:text-[#9aa3b8]">flutter_app</span>
-          <span aria-hidden className="opacity-70">
-            ›
+        <div className={cn("flex items-center gap-[0.45em]", chromeHeaderType)}>
+          <span className="flex size-[1.35em] shrink-0 overflow-hidden rounded-[0.32em] bg-white">
+            {/* eslint-disable-next-line @next/next/no-img-element -- SVG local, mesmo padrão do pill IDE */}
+            <img
+              src={CURSOR_LOGO_SRC}
+              alt=""
+              className="size-full object-contain p-[0.08em]"
+              draggable={false}
+            />
           </span>
-          <span>main</span>
-          <span aria-hidden className="opacity-70">
-            ›
+          <span className="font-cursor-gothic text-[0.68em] font-normal uppercase tracking-[0.08em] text-black dark:text-white">
+            Cursor
           </span>
-          <span>Local</span>
         </div>
       </header>
 

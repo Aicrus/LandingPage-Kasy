@@ -29,6 +29,14 @@ const nunito = Nunito({
   display: "swap",
 });
 
+// Cursor Gothic — wordmark do mock do editor (hero workspace).
+const cursorGothic = localFont({
+  src: [{ path: "./fonts/CursorGothic-Regular.woff2", weight: "400", style: "normal" }],
+  variable: "--font-cursor-gothic",
+  display: "swap",
+  preload: false,
+});
+
 // Mono fica disponível p/ código/snippets no futuro; sem preload (nada usa hoje).
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-mono",
@@ -50,7 +58,7 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
-      className={`${inter.variable} ${satoshi.variable} ${nunito.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${inter.variable} ${satoshi.variable} ${nunito.variable} ${jetbrainsMono.variable} ${cursorGothic.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <head>

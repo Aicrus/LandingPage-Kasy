@@ -12,6 +12,7 @@
   --font-mono: var(--font-mono);
   --font-display: var(--font-display); /* Satoshi */
   --font-rounded: var(--font-rounded); /* Nunito */
+  --font-cursor-gothic: var(--font-cursor-gothic); /* Cursor Gothic — mock IDE */
   --font-heading: var(--font-display); /* títulos = Satoshi */
 
   /* Display — hero e títulos.

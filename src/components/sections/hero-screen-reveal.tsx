@@ -4,11 +4,7 @@ import type { ReactNode } from "react";
 
 import { BlurReveal } from "@/components/motion/blur-reveal";
 import { HeroWorkspaceMock } from "@/components/sections/hero-workspace-mock";
-import { surfaceBorderClass } from "@/lib/surface-border";
 import { cn } from "@/lib/utils";
-
-const FADE_MASK =
-  "[mask-image:linear-gradient(to_bottom,black_0%,black_76%,transparent_100%)]";
 
 type HeroScreenRevealProps = {
   children: ReactNode;
@@ -30,27 +26,12 @@ export function HeroScreenReveal({ children }: HeroScreenRevealProps) {
         <BlurReveal as="div" delay={0.78} className="w-full">
           <div
             className={cn(
-              "relative overflow-hidden rounded-t-2xl border-t border-x-0 border-b-0 bg-card shadow-none",
-              surfaceBorderClass,
+              "relative overflow-hidden rounded-t-xl border border-b-0 border-black/[0.07] bg-card shadow-none dark:border-[#292821]",
             )}
           >
             <div className="relative">
               <HeroWorkspaceMock />
 
-              <div
-                aria-hidden
-                className={cn(
-                  "pointer-events-none absolute inset-y-0 left-0 z-[1] w-px bg-border-surface",
-                  FADE_MASK,
-                )}
-              />
-              <div
-                aria-hidden
-                className={cn(
-                  "pointer-events-none absolute inset-y-0 right-0 z-[1] w-px bg-border-surface",
-                  FADE_MASK,
-                )}
-              />
               <div
                 aria-hidden
                 className="pointer-events-none absolute inset-x-0 bottom-0 z-[4] h-[22%] bg-gradient-to-t from-background via-background/40 via-55% to-transparent"
