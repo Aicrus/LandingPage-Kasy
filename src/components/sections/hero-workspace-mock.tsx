@@ -434,15 +434,15 @@ function PhonePanelCalloutArrow({ className }: { className?: string }) {
   );
 }
 
-export function HeroPhonePanelCallout() {
+function PhonePanelCallout() {
   return (
     <div
       aria-hidden
       className={cn(
-        "pointer-events-none absolute z-30 block w-[34%] min-w-[5.25rem] text-center",
-        "right-[-0.5%] top-[5.15%] translate-x-[0.7em] -translate-y-[calc(100%+0.55em)]",
-        "sm:right-[-1.1%] sm:w-[29%] sm:translate-x-[1.35em]",
-        "md:translate-x-[1.45em]",
+        "pointer-events-none absolute bottom-full left-1/2 z-30 mb-[0.55em] block w-[108%] text-center",
+        "-translate-x-[43%]",
+        "sm:-translate-x-[44%]",
+        "md:-translate-x-[45%]",
       )}
     >
       <p
@@ -475,6 +475,7 @@ function PhonePanel() {
         editorSurfaceClass,
       )}
     >
+      <PhonePanelCallout />
       <div
         className={cn(
           "flex items-center gap-[0.55em] border-b",
