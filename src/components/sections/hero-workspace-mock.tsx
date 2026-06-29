@@ -432,11 +432,11 @@ function HeroMockBottomFade() {
         "pointer-events-none absolute inset-x-0 bottom-0 z-[5]",
         "h-hero-mock-fade-height",
         "bg-gradient-to-t",
-        "from-background from-0%",
-        "via-background/55 via-[11%]",
-        "via-background/28 via-[26%]",
-        "via-background/10 via-[46%]",
-        "via-background/3 via-[66%]",
+        "from-background/75 from-0%",
+        "via-background/28 via-[18%]",
+        "via-background/12 via-[38%]",
+        "via-background/5 via-[58%]",
+        "via-background/[0.03] via-[78%]",
         "to-transparent to-100%",
       )}
     />
@@ -531,7 +531,7 @@ function PhonePanel() {
       </div>
 
       <div className="relative flex min-h-0 flex-1 justify-center px-[4%] pb-[3.5%] pt-[0.5%]">
-        <div className="relative h-full w-[76%] max-w-[258px]">
+        <div className="relative h-full w-[76%] max-w-[258px] translate-y-[0.4em]">
           <Image
             src={PHONE_SRC}
             alt="Interface mobile do Clonk — controle remoto dos agentes"
