@@ -431,7 +431,13 @@ function HeroMockBottomFade() {
       className={cn(
         "pointer-events-none absolute inset-x-0 bottom-0 z-[5]",
         "h-hero-mock-fade-height",
-        "bg-gradient-to-t from-background from-[6%] via-background/50 via-[40%] to-transparent",
+        "bg-gradient-to-t",
+        "from-background from-0%",
+        "via-background/55 via-[11%]",
+        "via-background/28 via-[26%]",
+        "via-background/10 via-[46%]",
+        "via-background/3 via-[66%]",
+        "to-transparent to-100%",
       )}
     />
   );

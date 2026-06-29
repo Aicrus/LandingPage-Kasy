@@ -96,7 +96,7 @@
   /* Mobile (<640px): mais respiro antes do editor full-bleed */
   --spacing-hero-to-mock-mobile: clamp(5.75rem, 9vw + 2.25rem, 7.75rem);
   /* Fade inferior do mock — só rem/vw (sem % do container, que deslocava o fade) */
-  --spacing-hero-mock-fade-height: clamp(3.75rem, 5.25vw, 6.5rem);
+  --spacing-hero-mock-fade-height: clamp(2.75rem, 4vw, 5.25rem);
   /* Largura em ch acompanha o font-size — mantém linhas estáveis enquanto o texto escala */
   --max-width-fluid-title: 36ch;
   --max-width-fluid-body: 72ch;
