@@ -8,7 +8,7 @@ export function KasyLogoIcon({ className }: KasyLogoProps) {
   return (
     <span
       aria-hidden
-      className={cn("logo-mark shrink-0 rounded-[22px]", className)}
+      className={cn("logo-mark shrink-0 rounded-[14px]", className)}
     />
   );
 }

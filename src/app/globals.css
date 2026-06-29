@@ -211,7 +211,7 @@
 
   /* Logo provisório — mark + wordmark em escala de título */
   .logo-mark {
-    width: clamp(2rem, 1.875rem + 0.4vw, 2.25rem);
+    width: clamp(1.5rem, 1.375rem + 0.3vw, 1.75rem);
     aspect-ratio: 1;
     background: linear-gradient(
       90deg,
