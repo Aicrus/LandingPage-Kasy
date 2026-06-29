@@ -20,7 +20,7 @@ export function HeroScreenReveal({ children }: HeroScreenRevealProps) {
       >
         <div className="w-full">{children}</div>
 
-        <div className="mt-[clamp(2.25rem,5vw,4rem)] w-full">
+        <div className="mt-hero-to-mock w-full">
           <div
             className={cn(
               "relative overflow-x-clip overflow-y-visible rounded-t-xl border border-b-0 border-black/[0.07] bg-card shadow-none dark:border-[#292821]",
