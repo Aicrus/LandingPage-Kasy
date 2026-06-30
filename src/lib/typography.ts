@@ -14,6 +14,12 @@ export const type = {
   subtitle: "type-subtitle",
   /** Corpo de texto — Inter, escala fluida */
   body: "type-body",
+  /** Feature cards — Satoshi, mesma família do hero (App no ar) */
+  featureTitle: "type-feature-title",
+  /** Feature cards — Nunito, mesma família do lead do hero */
+  featureDesc: "type-feature-desc",
+  /** Feature cards — índice 01/02/03 */
+  featureNum: "type-feature-num",
 } as const;
 
 export const typeMaxWidth = {

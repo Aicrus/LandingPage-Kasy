@@ -1,9 +1,30 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useCallback, useState, useSyncExternalStore } from "react";
 
 import { cn } from "@/lib/utils";
+import { type as typeScale } from "@/lib/typography";
+
+const LG_MEDIA = "(min-width: 1024px)";
+
+function subscribeLg(cb: () => void) {
+  const mq = window.matchMedia(LG_MEDIA);
+  mq.addEventListener("change", cb);
+  return () => mq.removeEventListener("change", cb);
+}
+
+function getLgSnapshot() {
+  return window.matchMedia(LG_MEDIA).matches;
+}
+
+function getLgServerSnapshot() {
+  return false;
+}
+
+function useIsLgUp() {
+  return useSyncExternalStore(subscribeLg, getLgSnapshot, getLgServerSnapshot);
+}
 
 const CARDS = [
   {
@@ -26,7 +47,7 @@ const CARDS = [
   },
   {
     num: "03",
-    title: "Publique onde quiser",
+    title: "Todo lugar",
     description:
       "App Store, Play Store e Web. O Codemagic publica iOS até sem Mac.",
     image:
@@ -35,108 +56,139 @@ const CARDS = [
   },
 ] as const;
 
-/** Raio do shell = raio do card + padding. Cantos concêntricos. */
 const CARD_RADIUS_CLASS = "rounded-3xl";
-const SHELL_CLASS = "rounded-[1.875rem] p-2 sm:rounded-[2rem] sm:p-2.5";
-
-/** Coluna fixa: mesma largura aberto/fechado (texto não reflowa). */
-const COL_CLASS =
-  "w-[10.25rem] shrink-0 flex-none sm:w-[10.75rem] lg:w-[11.25rem] max-sm:w-full";
+const SHELL_CLASS =
+  "rounded-[1.875rem] p-[var(--spacing-feature-shell-pad)] sm:rounded-[2rem]";
 
 const CARD_W_CLOSED =
-  "w-[calc(2*var(--spacing-feature-card-x)+10.25rem)] sm:w-[calc(2*var(--spacing-feature-card-x)+10.75rem)] lg:w-[calc(2*var(--spacing-feature-card-x)+11.25rem)]";
+  "lg:w-[calc(2*var(--spacing-feature-card-x)+var(--feature-col-w))]";
 const CARD_W_OPEN =
-  "w-[calc(2*var(--spacing-feature-card-x)+20.5rem+var(--spacing-feature-card-gap))] sm:w-[calc(2*var(--spacing-feature-card-x)+21.5rem+var(--spacing-feature-card-gap))] lg:w-[calc(2*var(--spacing-feature-card-x)+22.5rem+var(--spacing-feature-card-gap))]";
+  "lg:w-[calc(2*var(--spacing-feature-card-x)+2*var(--feature-col-w)+var(--spacing-feature-card-gap))]";
 
-const CARD_INNER_PAD =
-  "px-[var(--spacing-feature-card-x)] py-[var(--spacing-feature-card-y)]";
+const CARD_PAD_X = "px-[var(--spacing-feature-card-x)]";
+const CARD_PAD_Y =
+  "py-[var(--spacing-feature-card-y-mobile)] sm:py-[var(--spacing-feature-card-y)]";
 
 const EASE = "ease-[cubic-bezier(0.22,1,0.36,1)]";
 const TRANSITION =
-  "transition-[flex-grow,flex-basis,width,opacity,gap,max-width,background-color,box-shadow,border-color] duration-500 motion-reduce:transition-none";
+  "transition-[flex-grow,flex-basis,width,opacity,gap,max-width,background-color,box-shadow] duration-500 motion-reduce:transition-none";
+
+const CARD_ACTIVE_SHADOW =
+  "bg-feature-card-active shadow-[0_1px_2px_rgba(26,30,44,0.025),0_6px_16px_-8px_rgba(26,30,44,0.05)] dark:shadow-[0_1px_8px_rgba(0,0,0,0.12),0_8px_22px_-10px_rgba(0,0,0,0.2)]";
+
+const CARD_IDLE_SHADOW =
+  "bg-feature-card shadow-[0_1px_1px_rgba(26,30,44,0.02),0_4px_12px_-8px_rgba(26,30,44,0.035)] dark:shadow-[0_1px_2px_rgba(0,0,0,0.08),0_4px_14px_-8px_rgba(0,0,0,0.14)]";
 
 export function FeatureHoverCards() {
+  const isLgUp = useIsLgUp();
   const [active, setActive] = useState(0);
+
+  const activate = useCallback(
+    (index: number) => {
+      if (isLgUp) setActive(index);
+    },
+    [isLgUp],
+  );
 
   return (
     <div
       className={cn(
-        "flex justify-center",
+        "mx-auto flex w-full justify-center",
+        "max-w-[min(96vw,76rem)]",
         "px-[clamp(0.75rem,2.5vw,2rem)] max-sm:px-[clamp(1rem,3.25vw,2rem)]",
         "mt-[clamp(2.5rem,5vw,4rem)]",
       )}
     >
-      <div
-        className={cn(
-          SHELL_CLASS,
-          "w-fit max-w-full",
-          "border border-border/55 bg-feature-shell",
-          "shadow-[inset_0_1px_0_rgba(255,255,255,0.45)]",
-          "dark:border-border/70 dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]",
-        )}
-      >
-        <div className="flex w-fit max-w-full gap-1.5 sm:gap-2 max-sm:w-full max-sm:flex-col max-sm:gap-2">
+      <div className="flex w-full justify-center">
+        <div
+          className={cn(
+            SHELL_CLASS,
+            "w-full min-w-0 overflow-hidden",
+            "lg:w-[var(--feature-shell-w)] lg:max-w-full",
+            "bg-feature-shell",
+          )}
+        >
+          <div
+            className={cn(
+              "grid w-full gap-[var(--spacing-feature-shell-pad)]",
+              "max-sm:grid-cols-1",
+              "sm:grid-cols-2 lg:flex lg:w-[var(--feature-track-w)] lg:max-w-full lg:shrink-0",
+            )}
+          >
           {CARDS.map((card, index) => {
             const isActive = active === index;
+            const isExpanded = isLgUp ? isActive : true;
 
             return (
               <article
                 key={card.num}
-                onMouseEnter={() => setActive(index)}
-                onFocus={() => setActive(index)}
-                onClick={() => setActive(index)}
-                tabIndex={0}
-                aria-expanded={isActive}
+                onMouseEnter={() => activate(index)}
+                onFocus={() => activate(index)}
+                tabIndex={isLgUp ? 0 : -1}
+                aria-expanded={isExpanded}
                 className={cn(
-                  "relative flex min-h-[16rem] min-w-0 cursor-default overflow-hidden sm:min-h-[19.5rem]",
+                  "relative flex min-w-0 overflow-hidden",
                   CARD_RADIUS_CLASS,
-                  "border border-black/[0.06] dark:border-[#949eb822]",
                   TRANSITION,
                   EASE,
-                  "outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-                  "shrink-0 flex-none max-sm:w-full",
-                  isActive
-                    ? cn(
-                        CARD_W_OPEN,
-                        "border-black/[0.08] bg-feature-card-active",
-                        "shadow-[0_1px_2px_rgba(26,30,44,0.025),0_6px_16px_-8px_rgba(26,30,44,0.05)]",
-                        "dark:border-[#949eb838] dark:shadow-[0_1px_8px_rgba(0,0,0,0.12),0_8px_22px_-10px_rgba(0,0,0,0.2)]",
-                      )
-                    : cn(
-                        CARD_W_CLOSED,
-                        "bg-feature-card",
-                        "shadow-[0_1px_1px_rgba(26,30,44,0.02),0_4px_12px_-8px_rgba(26,30,44,0.035)]",
-                        "dark:shadow-[0_1px_2px_rgba(0,0,0,0.08),0_4px_14px_-8px_rgba(0,0,0,0.14)]",
-                      ),
+                  isLgUp &&
+                    "cursor-default outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                  "w-full lg:shrink-0 lg:flex-none",
+                  "sm:min-h-[17rem] lg:min-h-[22rem]",
+                  index === 2 && "sm:col-span-2",
+                  isLgUp && (isActive ? CARD_W_OPEN : CARD_W_CLOSED),
+                  isExpanded ? CARD_ACTIVE_SHADOW : CARD_IDLE_SHADOW,
                 )}
               >
                 <div
                   className={cn(
-                    "flex h-full w-full",
-                    CARD_INNER_PAD,
+                    "flex w-full min-w-0",
+                    CARD_PAD_X,
+                    CARD_PAD_Y,
                     TRANSITION,
                     EASE,
-                    isActive
+                    isExpanded
                       ? "gap-[var(--spacing-feature-card-gap)]"
-                      : "gap-0",
+                      : "lg:gap-0",
                     "max-sm:flex-col",
+                    "sm:flex-row sm:items-stretch",
                   )}
                 >
                   <div
                     className={cn(
-                      COL_CLASS,
-                      "flex h-full flex-col justify-between",
+                      "flex min-w-0 flex-col",
+                      "gap-[var(--spacing-feature-num-to-title)]",
+                      "lg:h-full lg:justify-between lg:gap-0",
+                      "max-lg:flex-1",
+                      "lg:w-[var(--feature-col-w)] lg:shrink-0 lg:flex-none",
                     )}
                   >
-                    <span className="font-normal tabular-nums text-fluid-feature-num text-muted-foreground/55">
+                    <span
+                      className={cn(
+                        typeScale.featureNum,
+                        "text-muted-foreground/50",
+                      )}
+                    >
                       {card.num}
                     </span>
 
                     <div className="min-w-0">
-                      <h3 className="truncate font-heading text-fluid-feature-title font-normal tracking-[var(--text-fluid-feature-title--letter-spacing)] text-foreground">
+                      <h3
+                        className={cn(
+                          typeScale.featureTitle,
+                          "text-foreground",
+                          "max-lg:text-balance",
+                          "lg:truncate",
+                        )}
+                      >
                         {card.title}
                       </h3>
-                      <p className="mt-1.5 font-rounded text-pretty text-fluid-feature-desc leading-[var(--text-fluid-feature-desc--line-height)] text-muted-foreground">
+                      <p
+                        className={cn(
+                          typeScale.featureDesc,
+                          "mt-[var(--spacing-feature-title-to-desc)] text-pretty text-muted-foreground",
+                        )}
+                      >
                         {card.description}
                       </p>
                     </div>
@@ -144,22 +196,29 @@ export function FeatureHoverCards() {
 
                   <div
                     className={cn(
-                      "relative h-full min-w-0 overflow-hidden rounded-2xl",
+                      "relative min-w-0 shrink-0 overflow-hidden rounded-2xl",
                       TRANSITION,
                       EASE,
-                      isActive
-                        ? cn(COL_CLASS, "opacity-100 max-sm:!h-[10.5rem]")
-                        : "w-0 min-w-0 opacity-0 max-sm:!h-0 max-sm:!w-0",
-                      !isActive && "pointer-events-none",
+                      isExpanded
+                        ? cn(
+                            "opacity-100",
+                            "h-[var(--spacing-feature-image-h-mobile)] w-full",
+                            "sm:min-h-[var(--spacing-feature-image-h-tablet)] sm:flex-1 sm:self-stretch",
+                            "lg:h-full lg:w-[var(--feature-col-w)] lg:flex-none",
+                          )
+                        : cn(
+                            "pointer-events-none w-0 opacity-0",
+                            "lg:h-full",
+                          ),
                     )}
-                    aria-hidden={!isActive}
+                    aria-hidden={!isExpanded}
                   >
-                    {isActive ? (
+                    {isExpanded ? (
                       <Image
                         src={card.image}
                         alt={card.alt}
                         fill
-                        sizes="(max-width: 640px) 100vw, 180px"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 260px"
                         className="object-cover object-top"
                       />
                     ) : null}
@@ -168,6 +227,7 @@ export function FeatureHoverCards() {
               </article>
             );
           })}
+          </div>
         </div>
       </div>
     </div>

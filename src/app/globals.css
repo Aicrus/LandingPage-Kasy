@@ -45,20 +45,23 @@
   --text-fluid-pill-label--line-height: 1.45;
   --text-fluid-pill-label--font-weight: 600;
 
-  /* Feature cards — título, descrição e índice (3 breakpoints fluidos)
-     título ~375px ≈ 14px · ~768px ≈ 15px · >=1366px ≈ 17px */
-  --text-fluid-feature-title: clamp(0.875rem, 0.82rem + 0.22vw, 1.0625rem);
-  --text-fluid-feature-title--line-height: 1.2;
-  --text-fluid-feature-title--font-weight: 400;
-  --text-fluid-feature-title--letter-spacing: -0.012em;
+  /* Feature cards — escala em 3 breakpoints (sm 640 · lg 1024)
+     Hierarquia: título > número > descrição
+     mobile:  título 18px · número 14px · descrição 13px
+     tablet:  título 19px · número 15px · descrição 14px
+     desktop: título 21px · número 17px · descrição 15px */
+  --text-fluid-feature-title: 1.125rem;
+  --text-fluid-feature-title--line-height: 1.25;
+  --text-fluid-feature-title--font-weight: 500;
+  --text-fluid-feature-title--letter-spacing: -0.01em;
 
-  /* descrição ~375px ≈ 11px · ~768px ≈ 11.5px · >=1366px ≈ 13px */
-  --text-fluid-feature-desc: clamp(0.6875rem, 0.64rem + 0.18vw, 0.8125rem);
-  --text-fluid-feature-desc--line-height: 1.45;
+  --text-fluid-feature-desc: 0.8125rem;
+  --text-fluid-feature-desc--line-height: 1.5;
+  --text-fluid-feature-desc--font-weight: 400;
 
-  /* índice ~375px ≈ 12px · ~768px ≈ 12.5px · >=1366px ≈ 14px */
-  --text-fluid-feature-num: clamp(0.75rem, 0.72rem + 0.12vw, 0.875rem);
+  --text-fluid-feature-num: 0.875rem;
   --text-fluid-feature-num--line-height: 1;
+  --text-fluid-feature-num--font-weight: 400;
 
   --color-feature-shell: var(--feature-shell);
   --color-feature-card: var(--feature-card);
@@ -116,10 +119,19 @@
   --spacing-hero-to-mock-mobile: clamp(5.75rem, 9vw + 2.25rem, 7.75rem);
   /* Fade inferior do mock — overlay por cima do conteúdo (não substitui a borda do card) */
   --spacing-hero-mock-fade-height: clamp(3rem, 5vw, 6rem);
-  /* Feature cards — padding simétrico interno */
-  --spacing-feature-card-x: clamp(1rem, 0.9rem + 0.35vw, 1.375rem);
+  /* Feature cards — padding e ritmo interno (3 breakpoints fluidos) */
+  --spacing-feature-card-x: clamp(1.125rem, 1rem + 0.4vw, 1.375rem);
   --spacing-feature-card-y: clamp(1rem, 0.92rem + 0.28vw, 1.25rem);
-  --spacing-feature-card-gap: clamp(0.625rem, 0.55rem + 0.28vw, 0.875rem);
+  --spacing-feature-card-y-mobile: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
+  --spacing-feature-card-gap: clamp(0.75rem, 0.65rem + 0.35vw, 1rem);
+  --spacing-feature-num-to-title: clamp(1.125rem, 0.95rem + 0.55vw, 1.75rem);
+  --spacing-feature-title-to-desc: clamp(0.5rem, 0.42rem + 0.18vw, 0.625rem);
+  --spacing-feature-image-h-mobile: clamp(15.5rem, 12.5rem + 9.5vw, 18rem);
+  --spacing-feature-image-h-tablet: clamp(11.5rem, 9.5rem + 5vw, 13rem);
+  /* Padding do shell = gap entre os cards (mesmo ritmo em todos os lados) */
+  --spacing-feature-shell-pad: clamp(0.5rem, 0.44rem + 0.3vw, 0.625rem);
+  /* Coluna texto/imagem — encolhe com o viewport para não estourar o shell */
+  --feature-col-w: clamp(6.5rem, 2.75rem + 7.25vw, 11.25rem);
   /* Largura em ch acompanha o font-size — mantém linhas estáveis enquanto o texto escala */
   --max-width-fluid-title: 36ch;
   --max-width-fluid-body: 72ch;
@@ -130,11 +142,67 @@
   --header-height-mobile: 3.5rem;
 }
 
+/* Tablet (sm+): tipografia dos feature cards */
+@media (min-width: 640px) {
+  :root {
+    --text-fluid-feature-title: 1.1875rem;
+    --text-fluid-feature-desc: 0.875rem;
+    --text-fluid-feature-num: 0.9375rem;
+  }
+}
+
+/* Desktop (lg+): tipografia dos feature cards */
+@media (min-width: 1024px) {
+  :root {
+    --text-fluid-feature-title: 1.3125rem;
+    --text-fluid-feature-desc: 0.9375rem;
+    --text-fluid-feature-num: 1.0625rem;
+  }
+}
+
 /* Tablet/desktop: mais respiro entre o hero intro e o mock (mobile usa --spacing-hero-to-mock-mobile) */
 @media (min-width: 640px) {
   :root {
     --spacing-hero-to-mock: clamp(5.25rem, 9.75vw + 1.35rem, 9rem);
     --spacing-hero-mock-fade-height: clamp(2.35rem, 4.25vw, 5.25rem);
+  }
+}
+
+/* Desktop (lg+): largura do shell = soma exata dos cards (sem cortar nem vazar) */
+@media (min-width: 1024px) {
+  :root {
+    --feature-inner-w: calc(
+      min(calc(100vw - 2 * clamp(0.75rem, 2.5vw, 2rem)), 76rem) -
+        2 * clamp(0.75rem, 2.5vw, 2rem)
+    );
+    --feature-shell-w-target: calc(var(--feature-inner-w) * 0.94);
+    --spacing-feature-card-x: clamp(1.375rem, 1.1rem + 0.5vw, 1.75rem);
+    --spacing-feature-card-y: clamp(1.125rem, 0.98rem + 0.32vw, 1.375rem);
+    --spacing-feature-card-gap: clamp(0.9375rem, 0.75rem + 0.42vw, 1.25rem);
+    --spacing-feature-num-to-title: clamp(1.375rem, 1.05rem + 0.65vw, 2rem);
+    /* 6px = bordas dos 3 cards (1px × 2 lados × 3) */
+    --feature-col-w: min(
+      16.25rem,
+      max(
+        11.25rem,
+        calc(
+          (
+            var(--feature-shell-w-target) -
+              4 * var(--spacing-feature-shell-pad) -
+              6 * var(--spacing-feature-card-x) - var(--spacing-feature-card-gap) -
+              6px
+          ) / 4
+        )
+      )
+    );
+    --feature-track-w: calc(
+      4 * var(--feature-col-w) + 6 * var(--spacing-feature-card-x) +
+        var(--spacing-feature-card-gap) + 2 * var(--spacing-feature-shell-pad) +
+        6px
+    );
+    --feature-shell-w: calc(
+      var(--feature-track-w) + 2 * var(--spacing-feature-shell-pad)
+    );
   }
 }
 
@@ -181,10 +249,11 @@
   /* Pills do hero — mix em srgb (oklch distorce o matiz azul-acinzentado) */
   --hero-pill-surface: color-mix(in srgb, var(--background) 93%, var(--secondary) 7%);
 
-  /* Feature cards — contraste em camadas: página → shell → card → ativo */
-  --feature-shell: color-mix(in srgb, var(--foreground) 8%, var(--background) 92%);
-  --feature-card: color-mix(in srgb, var(--card) 78%, var(--feature-shell) 22%);
-  --feature-card-active: var(--card);
+  /* Feature cards — tudo derivado de --background
+     shell: bandeja sutil · fechado: um pouco mais escuro · ativo: um pouco mais claro */
+  --feature-shell: color-mix(in srgb, var(--background) 93%, var(--foreground) 7%);
+  --feature-card: color-mix(in srgb, var(--background) 99%, var(--foreground) 1%);
+  --feature-card-active: color-mix(in srgb, var(--background) 62%, var(--card) 38%);
 }
 
 .dark {
@@ -226,9 +295,9 @@
 
   --hero-pill-surface: color-mix(in srgb, var(--background) 76%, var(--secondary) 24%);
 
-  --feature-shell: color-mix(in srgb, var(--foreground) 12%, var(--background) 88%);
-  --feature-card: color-mix(in srgb, var(--card) 88%, var(--feature-shell) 12%);
-  --feature-card-active: color-mix(in srgb, var(--card) 58%, #4a5270 42%);
+  --feature-shell: color-mix(in srgb, var(--background) 95%, #000000 5%);
+  --feature-card: color-mix(in srgb, var(--background) 99.5%, #000000 0.5%);
+  --feature-card-active: color-mix(in srgb, var(--background) 48%, var(--card) 52%);
 }
 
 @layer base {
@@ -266,6 +335,30 @@
     font-weight: var(--text-fluid-display--font-weight);
     letter-spacing: var(--text-fluid-display--letter-spacing);
     line-height: 1;
+  }
+
+  /* Feature cards — Satoshi (título) + Nunito (descrição), como no hero */
+  .type-feature-title {
+    font-family: var(--font-heading);
+    font-size: var(--text-fluid-feature-title);
+    font-weight: var(--text-fluid-feature-title--font-weight);
+    line-height: var(--text-fluid-feature-title--line-height);
+    letter-spacing: var(--text-fluid-feature-title--letter-spacing);
+  }
+
+  .type-feature-desc {
+    font-family: var(--font-rounded);
+    font-size: var(--text-fluid-feature-desc);
+    font-weight: var(--text-fluid-subtitle--font-weight);
+    line-height: var(--text-fluid-feature-desc--line-height);
+  }
+
+  .type-feature-num {
+    font-family: var(--font-rounded);
+    font-size: var(--text-fluid-feature-num);
+    font-weight: var(--text-fluid-feature-num--font-weight);
+    line-height: var(--text-fluid-feature-num--line-height);
+    font-variant-numeric: tabular-nums;
   }
 
   /* Header sticky — blur nativo; alpha relativo preserva o matiz do --background */
