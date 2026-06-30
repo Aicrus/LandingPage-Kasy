@@ -452,10 +452,9 @@ export function HeroPhonePanelCallout() {
         /* mobile: sobrepõe o topo do editor, mais baixo no card */
         "right-[5%] w-[36%]",
         "top-[6.25%] -translate-y-[calc(100%-1.05em)] -translate-x-[0.25em]",
-        /* sm+: posição original acima do painel do telefone */
-        "sm:block sm:min-w-[5.25rem] sm:right-[-1.1%] sm:top-[5.75%] sm:w-[29%]",
-        "sm:-translate-y-[calc(100%+0.35em)] sm:translate-x-[1.35em]",
-        "md:translate-x-[1.45em]",
+        /* sm+: ancorado no card do mock — seta aponta para o celular */
+        "sm:block sm:min-w-[5.25rem] sm:right-[6%] sm:top-[6.25%] sm:w-[26%]",
+        "sm:-translate-y-[calc(100%+0.25em)] sm:translate-x-0",
       )}
     >
       <BlurReveal as="div" delay={HERO_CALLOUT_REVEAL_DELAY}>

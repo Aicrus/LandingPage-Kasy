@@ -12,8 +12,8 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "images.unsplash.com",
-        pathname: "/**",
+        hostname: "framerusercontent.com",
+        pathname: "/images/**",
       },
     ],
   },

@@ -24,10 +24,10 @@ function HeroEditorBlock({ mobileBleed }: { mobileBleed: boolean }) {
     <div
       className={cn(
         "relative w-full",
-        mobileBleed ? "max-sm:mt-hero-to-mock-mobile" : "mt-hero-to-mock",
+        mobileBleed ? "max-sm:mt-hero-to-mock-mobile" : "mt-hero-to-mock sm:overflow-visible sm:pt-[clamp(1.375rem,2.75vw,2.375rem)]",
       )}
     >
-      <HeroPhonePanelCallout />
+      {mobileBleed ? <HeroPhonePanelCallout /> : null}
 
       {mobileBleed ? (
         /* Mobile: wrapper transparente — sem bg-card/borda (evita faixa visível no crop) */
@@ -39,13 +39,17 @@ function HeroEditorBlock({ mobileBleed }: { mobileBleed: boolean }) {
           </BlurReveal>
         </div>
       ) : (
-        <BlurReveal
-          as="div"
-          delay={HERO_EDITOR_REVEAL_DELAY}
-          className={heroEditorCardClass}
-        >
-          <HeroWorkspaceMock />
-        </BlurReveal>
+        /* sm+: mock um pouco menor e centralizado — mais respiro sem deslocar para a direita */
+        <div className="relative mx-auto w-full max-w-[min(100%,93%)] md:max-w-[min(100%,88%)] lg:max-w-[min(100%,86%)]">
+          <HeroPhonePanelCallout />
+          <BlurReveal
+            as="div"
+            delay={HERO_EDITOR_REVEAL_DELAY}
+            className={heroEditorCardClass}
+          >
+            <HeroWorkspaceMock />
+          </BlurReveal>
+        </div>
       )}
     </div>
   );
