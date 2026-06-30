@@ -12,8 +12,8 @@ const CARDS = [
     description:
       "Firebase, Supabase ou REST. Login, banco, storage, push e IA num passo.",
     image:
-      "https://framerusercontent.com/images/hYqXfHm4SLL09lb8eXINkwGpaY.png?width=640&height=857",
-    alt: "Tela de criação de conta com campos de usuário e e-mail",
+      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=640&h=800&q=80",
+    alt: "Laptop com editor de código e terminal aberto",
   },
   {
     num: "02",
@@ -21,8 +21,8 @@ const CARDS = [
     description:
       "Ícone, splash, cores claro e escuro. Dois arquivos e app com sua marca.",
     image:
-      "https://framerusercontent.com/images/lpUXQzvzgT4sfG94CeE4ukM15U.png?width=578&height=800",
-    alt: "Lista de tarefas com cards de brainstorming e pesquisa",
+      "https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=640&h=800&q=80",
+    alt: "Paleta de cores e ferramentas de identidade visual de um app",
   },
   {
     num: "03",
@@ -30,8 +30,8 @@ const CARDS = [
     description:
       "App Store, Play Store e Web. O Codemagic publica iOS até sem Mac.",
     image:
-      "https://framerusercontent.com/images/XoXQ8sesm7JX8MLXDCX4E5uw.png?width=560&height=800",
-    alt: "Dashboard de desempenho de vendas com gráfico",
+      "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=640&h=800&q=80",
+    alt: "Smartphones com apps instalados sobre uma mesa",
   },
 ] as const;
 
