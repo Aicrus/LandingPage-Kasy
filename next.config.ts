@@ -10,6 +10,11 @@ const nextConfig: NextConfig = {
         hostname: "www.clonk.ai",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+        pathname: "/**",
+      },
     ],
   },
 };

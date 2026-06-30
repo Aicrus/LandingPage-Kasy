@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 
 import { BlurReveal } from "@/components/motion/blur-reveal";
+import { FeatureHoverCards } from "@/components/sections/feature-hover-cards";
 import {
   HeroPhonePanelCallout,
   HeroWorkspaceMock,
@@ -73,6 +74,8 @@ export function HeroScreenReveal({ children }: HeroScreenRevealProps) {
       <div className="w-full sm:hidden">
         <HeroEditorBlock mobileBleed />
       </div>
+
+      <FeatureHoverCards />
     </section>
   );
 }
