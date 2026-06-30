@@ -43,10 +43,10 @@ const SHELL_CLASS = "rounded-[1.875rem] p-2 sm:rounded-[2rem] sm:p-2.5";
 const COL_CLASS =
   "w-[10.25rem] shrink-0 flex-none sm:w-[10.75rem] lg:w-[11.25rem] max-sm:w-full";
 
-const CARD_MAX_CLOSED =
-  "max-w-[calc(2*var(--spacing-feature-card-x)+10.25rem)] sm:max-w-[calc(2*var(--spacing-feature-card-x)+10.75rem)] lg:max-w-[calc(2*var(--spacing-feature-card-x)+11.25rem)]";
-const CARD_MAX_OPEN =
-  "max-w-[calc(2*var(--spacing-feature-card-x)+20.5rem+var(--spacing-feature-card-gap))] sm:max-w-[calc(2*var(--spacing-feature-card-x)+21.5rem+var(--spacing-feature-card-gap))] lg:max-w-[calc(2*var(--spacing-feature-card-x)+22.5rem+var(--spacing-feature-card-gap))]";
+const CARD_W_CLOSED =
+  "w-[calc(2*var(--spacing-feature-card-x)+10.25rem)] sm:w-[calc(2*var(--spacing-feature-card-x)+10.75rem)] lg:w-[calc(2*var(--spacing-feature-card-x)+11.25rem)]";
+const CARD_W_OPEN =
+  "w-[calc(2*var(--spacing-feature-card-x)+20.5rem+var(--spacing-feature-card-gap))] sm:w-[calc(2*var(--spacing-feature-card-x)+21.5rem+var(--spacing-feature-card-gap))] lg:w-[calc(2*var(--spacing-feature-card-x)+22.5rem+var(--spacing-feature-card-gap))]";
 
 const CARD_INNER_PAD =
   "px-[var(--spacing-feature-card-x)] py-[var(--spacing-feature-card-y)]";
@@ -61,7 +61,7 @@ export function FeatureHoverCards() {
   return (
     <div
       className={cn(
-        "mx-auto w-full max-w-[min(94vw,64rem)]",
+        "flex justify-center",
         "px-[clamp(0.75rem,2.5vw,2rem)] max-sm:px-[clamp(1rem,3.25vw,2rem)]",
         "mt-[clamp(2.5rem,5vw,4rem)]",
       )}
@@ -69,12 +69,13 @@ export function FeatureHoverCards() {
       <div
         className={cn(
           SHELL_CLASS,
+          "w-fit max-w-full",
           "border border-border/55 bg-feature-shell",
           "shadow-[inset_0_1px_0_rgba(255,255,255,0.45)]",
           "dark:border-border/70 dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]",
         )}
       >
-        <div className="flex gap-1.5 sm:gap-2 max-sm:flex-col max-sm:gap-2">
+        <div className="flex w-fit max-w-full gap-1.5 sm:gap-2 max-sm:w-full max-sm:flex-col max-sm:gap-2">
           {CARDS.map((card, index) => {
             const isActive = active === index;
 
@@ -93,21 +94,19 @@ export function FeatureHoverCards() {
                   TRANSITION,
                   EASE,
                   "outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-                  "max-sm:max-w-none max-sm:!flex-none",
+                  "shrink-0 flex-none max-sm:w-full",
                   isActive
                     ? cn(
-                        "flex-[2]",
-                        CARD_MAX_OPEN,
+                        CARD_W_OPEN,
                         "border-black/[0.08] bg-feature-card-active",
-                        "shadow-[0_1px_2px_rgba(26,30,44,0.05),0_10px_28px_-8px_rgba(26,30,44,0.1)]",
-                        "dark:border-[#949eb838] dark:shadow-[0_2px_14px_rgba(0,0,0,0.28),0_16px_40px_-10px_rgba(0,0,0,0.42)]",
+                        "shadow-[0_1px_2px_rgba(26,30,44,0.025),0_6px_16px_-8px_rgba(26,30,44,0.05)]",
+                        "dark:border-[#949eb838] dark:shadow-[0_1px_8px_rgba(0,0,0,0.12),0_8px_22px_-10px_rgba(0,0,0,0.2)]",
                       )
                     : cn(
-                        "flex-1",
-                        CARD_MAX_CLOSED,
+                        CARD_W_CLOSED,
                         "bg-feature-card",
-                        "shadow-[0_1px_2px_rgba(26,30,44,0.03),0_6px_18px_-8px_rgba(26,30,44,0.06)]",
-                        "dark:shadow-[0_1px_2px_rgba(0,0,0,0.18),0_8px_22px_-8px_rgba(0,0,0,0.3)]",
+                        "shadow-[0_1px_1px_rgba(26,30,44,0.02),0_4px_12px_-8px_rgba(26,30,44,0.035)]",
+                        "dark:shadow-[0_1px_2px_rgba(0,0,0,0.08),0_4px_14px_-8px_rgba(0,0,0,0.14)]",
                       ),
                 )}
               >
