@@ -163,7 +163,7 @@
 /* Tablet/desktop: mais respiro entre o hero intro e o mock (mobile usa --spacing-hero-to-mock-mobile) */
 @media (min-width: 640px) {
   :root {
-    --spacing-hero-to-mock: clamp(5.25rem, 9.75vw + 1.35rem, 9rem);
+    --spacing-hero-to-mock: clamp(4.5rem, 8.5vw + 1rem, 8rem);
     --spacing-hero-mock-fade-height: clamp(2.35rem, 4.25vw, 5.25rem);
   }
 }

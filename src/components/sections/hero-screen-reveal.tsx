@@ -24,7 +24,7 @@ function HeroEditorBlock({ mobileBleed }: { mobileBleed: boolean }) {
     <div
       className={cn(
         "relative w-full",
-        mobileBleed ? "max-sm:mt-hero-to-mock-mobile" : "mt-hero-to-mock sm:overflow-visible sm:pt-[clamp(1.375rem,2.75vw,2.375rem)]",
+        mobileBleed ? "max-sm:mt-hero-to-mock-mobile" : "mt-hero-to-mock sm:overflow-visible sm:pt-[clamp(1rem,2.25vw,2rem)]",
       )}
     >
       {mobileBleed ? <HeroPhonePanelCallout /> : null}
