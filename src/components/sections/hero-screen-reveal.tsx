@@ -50,6 +50,7 @@ function HeroKitBackdropImage({ variant }: { variant: "light" | "dark" }) {
         sizes="100vw"
         className={heroKitBackdropImageClass}
       />
+      <div className="hero-kit-backdrop-fade-bottom absolute inset-x-0 bottom-0" />
     </div>
   );
 }
@@ -71,7 +72,6 @@ function HeroKitLandscapeBackdrop() {
       <HeroKitBackdropImage variant="light" />
       <HeroKitBackdropImage variant="dark" />
       <div className="hero-kit-backdrop-fade-top absolute inset-0" />
-      <div className="hero-kit-backdrop-fade-bottom absolute inset-x-0 bottom-0" />
     </div>
   );
 }
