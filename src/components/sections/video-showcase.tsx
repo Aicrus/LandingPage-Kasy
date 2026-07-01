@@ -4,13 +4,14 @@ import Image from "next/image";
 import { Pause, Play } from "lucide-react";
 import { useRef, useState } from "react";
 
+import { surfaceBorderClass } from "@/lib/surface-border";
 import { cn } from "@/lib/utils";
 
 const CONTROLS_HIDE_DELAY_MS = 2200;
 
-/** Poster do player — arte escura, substituível a qualquer momento. */
+/** Poster do player — provisório, substituível a qualquer momento. */
 const VIDEO_POSTER_SRC =
-  "https://framerusercontent.com/images/ONQIsStqeLWeki3a2HBJUTgVIII.png?scale-down-to=2048&width=2088&height=1600";
+  "https://framerusercontent.com/images/wjGvEbGpgzFHMNhyPrusCjmlg.webp?width=1920&height=1080";
 
 const VIDEO_SRC =
   "https://framerusercontent.com/assets/P3x9QvFGoxzu1AUq58rA1x2gNA.mp4";
@@ -64,62 +65,71 @@ export function VideoShowcase() {
       )}
     >
       <div
-        onMouseMove={handleMouseMove}
         className={cn(
-          "group relative aspect-[16/9.1] w-full max-w-[clamp(22rem,82vw,66rem)] overflow-hidden",
-          "rounded-2xl sm:rounded-[1.75rem]",
-          "bg-[#0b0d13]",
+          "w-full max-w-[clamp(22rem,82vw,66rem)]",
+          "rounded-[1.375rem] p-1 sm:rounded-[2.125rem] sm:p-1.5",
+          "border border-[0.5px] border-solid bg-background",
+          surfaceBorderClass,
         )}
       >
-        {playing ? (
-          <video
-            src={VIDEO_SRC}
-            autoPlay
-            playsInline
-            onPlay={scheduleHide}
-            onEnded={() => {
-              setPlaying(false);
-              setControlsVisible(true);
-              clearHideTimeout();
-            }}
-            className="absolute inset-0 size-full object-cover"
-          />
-        ) : (
-          <Image
-            src={VIDEO_POSTER_SRC}
-            alt=""
-            fill
-            sizes="(max-width: 1024px) 100vw, 76rem"
-            className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
-            priority={false}
-          />
-        )}
-
-        <button
-          type="button"
-          aria-label={playing ? "Pausar vídeo" : "Reproduzir vídeo"}
-          onClick={handleToggle}
+        <div
+          onMouseMove={handleMouseMove}
           className={cn(
-            "absolute inset-0 flex size-full items-center justify-center outline-none",
-            "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+            "group relative aspect-[16/9.1] w-full overflow-hidden",
+            "rounded-2xl sm:rounded-[1.75rem]",
+            "bg-[#0b0d13]",
           )}
         >
-          <span
+          {playing ? (
+            <video
+              src={VIDEO_SRC}
+              autoPlay
+              playsInline
+              onPlay={scheduleHide}
+              onEnded={() => {
+                setPlaying(false);
+                setControlsVisible(true);
+                clearHideTimeout();
+              }}
+              className="absolute inset-0 size-full object-cover"
+            />
+          ) : (
+            <Image
+              src={VIDEO_POSTER_SRC}
+              alt=""
+              fill
+              sizes="(max-width: 1024px) 100vw, 76rem"
+              className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
+              priority={false}
+            />
+          )}
+
+          <button
+            type="button"
+            aria-label={playing ? "Pausar vídeo" : "Reproduzir vídeo"}
+            onClick={handleToggle}
             className={cn(
-              toggleButtonIconClass,
-              playing && !controlsVisible ? "opacity-0" : "opacity-100",
+              "absolute inset-0 flex size-full items-center justify-center outline-none",
+              "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
             )}
           >
-            {playing ? (
-              <Pause className="size-6 text-white sm:size-7" strokeWidth={1.75} />
-            ) : (
-              <Play
-                className="size-6 translate-x-0.5 text-white sm:size-7"
-                strokeWidth={1.75}
-              />
-            )}
-          </span>
-        </button>
+            <span
+              className={cn(
+                toggleButtonIconClass,
+                playing && !controlsVisible ? "opacity-0" : "opacity-100",
+              )}
+            >
+              {playing ? (
+                <Pause className="size-6 text-white sm:size-7" strokeWidth={1.75} />
+              ) : (
+                <Play
+                  className="size-6 translate-x-0.5 text-white sm:size-7"
+                  strokeWidth={1.75}
+                />
+              )}
+            </span>
+          </button>
+        </div>
       </div>
     </section>
   );

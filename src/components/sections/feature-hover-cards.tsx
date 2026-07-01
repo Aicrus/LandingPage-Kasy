@@ -80,7 +80,7 @@ export function FeatureHoverCards() {
       className={cn(
         "mx-auto flex w-full flex-col items-center",
         "max-w-[min(96vw,76rem)]",
-        "px-[clamp(0.75rem,2.5vw,2rem)] max-sm:px-[clamp(0.625rem,3.25vw,2rem)]",
+        "px-[clamp(0.75rem,2.5vw,2rem)] max-sm:px-[clamp(1rem,3.25vw,2rem)]",
         "mt-[var(--spacing-editor-to-features)]",
       )}
     >

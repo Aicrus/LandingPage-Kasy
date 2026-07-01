@@ -230,7 +230,6 @@
     --spacing-feature-card-y: clamp(1.125rem, 0.98rem + 0.32vw, 1.375rem);
     --spacing-feature-card-gap: clamp(0.9375rem, 0.75rem + 0.42vw, 1.25rem);
     --spacing-feature-num-to-title: clamp(1.375rem, 1.05rem + 0.65vw, 2rem);
-    /* 6px = bordas dos 3 cards (1px × 2 lados × 3) */
     --feature-col-w: min(
       16.25rem,
       max(
@@ -239,16 +238,14 @@
           (
             var(--feature-shell-w-target) -
               4 * var(--spacing-feature-shell-pad) -
-              6 * var(--spacing-feature-card-x) - var(--spacing-feature-card-gap) -
-              6px
+              6 * var(--spacing-feature-card-x) - var(--spacing-feature-card-gap)
           ) / 4
         )
       )
     );
     --feature-track-w: calc(
       4 * var(--feature-col-w) + 6 * var(--spacing-feature-card-x) +
-        var(--spacing-feature-card-gap) + 2 * var(--spacing-feature-shell-pad) +
-        6px
+        var(--spacing-feature-card-gap) + 2 * var(--spacing-feature-shell-pad)
     );
     --feature-shell-w: calc(
       var(--feature-track-w) + 2 * var(--spacing-feature-shell-pad)
