@@ -7,6 +7,7 @@ export {
   useTransform,
   useSpring,
   useMotionTemplate,
+  useMotionValue,
   useMotionValueEvent,
   LazyMotion,
   domAnimation,

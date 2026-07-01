@@ -1,14 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useTheme } from "next-themes";
+import { useEffect, useRef, useState } from "react";
 
 import { KasyLogo } from "@/components/kasy-logo";
 import { Button } from "@/components/ui/button";
 import {
-  headerMorphTransition,
   motion,
   useMotionTemplate,
+  useMotionValue,
+  useMotionValueEvent,
   useReducedMotion,
   useScroll,
   useSpring,
@@ -19,6 +21,14 @@ import { surfaceBorderClass } from "@/lib/surface-border";
 
 const SCROLL_RANGE = 115;
 const MOBILE_MEDIA = "(max-width: 639px)";
+
+// Ao subir (voltar ao topo) o scroll costuma parar de repente, então a mola
+// segue "acabando" sozinha por baixo — deixamos essa volta mais rápida para
+// não sobrar cauda de animação depois que o usuário já parou de rolar.
+const PROGRESS_SPRING_DOWN = { stiffness: 110, damping: 20, mass: 0.9 };
+const PROGRESS_SPRING_UP = { stiffness: 260, damping: 28, mass: 0.75 };
+const GLASS_SPRING_DOWN = { stiffness: 100, damping: 22, mass: 0.9 };
+const GLASS_SPRING_UP = { stiffness: 240, damping: 28, mass: 0.75 };
 
 const headerShellBorderClass = cn("border-[0.5px]", surfaceBorderClass);
 
@@ -159,24 +169,45 @@ export function SiteHeader() {
 
 function SiteHeaderMotion({ openWidth }: { openWidth: number }) {
   const { scrollY } = useScroll();
+  const { resolvedTheme } = useTheme();
+
+  const [scrollingUp, setScrollingUp] = useState(false);
+  const lastScrollY = useRef(0);
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const previous = lastScrollY.current;
+    lastScrollY.current = latest;
+    if (latest === previous) return;
+    const goingUp = latest < previous;
+    setScrollingUp((current) => (current === goingUp ? current : goingUp));
+  });
 
   const rawProgress = useTransform(scrollY, [0, SCROLL_RANGE], [0, 1], {
     clamp: true,
   });
-  const progress = useSpring(rawProgress, {
-    stiffness: 110,
-    damping: 20,
-    mass: 0.9,
-  });
+  const progress = useSpring(
+    rawProgress,
+    scrollingUp ? PROGRESS_SPRING_UP : PROGRESS_SPRING_DOWN,
+  );
 
   const rawGlass = useTransform(scrollY, [24, SCROLL_RANGE], [0, 1], {
     clamp: true,
   });
-  const glass = useSpring(rawGlass, {
-    stiffness: 100,
-    damping: 22,
-    mass: 0.9,
-  });
+  const glass = useSpring(
+    rawGlass,
+    scrollingUp ? GLASS_SPRING_UP : GLASS_SPRING_DOWN,
+  );
+
+  // Lido do CSS uma vez por tema (não a cada frame) — --header-blur-fill só
+  // muda quando a classe .dark alterna, nunca durante o scroll.
+  const blurFillMax = useMotionValue(74);
+
+  useEffect(() => {
+    const raw = getComputedStyle(document.documentElement)
+      .getPropertyValue("--header-blur-fill")
+      .trim();
+    blurFillMax.set(Number.parseFloat(raw) || 74);
+  }, [resolvedTheme, blurFillMax]);
 
   const shellMaxWidth = useTransform(progress, (value) => {
     const compact = Math.min(openWidth, Math.max(openWidth * 0.76, 460));
@@ -187,13 +218,10 @@ function SiteHeaderMotion({ openWidth }: { openWidth: number }) {
   const shellPaddingX = useTransform(progress, [0, 1], [0, 24]);
   const shellRadius = useTransform(glass, [0, 1], [0, 9999]);
   const topOffset = useTransform(progress, [0, 1], [0, 12]);
-  const blurFill = useTransform(glass, (value) => {
-    const raw = getComputedStyle(document.documentElement)
-      .getPropertyValue("--header-blur-fill")
-      .trim();
-    const max = Number.parseFloat(raw) || 74;
-    return value * max;
-  });
+  const blurFill = useTransform(
+    [glass, blurFillMax],
+    ([g, max]: number[]) => g * max,
+  );
   const blurAmount = useTransform(glass, [0, 1], [0, 16]);
   const shellBackground = useMotionTemplate`rgb(from var(--background) r g b / ${blurFill}%)`;
   const backdropFilter = useMotionTemplate`blur(${blurAmount}px)`;
@@ -207,9 +235,6 @@ function SiteHeaderMotion({ openWidth }: { openWidth: number }) {
       style={{ paddingTop: topOffset }}
     >
       <motion.div
-        layout
-        layoutRoot
-        transition={headerMorphTransition}
         className="relative mx-auto isolate flex w-full min-w-0 items-center justify-between"
         style={{
           maxWidth: shellMaxWidth,
@@ -229,20 +254,15 @@ function SiteHeaderMotion({ openWidth }: { openWidth: number }) {
             borderColor: shellBorderColor,
             backdropFilter,
             WebkitBackdropFilter: backdropFilter,
+            willChange: "backdrop-filter",
           }}
         />
 
-        <motion.div
-          layout
-          transition={headerMorphTransition}
-          className="relative z-10 flex shrink-0 items-center"
-        >
+        <div className="relative z-10 flex shrink-0 items-center">
           <HeaderBrand />
-        </motion.div>
+        </div>
 
         <motion.nav
-          layout
-          transition={headerMorphTransition}
           className="relative z-10 flex shrink-0 items-center"
           style={{ gap: navGap }}
         >

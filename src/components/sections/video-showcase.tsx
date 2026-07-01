@@ -40,7 +40,7 @@ export function VideoShowcase() {
   const groupY = useTransform(scrollYProgress, [0, 1], [90, 0]);
   const groupOpacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
   // A distância até o texto encolhe conforme o vídeo cresce, até ele cobrir o texto.
-  const videoOverlapMarginTop = useTransform(scrollYProgress, [0, 1], [44, -160]);
+  const videoOverlapMarginTop = useTransform(scrollYProgress, [0, 0.55], [44, -160]);
 
   function clearHideTimeout() {
     if (hideTimeoutRef.current) clearTimeout(hideTimeoutRef.current);
@@ -78,7 +78,7 @@ export function VideoShowcase() {
       ref={sectionRef}
       className={cn(
         "relative flex w-full flex-col items-center overflow-hidden",
-        "mt-[clamp(0.5rem,1.5vw,1.5rem)] pb-[clamp(4rem,8vw,7rem)]",
+        "mt-[clamp(-3.5rem,-4vw,-2rem)] pb-[clamp(4rem,8vw,7rem)]",
       )}
     >
       <motion.div
@@ -109,7 +109,7 @@ export function VideoShowcase() {
               : { width, scale, marginTop: videoOverlapMarginTop }
           }
           className={cn(
-            "group relative z-10 aspect-[16/7.3] overflow-hidden",
+            "group relative z-10 aspect-[16/7.5] overflow-hidden",
             "rounded-[1.5rem] sm:rounded-[2rem]",
             "bg-[#0b0d13]",
           )}
