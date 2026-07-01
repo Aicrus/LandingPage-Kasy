@@ -139,7 +139,7 @@
   /* Linhas do subtítulo cobertas pelo plateau (mobile: texto quebrado em ~3 linhas) */
   --hero-kit-fade-subtitle-lines: 3.05;
   --hero-kit-fade-subtitle-buffer: 0.35em;
-  --spacing-hero-kit-fade-bottom: var(--spacing-hero-kit-fade-tail);
+  --spacing-hero-kit-fade-bottom: clamp(4.5rem, 9vw + 2rem, 8.5rem);
   /* Respiro entre o pill “+70 usuários” e o mock do editor */
   --spacing-hero-to-mock: clamp(3.75rem, 7.5vw + 0.75rem, 6.75rem);
   /* Mobile (<640px): mais respiro antes do editor full-bleed */
