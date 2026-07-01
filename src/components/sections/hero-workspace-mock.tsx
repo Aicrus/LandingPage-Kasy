@@ -533,7 +533,7 @@ function PhonePanel() {
         <div className="relative h-full w-[76%] max-w-[258px] translate-y-[0.4em]">
           <Image
             src={PHONE_SRC}
-            alt="Interface mobile do Clonk — controle remoto dos agentes"
+            alt="Interface mobile do Clonk, controle remoto dos agentes"
             width={PHONE_WIDTH}
             height={PHONE_HEIGHT}
             className="h-full w-full object-contain object-top drop-shadow-[0_20px_36px_rgba(0,0,0,0.16)] dark:drop-shadow-[0_20px_36px_rgba(0,0,0,0.45)]"

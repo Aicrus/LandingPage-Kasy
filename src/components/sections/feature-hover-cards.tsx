@@ -93,12 +93,38 @@ export function FeatureHoverCards() {
   return (
     <div
       className={cn(
-        "mx-auto flex w-full justify-center",
+        "mx-auto flex w-full flex-col items-center",
         "max-w-[min(96vw,76rem)]",
         "px-[clamp(0.75rem,2.5vw,2rem)] max-sm:px-[clamp(1rem,3.25vw,2rem)]",
-        "mt-[clamp(2.5rem,5vw,4rem)]",
+        "mt-[var(--spacing-editor-to-features)]",
       )}
     >
+      <header
+        className={cn(
+          "flex w-full flex-col items-center text-center",
+          "gap-[clamp(0.75rem,1vw+0.25rem,1.125rem)]",
+          "mb-[var(--spacing-features-title-to-cards)]",
+        )}
+      >
+        <h2
+          className={cn(
+            "text-balance font-heading font-bold text-foreground",
+            "text-[clamp(1.625rem,1.15rem+1.6vw,2.5rem)]",
+            "leading-[1.12] tracking-[-0.02em]",
+          )}
+        >
+          Do código à loja
+        </h2>
+        <p
+          className={cn(
+            "max-w-fluid-subtitle text-pretty font-rounded text-fluid-subtitle text-muted-foreground",
+          )}
+        >
+          Backend, marca e publicação. Tudo que falta entre o kit e o App
+          Store.
+        </p>
+      </header>
+
       <div className="flex w-full justify-center">
         <div
           className={cn(
