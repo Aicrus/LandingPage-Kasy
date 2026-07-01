@@ -36,7 +36,7 @@ export function VideoShowcase() {
     offset: ["start end", "center center"],
   });
   const width = useTransform(scrollYProgress, [0, 1], ["70vw", "97vw"]);
-  const scale = useTransform(scrollYProgress, [0, 1], [0.82, 1]);
+  const scale = useTransform(scrollYProgress, [0, 1], [0.6, 1]);
   const groupY = useTransform(scrollYProgress, [0, 1], [90, 0]);
   const groupOpacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
   // A distância até o texto encolhe conforme o vídeo cresce, até ele cobrir o texto.
@@ -109,7 +109,7 @@ export function VideoShowcase() {
               : { width, scale, marginTop: videoOverlapMarginTop }
           }
           className={cn(
-            "group relative z-10 aspect-[16/8.2] overflow-hidden",
+            "group relative z-10 aspect-[16/7.3] overflow-hidden",
             "rounded-[1.5rem] sm:rounded-[2rem]",
             "bg-[#0b0d13]",
           )}
