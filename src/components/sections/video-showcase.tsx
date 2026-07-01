@@ -1,17 +1,17 @@
 "use client";
 
-import Image from "next/image";
 import { Pause, Play } from "lucide-react";
 import { useRef, useState } from "react";
 
-import { surfaceBorderClass } from "@/lib/surface-border";
+import { Reveal } from "@/components/motion";
+import { growReveal } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 const CONTROLS_HIDE_DELAY_MS = 2200;
 
-/** Poster do player — provisório, substituível a qualquer momento. */
-const VIDEO_POSTER_SRC =
-  "https://framerusercontent.com/images/wjGvEbGpgzFHMNhyPrusCjmlg.webp?width=1920&height=1080";
+/** Loop de fundo — toca mudo até a pessoa dar play; volta quando pausa. */
+const LOOP_VIDEO_SRC =
+  "https://framerusercontent.com/assets/t3oWwHTiHPdqvISgXglF9dJecA.mp4";
 
 const VIDEO_SRC =
   "https://framerusercontent.com/assets/P3x9QvFGoxzu1AUq58rA1x2gNA.mp4";
@@ -44,7 +44,7 @@ export function VideoShowcase() {
 
   function handleToggle() {
     if (playing) {
-      // Pausar volta para a imagem de poster, em vez de congelar num frame do vídeo.
+      // Pausar volta para o loop de fundo, em vez de congelar num frame do vídeo.
       setPlaying(false);
       setControlsVisible(true);
       clearHideTimeout();
@@ -64,12 +64,14 @@ export function VideoShowcase() {
         "mt-[var(--spacing-features-to-video)] pb-[clamp(3rem,6vw,5rem)]",
       )}
     >
-      <div
+      <Reveal
+        variants={growReveal}
+        transition={{ duration: 0.85 }}
         className={cn(
           "w-full max-w-[clamp(22rem,82vw,66rem)]",
-          "rounded-[1.375rem] p-1 sm:rounded-[2.125rem] sm:p-1.5",
-          "border border-[0.5px] border-solid bg-background",
-          surfaceBorderClass,
+          "rounded-[1.3rem] p-0.5 sm:rounded-[2rem] sm:p-1",
+          "border border-[0.5px] border-solid border-black/[0.14] bg-background shadow-none",
+          "dark:border-white/[0.16]",
         )}
       >
         <div
@@ -94,13 +96,13 @@ export function VideoShowcase() {
               className="absolute inset-0 size-full object-cover"
             />
           ) : (
-            <Image
-              src={VIDEO_POSTER_SRC}
-              alt=""
-              fill
-              sizes="(max-width: 1024px) 100vw, 76rem"
-              className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
-              priority={false}
+            <video
+              src={LOOP_VIDEO_SRC}
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="absolute inset-0 size-full object-cover"
             />
           )}
 
@@ -130,7 +132,7 @@ export function VideoShowcase() {
             </span>
           </button>
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 }

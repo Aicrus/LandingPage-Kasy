@@ -1,4 +1,5 @@
 import {
+  FeatureHoverCards,
   HeroIntro,
   HeroScreenReveal,
   IntegrationsShowcase,
@@ -12,6 +13,7 @@ export default function Home() {
         <HeroIntro />
       </HeroScreenReveal>
       <VideoShowcase />
+      <FeatureHoverCards />
       <IntegrationsShowcase />
     </main>
   );

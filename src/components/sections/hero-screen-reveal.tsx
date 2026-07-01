@@ -2,7 +2,6 @@ import Image from "next/image";
 import type { ReactNode } from "react";
 
 import { BlurReveal } from "@/components/motion/blur-reveal";
-import { FeatureHoverCards } from "@/components/sections/feature-hover-cards";
 import {
   HeroPhonePanelCallout,
   HeroWorkspaceMock,
@@ -142,8 +141,6 @@ export function HeroScreenReveal({ children }: HeroScreenRevealProps) {
           <HeroEditorBlock mobileBleed />
         </div>
       </div>
-
-      <FeatureHoverCards />
     </section>
   );
 }
