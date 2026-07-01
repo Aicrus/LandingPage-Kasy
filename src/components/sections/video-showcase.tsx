@@ -59,34 +59,13 @@ export function VideoShowcase() {
         "mt-[var(--spacing-features-to-video)] pb-[clamp(3rem,6vw,5rem)]",
       )}
     >
-      <header
-        className={cn(
-          "flex w-full flex-col items-center text-center",
-          "gap-[clamp(0.75rem,1vw+0.25rem,1.125rem)]",
-          "mb-[var(--spacing-video-title-to-player)]",
-        )}
-      >
-        <h2
-          className={cn(
-            "text-balance font-heading font-bold text-foreground",
-            "text-[clamp(1.625rem,1.15rem+1.6vw,2.5rem)]",
-            "leading-[1.12] tracking-[-0.02em]",
-          )}
-        >
-          Veja o Kasy em ação
-        </h2>
-        <p className="max-w-fluid-subtitle text-pretty font-rounded text-fluid-subtitle text-muted-foreground">
-          Um passeio rápido pelo fluxo completo, do primeiro comando ao app
-          publicado.
-        </p>
-      </header>
-
       <Dialog.Root open={open} onOpenChange={setOpen}>
         <Dialog.Trigger
           aria-label="Assistir ao vídeo"
           className={cn(
-            "group relative aspect-video w-full overflow-hidden",
-            "rounded-[1.875rem] sm:rounded-[2rem]",
+            "group relative aspect-[16/9.3] w-full overflow-hidden",
+            "max-w-[clamp(20rem,78vw,60rem)]",
+            "rounded-[1.25rem] sm:rounded-[2rem]",
             "bg-[#0b0d13] outline-none",
             "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
           )}
@@ -102,24 +81,25 @@ export function VideoShowcase() {
 
           <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-black/25" />
 
-          <span
-            className={cn(
-              "absolute inset-0 flex items-center justify-center",
-            )}
-          >
+          <span className="absolute inset-0 flex items-center justify-center">
             <span
               className={cn(
-                "flex size-16 items-center justify-center rounded-full sm:size-20",
+                "inline-flex items-center gap-2.5 rounded-full pl-3 pr-5 py-2.5 sm:gap-3 sm:pl-3.5 sm:pr-6 sm:py-3",
                 "bg-white/15 backdrop-blur-md ring-1 ring-white/40",
                 "shadow-[0_8px_28px_-6px_rgba(0,0,0,0.5)]",
                 "transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
-                "group-hover:scale-110 motion-safe:group-active:scale-95",
+                "group-hover:scale-105 motion-safe:group-active:scale-95",
               )}
             >
-              <Play
-                className="size-6 translate-x-0.5 fill-white text-white sm:size-7"
-                strokeWidth={0}
-              />
+              <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-white sm:size-10">
+                <Play
+                  className="size-3.5 translate-x-0.5 fill-[#0b0d13] text-[#0b0d13] sm:size-4"
+                  strokeWidth={0}
+                />
+              </span>
+              <span className="font-heading text-sm font-semibold text-white sm:text-base">
+                Veja o Kasy em ação
+              </span>
             </span>
           </span>
         </Dialog.Trigger>
