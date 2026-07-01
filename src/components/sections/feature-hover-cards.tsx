@@ -1,30 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useState, useSyncExternalStore } from "react";
+import { useCallback, useState } from "react";
 
+import { Reveal } from "@/components/motion/reveal";
+import { motion, fadeInUp, staggerContainer } from "@/lib/motion";
+import { useMediaQuery } from "@/lib/use-media-query";
 import { cn } from "@/lib/utils";
 import { type as typeScale } from "@/lib/typography";
 
 const LG_MEDIA = "(min-width: 1024px)";
-
-function subscribeLg(cb: () => void) {
-  const mq = window.matchMedia(LG_MEDIA);
-  mq.addEventListener("change", cb);
-  return () => mq.removeEventListener("change", cb);
-}
-
-function getLgSnapshot() {
-  return window.matchMedia(LG_MEDIA).matches;
-}
-
-function getLgServerSnapshot() {
-  return false;
-}
-
-function useIsLgUp() {
-  return useSyncExternalStore(subscribeLg, getLgSnapshot, getLgServerSnapshot);
-}
 
 const CARDS = [
   {
@@ -80,7 +65,7 @@ const CARD_IDLE_SHADOW =
   "bg-feature-card shadow-[0_1px_1px_rgba(26,30,44,0.02),0_4px_12px_-8px_rgba(26,30,44,0.035)] dark:shadow-[0_1px_2px_rgba(0,0,0,0.08),0_4px_14px_-8px_rgba(0,0,0,0.14)]";
 
 export function FeatureHoverCards() {
-  const isLgUp = useIsLgUp();
+  const isLgUp = useMediaQuery(LG_MEDIA);
   const [active, setActive] = useState(0);
 
   const activate = useCallback(
@@ -99,7 +84,7 @@ export function FeatureHoverCards() {
         "mt-[var(--spacing-editor-to-features)]",
       )}
     >
-      <header
+      <Reveal
         className={cn(
           "flex w-full flex-col items-center text-center",
           "gap-[clamp(0.75rem,1vw+0.25rem,1.125rem)]",
@@ -123,7 +108,7 @@ export function FeatureHoverCards() {
           Backend, marca e publicação. Tudo que falta entre o kit e o App
           Store.
         </p>
-      </header>
+      </Reveal>
 
       <div className="flex w-full justify-center">
         <div
@@ -134,7 +119,9 @@ export function FeatureHoverCards() {
             "bg-feature-shell",
           )}
         >
-          <div
+          <Reveal
+            variants={staggerContainer}
+            delay={0.1}
             className={cn(
               "grid w-full gap-[var(--spacing-feature-shell-pad)]",
               "max-sm:grid-cols-1",
@@ -146,8 +133,9 @@ export function FeatureHoverCards() {
             const isExpanded = isLgUp ? isActive : true;
 
             return (
-              <article
+              <motion.article
                 key={card.num}
+                variants={fadeInUp}
                 onMouseEnter={() => activate(index)}
                 onFocus={() => activate(index)}
                 tabIndex={isLgUp ? 0 : -1}
@@ -250,10 +238,10 @@ export function FeatureHoverCards() {
                     ) : null}
                   </div>
                 </div>
-              </article>
+              </motion.article>
             );
           })}
-          </div>
+          </Reveal>
         </div>
       </div>
     </div>

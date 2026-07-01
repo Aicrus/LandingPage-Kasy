@@ -149,6 +149,9 @@
   /* Respiro entre o mock do editor e o bloco de features */
   --spacing-editor-to-features: clamp(4.5rem, 8.5vw + 1rem, 8rem);
   --spacing-features-title-to-cards: clamp(2rem, 3.5vw + 0.75rem, 3.25rem);
+  /* Respiro entre o bloco de features e a sessão de vídeo */
+  --spacing-features-to-video: clamp(4.5rem, 8.5vw + 1rem, 8rem);
+  --spacing-video-title-to-player: clamp(2rem, 3.5vw + 0.75rem, 3.25rem);
   /* Feature cards — padding e ritmo interno (3 breakpoints fluidos) */
   --spacing-feature-card-x: clamp(1.125rem, 1rem + 0.4vw, 1.375rem);
   --spacing-feature-card-y: clamp(1rem, 0.92rem + 0.28vw, 1.25rem);

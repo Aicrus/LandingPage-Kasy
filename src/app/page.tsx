@@ -1,7 +1,8 @@
 import {
   HeroIntro,
   HeroScreenReveal,
-  ScrollPlayground,
+  IntegrationsShowcase,
+  VideoShowcase,
 } from "@/components/sections";
 
 export default function Home() {
@@ -10,7 +11,8 @@ export default function Home() {
       <HeroScreenReveal>
         <HeroIntro />
       </HeroScreenReveal>
-      <ScrollPlayground />
+      <VideoShowcase />
+      <IntegrationsShowcase />
     </main>
   );
 }
