@@ -13,9 +13,9 @@ import { cn } from "@/lib/utils";
 const HERO_EDITOR_REVEAL_DELAY = 1.06;
 
 const HERO_KIT_IMAGE = {
-  src: "/assets/hero-kit-landscape.png",
-  width: 2944,
-  height: 1648,
+  src: "/assets/hero-sacred-valley.png",
+  width: 2688,
+  height: 1792,
 } as const;
 
 type HeroScreenRevealProps = {
@@ -32,21 +32,16 @@ function HeroKitLandscapeBackdrop() {
       aria-hidden
       className="pointer-events-none absolute inset-x-0 bottom-0 top-hero-kit-bg-top z-0 overflow-hidden"
     >
-      <div
-        className="absolute [inset:calc(var(--spacing-hero-kit-image-bleed)*-1)]"
-      >
-        <Image
-          src={HERO_KIT_IMAGE.src}
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-[center_30%]"
-        />
-      </div>
-      <div className="hero-kit-backdrop-fade-solid absolute inset-x-0 top-0" />
-      <div className="hero-kit-backdrop-fade-tail absolute inset-x-0" />
-      <div className="hero-kit-backdrop-fade-bottom absolute inset-x-0 bottom-0 h-hero-kit-fade-bottom" />
+      <Image
+        src={HERO_KIT_IMAGE.src}
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover object-[center_35%]"
+      />
+      <div className="hero-kit-backdrop-fade-top absolute inset-0" />
+      <div className="hero-kit-backdrop-fade-bottom absolute inset-x-0 bottom-0" />
     </div>
   );
 }
@@ -56,7 +51,9 @@ function HeroEditorBlock({ mobileBleed }: { mobileBleed: boolean }) {
     <div
       className={cn(
         "relative w-full",
-        mobileBleed ? "max-sm:mt-hero-to-mock-mobile" : "mt-hero-to-mock sm:overflow-visible sm:pt-[clamp(1rem,2.25vw,2rem)]",
+        mobileBleed
+          ? "max-sm:mt-hero-to-mock-mobile"
+          : "mt-hero-to-mock sm:overflow-visible sm:pt-[clamp(1rem,2.25vw,2rem)]",
       )}
     >
       {mobileBleed ? <HeroPhonePanelCallout /> : null}

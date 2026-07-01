@@ -119,20 +119,27 @@
     var(--spacing-hero-inset-top) + var(--header-height-mobile) -
       var(--spacing-hero-kit-bg-lift)
   );
+  /* Até aqui o overlay permanece 100% sólido (título + subtítulo completo) */
+  --hero-kit-fade-title-span: calc(
+    var(--spacing-hero-kit-bg-lift) +
+      var(--text-fluid-display) * var(--text-fluid-display--line-height)
+  );
   --spacing-hero-kit-fade-strong-end: calc(
-    var(--spacing-hero-kit-bg-lift) + var(--spacing-hero-title-to-lead) +
+    var(--hero-kit-fade-title-span) + var(--spacing-hero-title-to-lead) +
       calc(
         var(--text-fluid-subtitle) * var(--text-fluid-subtitle--line-height) *
-          var(--hero-kit-fade-first-block-lines)
-      )
+          var(--hero-kit-fade-subtitle-lines)
+      ) + var(--hero-kit-fade-subtitle-buffer)
   );
-  --spacing-hero-kit-fade-tail: clamp(5rem, 10.5vw + 2.75rem, 10rem);
+  /* Comprimento do fade: sólido → transparente, após o subtítulo */
+  --spacing-hero-kit-fade-tail: clamp(7rem, 15vw + 3.5rem, 14rem);
   --spacing-hero-kit-fade-top: calc(
     var(--spacing-hero-kit-fade-strong-end) + var(--spacing-hero-kit-fade-tail)
   );
-  --hero-kit-fade-first-block-lines: 2.45;
-  --spacing-hero-kit-fade-bottom: clamp(6.5rem, 13vw + 2rem, 13.5rem);
-  --spacing-hero-kit-image-bleed: 6%;
+  /* Linhas do subtítulo cobertas pelo plateau (mobile: texto quebrado em ~3 linhas) */
+  --hero-kit-fade-subtitle-lines: 3.05;
+  --hero-kit-fade-subtitle-buffer: 0.35em;
+  --spacing-hero-kit-fade-bottom: var(--spacing-hero-kit-fade-tail);
   /* Respiro entre o pill “+70 usuários” e o mock do editor */
   --spacing-hero-to-mock: clamp(3.75rem, 7.5vw + 0.75rem, 6.75rem);
   /* Mobile (<640px): mais respiro antes do editor full-bleed */
@@ -194,9 +201,18 @@
   }
 }
 
+/* Tablet/desktop: backdrop cruza o meio do título — só a metade inferior entra no fade */
+@media (min-width: 640px) {
+  :root {
+    --hero-kit-fade-title-span: var(--spacing-hero-kit-bg-lift);
+  }
+}
+
 @media (min-width: 768px) {
   :root {
-    --hero-kit-fade-first-block-lines: 1.12;
+    /* md+: duas linhas em bloco — inclui “Você foca no que torna seu app único.” */
+    --hero-kit-fade-subtitle-lines: 2.25;
+    --hero-kit-fade-subtitle-buffer: 0.45em;
   }
 }
 
@@ -411,43 +427,55 @@
   }
 }
 
-/* Hero — fades do fundo ilustrado (cor = --background, claro/escuro automático) */
-.hero-kit-backdrop-fade-solid {
-  height: var(--spacing-hero-kit-fade-strong-end);
-  background: var(--background);
-}
-
-.hero-kit-backdrop-fade-tail {
-  top: var(--spacing-hero-kit-fade-strong-end);
-  height: var(--spacing-hero-kit-fade-tail);
+/* Hero — fade superior: plateau sólido + gradiente linear até transparente.
+   Overlay cobre 100% da área (inset-0). Alpha na cor de fundo (claro/escuro). */
+.hero-kit-backdrop-fade-top {
+  --hero-kit-fade-end: calc(
+    var(--spacing-hero-kit-fade-strong-end) + var(--spacing-hero-kit-fade-tail)
+  );
   background: linear-gradient(
     to bottom,
-    var(--background) 0%,
-    color-mix(in oklch, var(--background) 90%, transparent) 6%,
-    color-mix(in oklch, var(--background) 72%, transparent) 18%,
-    color-mix(in oklch, var(--background) 50%, transparent) 34%,
-    color-mix(in oklch, var(--background) 30%, transparent) 50%,
-    color-mix(in oklch, var(--background) 14%, transparent) 66%,
-    color-mix(in oklch, var(--background) 5%, transparent) 80%,
-    color-mix(in oklch, var(--background) 1.2%, transparent) 92%,
+    var(--background) 0,
+    var(--background) var(--spacing-hero-kit-fade-strong-end),
+    rgb(from var(--background) r g b / 0%) var(--hero-kit-fade-end),
+    transparent var(--hero-kit-fade-end),
     transparent 100%
   );
 }
 
+@supports not (color: rgb(from white r g b / 50%)) {
+  .hero-kit-backdrop-fade-top {
+    background: linear-gradient(
+      to bottom,
+      var(--background) 0,
+      var(--background) var(--spacing-hero-kit-fade-strong-end),
+      color-mix(in oklch, var(--background) 0%, transparent) var(--hero-kit-fade-end),
+      transparent var(--hero-kit-fade-end),
+      transparent 100%
+    );
+  }
+}
+
+/* Hero — fade inferior: gradiente linear transparente → sólido (espelho do fade superior) */
 .hero-kit-backdrop-fade-bottom {
+  height: var(--spacing-hero-kit-fade-bottom);
   background: linear-gradient(
     to top,
-    var(--background) 0%,
-    color-mix(in oklch, var(--background) 72%, transparent) 6%,
-    color-mix(in oklch, var(--background) 48%, transparent) 14%,
-    color-mix(in oklch, var(--background) 28%, transparent) 24%,
-    color-mix(in oklch, var(--background) 15%, transparent) 35%,
-    color-mix(in oklch, var(--background) 7%, transparent) 47%,
-    color-mix(in oklch, var(--background) 3%, transparent) 59%,
-    color-mix(in oklch, var(--background) 1.2%, transparent) 71%,
-    color-mix(in oklch, var(--background) 0.4%, transparent) 80%,
-    transparent 90%
+    var(--background) 0,
+    rgb(from var(--background) r g b / 0%) 100%,
+    transparent 100%
   );
+}
+
+@supports not (color: rgb(from white r g b / 50%)) {
+  .hero-kit-backdrop-fade-bottom {
+    background: linear-gradient(
+      to top,
+      var(--background) 0,
+      color-mix(in oklch, var(--background) 0%, transparent) 100%,
+      transparent 100%
+    );
+  }
 }
 
 /* Indicador online — pulso leve no hero */
