@@ -378,7 +378,10 @@ function PhonePanelCalloutArrow({ className }: { className?: string }) {
       aria-hidden
       viewBox="0 0 72 56"
       fill="none"
-      className={cn("mx-auto mt-[0.35em] block h-[2.65em] w-[54%] sm:h-[2.85em] sm:w-[52%]", className)}
+      className={cn(
+        "hero-callout-arrow-shadow mx-auto mt-[0.35em] block h-[2.65em] w-[54%] text-white sm:h-[2.85em] sm:w-[52%]",
+        className,
+      )}
     >
       <defs>
         <marker
@@ -462,8 +465,7 @@ export function HeroPhonePanelCallout() {
           className={cn(
             "font-heading font-bold leading-[1.14] tracking-[-0.028em]",
             "text-[clamp(0.7rem,3.05vw,0.84rem)] sm:text-[clamp(0.78rem,0.66rem+0.38vw,1.28rem)]",
-            "text-[#1a1e2c] [text-shadow:0_1px_2px_rgba(26,30,44,0.2),0_5px_18px_rgba(26,30,44,0.16)]",
-            "dark:text-white dark:[text-shadow:0_1px_3px_rgba(0,0,0,0.62),0_8px_28px_rgba(0,0,0,0.42)]",
+            "text-white hero-callout-text-shadow",
           )}
         >
           <span className="block whitespace-nowrap">construa uma vez,</span>
@@ -472,8 +474,6 @@ export function HeroPhonePanelCallout() {
         <PhonePanelCalloutArrow
           className={cn(
             "mt-[0.55em] max-sm:mt-[0.5em] max-sm:!mx-0 max-sm:ml-[12%] max-sm:mr-auto",
-            "text-[#1a1e2c] drop-shadow-[0_4px_12px_rgba(26,30,44,0.1)]",
-            "dark:text-white dark:drop-shadow-[0_4px_16px_rgba(0,0,0,0.45)]",
           )}
         />
       </BlurReveal>
