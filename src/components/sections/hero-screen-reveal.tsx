@@ -12,11 +12,47 @@ import { cn } from "@/lib/utils";
 /** Continua o stagger do hero intro (callout em 0.92). */
 const HERO_EDITOR_REVEAL_DELAY = 1.06;
 
-const HERO_KIT_IMAGE = {
-  src: "/assets/hero-sacred-valley.png",
-  width: 2688,
-  height: 1792,
+const HERO_KIT_IMAGES = {
+  light: {
+    src: "/assets/hero-light.png",
+    width: 2944,
+    height: 1648,
+  },
+  dark: {
+    src: "/assets/hero-dark.png",
+    width: 2944,
+    height: 1648,
+  },
 } as const;
+
+/** Ancora acima do fim do subtítulo — sobe a arte um pouco em relação ao gradiente. */
+const heroKitBackdropFrameClass =
+  "absolute inset-x-0 top-[calc(var(--spacing-hero-kit-fade-strong-end)-clamp(1rem,1.25vw+0.5rem,1.75rem))] w-full overflow-hidden aspect-[2944/1648]";
+
+const heroKitBackdropImageClass =
+  "origin-top scale-[1.13] object-cover object-center";
+
+function HeroKitBackdropImage({ variant }: { variant: "light" | "dark" }) {
+  const image = HERO_KIT_IMAGES[variant];
+
+  return (
+    <div
+      className={cn(
+        heroKitBackdropFrameClass,
+        variant === "light" ? "dark:hidden" : "hidden dark:block",
+      )}
+    >
+      <Image
+        src={image.src}
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+        className={heroKitBackdropImageClass}
+      />
+    </div>
+  );
+}
 
 type HeroScreenRevealProps = {
   children: ReactNode;
@@ -32,14 +68,8 @@ function HeroKitLandscapeBackdrop() {
       aria-hidden
       className="pointer-events-none absolute inset-x-0 bottom-0 top-hero-kit-bg-top z-0 overflow-hidden"
     >
-      <Image
-        src={HERO_KIT_IMAGE.src}
-        alt=""
-        fill
-        priority
-        sizes="100vw"
-        className="object-cover object-[center_35%]"
-      />
+      <HeroKitBackdropImage variant="light" />
+      <HeroKitBackdropImage variant="dark" />
       <div className="hero-kit-backdrop-fade-top absolute inset-0" />
       <div className="hero-kit-backdrop-fade-bottom absolute inset-x-0 bottom-0" />
     </div>
