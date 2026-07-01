@@ -1,54 +1,65 @@
 "use client";
 
-import { Dialog } from "@base-ui/react/dialog";
 import Image from "next/image";
-import { Play, X } from "lucide-react";
-import { useState } from "react";
+import { Pause, Play } from "lucide-react";
+import { useRef, useState } from "react";
 
-import { useMediaQuery } from "@/lib/use-media-query";
 import { cn } from "@/lib/utils";
 
-const DESKTOP_MEDIA = "(min-width: 1024px)";
+const CONTROLS_HIDE_DELAY_MS = 2200;
 
 /** Poster do player — arte escura, substituível a qualquer momento. */
 const VIDEO_POSTER_SRC =
   "https://framerusercontent.com/images/ONQIsStqeLWeki3a2HBJUTgVIII.png?scale-down-to=2048&width=2088&height=1600";
 
-/** Placeholder — troque pelo ID do vídeo final (YouTube ou qualquer link com embed). */
-const YOUTUBE_VIDEO_ID = "aqz-KE-bpKQ";
+const VIDEO_SRC =
+  "https://framerusercontent.com/assets/P3x9QvFGoxzu1AUq58rA1x2gNA.mp4";
 
-function buildYoutubeEmbedSrc(videoId: string) {
-  const params = new URLSearchParams({
-    autoplay: "1",
-    rel: "0",
-    modestbranding: "1",
-    iv_load_policy: "3",
-    fs: "0",
-    playsinline: "1",
-  });
-  return `https://www.youtube-nocookie.com/embed/${videoId}?${params.toString()}`;
-}
-
-function VideoDialogClose({ isDesktop }: { isDesktop: boolean }) {
-  return (
-    <Dialog.Close
-      aria-label="Fechar vídeo"
-      className={cn(
-        "absolute z-10 inline-flex size-9 items-center justify-center rounded-full",
-        "bg-black/60 text-white backdrop-blur-sm transition-colors hover:bg-black/80",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70",
-        /* Desktop: flutua fora do frame do vídeo — evita sobrepor os controles nativos do YouTube */
-        isDesktop ? "-right-3 -top-3" : "right-3 top-3",
-      )}
-    >
-      <X className="size-4" strokeWidth={2} />
-    </Dialog.Close>
-  );
-}
+const toggleButtonIconClass =
+  "flex size-12 items-center justify-center rounded-xl sm:size-14 sm:rounded-2xl bg-white/15 backdrop-blur-md transition-[transform,opacity] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110 motion-safe:group-active:scale-95";
 
 export function VideoShowcase() {
-  const [open, setOpen] = useState(false);
-  const isDesktop = useMediaQuery(DESKTOP_MEDIA);
+  const [started, setStarted] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [controlsVisible, setControlsVisible] = useState(true);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const hideTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  function clearHideTimeout() {
+    if (hideTimeoutRef.current) clearTimeout(hideTimeoutRef.current);
+  }
+
+  function scheduleHide() {
+    clearHideTimeout();
+    hideTimeoutRef.current = setTimeout(
+      () => setControlsVisible(false),
+      CONTROLS_HIDE_DELAY_MS,
+    );
+  }
+
+  function handleMouseMove() {
+    if (!isPlaying) return;
+    setControlsVisible(true);
+    scheduleHide();
+  }
+
+  function handleToggle() {
+    const video = videoRef.current;
+
+    if (!started) {
+      setStarted(true);
+      setIsPlaying(true);
+      scheduleHide();
+      return;
+    }
+
+    if (!video) return;
+    if (video.paused) {
+      video.play();
+    } else {
+      video.pause();
+    }
+  }
 
   return (
     <section
@@ -59,17 +70,32 @@ export function VideoShowcase() {
         "mt-[var(--spacing-features-to-video)] pb-[clamp(3rem,6vw,5rem)]",
       )}
     >
-      <Dialog.Root open={open} onOpenChange={setOpen}>
-        <Dialog.Trigger
-          aria-label="Assistir ao vídeo"
-          className={cn(
-            "group relative aspect-[16/9.3] w-full overflow-hidden",
-            "max-w-[clamp(20rem,78vw,60rem)]",
-            "rounded-[1.25rem] sm:rounded-[2rem]",
-            "bg-[#0b0d13] outline-none",
-            "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-          )}
-        >
+      <div
+        onMouseMove={handleMouseMove}
+        className={cn(
+          "group relative aspect-[16/9.1] w-full max-w-[clamp(22rem,82vw,66rem)] overflow-hidden",
+          "rounded-2xl sm:rounded-[1.75rem]",
+          "bg-[#0b0d13]",
+        )}
+      >
+        {started ? (
+          <video
+            ref={videoRef}
+            src={VIDEO_SRC}
+            autoPlay
+            playsInline
+            onPlay={() => {
+              setIsPlaying(true);
+              scheduleHide();
+            }}
+            onPause={() => {
+              setIsPlaying(false);
+              setControlsVisible(true);
+              clearHideTimeout();
+            }}
+            className="absolute inset-0 size-full object-cover"
+          />
+        ) : (
           <Image
             src={VIDEO_POSTER_SRC}
             alt=""
@@ -78,70 +104,37 @@ export function VideoShowcase() {
             className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
             priority={false}
           />
+        )}
 
-          <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-black/25" />
-
-          <span className="absolute inset-0 flex items-center justify-center">
-            <span
-              className={cn(
-                "inline-flex items-center gap-2.5 rounded-full pl-3 pr-5 py-2.5 sm:gap-3 sm:pl-3.5 sm:pr-6 sm:py-3",
-                "bg-white/15 backdrop-blur-md ring-1 ring-white/40",
-                "shadow-[0_8px_28px_-6px_rgba(0,0,0,0.5)]",
-                "transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
-                "group-hover:scale-105 motion-safe:group-active:scale-95",
-              )}
-            >
-              <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-white sm:size-10">
-                <Play
-                  className="size-3.5 translate-x-0.5 fill-[#0b0d13] text-[#0b0d13] sm:size-4"
-                  strokeWidth={0}
-                />
-              </span>
-              <span className="font-heading text-sm font-semibold text-white sm:text-base">
-                Veja o Kasy em ação
-              </span>
-            </span>
-          </span>
-        </Dialog.Trigger>
-
-        <Dialog.Portal>
-          <Dialog.Backdrop
+        <button
+          type="button"
+          aria-label={started && isPlaying ? "Pausar vídeo" : "Reproduzir vídeo"}
+          onClick={handleToggle}
+          className={cn(
+            "absolute inset-0 flex size-full items-center justify-center outline-none",
+            "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+          )}
+        >
+          <span
             className={cn(
-              "fixed inset-0 z-50 bg-black/35 backdrop-blur-xl",
-              "transition-opacity duration-300",
-              "data-[starting-style]:opacity-0 data-[ending-style]:opacity-0",
-            )}
-          />
-          <Dialog.Popup
-            className={cn(
-              "fixed z-50 bg-black outline-none",
-              "transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
-              "data-[starting-style]:opacity-0 data-[ending-style]:opacity-0",
-              isDesktop
-                ? cn(
-                    "left-1/2 top-1/2 w-[min(92vw,76rem)] -translate-x-1/2 -translate-y-1/2",
-                    "aspect-video rounded-2xl shadow-2xl",
-                    "data-[starting-style]:scale-95 data-[ending-style]:scale-95",
-                  )
-                : "inset-0 flex items-center",
+              toggleButtonIconClass,
+              started && isPlaying && !controlsVisible ? "opacity-0" : "opacity-100",
             )}
           >
-            <VideoDialogClose isDesktop={isDesktop} />
-            {open ? (
-              <iframe
-                key={YOUTUBE_VIDEO_ID}
-                src={buildYoutubeEmbedSrc(YOUTUBE_VIDEO_ID)}
-                title="Vídeo de demonstração do Kasy"
-                allow="autoplay; encrypted-media; picture-in-picture"
-                referrerPolicy="strict-origin-when-cross-origin"
-                className={cn(
-                  isDesktop ? "size-full" : "aspect-video w-full",
-                )}
+            {started && isPlaying ? (
+              <Pause
+                className="size-6 text-white sm:size-7"
+                strokeWidth={1.75}
               />
-            ) : null}
-          </Dialog.Popup>
-        </Dialog.Portal>
-      </Dialog.Root>
+            ) : (
+              <Play
+                className="size-6 translate-x-0.5 text-white sm:size-7"
+                strokeWidth={1.75}
+              />
+            )}
+          </span>
+        </button>
+      </div>
     </section>
   );
 }
