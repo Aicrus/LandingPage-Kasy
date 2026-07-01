@@ -79,12 +79,6 @@ export const scaleIn: Variants = {
   visible: { opacity: 1, scale: 1 },
 };
 
-/** Cresce vindo de baixo — usado em seções que "emergem" no scroll (ex.: vídeo abaixo do editor) */
-export const growReveal: Variants = {
-  hidden: { opacity: 0, y: 56, scale: 0.92 },
-  visible: { opacity: 1, y: 0, scale: 1 },
-};
-
 export const staggerContainer: Variants = {
   hidden: { opacity: 0 },
   visible: {

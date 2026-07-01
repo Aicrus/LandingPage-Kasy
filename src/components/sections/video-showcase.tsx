@@ -3,8 +3,12 @@
 import { Pause, Play } from "lucide-react";
 import { useRef, useState } from "react";
 
-import { Reveal } from "@/components/motion";
-import { growReveal } from "@/lib/motion";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 const CONTROLS_HIDE_DELAY_MS = 2200;
@@ -23,6 +27,20 @@ export function VideoShowcase() {
   const [playing, setPlaying] = useState(false);
   const [controlsVisible, setControlsVisible] = useState(true);
   const hideTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const reducedMotion = useReducedMotion();
+
+  // Contínuo — amarrado direto na posição de scroll da seção, sem travar a rolagem.
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "center center"],
+  });
+  const width = useTransform(scrollYProgress, [0, 1], ["70vw", "97vw"]);
+  const scale = useTransform(scrollYProgress, [0, 1], [0.82, 1]);
+  const groupY = useTransform(scrollYProgress, [0, 1], [90, 0]);
+  const groupOpacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
+  // A distância até o texto encolhe conforme o vídeo cresce, até ele cobrir o texto.
+  const videoOverlapMarginTop = useTransform(scrollYProgress, [0, 1], [44, -160]);
 
   function clearHideTimeout() {
     if (hideTimeoutRef.current) clearTimeout(hideTimeoutRef.current);
@@ -56,29 +74,43 @@ export function VideoShowcase() {
   }
 
   return (
-    <section
+    <div
+      ref={sectionRef}
       className={cn(
-        "mx-auto flex w-full flex-col items-center",
-        "max-w-[min(96vw,76rem)]",
-        "px-[clamp(0.75rem,2.5vw,2rem)] max-sm:px-[clamp(1rem,3.25vw,2rem)]",
-        "mt-[var(--spacing-features-to-video)] pb-[clamp(3rem,6vw,5rem)]",
+        "relative flex w-full flex-col items-center overflow-hidden",
+        "mt-[clamp(0.5rem,1.5vw,1.5rem)] pb-[clamp(4rem,8vw,7rem)]",
       )}
     >
-      <Reveal
-        variants={growReveal}
-        transition={{ duration: 0.85 }}
-        className={cn(
-          "w-full max-w-[clamp(22rem,82vw,66rem)]",
-          "rounded-[1.3rem] p-0.5 sm:rounded-[2rem] sm:p-1",
-          "border border-[0.5px] border-solid border-black/[0.14] bg-background shadow-none",
-          "dark:border-white/[0.16]",
-        )}
+      <motion.div
+        style={
+          reducedMotion
+            ? undefined
+            : { y: groupY, opacity: groupOpacity }
+        }
+        className="flex w-full flex-col items-center"
       >
-        <div
-          onMouseMove={handleMouseMove}
+        <p
+          aria-hidden
           className={cn(
-            "group relative aspect-[16/9.1] w-full overflow-hidden",
-            "rounded-2xl sm:rounded-[1.75rem]",
+            "pointer-events-none relative z-0 select-none whitespace-nowrap uppercase",
+            "bg-gradient-to-r from-primary to-primary/25 bg-clip-text text-transparent",
+            "font-[family-name:var(--font-syne)] font-bold leading-none tracking-tight",
+            "text-[clamp(2.75rem,10vw,8rem)]",
+          )}
+        >
+          Velocidade
+        </p>
+
+        <motion.div
+          onMouseMove={handleMouseMove}
+          style={
+            reducedMotion
+              ? { width: "min(94vw, 66rem)" }
+              : { width, scale, marginTop: videoOverlapMarginTop }
+          }
+          className={cn(
+            "group relative z-10 aspect-[16/8.2] overflow-hidden",
+            "rounded-[1.5rem] sm:rounded-[2rem]",
             "bg-[#0b0d13]",
           )}
         >
@@ -131,8 +163,8 @@ export function VideoShowcase() {
               )}
             </span>
           </button>
-        </div>
-      </Reveal>
-    </section>
+        </motion.div>
+      </motion.div>
+    </div>
   );
 }

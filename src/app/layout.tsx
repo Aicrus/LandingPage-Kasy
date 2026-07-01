@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono, Nunito } from "next/font/google";
+import { Inter, JetBrains_Mono, Nunito, Syne } from "next/font/google";
 import localFont from "next/font/local";
 import { MotionProvider } from "@/components/motion";
 import { SiteHeader } from "@/components/site-header";
@@ -45,6 +45,14 @@ const jetbrainsMono = JetBrains_Mono({
   preload: false,
 });
 
+// Syne — texto grande de fundo da seção de vídeo ("Velocidade").
+const syne = Syne({
+  variable: "--font-syne",
+  subsets: ["latin"],
+  display: "swap",
+  preload: false,
+});
+
 export const metadata: Metadata = {
   title: "Landing Page",
   description: "Landing page em construção",
@@ -58,7 +66,7 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
-      className={`${inter.variable} ${satoshi.variable} ${nunito.variable} ${jetbrainsMono.variable} ${cursorGothic.variable} h-full antialiased`}
+      className={`${inter.variable} ${satoshi.variable} ${nunito.variable} ${jetbrainsMono.variable} ${cursorGothic.variable} ${syne.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <head>

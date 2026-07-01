@@ -13,6 +13,7 @@
   --font-display: var(--font-display); /* Satoshi */
   --font-rounded: var(--font-rounded); /* Nunito */
   --font-cursor-gothic: var(--font-cursor-gothic); /* Cursor Gothic — mock IDE */
+  --font-syne: var(--font-syne); /* Syne — texto grande de fundo (vídeo) */
   --font-heading: var(--font-display); /* títulos = Satoshi */
 
   /* Display — hero e títulos.
