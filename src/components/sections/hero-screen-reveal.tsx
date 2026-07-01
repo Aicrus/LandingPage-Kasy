@@ -47,7 +47,8 @@ function HeroKitBackdropImage({ variant }: { variant: "light" | "dark" }) {
         alt=""
         fill
         priority
-        sizes="100vw"
+        /* Frame é 100vw, mas o scale-[1.13]/scale-[1.2] (mobile) amplia o render visual — sizes reflete isso */
+        sizes="(max-width: 639px) 120vw, 113vw"
         className={heroKitBackdropImageClass}
       />
       <div className="hero-kit-backdrop-fade-bottom absolute inset-x-0 bottom-0" />

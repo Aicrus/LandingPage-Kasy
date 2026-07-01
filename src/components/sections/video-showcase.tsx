@@ -119,7 +119,7 @@ export function VideoShowcase() {
               "data-[starting-style]:opacity-0 data-[ending-style]:opacity-0",
               isDesktop
                 ? cn(
-                    "left-1/2 top-1/2 w-[min(85vw,68rem)] -translate-x-1/2 -translate-y-1/2",
+                    "left-1/2 top-1/2 w-[min(92vw,76rem)] -translate-x-1/2 -translate-y-1/2",
                     "aspect-video rounded-2xl shadow-2xl",
                     "data-[starting-style]:scale-95 data-[ending-style]:scale-95",
                   )
