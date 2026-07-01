@@ -19,10 +19,8 @@ const toggleButtonIconClass =
   "flex size-12 items-center justify-center rounded-xl sm:size-14 sm:rounded-2xl bg-white/15 backdrop-blur-md transition-[transform,opacity] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110 motion-safe:group-active:scale-95";
 
 export function VideoShowcase() {
-  const [started, setStarted] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [playing, setPlaying] = useState(false);
   const [controlsVisible, setControlsVisible] = useState(true);
-  const videoRef = useRef<HTMLVideoElement>(null);
   const hideTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   function clearHideTimeout() {
@@ -38,26 +36,21 @@ export function VideoShowcase() {
   }
 
   function handleMouseMove() {
-    if (!isPlaying) return;
+    if (!playing) return;
     setControlsVisible(true);
     scheduleHide();
   }
 
   function handleToggle() {
-    const video = videoRef.current;
-
-    if (!started) {
-      setStarted(true);
-      setIsPlaying(true);
-      scheduleHide();
-      return;
-    }
-
-    if (!video) return;
-    if (video.paused) {
-      video.play();
+    if (playing) {
+      // Pausar volta para a imagem de poster, em vez de congelar num frame do vídeo.
+      setPlaying(false);
+      setControlsVisible(true);
+      clearHideTimeout();
     } else {
-      video.pause();
+      setPlaying(true);
+      setControlsVisible(true);
+      scheduleHide();
     }
   }
 
@@ -78,18 +71,14 @@ export function VideoShowcase() {
           "bg-[#0b0d13]",
         )}
       >
-        {started ? (
+        {playing ? (
           <video
-            ref={videoRef}
             src={VIDEO_SRC}
             autoPlay
             playsInline
-            onPlay={() => {
-              setIsPlaying(true);
-              scheduleHide();
-            }}
-            onPause={() => {
-              setIsPlaying(false);
+            onPlay={scheduleHide}
+            onEnded={() => {
+              setPlaying(false);
               setControlsVisible(true);
               clearHideTimeout();
             }}
@@ -108,7 +97,7 @@ export function VideoShowcase() {
 
         <button
           type="button"
-          aria-label={started && isPlaying ? "Pausar vídeo" : "Reproduzir vídeo"}
+          aria-label={playing ? "Pausar vídeo" : "Reproduzir vídeo"}
           onClick={handleToggle}
           className={cn(
             "absolute inset-0 flex size-full items-center justify-center outline-none",
@@ -118,14 +107,11 @@ export function VideoShowcase() {
           <span
             className={cn(
               toggleButtonIconClass,
-              started && isPlaying && !controlsVisible ? "opacity-0" : "opacity-100",
+              playing && !controlsVisible ? "opacity-0" : "opacity-100",
             )}
           >
-            {started && isPlaying ? (
-              <Pause
-                className="size-6 text-white sm:size-7"
-                strokeWidth={1.75}
-              />
+            {playing ? (
+              <Pause className="size-6 text-white sm:size-7" strokeWidth={1.75} />
             ) : (
               <Play
                 className="size-6 translate-x-0.5 text-white sm:size-7"
