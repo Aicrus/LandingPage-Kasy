@@ -27,10 +27,10 @@ const HERO_KIT_IMAGES = {
 
 /** Ancora acima do fim do subtítulo — sobe a arte um pouco em relação ao gradiente. */
 const heroKitBackdropFrameClass =
-  "absolute inset-x-0 top-[calc(var(--spacing-hero-kit-fade-strong-end)-clamp(1rem,1.25vw+0.5rem,1.75rem))] w-full overflow-hidden aspect-[2944/1648] max-sm:aspect-auto max-sm:h-[clamp(19rem,82vw,24rem)]";
+  "absolute inset-x-0 top-[calc(var(--spacing-hero-kit-fade-strong-end)-clamp(1rem,1.25vw+0.5rem,1.75rem))] w-full overflow-hidden aspect-[2944/1648] max-sm:aspect-auto max-sm:top-[calc(var(--spacing-hero-kit-fade-strong-end)-clamp(2rem,3vw+1.35rem,3.75rem))] max-sm:h-[clamp(20rem,88vw,25rem)]";
 
 const heroKitBackdropImageClass =
-  "origin-top scale-[1.13] object-cover object-center max-sm:scale-[1.32] max-sm:object-[58%_50%]";
+  "origin-top scale-[1.13] object-cover object-center max-sm:scale-[1.2] max-sm:object-[90%_50%]";
 
 function HeroKitBackdropImage({ variant }: { variant: "light" | "dark" }) {
   const image = HERO_KIT_IMAGES[variant];
