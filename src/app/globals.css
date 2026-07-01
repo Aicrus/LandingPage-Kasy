@@ -113,6 +113,26 @@
   /* Hero — offset do topo (fluido, rem/vw — sem vh para não saltar no scroll mobile) */
   --spacing-hero-inset-top: clamp(2.75rem, 2rem + 2vw, 4.25rem);
   --spacing-hero-title-to-lead: clamp(1.375rem, 1.75vw + 0.5rem, 2rem);
+  /* Fundo ilustrado — emerge na metade do título; fades longos e suaves */
+  --spacing-hero-kit-bg-lift: clamp(1.1rem, 0.9rem + 0.6vw, 1.85rem);
+  --spacing-hero-kit-bg-top: calc(
+    var(--spacing-hero-inset-top) + var(--header-height-mobile) -
+      var(--spacing-hero-kit-bg-lift)
+  );
+  --spacing-hero-kit-fade-strong-end: calc(
+    var(--spacing-hero-kit-bg-lift) + var(--spacing-hero-title-to-lead) +
+      calc(
+        var(--text-fluid-subtitle) * var(--text-fluid-subtitle--line-height) *
+          var(--hero-kit-fade-first-block-lines)
+      )
+  );
+  --spacing-hero-kit-fade-tail: clamp(5rem, 10.5vw + 2.75rem, 10rem);
+  --spacing-hero-kit-fade-top: calc(
+    var(--spacing-hero-kit-fade-strong-end) + var(--spacing-hero-kit-fade-tail)
+  );
+  --hero-kit-fade-first-block-lines: 2.45;
+  --spacing-hero-kit-fade-bottom: clamp(6.5rem, 13vw + 2rem, 13.5rem);
+  --spacing-hero-kit-image-bleed: 6%;
   /* Respiro entre o pill “+70 usuários” e o mock do editor */
   --spacing-hero-to-mock: clamp(3.75rem, 7.5vw + 0.75rem, 6.75rem);
   /* Mobile (<640px): mais respiro antes do editor full-bleed */
@@ -168,6 +188,15 @@
   :root {
     --spacing-hero-to-mock: clamp(4.5rem, 8.5vw + 1rem, 8rem);
     --spacing-hero-mock-fade-height: clamp(2.35rem, 4.25vw, 5.25rem);
+    --spacing-hero-kit-bg-top: calc(
+      var(--spacing-hero-inset-top) - var(--spacing-hero-kit-bg-lift)
+    );
+  }
+}
+
+@media (min-width: 768px) {
+  :root {
+    --hero-kit-fade-first-block-lines: 1.12;
   }
 }
 
@@ -380,6 +409,45 @@
       background-color: rgb(from var(--background) r g b / 92%);
     }
   }
+}
+
+/* Hero — fades do fundo ilustrado (cor = --background, claro/escuro automático) */
+.hero-kit-backdrop-fade-solid {
+  height: var(--spacing-hero-kit-fade-strong-end);
+  background: var(--background);
+}
+
+.hero-kit-backdrop-fade-tail {
+  top: var(--spacing-hero-kit-fade-strong-end);
+  height: var(--spacing-hero-kit-fade-tail);
+  background: linear-gradient(
+    to bottom,
+    var(--background) 0%,
+    color-mix(in oklch, var(--background) 90%, transparent) 6%,
+    color-mix(in oklch, var(--background) 72%, transparent) 18%,
+    color-mix(in oklch, var(--background) 50%, transparent) 34%,
+    color-mix(in oklch, var(--background) 30%, transparent) 50%,
+    color-mix(in oklch, var(--background) 14%, transparent) 66%,
+    color-mix(in oklch, var(--background) 5%, transparent) 80%,
+    color-mix(in oklch, var(--background) 1.2%, transparent) 92%,
+    transparent 100%
+  );
+}
+
+.hero-kit-backdrop-fade-bottom {
+  background: linear-gradient(
+    to top,
+    var(--background) 0%,
+    color-mix(in oklch, var(--background) 72%, transparent) 6%,
+    color-mix(in oklch, var(--background) 48%, transparent) 14%,
+    color-mix(in oklch, var(--background) 28%, transparent) 24%,
+    color-mix(in oklch, var(--background) 15%, transparent) 35%,
+    color-mix(in oklch, var(--background) 7%, transparent) 47%,
+    color-mix(in oklch, var(--background) 3%, transparent) 59%,
+    color-mix(in oklch, var(--background) 1.2%, transparent) 71%,
+    color-mix(in oklch, var(--background) 0.4%, transparent) 80%,
+    transparent 90%
+  );
 }
 
 /* Indicador online — pulso leve no hero */
