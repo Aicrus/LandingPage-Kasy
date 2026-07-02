@@ -3,6 +3,7 @@ import {
   HeroIntro,
   HeroScreenReveal,
   IntegrationsShowcase,
+  TimeSavingsTimeline,
   VideoShowcase,
 } from "@/components/sections";
 
@@ -15,6 +16,7 @@ export default function Home() {
       <VideoShowcase />
       <FeatureHoverCards />
       <IntegrationsShowcase />
+      <TimeSavingsTimeline />
     </main>
   );
 }

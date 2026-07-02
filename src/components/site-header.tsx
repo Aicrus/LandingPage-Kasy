@@ -19,16 +19,16 @@ import {
 import { cn } from "@/lib/utils";
 import { surfaceBorderClass } from "@/lib/surface-border";
 
-const SCROLL_RANGE = 115;
+const COLLAPSE_AT = 24;
 const MOBILE_MEDIA = "(max-width: 639px)";
 
 // Ao subir (voltar ao topo) o scroll costuma parar de repente, então a mola
 // segue "acabando" sozinha por baixo — deixamos essa volta mais rápida para
 // não sobrar cauda de animação depois que o usuário já parou de rolar.
-const PROGRESS_SPRING_DOWN = { stiffness: 110, damping: 20, mass: 0.9 };
-const PROGRESS_SPRING_UP = { stiffness: 260, damping: 28, mass: 0.75 };
-const GLASS_SPRING_DOWN = { stiffness: 100, damping: 22, mass: 0.9 };
-const GLASS_SPRING_UP = { stiffness: 240, damping: 28, mass: 0.75 };
+const PROGRESS_SPRING_DOWN = { stiffness: 190, damping: 24, mass: 0.8 };
+const PROGRESS_SPRING_UP = { stiffness: 370, damping: 31, mass: 0.65 };
+const GLASS_SPRING_DOWN = { stiffness: 165, damping: 27, mass: 0.8 };
+const GLASS_SPRING_UP = { stiffness: 340, damping: 31, mass: 0.65 };
 
 const headerShellBorderClass = cn("border-[0.5px]", surfaceBorderClass);
 
@@ -171,31 +171,38 @@ function SiteHeaderMotion({ openWidth }: { openWidth: number }) {
   const { scrollY } = useScroll();
   const { resolvedTheme } = useTheme();
 
-  const [scrollingUp, setScrollingUp] = useState(false);
+  // Estado por gatilho (não posição contínua): fecha ao passar do limiar
+  // rolando pra baixo, mas reabre assim que o usuário rola pra cima — não
+  // precisa voltar ao topo da página pra ver o header aberto de novo.
+  const [isCompact, setIsCompact] = useState(false);
   const lastScrollY = useRef(0);
+  const target = useMotionValue(0);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = lastScrollY.current;
     lastScrollY.current = latest;
     if (latest === previous) return;
     const goingUp = latest < previous;
-    setScrollingUp((current) => (current === goingUp ? current : goingUp));
+
+    setIsCompact((current) => {
+      if (latest <= COLLAPSE_AT) return false;
+      if (goingUp) return false;
+      return current || latest > COLLAPSE_AT;
+    });
   });
 
-  const rawProgress = useTransform(scrollY, [0, SCROLL_RANGE], [0, 1], {
-    clamp: true,
-  });
+  useEffect(() => {
+    target.set(isCompact ? 1 : 0);
+  }, [isCompact, target]);
+
   const progress = useSpring(
-    rawProgress,
-    scrollingUp ? PROGRESS_SPRING_UP : PROGRESS_SPRING_DOWN,
+    target,
+    isCompact ? PROGRESS_SPRING_DOWN : PROGRESS_SPRING_UP,
   );
 
-  const rawGlass = useTransform(scrollY, [24, SCROLL_RANGE], [0, 1], {
-    clamp: true,
-  });
   const glass = useSpring(
-    rawGlass,
-    scrollingUp ? GLASS_SPRING_UP : GLASS_SPRING_DOWN,
+    target,
+    isCompact ? GLASS_SPRING_DOWN : GLASS_SPRING_UP,
   );
 
   // Lido do CSS uma vez por tema (não a cada frame) — --header-blur-fill só
