@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useTheme } from "next-themes";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { KasyLogo } from "@/components/kasy-logo";
 import { Button } from "@/components/ui/button";
@@ -171,24 +171,14 @@ function SiteHeaderMotion({ openWidth }: { openWidth: number }) {
   const { scrollY } = useScroll();
   const { resolvedTheme } = useTheme();
 
-  // Estado por gatilho (não posição contínua): fecha ao passar do limiar
-  // rolando pra baixo, mas reabre assim que o usuário rola pra cima — não
-  // precisa voltar ao topo da página pra ver o header aberto de novo.
+  // Estado por posição, com um único limiar nos dois sentidos: passou do
+  // limiar → compacto, e continua compacto mesmo com pequenas rolagens pra
+  // cima no meio da página. Só reabre ao voltar pra perto do topo de novo.
   const [isCompact, setIsCompact] = useState(false);
-  const lastScrollY = useRef(0);
   const target = useMotionValue(0);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    const previous = lastScrollY.current;
-    lastScrollY.current = latest;
-    if (latest === previous) return;
-    const goingUp = latest < previous;
-
-    setIsCompact((current) => {
-      if (latest <= COLLAPSE_AT) return false;
-      if (goingUp) return false;
-      return current || latest > COLLAPSE_AT;
-    });
+    setIsCompact(latest > COLLAPSE_AT);
   });
 
   useEffect(() => {
