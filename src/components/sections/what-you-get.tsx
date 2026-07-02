@@ -2,7 +2,6 @@
 
 import {
   Bell,
-  Check,
   CreditCard,
   KeyRound,
   LayoutGrid,
@@ -406,9 +405,6 @@ function TabPanelCard({
   tab: FeatureTab;
   fillHeight?: boolean;
 }) {
-  const tint = (opacity: number) =>
-    `color-mix(in srgb, ${tab.accent} ${opacity}%, transparent)`;
-
   return (
     <div
       className={cn(
@@ -418,34 +414,26 @@ function TabPanelCard({
       )}
     >
       <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between sm:gap-4">
-        <div className="flex items-start gap-3.5">
-          <span
-            className="flex size-11 shrink-0 items-center justify-center rounded-xl"
-            style={{ backgroundColor: tint(15), color: tab.accent }}
+        <div className="min-w-0">
+          <TabTagline copy={tab.tagline} />
+          <div
+            className={cn(
+              "mt-2.5 flex flex-nowrap items-center gap-1.5 overflow-x-auto",
+              "max-sm:-mx-0.5 max-sm:px-0.5",
+              "[scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden",
+            )}
           >
-            <tab.icon className="size-5" strokeWidth={1.75} />
-          </span>
-          <div className="min-w-0">
-            <TabTagline copy={tab.tagline} />
-            <div
-              className={cn(
-                "mt-2.5 flex flex-nowrap items-center gap-1.5 overflow-x-auto",
-                "max-sm:-mx-0.5 max-sm:px-0.5",
-                "[scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden",
-              )}
-            >
-              {tab.providers.map((name) => (
-                <motion.span
-                  key={name}
-                  whileHover={{ y: -2 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                  className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full bg-muted/70 py-0.5 pr-2.5 pl-0.5 text-[0.6875rem] font-medium text-muted-foreground"
-                >
-                  <BrandTile name={name} size="size-5" iconSize={11} />
-                  {name}
-                </motion.span>
-              ))}
-            </div>
+            {tab.providers.map((name) => (
+              <motion.span
+                key={name}
+                whileHover={{ y: -2 }}
+                transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full bg-muted/70 py-0.5 pr-2.5 pl-0.5 text-[0.6875rem] font-medium text-muted-foreground"
+              >
+                <BrandTile name={name} size="size-5" iconSize={11} />
+                {name}
+              </motion.span>
+            ))}
           </div>
         </div>
         {tab.saved ? (
@@ -482,11 +470,9 @@ function TabPanelCard({
                 className="group -mx-2 flex items-start gap-3 rounded-lg border-b border-border/50 px-2 py-3 text-sm text-foreground/90 transition-colors duration-200 last:border-b-0 hover:bg-muted/50"
               >
                 <span
-                  className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full transition-transform duration-200 group-hover:scale-110"
-                  style={{ backgroundColor: tint(16), color: tab.accent }}
-                >
-                  <Check className="size-2.5" strokeWidth={3} />
-                </span>
+                  aria-hidden
+                  className="mt-[0.6em] size-1.5 shrink-0 rounded-full bg-foreground/30 transition-colors duration-200 group-hover:bg-foreground/50"
+                />
                 <FeatureBulletText bullet={bullet} />
               </li>
             ))}
