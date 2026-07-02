@@ -1,125 +1,32 @@
 "use client";
 
+import { Check } from "lucide-react";
 import { useRef } from "react";
 
-import { Reveal } from "@/components/motion/reveal";
 import {
-  blurIn,
-  fadeInUp,
+  blurRevealTransition,
   motion,
-  staggerContainer,
+  smoothTransition,
   useInView,
   useReducedMotion,
 } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
-const DAY_COUNT = 7;
-const TRACK_WIDTH = 248;
-const TRACK_HEIGHT = 20;
-const TRACK_INSET = 12;
-const STEP = (TRACK_WIDTH - TRACK_INSET * 2) / (DAY_COUNT - 1);
-const CY = TRACK_HEIGHT / 2;
-const LAST_CX = TRACK_INSET + STEP * (DAY_COUNT - 1);
-
-/**
- * Trilha de 7 pontos que "resolve" no último — versão vetorial e literal
- * do "sete dias" do título. Dispara sozinha ao entrar em viewport, para
- * não depender da orquestração de stagger do Reveal ao redor.
- */
-function DayProgress() {
-  const ref = useRef<HTMLDivElement>(null);
-  const reducedMotion = useReducedMotion();
-  const isInView = useInView(ref, { once: true, margin: "-80px 0px" });
-  const active = reducedMotion || isInView;
-
-  return (
-    <div ref={ref} aria-hidden className="flex items-center justify-center">
-      <svg
-        width={TRACK_WIDTH}
-        height={TRACK_HEIGHT}
-        viewBox={`0 0 ${TRACK_WIDTH} ${TRACK_HEIGHT}`}
-        fill="none"
-        className="overflow-visible"
-      >
-        <motion.line
-          x1={TRACK_INSET}
-          y1={CY}
-          x2={TRACK_WIDTH - TRACK_INSET}
-          y2={CY}
-          stroke="currentColor"
-          strokeWidth={1.5}
-          strokeLinecap="round"
-          className="text-border"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={
-            active
-              ? { pathLength: 1, opacity: 1 }
-              : { pathLength: 0, opacity: 0 }
-          }
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.05 }}
-        />
-
-        {Array.from({ length: DAY_COUNT - 1 }).map((_, index) => (
-          <motion.circle
-            key={index}
-            cx={TRACK_INSET + STEP * index}
-            cy={CY}
-            r={2.5}
-            className="fill-border"
-            initial={{ scale: 0 }}
-            animate={active ? { scale: 1 } : { scale: 0 }}
-            transition={{
-              type: "spring",
-              stiffness: 420,
-              damping: 22,
-              delay: 0.15 + index * 0.07,
-            }}
-          />
-        ))}
-
-        <motion.circle
-          cx={LAST_CX}
-          cy={CY}
-          r={5}
-          className="fill-[#16a34a] dark:fill-[#4ade80]"
-          initial={{ scale: 0 }}
-          animate={active ? { scale: 1 } : { scale: 0 }}
-          transition={{
-            type: "spring",
-            stiffness: 420,
-            damping: 20,
-            delay: 0.15 + (DAY_COUNT - 1) * 0.07,
-          }}
-        />
-        <motion.path
-          d={`M ${LAST_CX - 2} ${CY} L ${LAST_CX - 0.4} ${CY + 1.7} L ${LAST_CX + 2.3} ${CY - 2.1}`}
-          className="stroke-background"
-          strokeWidth={1.3}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={
-            active
-              ? { pathLength: 1, opacity: 1 }
-              : { pathLength: 0, opacity: 0 }
-          }
-          transition={{
-            duration: 0.3,
-            ease: "easeOut",
-            delay: 0.15 + (DAY_COUNT - 1) * 0.07 + 0.25,
-          }}
-        />
-      </svg>
-    </div>
-  );
-}
-
 /**
  * Respiro proposital entre a economia (números) e o catálogo de recursos
- * (detalhe). Tipografia grande + uma trilha vetorial de 7 pontos — sem
- * card, sem lista, sem firula.
+ * (detalhe): um "7" gigante e translúcido no fundo dá profundidade, o
+ * título entra com blur em cascata, e um selo de aprovação bate por cima
+ * do "zero." como golpe final — sem card, sem lista, sem firula.
  */
 export function KasyPunchline() {
+  const ref = useRef<HTMLDivElement>(null);
+  const reducedMotion = useReducedMotion();
+  const isInView = useInView(ref, { once: true, margin: "-100px 0px" });
+  const active = reducedMotion || isInView;
+
+  const lineTransition = (delay: number) =>
+    reducedMotion ? smoothTransition : { ...blurRevealTransition, delay };
+
   return (
     <section
       className={cn(
@@ -138,40 +45,118 @@ export function KasyPunchline() {
         )}
       />
 
-      <Reveal
-        variants={staggerContainer}
-        className="flex flex-col items-center gap-5 py-[clamp(1rem,4vw,2.5rem)] text-center sm:gap-6"
+      <div
+        ref={ref}
+        className="relative flex flex-col items-center gap-4 py-[clamp(1rem,4vw,2.5rem)] text-center sm:gap-5"
       >
-        <motion.div variants={fadeInUp}>
-          <DayProgress />
-        </motion.div>
-
-        <p
+        <motion.span
+          aria-hidden
+          initial={{ opacity: 0, scale: 0.8, rotate: -14 }}
+          animate={
+            active
+              ? { opacity: 1, scale: 1, rotate: -8 }
+              : { opacity: 0, scale: 0.8, rotate: -14 }
+          }
+          transition={
+            reducedMotion
+              ? smoothTransition
+              : { duration: 1.2, ease: [0.16, 1, 0.3, 1] }
+          }
           className={cn(
-            "text-balance font-heading font-bold text-foreground",
-            "text-[clamp(2.5rem,1.4rem+5.5vw,5.5rem)]",
-            "leading-[1.02] tracking-[-0.03em]",
+            "pointer-events-none absolute left-1/2 top-[-18%] -z-10 -translate-x-1/2 select-none",
+            "font-heading text-foreground/5 dark:text-foreground/8",
+            "text-[clamp(16rem,38vw,32rem)] leading-none",
           )}
         >
-          <motion.span variants={blurIn} className="block">
-            Sete dias.
-          </motion.span>
-          <motion.span
-            variants={blurIn}
-            className="block text-[#16a34a] dark:text-[#4ade80]"
+          7
+        </motion.span>
+
+        <div className="relative">
+          <p
+            className={cn(
+              "text-balance font-heading font-bold text-foreground",
+              "text-[clamp(2.5rem,1.4rem+5.5vw,5.5rem)]",
+              "leading-[1.02] tracking-[-0.03em]",
+            )}
           >
-            Dor de cabeça zero.
-          </motion.span>
-        </p>
+            <motion.span
+              className="block"
+              initial={{ opacity: 0, y: 22, filter: "blur(14px)" }}
+              animate={
+                active
+                  ? { opacity: 1, y: 0, filter: "blur(0px)" }
+                  : { opacity: 0, y: 22, filter: "blur(14px)" }
+              }
+              transition={lineTransition(0.05)}
+            >
+              Sete dias.
+            </motion.span>
+            <motion.span
+              className="block text-[#16a34a] dark:text-[#4ade80]"
+              initial={{ opacity: 0, y: 22, filter: "blur(14px)" }}
+              animate={
+                active
+                  ? { opacity: 1, y: 0, filter: "blur(0px)" }
+                  : { opacity: 0, y: 22, filter: "blur(14px)" }
+              }
+              transition={lineTransition(0.2)}
+            >
+              Dor de cabeça zero.
+            </motion.span>
+          </p>
+
+          <motion.div
+            aria-hidden
+            initial={{ opacity: 0, scale: 2.4, rotate: 18 }}
+            animate={
+              active
+                ? { opacity: 1, scale: 1, rotate: -10 }
+                : { opacity: 0, scale: 2.4, rotate: 18 }
+            }
+            transition={
+              reducedMotion
+                ? smoothTransition
+                : {
+                    type: "spring",
+                    stiffness: 260,
+                    damping: 14,
+                    delay: 0.95,
+                  }
+            }
+            className={cn(
+              "absolute -right-3 bottom-1 sm:-right-6 sm:bottom-2",
+              "flex size-[clamp(2.5rem,1.8rem+2.8vw,4rem)] items-center justify-center rounded-full",
+              "bg-[#16a34a] text-white shadow-[0_6px_18px_-4px_rgba(22,163,74,0.55)]",
+              "dark:bg-[#4ade80] dark:text-[#052e12] dark:shadow-[0_6px_18px_-4px_rgba(74,222,128,0.4)]",
+            )}
+          >
+            <motion.span
+              aria-hidden
+              initial={{ opacity: 0, scale: 1 }}
+              animate={
+                active
+                  ? { opacity: [0.55, 0], scale: [1, 2.2] }
+                  : { opacity: 0, scale: 1 }
+              }
+              transition={{ duration: 0.7, delay: 1.05, ease: "easeOut" }}
+              className="absolute inset-0 rounded-full bg-[#16a34a] dark:bg-[#4ade80]"
+            />
+            <Check className="relative size-[55%]" strokeWidth={3} />
+          </motion.div>
+        </div>
 
         <motion.p
-          variants={fadeInUp}
+          initial={{ opacity: 0, y: 14 }}
+          animate={active ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 }}
+          transition={
+            reducedMotion ? smoothTransition : { ...smoothTransition, delay: 1.15 }
+          }
           className="max-w-fluid-subtitle text-pretty font-rounded text-fluid-subtitle text-muted-foreground"
         >
           Do primeiro commit à App Store, sem os dois meses de fricção no
           meio.
         </motion.p>
-      </Reveal>
+      </div>
     </section>
   );
 }

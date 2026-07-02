@@ -79,7 +79,7 @@ const FEATURE_TABS: FeatureTab[] = [
     accent: "#f59e0b",
     tagline: "Push, in-app e lembretes locais.",
     saved: "10h",
-    providers: ["Firebase Cloud Messaging"],
+    providers: ["iOS", "Android"],
     bullets: [
       "Push via Firebase Cloud Messaging (FCM)",
       "Lista de notificações in-app com timestamps",
@@ -115,7 +115,7 @@ const FEATURE_TABS: FeatureTab[] = [
     accent: "#0d9488",
     tagline: "Regras de nível produção, sem surpresas.",
     saved: "8h",
-    providers: ["Firebase", "Supabase"],
+    providers: ["Firebase", "Supabase", "REST API"],
     bullets: [
       "Regras de segurança Firestore prontas para produção",
       "Row Level Security (Supabase) pronto para produção",
@@ -147,7 +147,7 @@ const FEATURE_TABS: FeatureTab[] = [
     accent: "#9333ea",
     tagline: "Chat integrado com OpenAI ou Gemini.",
     saved: "8h",
-    providers: ["Firebase", "Supabase"],
+    providers: ["Firebase", "Supabase", "REST API"],
     bullets: [
       "Interface de chat com OpenAI ou Google Gemini",
       "Histórico de conversas com contexto completo",
@@ -163,7 +163,7 @@ const FEATURE_TABS: FeatureTab[] = [
     accent: "#64748b",
     tagline: "Todo o resto. Nenhum recurso fica de fora.",
     saved: null,
-    providers: ["Codemagic", "Firebase", "Supabase"],
+    providers: ["Firebase", "Supabase", "REST API"],
     moreItems: [
       {
         label: "Perfil",
@@ -276,7 +276,7 @@ function TabPanel({ tab }: { tab: FeatureTab }) {
 
   return (
     <motion.div
-      layout
+      layout="size"
       variants={fadeIn}
       initial="hidden"
       animate="visible"
@@ -284,6 +284,7 @@ function TabPanel({ tab }: { tab: FeatureTab }) {
       transition={{ duration: 0.2 }}
       className={cn(
         "rounded-2xl border border-border/70 bg-card p-5 sm:p-6",
+        "min-h-[45rem] sm:min-h-[35rem]",
         CARD_SHADOW_CLASS,
       )}
     >
