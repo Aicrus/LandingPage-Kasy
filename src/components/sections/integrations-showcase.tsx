@@ -120,12 +120,14 @@ function LogoTile({ logo }: { logo: Logo }) {
     <span
       title={logo.name}
       aria-hidden
-      className="flex size-9 shrink-0 items-center justify-center rounded-xl"
+      className="flex size-7 shrink-0 items-center justify-center rounded-lg sm:size-9 sm:rounded-xl"
       style={{
         backgroundColor: `color-mix(in srgb, ${glow} 14%, transparent)`,
       }}
     >
-      <logo.Icon size={17} color={glow} />
+      <span className="inline-flex origin-center scale-[0.82] sm:scale-100">
+        <logo.Icon size={17} color={glow} />
+      </span>
     </span>
   );
 }
@@ -134,22 +136,22 @@ function CategoryCard({ category }: { category: Category }) {
   return (
     <div
       className={cn(
-        "flex w-[15.5rem] shrink-0 flex-col gap-3.5 rounded-2xl sm:w-[16.5rem]",
+        "flex w-[11.75rem] shrink-0 flex-col gap-2 rounded-xl sm:w-[15.5rem] sm:gap-3.5 sm:rounded-2xl md:w-[16.5rem]",
         "border border-border/70 bg-card",
-        "px-5 py-4",
+        "px-3.5 py-2.5 sm:px-5 sm:py-4",
         cardShadowClass,
       )}
     >
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-1.5 sm:gap-2">
         {category.logos.map((logo) => (
           <LogoTile key={logo.name} logo={logo} />
         ))}
       </div>
       <div className="min-w-0">
-        <p className="text-[0.95rem] font-semibold text-foreground">
+        <p className="text-[0.8125rem] font-semibold leading-tight text-foreground sm:text-[0.95rem] sm:leading-normal">
           {category.title}
         </p>
-        <p className="mt-0.5 truncate text-[0.8rem] text-muted-foreground">
+        <p className="mt-0.5 truncate text-[0.6875rem] text-muted-foreground sm:text-[0.8rem]">
           {category.detail}
         </p>
       </div>
@@ -170,14 +172,14 @@ function MarqueeRow({
     <div
       aria-hidden
       className={cn(
-        "relative w-full overflow-hidden py-2",
+        "relative w-full overflow-hidden py-1 sm:py-2",
         "[mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)]",
         "[-webkit-mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)]",
       )}
     >
       <div
         className={cn(
-          "flex w-max gap-3 sm:gap-4",
+          "flex w-max gap-2 sm:gap-4",
           "motion-safe:hover:[animation-play-state:paused]",
           animationClass,
         )}
@@ -206,7 +208,7 @@ export function IntegrationsShowcase() {
         className={cn(
           "flex w-full flex-col items-center text-center",
           "gap-[clamp(0.75rem,1vw+0.25rem,1.125rem)]",
-          "mb-[clamp(2rem,4vw,3rem)] px-[clamp(1.25rem,4vw,3.5rem)]",
+          "mb-[clamp(1.5rem,4vw,3rem)] px-[clamp(1rem,4vw,3.5rem)] sm:px-[clamp(1.25rem,4vw,3.5rem)]",
         )}
       >
         <h2
