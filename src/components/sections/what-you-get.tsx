@@ -12,7 +12,7 @@ import {
   Smartphone,
   type LucideIcon,
 } from "lucide-react";
-import { useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 
 import { Reveal } from "@/components/motion/reveal";
 import { AnimatePresence, fadeIn, motion } from "@/lib/motion";
@@ -20,17 +20,28 @@ import { cn } from "@/lib/utils";
 
 import { BrandTile } from "./brand-icons";
 
+type TaglineCopy = {
+  emphasis: string;
+  after?: string;
+  mark?: string;
+};
+
+type FeatureBullet = {
+  label: string;
+  detail?: string;
+};
+
 type FeatureTab = {
   key: string;
   icon: LucideIcon;
   label: string;
   /** Cor de assinatura da categoria — cada aba tem a sua, não um azul genérico repetido. */
   accent: string;
-  tagline: string;
+  tagline: TaglineCopy;
   /** `null` = sem número fixo (ex.: categoria "Mais", que é uma mistura). */
   saved: string | null;
   providers: string[];
-  bullets?: string[];
+  bullets?: FeatureBullet[];
   moreItems?: { label: string; desc: string }[];
 };
 
@@ -40,17 +51,24 @@ const FEATURE_TABS: FeatureTab[] = [
     icon: KeyRound,
     label: "Autenticação",
     accent: "#2563eb",
-    tagline: "Todo método de login, configurado e pronto.",
+    tagline: {
+      emphasis: "Todo método de login",
+      after: ", ",
+      mark: "configurado e pronto.",
+    },
     saved: "12h",
     providers: ["Google", "Apple", "Facebook"],
     bullets: [
-      "Login com Google (iOS + Android)",
-      "Login com Apple (iOS + Android)",
-      "Login com Facebook (iOS + Android)",
-      "Email e senha",
-      "Telefone (SMS OTP)",
-      "Auth anônimo com vinculação de conta, sem perder dados",
-      "Recuperação de senha",
+      { label: "Login com Google", detail: "iOS + Android" },
+      { label: "Login com Apple", detail: "iOS + Android" },
+      { label: "Login com Facebook", detail: "iOS + Android" },
+      { label: "Email e senha" },
+      { label: "Telefone", detail: "SMS OTP" },
+      {
+        label: "Auth anônimo com vinculação de conta",
+        detail: "sem perder dados",
+      },
+      { label: "Recuperação de senha" },
     ],
   },
   {
@@ -58,18 +76,33 @@ const FEATURE_TABS: FeatureTab[] = [
     icon: CreditCard,
     label: "Assinaturas",
     accent: "#7c3aed",
-    tagline: "Monetize desde o dia um com RevenueCat e Stripe.",
+    tagline: {
+      emphasis: "Monetize desde o dia um",
+      mark: "com RevenueCat e Stripe.",
+    },
     saved: "15h",
     providers: ["RevenueCat", "Stripe"],
     bullets: [
-      "Integração RevenueCat (iOS + Android + Web)",
-      "4 estilos de paywall: Minimal, Grid, Row, Toggle",
-      "Componente de tabela comparativa incluído",
-      "Testes A/B via RevenueCat Experiments, sem rebuild",
-      "Estado da assinatura sincronizado em tempo real via webhook",
-      "Troque o paywall pelo dashboard, sem rebuild",
-      "Guard de paywall redireciona conteúdo premium",
-      "Suporte a trial gratuito",
+      { label: "Integração RevenueCat", detail: "iOS + Android + Web" },
+      {
+        label: "4 estilos de paywall",
+        detail: "Minimal, Grid, Row, Toggle",
+      },
+      { label: "Tabela comparativa", detail: "componente incluído" },
+      {
+        label: "Testes A/B via RevenueCat Experiments",
+        detail: "sem rebuild",
+      },
+      {
+        label: "Estado da assinatura em tempo real",
+        detail: "sincronizado via webhook",
+      },
+      { label: "Troque o paywall pelo dashboard", detail: "sem rebuild" },
+      {
+        label: "Guard de paywall",
+        detail: "redireciona conteúdo premium",
+      },
+      { label: "Suporte a trial gratuito" },
     ],
   },
   {
@@ -77,17 +110,33 @@ const FEATURE_TABS: FeatureTab[] = [
     icon: Bell,
     label: "Notificações",
     accent: "#f59e0b",
-    tagline: "Push, in-app e lembretes locais.",
+    tagline: {
+      emphasis: "Push, in-app",
+      after: " e ",
+      mark: "lembretes locais.",
+    },
     saved: "10h",
     providers: ["iOS", "Android"],
     bullets: [
-      "Push via Firebase Cloud Messaging (FCM)",
-      "Lista de notificações in-app com timestamps",
-      "Contador de badge de não lidas",
-      "Deep link: toque na notificação, abre a tela certa",
-      "Gerenciamento de tokens de dispositivo e limpeza",
-      "Cloud Function para entrega via webhook",
-      "Lembretes locais diários, semanais ou únicos, sem servidor",
+      { label: "Push via Firebase Cloud Messaging", detail: "FCM" },
+      {
+        label: "Lista de notificações in-app",
+        detail: "com timestamps",
+      },
+      { label: "Contador de badge", detail: "não lidas" },
+      {
+        label: "Deep link",
+        detail: "toque na notificação, abre a tela certa",
+      },
+      {
+        label: "Gerenciamento de tokens",
+        detail: "dispositivo e limpeza",
+      },
+      { label: "Cloud Function", detail: "entrega via webhook" },
+      {
+        label: "Lembretes locais",
+        detail: "diários, semanais ou únicos, sem servidor",
+      },
     ],
   },
   {
@@ -95,17 +144,34 @@ const FEATURE_TABS: FeatureTab[] = [
     icon: LayoutGrid,
     label: "Componentes",
     accent: "#059669",
-    tagline: "60+ componentes, 95+ variantes, totalmente customizáveis.",
+    tagline: {
+      emphasis: "60+ componentes, 95+ variantes",
+      after: ", ",
+      mark: "totalmente customizáveis.",
+    },
     saved: "semanas",
     providers: ["iOS", "Android", "Web"],
     bullets: [
-      "60+ componentes prontos para produção, 95+ variantes",
-      "Testados em iOS, Android e Web",
-      "Modo escuro e claro, automático ou trocado pelo usuário",
-      "Accordion, Alert, AppBar, Avatar, Badge, BottomSheet, Button, Card, Checkbox, Chip, Dialog, Input, OTP, Skeleton, Sidebar, SwipeAction, TextArea, TextField, Toast",
-      "Animações customizadas e transições de rota",
-      "Feedback háptico integrado",
-      "Galeria de componentes no navegador, copie qualquer nome pra IA",
+      {
+        label: "60+ componentes prontos para produção",
+        detail: "95+ variantes",
+      },
+      { label: "Testados em iOS, Android e Web" },
+      {
+        label: "Modo escuro e claro",
+        detail: "automático ou trocado pelo usuário",
+      },
+      {
+        label: "Biblioteca completa",
+        detail:
+          "Accordion, Alert, AppBar, Avatar, Badge, BottomSheet, Button, Card, Checkbox, Chip, Dialog, Input, OTP, Skeleton, Sidebar, SwipeAction, TextArea, TextField, Toast",
+      },
+      { label: "Animações customizadas", detail: "transições de rota" },
+      { label: "Feedback háptico integrado" },
+      {
+        label: "Galeria no navegador",
+        detail: "copie qualquer nome pra IA",
+      },
     ],
   },
   {
@@ -113,15 +179,34 @@ const FEATURE_TABS: FeatureTab[] = [
     icon: ShieldCheck,
     label: "Segurança",
     accent: "#0d9488",
-    tagline: "Regras de nível produção, sem surpresas.",
+    tagline: {
+      emphasis: "Regras de nível produção",
+      after: ", ",
+      mark: "sem surpresas.",
+    },
     saved: "8h",
     providers: ["Firebase", "Supabase", "REST API"],
     bullets: [
-      "Regras de segurança Firestore prontas para produção",
-      "Row Level Security (Supabase) pronto para produção",
-      "Regras de Firebase Storage com isolamento por usuário",
-      "Permissões App Store e Play Store tratadas, sem rejeição",
-      "Dart-defines separam dev de produção, sem segredo no código",
+      {
+        label: "Regras de segurança Firestore",
+        detail: "prontas para produção",
+      },
+      {
+        label: "Row Level Security (Supabase)",
+        detail: "pronto para produção",
+      },
+      {
+        label: "Regras de Firebase Storage",
+        detail: "isolamento por usuário",
+      },
+      {
+        label: "Permissões App Store e Play Store",
+        detail: "tratadas, sem rejeição",
+      },
+      {
+        label: "Dart-defines",
+        detail: "separam dev de produção, sem segredo no código",
+      },
     ],
   },
   {
@@ -129,15 +214,25 @@ const FEATURE_TABS: FeatureTab[] = [
     icon: Smartphone,
     label: "Widget nativo",
     accent: "#db2777",
-    tagline: "Widgets nativos na tela inicial, sincronizados.",
+    tagline: {
+      emphasis: "Widgets nativos na tela inicial",
+      after: ", ",
+      mark: "sincronizados.",
+    },
     saved: "6h",
     providers: ["iOS", "Android"],
     bullets: [
-      "Widget de tela inicial para iOS e Android",
-      "Atualização automática em segundo plano",
-      "Sincroniza com o estado do app: assinatura, dados do usuário",
-      "Configurável pelo painel admin do app",
-      "Suporte a App Groups (iOS) pra compartilhar dados com a extensão",
+      { label: "Widget de tela inicial", detail: "iOS e Android" },
+      { label: "Atualização automática", detail: "em segundo plano" },
+      {
+        label: "Sincroniza com o estado do app",
+        detail: "assinatura, dados do usuário",
+      },
+      { label: "Configurável", detail: "pelo painel admin do app" },
+      {
+        label: "Suporte a App Groups (iOS)",
+        detail: "compartilha dados com a extensão",
+      },
     ],
   },
   {
@@ -145,15 +240,30 @@ const FEATURE_TABS: FeatureTab[] = [
     icon: MessageSquare,
     label: "Chat com IA",
     accent: "#9333ea",
-    tagline: "Chat integrado com OpenAI ou Gemini.",
+    tagline: {
+      emphasis: "Chat integrado",
+      mark: "com OpenAI ou Gemini.",
+    },
     saved: "8h",
     providers: ["Firebase", "Supabase", "REST API"],
     bullets: [
-      "Interface de chat com OpenAI ou Google Gemini",
-      "Histórico de conversas com contexto completo",
-      "API key fica no servidor, nunca no app",
-      "Proxy via Cloud Function (Firebase) ou Edge Function (Supabase)",
-      "Balões de chat, estados de carregamento, input de envio",
+      {
+        label: "Interface de chat",
+        detail: "OpenAI ou Google Gemini",
+      },
+      {
+        label: "Histórico de conversas",
+        detail: "contexto completo",
+      },
+      { label: "API key no servidor", detail: "nunca no app" },
+      {
+        label: "Proxy seguro",
+        detail: "Cloud Function (Firebase) ou Edge Function (Supabase)",
+      },
+      {
+        label: "UI completa",
+        detail: "balões, loading, input de envio",
+      },
     ],
   },
   {
@@ -161,7 +271,11 @@ const FEATURE_TABS: FeatureTab[] = [
     icon: PlusCircle,
     label: "Mais",
     accent: "#64748b",
-    tagline: "Todo o resto. Nenhum recurso fica de fora.",
+    tagline: {
+      emphasis: "Todo o resto.",
+      after: " ",
+      mark: "Nenhum recurso fica de fora.",
+    },
     saved: null,
     providers: ["Firebase", "Supabase", "REST API"],
     moreItems: [
@@ -270,25 +384,48 @@ function savedLabel(saved: string) {
     : `${saved.charAt(0).toUpperCase()}${saved.slice(1)} economizadas`;
 }
 
-function TabPanel({ tab }: { tab: FeatureTab }) {
+function RichTagline({ copy }: { copy: TaglineCopy }) {
+  return (
+    <p className="text-pretty text-[0.9375rem] leading-snug text-muted-foreground">
+      <span className="text-copy-emphasis">{copy.emphasis}</span>
+      {copy.after}
+      {copy.mark ? <span className="text-copy-mark">{copy.mark}</span> : null}
+    </p>
+  );
+}
+
+function FeatureBulletText({ bullet }: { bullet: FeatureBullet }) {
+  if (!bullet.detail) {
+    return <span className="text-copy-emphasis">{bullet.label}</span>;
+  }
+
+  return (
+    <>
+      <span className="text-copy-emphasis">{bullet.label}</span>
+      <span className="text-muted-foreground"> — {bullet.detail}</span>
+    </>
+  );
+}
+
+function TabPanelCard({
+  tab,
+  fillHeight = false,
+}: {
+  tab: FeatureTab;
+  fillHeight?: boolean;
+}) {
   const tint = (opacity: number) =>
     `color-mix(in srgb, ${tab.accent} ${opacity}%, transparent)`;
 
   return (
-    <motion.div
-      layout="size"
-      variants={fadeIn}
-      initial="hidden"
-      animate="visible"
-      exit="hidden"
-      transition={{ duration: 0.2 }}
+    <div
       className={cn(
         "rounded-2xl border border-border/70 bg-card p-5 sm:p-6",
-        "min-h-[45rem] sm:min-h-[35rem]",
         CARD_SHADOW_CLASS,
+        fillHeight && "min-h-full",
       )}
     >
-      <div className="flex flex-wrap items-start justify-between gap-4">
+      <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between sm:gap-4">
         <div className="flex items-start gap-3.5">
           <span
             className="flex size-11 shrink-0 items-center justify-center rounded-xl"
@@ -297,16 +434,20 @@ function TabPanel({ tab }: { tab: FeatureTab }) {
             <tab.icon className="size-5" strokeWidth={1.75} />
           </span>
           <div className="min-w-0">
-            <p className="text-[0.9375rem] font-semibold text-foreground">
-              {tab.tagline}
-            </p>
-            <div className="mt-2.5 flex flex-wrap items-center gap-1.5">
+            <RichTagline copy={tab.tagline} />
+            <div
+              className={cn(
+                "mt-2.5 flex flex-nowrap items-center gap-1.5 overflow-x-auto",
+                "max-sm:-mx-0.5 max-sm:px-0.5",
+                "[scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden",
+              )}
+            >
               {tab.providers.map((name) => (
                 <motion.span
                   key={name}
                   whileHover={{ y: -2 }}
                   transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                  className="flex items-center gap-1.5 rounded-full bg-muted/70 py-0.5 pr-2.5 pl-0.5 text-[0.6875rem] font-medium text-muted-foreground"
+                  className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full bg-muted/70 py-0.5 pr-2.5 pl-0.5 text-[0.6875rem] font-medium text-muted-foreground"
                 >
                   <BrandTile name={name} size="size-5" iconSize={11} />
                   {name}
@@ -316,11 +457,11 @@ function TabPanel({ tab }: { tab: FeatureTab }) {
           </div>
         </div>
         {tab.saved ? (
-          <span className="shrink-0 rounded-md bg-emerald-500/10 px-2.5 py-1 font-mono text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+          <span className="w-fit shrink-0 rounded-md bg-emerald-500/10 px-2.5 py-1 font-mono text-xs font-semibold text-emerald-600 dark:text-emerald-400">
             {savedLabel(tab.saved)}
           </span>
         ) : tab.moreItems ? (
-          <span className="shrink-0 rounded-md bg-primary/10 px-2.5 py-1 font-mono text-xs font-semibold text-primary">
+          <span className="w-fit shrink-0 rounded-md bg-primary/10 px-2.5 py-1 font-mono text-xs font-semibold text-primary">
             {tab.moreItems.length} recursos
           </span>
         ) : null}
@@ -334,9 +475,7 @@ function TabPanel({ tab }: { tab: FeatureTab }) {
                 key={item.label}
                 className="rounded-xl bg-muted/50 p-3.5 transition-colors duration-200 hover:bg-muted"
               >
-                <p className="text-sm font-semibold text-foreground">
-                  {item.label}
-                </p>
+                <p className="text-sm text-copy-emphasis">{item.label}</p>
                 <p className="mt-0.5 text-xs text-muted-foreground">
                   {item.desc}
                 </p>
@@ -347,7 +486,7 @@ function TabPanel({ tab }: { tab: FeatureTab }) {
           <ul>
             {tab.bullets?.map((bullet) => (
               <li
-                key={bullet}
+                key={`${bullet.label}-${bullet.detail ?? ""}`}
                 className="group -mx-2 flex items-start gap-3 rounded-lg border-b border-border/50 px-2 py-3 text-sm text-foreground/90 transition-colors duration-200 last:border-b-0 hover:bg-muted/50"
               >
                 <span
@@ -356,20 +495,163 @@ function TabPanel({ tab }: { tab: FeatureTab }) {
                 >
                   <Check className="size-2.5" strokeWidth={3} />
                 </span>
-                {bullet}
+                <FeatureBulletText bullet={bullet} />
               </li>
             ))}
           </ul>
         )}
       </div>
+    </div>
+  );
+}
+
+function TabPanel({ tab }: { tab: FeatureTab }) {
+  return (
+    <motion.div
+      role="tabpanel"
+      id={`what-you-get-panel-${tab.key}`}
+      aria-labelledby={`what-you-get-tab-${tab.key}`}
+      variants={fadeIn}
+      initial="hidden"
+      animate="visible"
+      exit="hidden"
+      transition={{ duration: 0.2 }}
+      className="min-h-full"
+    >
+      <TabPanelCard tab={tab} fillHeight />
     </motion.div>
   );
 }
 
+function tabListMaskStyle(edgeFade: { left: boolean; right: boolean }) {
+  const fade = "2.75rem";
+
+  if (!edgeFade.left && !edgeFade.right) return undefined;
+
+  const gradient = (() => {
+    if (edgeFade.left && edgeFade.right) {
+      return `linear-gradient(to right, transparent, black ${fade}, black calc(100% - ${fade}), transparent)`;
+    }
+    if (edgeFade.right) {
+      return `linear-gradient(to right, black calc(100% - ${fade}), transparent)`;
+    }
+    return `linear-gradient(to right, transparent, black ${fade})`;
+  })();
+
+  return {
+    maskImage: gradient,
+    WebkitMaskImage: gradient,
+  } as const;
+}
+
 export function WhatYouGet() {
   const [activeKey, setActiveKey] = useState(FEATURE_TABS[0].key);
+  const [edgeFade, setEdgeFade] = useState({ left: false, right: false });
+  const [panelMinHeight, setPanelMinHeight] = useState<number>();
+  const tabListRef = useRef<HTMLDivElement>(null);
+  const panelShellRef = useRef<HTMLDivElement>(null);
+  const tabButtonRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
+  const measurePanelRefs = useRef<Map<string, HTMLDivElement>>(new Map());
   const activeTab =
     FEATURE_TABS.find((tab) => tab.key === activeKey) ?? FEATURE_TABS[0];
+
+  const measurePanelHeights = useCallback(() => {
+    let max = 0;
+
+    measurePanelRefs.current.forEach((panel) => {
+      max = Math.max(max, panel.offsetHeight);
+    });
+
+    if (max > 0) {
+      setPanelMinHeight(Math.ceil(max));
+    }
+  }, []);
+
+  useLayoutEffect(() => {
+    measurePanelHeights();
+  }, [measurePanelHeights]);
+
+  useEffect(() => {
+    const shell = panelShellRef.current;
+    if (!shell) return;
+
+    const resizeObserver = new ResizeObserver(measurePanelHeights);
+    resizeObserver.observe(shell);
+
+    measurePanelRefs.current.forEach((panel) => {
+      resizeObserver.observe(panel);
+    });
+
+    document.fonts?.ready.then(measurePanelHeights);
+
+    return () => resizeObserver.disconnect();
+  }, [measurePanelHeights]);
+
+  const updateEdgeFade = useCallback(() => {
+    const el = tabListRef.current;
+    if (!el) return;
+
+    const maxScroll = el.scrollWidth - el.clientWidth;
+    if (maxScroll <= 1) {
+      setEdgeFade({ left: false, right: false });
+      return;
+    }
+
+    const tolerance = 4;
+    setEdgeFade({
+      left: el.scrollLeft > tolerance,
+      right: el.scrollLeft < maxScroll - tolerance,
+    });
+  }, []);
+
+  const scrollActiveTabIntoView = useCallback(
+    (key: string, behavior: ScrollBehavior = "smooth") => {
+      const list = tabListRef.current;
+      const button = tabButtonRefs.current.get(key);
+      if (!list || !button) return;
+
+      const listRect = list.getBoundingClientRect();
+      const buttonRect = button.getBoundingClientRect();
+      const delta =
+        buttonRect.left +
+        buttonRect.width / 2 -
+        (listRect.left + listRect.width / 2);
+
+      if (Math.abs(delta) < 1) {
+        updateEdgeFade();
+        return;
+      }
+
+      list.scrollBy({ left: delta, behavior });
+
+      if (behavior === "smooth") {
+        window.setTimeout(updateEdgeFade, 320);
+      } else {
+        updateEdgeFade();
+      }
+    },
+    [updateEdgeFade],
+  );
+
+  useEffect(() => {
+    const el = tabListRef.current;
+    if (!el) return;
+
+    updateEdgeFade();
+
+    el.addEventListener("scroll", updateEdgeFade, { passive: true });
+    const resizeObserver = new ResizeObserver(updateEdgeFade);
+    resizeObserver.observe(el);
+
+    return () => {
+      el.removeEventListener("scroll", updateEdgeFade);
+      resizeObserver.disconnect();
+    };
+  }, [updateEdgeFade]);
+
+  useEffect(() => {
+    scrollActiveTabIntoView(activeKey);
+  }, [activeKey, scrollActiveTabIntoView]);
 
   return (
     <section
@@ -381,7 +663,7 @@ export function WhatYouGet() {
       )}
     >
       <div className="grid w-full grid-cols-1 gap-10 lg:grid-cols-[minmax(0,19rem)_1fr] lg:gap-14">
-        <Reveal className="flex flex-col gap-3.5 lg:sticky lg:top-28 lg:h-fit">
+        <Reveal className="flex flex-col gap-3.5">
           <span className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
             O que você recebe
           </span>
@@ -398,43 +680,96 @@ export function WhatYouGet() {
             </span>
           </h2>
           <p className="text-pretty font-rounded text-fluid-subtitle text-muted-foreground">
-            Cada categoria já vem pronta pra publicar. Clique numa aba e veja
-            o que está incluído.
+            Cada categoria já vem{" "}
+            <span className="text-copy-emphasis">pronta pra publicar</span>.
+            Clique numa aba e{" "}
+            <span className="text-copy-mark">veja o que está incluído</span>.
           </p>
           <span className="font-mono text-[0.8125rem] text-muted-foreground/70">
-            8 categorias · {TOTAL_FEATURE_COUNT}+ recursos
+            <span className="text-copy-emphasis">8 categorias</span>
+            {" · "}
+            <span className="text-copy-mark">{TOTAL_FEATURE_COUNT}+ recursos</span>
           </span>
         </Reveal>
 
         <Reveal delay={0.05} className="flex min-w-0 flex-col gap-4">
-          <div role="tablist" className="flex flex-wrap gap-2">
-            {FEATURE_TABS.map((tab) => {
-              const isActive = tab.key === activeKey;
-              return (
-                <button
-                  key={tab.key}
-                  type="button"
-                  role="tab"
-                  aria-selected={isActive}
-                  onClick={() => setActiveKey(tab.key)}
-                  style={isActive ? { backgroundColor: tab.accent } : undefined}
-                  className={cn(
-                    "inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[0.8125rem] font-medium transition-all duration-200",
-                    isActive
-                      ? "text-white shadow-sm"
-                      : "border border-border/70 bg-card text-muted-foreground hover:border-border hover:text-foreground",
-                  )}
-                >
-                  <tab.icon className="size-3.5" strokeWidth={2} />
-                  {tab.label}
-                </button>
-              );
-            })}
+          <div
+            className={cn(
+              "relative",
+              "max-sm:-mx-[clamp(1rem,3.25vw,2rem)] max-sm:px-[clamp(1rem,3.25vw,2rem)]",
+            )}
+          >
+            <div
+              ref={tabListRef}
+              role="tablist"
+              aria-label="Categorias de recursos"
+              style={tabListMaskStyle(edgeFade)}
+              className={cn(
+                "flex flex-nowrap gap-2 overflow-x-auto overscroll-x-contain touch-pan-x pb-0.5",
+                "transition-[mask-image,-webkit-mask-image] duration-300",
+                "[scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden",
+              )}
+            >
+              {FEATURE_TABS.map((tab) => {
+                const isActive = tab.key === activeKey;
+                return (
+                  <button
+                    key={tab.key}
+                    ref={(node) => {
+                      if (node) tabButtonRefs.current.set(tab.key, node);
+                      else tabButtonRefs.current.delete(tab.key);
+                    }}
+                    id={`what-you-get-tab-${tab.key}`}
+                    aria-controls={`what-you-get-panel-${tab.key}`}
+                    type="button"
+                    role="tab"
+                    aria-selected={isActive}
+                    onClick={(event) => {
+                      setActiveKey(tab.key);
+                      event.currentTarget.focus({ preventScroll: true });
+                    }}
+                    style={
+                      isActive ? { backgroundColor: tab.accent } : undefined
+                    }
+                    className={cn(
+                      "inline-flex shrink-0 scroll-mx-4 items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[0.8125rem] font-medium whitespace-nowrap transition-all duration-200",
+                      isActive
+                        ? "text-white shadow-sm"
+                        : "border border-border/70 bg-card text-muted-foreground hover:border-border hover:text-foreground",
+                    )}
+                  >
+                    <tab.icon className="size-3.5" strokeWidth={2} />
+                    {tab.label}
+                  </button>
+                );
+              })}
+            </div>
           </div>
 
-          <AnimatePresence mode="popLayout" initial={false}>
-            <TabPanel key={activeTab.key} tab={activeTab} />
-          </AnimatePresence>
+          <div
+            ref={panelShellRef}
+            className="relative"
+            style={panelMinHeight ? { minHeight: panelMinHeight } : undefined}
+          >
+            <div aria-hidden className="pointer-events-none invisible absolute inset-x-0 top-0 -z-10">
+              {FEATURE_TABS.map((tab) => (
+                <div
+                  key={tab.key}
+                  ref={(node) => {
+                    if (node) measurePanelRefs.current.set(tab.key, node);
+                    else measurePanelRefs.current.delete(tab.key);
+                  }}
+                  className="absolute inset-x-0 top-0"
+                >
+                  <TabPanelCard tab={tab} />
+                </div>
+              ))}
+            </div>
+
+            <AnimatePresence mode="wait" initial={false}>
+              <TabPanel key={activeTab.key} tab={activeTab} />
+            </AnimatePresence>
+          </div>
         </Reveal>
       </div>
     </section>

@@ -44,8 +44,14 @@ export function VideoShowcase() {
   const scale = useTransform(scrollYProgress, [0, 1], [0.6, 1]);
   const groupY = useTransform(scrollYProgress, [0, 1], [90, 0]);
   const groupOpacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
-  // A distância até o texto encolhe conforme o vídeo cresce, até ele cobrir o texto.
+  // Desktop: o vídeo sobe e cobre o texto conforme cresce.
   const videoOverlapMarginTop = useTransform(scrollYProgress, [0, 0.55], [44, -160]);
+  // Mobile/tablet: texto some no scroll; vídeo só alarga — sem scale nem overlap
+  // (evita cortar topo/baixo no overflow-hidden do wrapper).
+  const textOpacityMobile = useTransform(scrollYProgress, [0.22, 0.55], [1, 0]);
+  const textYMobile = useTransform(scrollYProgress, [0.22, 0.55], [0, -14]);
+  const widthMobile = useTransform(scrollYProgress, [0, 1], ["82vw", "94vw"]);
+  const videoGapMobile = useTransform(scrollYProgress, [0, 0.55], [24, 10]);
 
   function clearHideTimeout() {
     if (hideTimeoutRef.current) clearTimeout(hideTimeoutRef.current);
@@ -111,7 +117,8 @@ export function VideoShowcase() {
     <div
       ref={sectionRef}
       className={cn(
-        "relative flex w-full flex-col items-center overflow-hidden",
+        "relative flex w-full flex-col items-center",
+        "overflow-hidden max-lg:overflow-visible",
         "mt-[clamp(-3.5rem,-4vw,-2rem)]",
       )}
     >
@@ -123,8 +130,13 @@ export function VideoShowcase() {
         }
         className="flex w-full flex-col items-center"
       >
-        <p
+        <motion.p
           aria-hidden
+          style={
+            reducedMotion || isLgUp
+              ? undefined
+              : { opacity: textOpacityMobile, y: textYMobile }
+          }
           className={cn(
             "pointer-events-none relative z-0 select-none whitespace-nowrap uppercase",
             "bg-gradient-to-r from-primary to-primary/25 bg-clip-text text-transparent",
@@ -133,17 +145,16 @@ export function VideoShowcase() {
           )}
         >
           Velocidade
-        </p>
+        </motion.p>
 
         <motion.div
           onMouseMove={handleMouseMove}
           style={
-            reducedMotion || !isLgUp
-              ? // Abaixo de lg o card já é mais baixo que a margem negativa de overlap
-                // (pensada pro vídeo grande do desktop) — sem isso, o overflow-hidden do
-                // wrapper corta o topo do vídeo. Mobile/tablet ficam com o reveal simples.
-                { width: "min(94vw, 66rem)" }
-              : { width, scale, marginTop: videoOverlapMarginTop }
+            reducedMotion
+              ? { width: "min(94vw, 66rem)" }
+              : isLgUp
+                ? { width, scale, marginTop: videoOverlapMarginTop }
+                : { width: widthMobile, marginTop: videoGapMobile }
           }
           className={cn(
             "group relative z-10 aspect-[16/7.5] overflow-hidden",

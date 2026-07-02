@@ -3,7 +3,6 @@ import {
   HeroIntro,
   HeroScreenReveal,
   IntegrationsShowcase,
-  KasyPunchline,
   VideoShowcase,
   WhatYouGet,
 } from "@/components/sections";
@@ -17,7 +16,6 @@ export default function Home() {
       <VideoShowcase />
       <FeatureHoverCards />
       <IntegrationsShowcase />
-      <KasyPunchline />
       <WhatYouGet />
     </main>
   );

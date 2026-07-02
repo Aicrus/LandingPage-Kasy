@@ -553,3 +553,31 @@
     transform: translateX(0);
   }
 }
+
+/* Ênfase editorial — bold + marca-texto em copy de landing */
+.text-copy-emphasis {
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.text-copy-mark {
+  background-image: linear-gradient(
+    to top,
+    color-mix(in srgb, #86efac 68%, #fde68a 32%) 0,
+    color-mix(in srgb, #86efac 68%, #fde68a 32%) 38%,
+    transparent 38%,
+    transparent 100%
+  );
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.dark .text-copy-mark {
+  background-image: linear-gradient(
+    to top,
+    color-mix(in srgb, #16a34a 52%, #ca8a04 48%) 0,
+    color-mix(in srgb, #16a34a 52%, #ca8a04 48%) 38%,
+    transparent 38%,
+    transparent 100%
+  );
+}
