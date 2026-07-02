@@ -22,8 +22,7 @@ import { BrandTile } from "./brand-icons";
 
 type TaglineCopy = {
   emphasis: string;
-  after?: string;
-  mark?: string;
+  rest?: string;
 };
 
 type FeatureBullet = {
@@ -53,8 +52,7 @@ const FEATURE_TABS: FeatureTab[] = [
     accent: "#2563eb",
     tagline: {
       emphasis: "Todo método de login",
-      after: ", ",
-      mark: "configurado e pronto.",
+      rest: ", configurado e pronto.",
     },
     saved: "12h",
     providers: ["Google", "Apple", "Facebook"],
@@ -78,7 +76,7 @@ const FEATURE_TABS: FeatureTab[] = [
     accent: "#7c3aed",
     tagline: {
       emphasis: "Monetize desde o dia um",
-      mark: "com RevenueCat e Stripe.",
+      rest: " com RevenueCat e Stripe.",
     },
     saved: "15h",
     providers: ["RevenueCat", "Stripe"],
@@ -112,8 +110,7 @@ const FEATURE_TABS: FeatureTab[] = [
     accent: "#f59e0b",
     tagline: {
       emphasis: "Push, in-app",
-      after: " e ",
-      mark: "lembretes locais.",
+      rest: " e lembretes locais.",
     },
     saved: "10h",
     providers: ["iOS", "Android"],
@@ -146,8 +143,7 @@ const FEATURE_TABS: FeatureTab[] = [
     accent: "#059669",
     tagline: {
       emphasis: "60+ componentes, 95+ variantes",
-      after: ", ",
-      mark: "totalmente customizáveis.",
+      rest: ", totalmente customizáveis.",
     },
     saved: "semanas",
     providers: ["iOS", "Android", "Web"],
@@ -181,8 +177,7 @@ const FEATURE_TABS: FeatureTab[] = [
     accent: "#0d9488",
     tagline: {
       emphasis: "Regras de nível produção",
-      after: ", ",
-      mark: "sem surpresas.",
+      rest: ", sem surpresas.",
     },
     saved: "8h",
     providers: ["Firebase", "Supabase", "REST API"],
@@ -216,8 +211,7 @@ const FEATURE_TABS: FeatureTab[] = [
     accent: "#db2777",
     tagline: {
       emphasis: "Widgets nativos na tela inicial",
-      after: ", ",
-      mark: "sincronizados.",
+      rest: ", sincronizados.",
     },
     saved: "6h",
     providers: ["iOS", "Android"],
@@ -242,7 +236,7 @@ const FEATURE_TABS: FeatureTab[] = [
     accent: "#9333ea",
     tagline: {
       emphasis: "Chat integrado",
-      mark: "com OpenAI ou Gemini.",
+      rest: " com OpenAI ou Gemini.",
     },
     saved: "8h",
     providers: ["Firebase", "Supabase", "REST API"],
@@ -273,8 +267,7 @@ const FEATURE_TABS: FeatureTab[] = [
     accent: "#64748b",
     tagline: {
       emphasis: "Todo o resto.",
-      after: " ",
-      mark: "Nenhum recurso fica de fora.",
+      rest: " Nenhum recurso fica de fora.",
     },
     saved: null,
     providers: ["Firebase", "Supabase", "REST API"],
@@ -384,25 +377,24 @@ function savedLabel(saved: string) {
     : `${saved.charAt(0).toUpperCase()}${saved.slice(1)} economizadas`;
 }
 
-function RichTagline({ copy }: { copy: TaglineCopy }) {
+function TabTagline({ copy }: { copy: TaglineCopy }) {
   return (
     <p className="text-pretty text-[0.9375rem] leading-snug text-muted-foreground">
-      <span className="text-copy-emphasis">{copy.emphasis}</span>
-      {copy.after}
-      {copy.mark ? <span className="text-copy-mark">{copy.mark}</span> : null}
+      <span className="font-bold text-inherit">{copy.emphasis}</span>
+      {copy.rest}
     </p>
   );
 }
 
 function FeatureBulletText({ bullet }: { bullet: FeatureBullet }) {
   if (!bullet.detail) {
-    return <span className="text-copy-emphasis">{bullet.label}</span>;
+    return <span className="font-bold text-inherit">{bullet.label}</span>;
   }
 
   return (
     <>
-      <span className="text-copy-emphasis">{bullet.label}</span>
-      <span className="text-muted-foreground"> — {bullet.detail}</span>
+      <span className="font-bold text-inherit">{bullet.label}</span>
+      <span className="text-muted-foreground">, {bullet.detail}</span>
     </>
   );
 }
@@ -434,7 +426,7 @@ function TabPanelCard({
             <tab.icon className="size-5" strokeWidth={1.75} />
           </span>
           <div className="min-w-0">
-            <RichTagline copy={tab.tagline} />
+            <TabTagline copy={tab.tagline} />
             <div
               className={cn(
                 "mt-2.5 flex flex-nowrap items-center gap-1.5 overflow-x-auto",
@@ -475,7 +467,7 @@ function TabPanelCard({
                 key={item.label}
                 className="rounded-xl bg-muted/50 p-3.5 transition-colors duration-200 hover:bg-muted"
               >
-                <p className="text-sm text-copy-emphasis">{item.label}</p>
+                <p className="text-sm font-bold text-foreground">{item.label}</p>
                 <p className="mt-0.5 text-xs text-muted-foreground">
                   {item.desc}
                 </p>
@@ -675,9 +667,7 @@ export function WhatYouGet() {
             )}
           >
             Tudo que você precisa.{" "}
-            <span className="text-[#16a34a] dark:text-[#4ade80]">
-              Nada além.
-            </span>
+            <span className="text-primary">Nada além.</span>
           </h2>
           <p className="text-pretty font-rounded text-fluid-subtitle text-muted-foreground">
             Cada categoria já vem{" "}
@@ -686,9 +676,7 @@ export function WhatYouGet() {
             <span className="text-copy-mark">veja o que está incluído</span>.
           </p>
           <span className="font-mono text-[0.8125rem] text-muted-foreground/70">
-            <span className="text-copy-emphasis">8 categorias</span>
-            {" · "}
-            <span className="text-copy-mark">{TOTAL_FEATURE_COUNT}+ recursos</span>
+            8 categorias · {TOTAL_FEATURE_COUNT}+ recursos
           </span>
         </Reveal>
 

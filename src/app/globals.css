@@ -556,28 +556,49 @@
 
 /* Ênfase editorial — bold + marca-texto em copy de landing */
 .text-copy-emphasis {
-  font-weight: 600;
-  color: var(--foreground);
+  font-weight: 800;
+  color: inherit;
 }
 
 .text-copy-mark {
-  background-image: linear-gradient(
-    to top,
-    color-mix(in srgb, #86efac 68%, #fde68a 32%) 0,
-    color-mix(in srgb, #86efac 68%, #fde68a 32%) 38%,
-    transparent 38%,
-    transparent 100%
-  );
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
+  position: relative;
+  display: inline;
+  color: inherit;
 }
 
-.dark .text-copy-mark {
-  background-image: linear-gradient(
-    to top,
-    color-mix(in srgb, #16a34a 52%, #ca8a04 48%) 0,
-    color-mix(in srgb, #16a34a 52%, #ca8a04 48%) 38%,
-    transparent 38%,
-    transparent 100%
-  );
+.text-copy-mark::after {
+  content: "";
+  position: absolute;
+  right: -0.04em;
+  bottom: 0.05em;
+  left: -0.04em;
+  z-index: -1;
+  height: 0.4em;
+  border-radius: 2px;
+  background: color-mix(in srgb, #6f5f4c 18%, transparent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  animation: text-copy-mark-draw 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.4s
+    forwards;
+}
+
+.dark .text-copy-mark::after {
+  background: color-mix(in srgb, #b8a48a 14%, transparent);
+}
+
+@keyframes text-copy-mark-draw {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .text-copy-mark::after {
+    animation: none;
+    transform: scaleX(1);
+  }
 }
