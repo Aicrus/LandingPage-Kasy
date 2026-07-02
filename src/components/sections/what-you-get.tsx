@@ -56,9 +56,9 @@ const FEATURE_TABS: FeatureTab[] = [
     saved: "12h",
     providers: ["Google", "Apple", "Facebook"],
     bullets: [
-      { label: "Login com Google", detail: "iOS + Android" },
-      { label: "Login com Apple", detail: "iOS + Android" },
-      { label: "Login com Facebook", detail: "iOS + Android" },
+      { label: "Login com Google", detail: "iOS + Android + Web" },
+      { label: "Login com Apple", detail: "iOS + Android + Web" },
+      { label: "Login com Facebook", detail: "iOS + Android + Web" },
       { label: "Email e senha" },
       { label: "Telefone", detail: "SMS OTP" },
       {

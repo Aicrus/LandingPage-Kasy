@@ -329,7 +329,7 @@
   --chart-3: #eceef6;
   --chart-4: #1a1e2c;
   --chart-5: #0f1218;
-  --copy-mark-highlight: color-mix(in srgb, #ffe8a7 72%, #fffdf5 28%);
+  --copy-mark-highlight: color-mix(in srgb, #d4b05c 50%, transparent);
   --sidebar: #0f1218;
   --sidebar-foreground: #eceef6;
   --sidebar-primary: #8ba4e8;
