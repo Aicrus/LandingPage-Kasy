@@ -64,7 +64,7 @@ export function KasyPunchline() {
           }
           className={cn(
             "pointer-events-none absolute left-1/2 top-[-12%] -z-10 -translate-x-1/2 select-none",
-            "font-heading text-foreground/[0.14] dark:text-foreground/[0.22]",
+            "font-heading text-foreground/60 dark:text-foreground/60",
             "text-[clamp(16rem,38vw,32rem)] leading-none",
           )}
         >
