@@ -1,112 +1,225 @@
 "use client";
 
+import { Bell, Globe, ToggleRight, Webhook } from "lucide-react";
 import {
-  Braces,
-  Cat,
-  FileSpreadsheet,
-  Flame,
-  Grid2x2,
-  Plug,
-  Send,
-  Sparkle,
-  Sparkles,
-  X,
-  Zap,
-  type LucideIcon,
-} from "lucide-react";
+  SiAndroid,
+  SiApple,
+  SiClaude,
+  SiCodemagic,
+  SiCursor,
+  SiFacebook,
+  SiFirebase,
+  SiGoogleadmob,
+  SiMeta,
+  SiRevenuecat,
+  SiStripe,
+  SiSupabase,
+  SiWindsurf,
+} from "@icons-pack/react-simple-icons";
 
 import { Reveal } from "@/components/motion/reveal";
-import { motion, staggerContainer, type Variants } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
-type Integration = {
+type IconComponent = (props: {
+  size?: number | string;
+  color?: string;
+}) => React.ReactNode;
+
+/** G colorido oficial — os logos monocromáticos de simple-icons não têm essa versão. */
+function GoogleGIcon({ size = 24 }: { size?: number | string }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 48 48" aria-hidden>
+      <path
+        fill="#FFC107"
+        d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"
+      />
+      <path
+        fill="#FF3D00"
+        d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"
+      />
+      <path
+        fill="#4CAF50"
+        d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"
+      />
+      <path
+        fill="#1976D2"
+        d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
+      />
+    </svg>
+  );
+}
+
+type Logo = {
   name: string;
-  Icon: LucideIcon;
-  /** Cor de marca — `null` usa o tom neutro do texto (ex.: OpenAI). */
+  Icon: IconComponent;
+  /** Cor de marca — `null` usa o tom neutro do texto (logos monocromáticos ou multicoloridos). */
   color: string | null;
 };
 
-const CORE_INTEGRATIONS: Integration[] = [
-  { name: "Supabase", Icon: Zap, color: "#3ecf8e" },
-  { name: "RevenueCat", Icon: Cat, color: "#f6533f" },
-  { name: "Firebase", Icon: Flame, color: "#f5820b" },
-  { name: "API", Icon: Plug, color: "#38bdf8" },
-];
-
-const EXTRA_INTEGRATIONS: Integration[] = [
-  { name: "Gemini", Icon: Sparkles, color: "#8b5cf6" },
-  { name: "Airtable", Icon: Grid2x2, color: "#fcb400" },
-  { name: "Open AI", Icon: Sparkle, color: null },
-  { name: "Postman", Icon: Send, color: "#ff6c37" },
-  { name: "Swagger", Icon: Braces, color: "#85ea2d" },
-  { name: "Xano", Icon: X, color: "#2f6feb" },
-  { name: "Google Sheet", Icon: FileSpreadsheet, color: "#22a565" },
-];
-
-const badgeVariant: Variants = {
-  hidden: { opacity: 0, y: 14, scale: 0.92 },
-  visible: { opacity: 1, y: 0, scale: 1 },
+type Category = {
+  title: string;
+  detail: string;
+  logos: Logo[];
 };
 
-function IntegrationBadge({
-  integration,
-  size = "md",
-}: {
-  integration: Integration;
-  size?: "md" | "sm";
-}) {
-  const { name, Icon, color } = integration;
-  const glow = color ?? "var(--foreground)";
+const ROW_ONE: Category[] = [
+  {
+    title: "Backend",
+    detail: "Firebase · Supabase · REST",
+    logos: [
+      { name: "Firebase", Icon: SiFirebase, color: "#DD2C00" },
+      { name: "Supabase", Icon: SiSupabase, color: "#3FCF8E" },
+      { name: "REST API", Icon: Webhook, color: null },
+    ],
+  },
+  {
+    title: "Autenticação",
+    detail: "Google · Apple · Facebook",
+    logos: [
+      { name: "Google", Icon: GoogleGIcon, color: null },
+      { name: "Apple", Icon: SiApple, color: null },
+      { name: "Facebook", Icon: SiFacebook, color: "#0866FF" },
+    ],
+  },
+  {
+    title: "Assinaturas",
+    detail: "RevenueCat · Stripe",
+    logos: [
+      { name: "RevenueCat", Icon: SiRevenuecat, color: "#F2545B" },
+      { name: "Stripe", Icon: SiStripe, color: "#635BFF" },
+    ],
+  },
+  {
+    title: "Anúncios",
+    detail: "AdMob · Meta Ads",
+    logos: [
+      { name: "AdMob", Icon: SiGoogleadmob, color: "#EA4335" },
+      { name: "Meta Ads", Icon: SiMeta, color: "#0467DF" },
+    ],
+  },
+  {
+    title: "Notificações Push",
+    detail: "Firebase Cloud Messaging",
+    logos: [{ name: "FCM", Icon: Bell, color: "#F59E0B" }],
+  },
+];
+
+const ROW_TWO: Category[] = [
+  {
+    title: "Componentes de UI",
+    detail: "60+ componentes · 95+ variantes",
+    logos: [{ name: "UI Kit", Icon: ToggleRight, color: "#22C55E" }],
+  },
+  {
+    title: "CI/CD",
+    detail: "Codemagic",
+    logos: [{ name: "Codemagic", Icon: SiCodemagic, color: "#F45E3F" }],
+  },
+  {
+    title: "Plataformas",
+    detail: "iOS · Android · Web",
+    logos: [
+      { name: "iOS", Icon: SiApple, color: null },
+      { name: "Android", Icon: SiAndroid, color: "#3DDC84" },
+      { name: "Web", Icon: Globe, color: "#38BDF8" },
+    ],
+  },
+  {
+    title: "AI-Ready",
+    detail: "Cursor · Claude Code · Windsurf",
+    logos: [
+      { name: "Cursor", Icon: SiCursor, color: null },
+      { name: "Claude", Icon: SiClaude, color: "#D97757" },
+      { name: "Windsurf", Icon: SiWindsurf, color: null },
+    ],
+  },
+];
+
+const cardShadowClass = cn(
+  "shadow-[0_1px_2px_rgba(26,30,44,0.04),0_6px_16px_-10px_rgba(26,30,44,0.12)]",
+  "dark:shadow-[0_1px_2px_rgba(0,0,0,0.18),0_8px_20px_-10px_rgba(0,0,0,0.4)]",
+);
+
+function LogoTile({ logo }: { logo: Logo }) {
+  const glow = logo.color ?? "var(--foreground)";
 
   return (
-    <motion.span
-      variants={badgeVariant}
-      transition={{ type: "tween", duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-      style={{ "--integration-glow": glow } as React.CSSProperties}
+    <span
+      title={logo.name}
+      aria-hidden
+      className="flex size-9 shrink-0 items-center justify-center rounded-xl"
+      style={{
+        backgroundColor: `color-mix(in srgb, ${glow} 14%, transparent)`,
+      }}
+    >
+      <logo.Icon size={17} color={glow} />
+    </span>
+  );
+}
+
+function CategoryCard({ category }: { category: Category }) {
+  return (
+    <div
       className={cn(
-        "group inline-flex select-none items-center rounded-full",
+        "flex w-[15.5rem] shrink-0 flex-col gap-3.5 rounded-2xl sm:w-[16.5rem]",
         "border border-border/70 bg-card",
-        "shadow-[0_1px_2px_rgba(26,30,44,0.04),0_6px_16px_-10px_rgba(26,30,44,0.12)]",
-        "dark:shadow-[0_1px_2px_rgba(0,0,0,0.18),0_8px_20px_-10px_rgba(0,0,0,0.4)]",
-        "transition-[transform,box-shadow,border-color] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
-        "hover:-translate-y-0.5 hover:border-[color-mix(in_srgb,var(--integration-glow)_45%,var(--border))]",
-        "hover:shadow-[0_0_0_1px_color-mix(in_srgb,var(--integration-glow)_35%,transparent),0_10px_26px_-10px_color-mix(in_srgb,var(--integration-glow)_55%,transparent)]",
-        size === "md"
-          ? "gap-2.5 px-[1.05rem] py-[0.7rem]"
-          : "gap-2 px-[0.9rem] py-[0.6rem]",
+        "px-5 py-4",
+        cardShadowClass,
       )}
     >
-      <span
-        aria-hidden
+      <div className="flex items-center gap-2">
+        {category.logos.map((logo) => (
+          <LogoTile key={logo.name} logo={logo} />
+        ))}
+      </div>
+      <div className="min-w-0">
+        <p className="text-[0.95rem] font-semibold text-foreground">
+          {category.title}
+        </p>
+        <p className="mt-0.5 truncate text-[0.8rem] text-muted-foreground">
+          {category.detail}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function MarqueeRow({
+  categories,
+  animationClass,
+}: {
+  categories: Category[];
+  animationClass: string;
+}) {
+  const items = [...categories, ...categories];
+
+  return (
+    <div
+      aria-hidden
+      className={cn(
+        "relative w-full overflow-hidden py-2",
+        "[mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)]",
+        "[-webkit-mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)]",
+      )}
+    >
+      <div
         className={cn(
-          "flex shrink-0 items-center justify-center rounded-full",
-          "transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110",
-          size === "md" ? "size-7" : "size-6",
-        )}
-        style={{
-          backgroundColor:
-            "color-mix(in srgb, var(--integration-glow) 16%, transparent)",
-        }}
-      >
-        <Icon
-          strokeWidth={2}
-          className={size === "md" ? "size-4" : "size-3.5"}
-          style={{ color: glow }}
-        />
-      </span>
-      <span
-        className={cn(
-          "whitespace-nowrap font-medium text-foreground",
-          size === "md" ? "text-[0.95rem]" : "text-[0.85rem]",
+          "flex w-max gap-3 sm:gap-4",
+          "motion-safe:hover:[animation-play-state:paused]",
+          animationClass,
         )}
       >
-        {name}
-      </span>
-    </motion.span>
+        {items.map((category, index) => (
+          <CategoryCard key={`${category.title}-${index}`} category={category} />
+        ))}
+      </div>
+    </div>
   );
 }
 
 export function IntegrationsShowcase() {
+  const allIntegrations = [...ROW_ONE, ...ROW_TWO];
+
   return (
     <section
       className={cn(
@@ -116,70 +229,46 @@ export function IntegrationsShowcase() {
         "mt-[var(--spacing-editor-to-features)] pb-[clamp(3rem,6vw,5rem)]",
       )}
     >
-      <div
+      <Reveal
         className={cn(
-          "relative w-full overflow-hidden",
-          "rounded-[1.875rem] sm:rounded-[2rem]",
-          "bg-feature-shell",
-          "px-[clamp(1.25rem,4vw,3.5rem)] py-[clamp(2.5rem,6vw,4rem)]",
+          "flex w-full flex-col items-center text-center",
+          "gap-[clamp(0.75rem,1vw+0.25rem,1.125rem)]",
+          "mb-[clamp(2rem,4vw,3rem)] px-[clamp(1.25rem,4vw,3.5rem)]",
         )}
       >
-        <div
-          aria-hidden
+        <h2
           className={cn(
-            "pointer-events-none absolute left-1/2 top-0 -z-0 h-[22rem] w-[46rem] -translate-x-1/2 -translate-y-1/2",
-            "rounded-full bg-[radial-gradient(closest-side,color-mix(in_srgb,var(--primary)_16%,transparent),transparent)]",
-            "blur-2xl",
+            "text-balance font-heading font-bold text-foreground",
+            "text-[clamp(1.625rem,1.15rem+1.6vw,2.5rem)]",
+            "leading-[1.12] tracking-[-0.02em]",
           )}
+        >
+          Tudo que o seu app Flutter precisa
+        </h2>
+        <p className="max-w-fluid-subtitle text-pretty font-rounded text-fluid-subtitle text-muted-foreground">
+          Backend, autenticação, assinaturas, anúncios, push e publicação —
+          tudo já integrado, pronto no dia um.
+        </p>
+      </Reveal>
+
+      <Reveal delay={0.1} className="relative flex w-full flex-col gap-0 sm:gap-0.5">
+        <MarqueeRow
+          categories={ROW_ONE}
+          animationClass="motion-safe:animate-[marquee-left_46s_linear_infinite]"
         />
+        <MarqueeRow
+          categories={ROW_TWO}
+          animationClass="motion-safe:animate-[marquee-right_40s_linear_infinite]"
+        />
+      </Reveal>
 
-        <Reveal
-          className={cn(
-            "relative flex w-full flex-col items-center text-center",
-            "gap-[clamp(0.75rem,1vw+0.25rem,1.125rem)]",
-            "mb-[clamp(2rem,4vw,3rem)]",
-          )}
-        >
-          <h2
-            className={cn(
-              "text-balance font-heading font-bold text-foreground",
-              "text-[clamp(1.625rem,1.15rem+1.6vw,2.5rem)]",
-              "leading-[1.12] tracking-[-0.02em]",
-            )}
-          >
-            Conecte a qualquer fonte de dados
-          </h2>
-          <p className="max-w-fluid-subtitle text-pretty font-rounded text-fluid-subtitle text-muted-foreground">
-            Supabase, Firebase, APIs próprias ou qualquer serviço com API,
-            como OpenAI, Gemini, Airtable, Google Sheets e Xano. Importe do
-            Swagger ou Postman com um clique. Gerencie tudo visualmente ou
-            com IA.
-          </p>
-        </Reveal>
-
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
-          className="relative flex w-full flex-col items-center gap-3 sm:gap-3.5"
-        >
-          <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3">
-            {CORE_INTEGRATIONS.map((integration) => (
-              <IntegrationBadge key={integration.name} integration={integration} />
-            ))}
-          </div>
-          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5">
-            {EXTRA_INTEGRATIONS.map((integration) => (
-              <IntegrationBadge
-                key={integration.name}
-                integration={integration}
-                size="sm"
-              />
-            ))}
-          </div>
-        </motion.div>
-      </div>
+      <ul className="sr-only">
+        {allIntegrations.map((category) => (
+          <li key={category.title}>
+            {category.title}: {category.detail}
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }

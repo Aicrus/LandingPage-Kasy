@@ -26,7 +26,11 @@ const HERO_KIT_IMAGES = {
 
 /** Ancora acima do fim do subtítulo — sobe a arte um pouco em relação ao gradiente. */
 const heroKitBackdropFrameClass =
-  "absolute inset-x-0 top-[calc(var(--spacing-hero-kit-fade-strong-end)-clamp(1rem,1.25vw+0.5rem,1.75rem))] w-full overflow-hidden aspect-[2944/1648] max-sm:aspect-auto max-sm:top-[calc(var(--spacing-hero-kit-fade-strong-end)-clamp(2rem,3vw+1.35rem,3.75rem))] max-sm:h-[clamp(20rem,88vw,25rem)]";
+  /* sm+: aspect-ratio deriva a altura da largura, mas a largura (full-bleed, sem max-width)
+     cresce sem limite em telas largas/zoom-out enquanto a altura do wrapper (ligada ao
+     conteúdo) fica praticamente fixa — sm:max-h-full trava a altura no que o wrapper
+     realmente tem, evitando que a imagem seja progressivamente cortada por baixo. */
+  "absolute inset-x-0 top-[calc(var(--spacing-hero-kit-fade-strong-end)-clamp(1rem,1.25vw+0.5rem,1.75rem))] w-full overflow-hidden aspect-[2944/1648] sm:max-h-full max-sm:aspect-auto max-sm:top-[calc(var(--spacing-hero-kit-fade-strong-end)-clamp(2rem,3vw+1.35rem,3.75rem))] max-sm:h-[clamp(20rem,88vw,25rem)]";
 
 const heroKitBackdropImageClass =
   "origin-top scale-[1.13] object-cover object-center max-sm:scale-[1.2] max-sm:object-[90%_50%]";

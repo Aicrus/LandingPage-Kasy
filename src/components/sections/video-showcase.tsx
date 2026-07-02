@@ -1,7 +1,7 @@
 "use client";
 
-import { Pause, Play } from "lucide-react";
-import { useRef, useState } from "react";
+import { Pause, Play, X } from "lucide-react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import {
   motion,
@@ -9,7 +9,10 @@ import {
   useScroll,
   useTransform,
 } from "@/lib/motion";
+import { useMediaQuery } from "@/lib/use-media-query";
 import { cn } from "@/lib/utils";
+
+const LG_MEDIA = "(min-width: 1024px)";
 
 const CONTROLS_HIDE_DELAY_MS = 2200;
 
@@ -26,9 +29,11 @@ const toggleButtonIconClass =
 export function VideoShowcase() {
   const [playing, setPlaying] = useState(false);
   const [controlsVisible, setControlsVisible] = useState(true);
+  const [fullscreenOpen, setFullscreenOpen] = useState(false);
   const hideTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
   const reducedMotion = useReducedMotion();
+  const isLgUp = useMediaQuery(LG_MEDIA);
 
   // Contínuo — amarrado direto na posição de scroll da seção, sem travar a rolagem.
   const { scrollYProgress } = useScroll({
@@ -66,6 +71,10 @@ export function VideoShowcase() {
       setPlaying(false);
       setControlsVisible(true);
       clearHideTimeout();
+    } else if (!isLgUp) {
+      // Mobile/tablet: o play abre o vídeo em tela cheia em vez de tocar inline.
+      setPlaying(true);
+      setFullscreenOpen(true);
     } else {
       setPlaying(true);
       setControlsVisible(true);
@@ -73,12 +82,37 @@ export function VideoShowcase() {
     }
   }
 
+  const closeFullscreen = useCallback(() => {
+    setFullscreenOpen(false);
+    setPlaying(false);
+    setControlsVisible(true);
+    clearHideTimeout();
+  }, []);
+
+  useEffect(() => {
+    if (!fullscreenOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") closeFullscreen();
+    }
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [fullscreenOpen, closeFullscreen]);
+
   return (
+    <>
     <div
       ref={sectionRef}
       className={cn(
         "relative flex w-full flex-col items-center overflow-hidden",
-        "mt-[clamp(-3.5rem,-4vw,-2rem)] pb-[clamp(4rem,8vw,7rem)]",
+        "mt-[clamp(-3.5rem,-4vw,-2rem)]",
       )}
     >
       <motion.div
@@ -104,8 +138,11 @@ export function VideoShowcase() {
         <motion.div
           onMouseMove={handleMouseMove}
           style={
-            reducedMotion
-              ? { width: "min(94vw, 66rem)" }
+            reducedMotion || !isLgUp
+              ? // Abaixo de lg o card já é mais baixo que a margem negativa de overlap
+                // (pensada pro vídeo grande do desktop) — sem isso, o overflow-hidden do
+                // wrapper corta o topo do vídeo. Mobile/tablet ficam com o reveal simples.
+                { width: "min(94vw, 66rem)" }
               : { width, scale, marginTop: videoOverlapMarginTop }
           }
           className={cn(
@@ -114,7 +151,7 @@ export function VideoShowcase() {
             "bg-[#0b0d13]",
           )}
         >
-          {playing ? (
+          {playing && !fullscreenOpen ? (
             <video
               src={VIDEO_SRC}
               autoPlay
@@ -166,5 +203,59 @@ export function VideoShowcase() {
         </motion.div>
       </motion.div>
     </div>
+
+    {fullscreenOpen ? (
+      <div
+        className="fixed inset-0 z-50 flex items-center justify-center bg-black lg:hidden"
+        onMouseMove={handleMouseMove}
+      >
+        <video
+          src={VIDEO_SRC}
+          autoPlay
+          playsInline
+          onPlay={scheduleHide}
+          onEnded={closeFullscreen}
+          className="size-full object-contain"
+        />
+
+        <button
+          type="button"
+          aria-label={playing ? "Pausar vídeo" : "Reproduzir vídeo"}
+          onClick={handleToggle}
+          className="absolute inset-0 flex size-full items-center justify-center outline-none"
+        >
+          <span
+            className={cn(
+              toggleButtonIconClass,
+              playing && !controlsVisible ? "opacity-0" : "opacity-100",
+            )}
+          >
+            {playing ? (
+              <Pause className="size-6 text-white sm:size-7" strokeWidth={1.75} />
+            ) : (
+              <Play
+                className="size-6 translate-x-0.5 text-white sm:size-7"
+                strokeWidth={1.75}
+              />
+            )}
+          </span>
+        </button>
+
+        <button
+          type="button"
+          aria-label="Fechar vídeo"
+          onClick={closeFullscreen}
+          className={cn(
+            "absolute top-[max(1rem,env(safe-area-inset-top))] right-[max(1rem,env(safe-area-inset-right))]",
+            "flex size-11 items-center justify-center rounded-full bg-white/15 backdrop-blur-md",
+            "transition-opacity duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
+            playing && !controlsVisible ? "opacity-0" : "opacity-100",
+          )}
+        >
+          <X className="size-5 text-white" strokeWidth={1.75} />
+        </button>
+      </div>
+    ) : null}
+    </>
   );
 }

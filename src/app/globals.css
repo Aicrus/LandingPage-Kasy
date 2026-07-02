@@ -147,8 +147,8 @@
   --spacing-hero-to-mock-mobile: clamp(5.75rem, 9vw + 2.25rem, 7.75rem);
   /* Fade inferior do mock — overlay por cima do conteúdo (não substitui a borda do card) */
   --spacing-hero-mock-fade-height: clamp(3rem, 5vw, 6rem);
-  /* Respiro entre o mock do editor e o bloco de features */
-  --spacing-editor-to-features: clamp(4.5rem, 8.5vw + 1rem, 8rem);
+  /* Respiro entre seções de conteúdo distinto (vídeo→features, features→integrations) — maior que o hero→mock de propósito, para marcar a troca de assunto */
+  --spacing-editor-to-features: clamp(6rem, 10vw + 1.5rem, 10rem);
   --spacing-features-title-to-cards: clamp(2rem, 3.5vw + 0.75rem, 3.25rem);
   /* Respiro entre o bloco de features e a sessão de vídeo */
   --spacing-features-to-video: clamp(4.5rem, 8.5vw + 1rem, 8rem);
@@ -532,5 +532,24 @@
   100% {
     transform: translateX(340%) skewX(-14deg);
     opacity: 0;
+  }
+}
+
+/* Marquee de integrações — loop horizontal contínuo */
+@keyframes marquee-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-right {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
   }
 }
