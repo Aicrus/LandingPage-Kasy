@@ -63,8 +63,8 @@ export function KasyPunchline() {
               : { duration: 1.2, ease: [0.16, 1, 0.3, 1] }
           }
           className={cn(
-            "pointer-events-none absolute left-1/2 top-[-18%] -z-10 -translate-x-1/2 select-none",
-            "font-heading text-foreground/5 dark:text-foreground/8",
+            "pointer-events-none absolute left-1/2 top-[-12%] -z-10 -translate-x-1/2 select-none",
+            "font-heading text-foreground/[0.14] dark:text-foreground/[0.22]",
             "text-[clamp(16rem,38vw,32rem)] leading-none",
           )}
         >
@@ -124,7 +124,7 @@ export function KasyPunchline() {
                   }
             }
             className={cn(
-              "absolute -right-3 bottom-1 sm:-right-6 sm:bottom-2",
+              "absolute bottom-0 left-full ml-1.5 -translate-y-1 sm:ml-3",
               "flex size-[clamp(2.5rem,1.8rem+2.8vw,4rem)] items-center justify-center rounded-full",
               "bg-[#16a34a] text-white shadow-[0_6px_18px_-4px_rgba(22,163,74,0.55)]",
               "dark:bg-[#4ade80] dark:text-[#052e12] dark:shadow-[0_6px_18px_-4px_rgba(74,222,128,0.4)]",
