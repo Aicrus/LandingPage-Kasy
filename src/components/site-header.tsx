@@ -7,13 +7,13 @@ import { useEffect, useState } from "react";
 import { KasyLogo } from "@/components/kasy-logo";
 import { Button } from "@/components/ui/button";
 import {
+  animate,
   motion,
   useMotionTemplate,
   useMotionValue,
   useMotionValueEvent,
   useReducedMotion,
   useScroll,
-  useSpring,
   useTransform,
 } from "@/lib/motion";
 import { cn } from "@/lib/utils";
@@ -22,13 +22,14 @@ import { surfaceBorderClass } from "@/lib/surface-border";
 const COLLAPSE_AT = 24;
 const MOBILE_MEDIA = "(max-width: 639px)";
 
-// Ao subir (voltar ao topo) o scroll costuma parar de repente, então a mola
-// segue "acabando" sozinha por baixo — deixamos essa volta mais rápida para
-// não sobrar cauda de animação depois que o usuário já parou de rolar.
-const PROGRESS_SPRING_DOWN = { stiffness: 190, damping: 24, mass: 0.8 };
-const PROGRESS_SPRING_UP = { stiffness: 370, damping: 31, mass: 0.65 };
-const GLASS_SPRING_DOWN = { stiffness: 165, damping: 27, mass: 0.8 };
-const GLASS_SPRING_UP = { stiffness: 340, damping: 31, mass: 0.65 };
+// Tween (não mola) com a mesma curva "premium" usada no blurReveal do site
+// (lib/motion.ts). Uma mola solta do repouso começa com velocidade zero e
+// só ganha ritmo depois de ~50-60ms — lê como um atraso antes de "acordar".
+// O tween já parte com velocidade máxima, então a resposta é imediata, e a
+// duração fixa evita a cauda quase invisível que uma mola deixa no final.
+const MORPH_EASE = [0.16, 1, 0.3, 1] as const;
+const MORPH_DURATION_DOWN = 0.32;
+const MORPH_DURATION_UP = 0.26;
 
 const headerShellBorderClass = cn("border-[0.5px]", surfaceBorderClass);
 
@@ -175,25 +176,19 @@ function SiteHeaderMotion({ openWidth }: { openWidth: number }) {
   // limiar → compacto, e continua compacto mesmo com pequenas rolagens pra
   // cima no meio da página. Só reabre ao voltar pra perto do topo de novo.
   const [isCompact, setIsCompact] = useState(false);
-  const target = useMotionValue(0);
+  const morph = useMotionValue(0);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     setIsCompact(latest > COLLAPSE_AT);
   });
 
   useEffect(() => {
-    target.set(isCompact ? 1 : 0);
-  }, [isCompact, target]);
-
-  const progress = useSpring(
-    target,
-    isCompact ? PROGRESS_SPRING_DOWN : PROGRESS_SPRING_UP,
-  );
-
-  const glass = useSpring(
-    target,
-    isCompact ? GLASS_SPRING_DOWN : GLASS_SPRING_UP,
-  );
+    const controls = animate(morph, isCompact ? 1 : 0, {
+      duration: isCompact ? MORPH_DURATION_DOWN : MORPH_DURATION_UP,
+      ease: MORPH_EASE,
+    });
+    return () => controls.stop();
+  }, [isCompact, morph]);
 
   // Lido do CSS uma vez por tema (não a cada frame) — --header-blur-fill só
   // muda quando a classe .dark alterna, nunca durante o scroll.
@@ -206,25 +201,25 @@ function SiteHeaderMotion({ openWidth }: { openWidth: number }) {
     blurFillMax.set(Number.parseFloat(raw) || 74);
   }, [resolvedTheme, blurFillMax]);
 
-  const shellMaxWidth = useTransform(progress, (value) => {
+  const shellMaxWidth = useTransform(morph, (value) => {
     const compact = Math.min(openWidth, Math.max(openWidth * 0.76, 460));
     return openWidth + (compact - openWidth) * value;
   });
 
-  const shellPaddingY = useTransform(progress, [0, 1], [16, 11]);
-  const shellPaddingX = useTransform(progress, [0, 1], [0, 24]);
-  const shellRadius = useTransform(glass, [0, 1], [0, 9999]);
-  const topOffset = useTransform(progress, [0, 1], [0, 12]);
+  const shellPaddingY = useTransform(morph, [0, 1], [16, 11]);
+  const shellPaddingX = useTransform(morph, [0, 1], [0, 24]);
+  const shellRadius = useTransform(morph, [0, 1], [0, 9999]);
+  const topOffset = useTransform(morph, [0, 1], [0, 12]);
   const blurFill = useTransform(
-    [glass, blurFillMax],
+    [morph, blurFillMax],
     ([g, max]: number[]) => g * max,
   );
-  const blurAmount = useTransform(glass, [0, 1], [0, 16]);
+  const blurAmount = useTransform(morph, [0, 1], [0, 16]);
   const shellBackground = useMotionTemplate`rgb(from var(--background) r g b / ${blurFill}%)`;
   const backdropFilter = useMotionTemplate`blur(${blurAmount}px)`;
-  const shellBorderMix = useTransform(glass, [0, 1], [0, 60]);
+  const shellBorderMix = useTransform(morph, [0, 1], [0, 60]);
   const shellBorderColor = useMotionTemplate`color-mix(in oklch, var(--border) ${shellBorderMix}%, transparent)`;
-  const navGap = useTransform(progress, [0, 1], [24, 22]);
+  const navGap = useTransform(morph, [0, 1], [24, 22]);
 
   return (
     <motion.header
