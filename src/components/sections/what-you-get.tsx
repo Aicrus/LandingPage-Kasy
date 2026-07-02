@@ -378,7 +378,7 @@ function savedLabel(saved: string) {
 
 function TabTagline({ copy }: { copy: TaglineCopy }) {
   return (
-    <p className="text-pretty text-[0.9375rem] leading-snug text-muted-foreground">
+    <p className="text-pretty text-[0.9375rem] leading-snug text-muted-foreground sm:text-[1rem] sm:leading-snug lg:text-[1.0625rem]">
       <span className="font-bold text-inherit">{copy.emphasis}</span>
       {copy.rest}
     </p>
@@ -408,7 +408,7 @@ function TabPanelCard({
   return (
     <div
       className={cn(
-        "rounded-2xl border border-border/70 bg-card p-5 sm:p-6",
+        "rounded-2xl border border-border/70 bg-card p-5 sm:p-6 lg:p-7",
         CARD_SHADOW_CLASS,
         fillHeight && "min-h-full",
       )}
@@ -418,30 +418,28 @@ function TabPanelCard({
           <TabTagline copy={tab.tagline} />
           <div
             className={cn(
-              "mt-2.5 flex flex-nowrap items-center gap-1.5 overflow-x-auto",
+              "mt-2.5 flex flex-nowrap items-center gap-1.5 overflow-x-auto overflow-y-visible py-0.5 sm:mt-3 sm:gap-2",
               "max-sm:-mx-0.5 max-sm:px-0.5",
               "[scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden",
             )}
           >
             {tab.providers.map((name) => (
-              <motion.span
+              <span
                 key={name}
-                whileHover={{ y: -2 }}
-                transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full bg-muted/70 py-0.5 pr-2.5 pl-0.5 text-[0.6875rem] font-medium text-muted-foreground"
+                className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full bg-muted/70 py-0.5 pr-2.5 pl-0.5 text-[0.6875rem] font-medium text-muted-foreground transition-colors duration-200 hover:bg-muted sm:gap-2 sm:py-1 sm:pr-3 sm:pl-1 sm:text-xs lg:text-[0.8125rem]"
               >
-                <BrandTile name={name} size="size-5" iconSize={11} />
+                <BrandTile name={name} pill />
                 {name}
-              </motion.span>
+              </span>
             ))}
           </div>
         </div>
         {tab.saved ? (
-          <span className="w-fit shrink-0 rounded-md bg-emerald-500/10 px-2.5 py-1 font-mono text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+          <span className="w-fit shrink-0 rounded-md bg-emerald-500/10 px-2.5 py-1 font-mono text-xs font-semibold text-emerald-600 sm:px-3 sm:py-1.5 sm:text-[0.8125rem] dark:text-emerald-400">
             {savedLabel(tab.saved)}
           </span>
         ) : tab.moreItems ? (
-          <span className="w-fit shrink-0 rounded-md bg-primary/10 px-2.5 py-1 font-mono text-xs font-semibold text-primary">
+          <span className="w-fit shrink-0 rounded-md bg-primary/10 px-2.5 py-1 font-mono text-xs font-semibold text-primary sm:px-3 sm:py-1.5 sm:text-[0.8125rem]">
             {tab.moreItems.length} recursos
           </span>
         ) : null}
@@ -453,10 +451,12 @@ function TabPanelCard({
             {tab.moreItems.map((item) => (
               <div
                 key={item.label}
-                className="rounded-xl bg-muted/50 p-3.5 transition-colors duration-200 hover:bg-muted"
+                className="rounded-xl bg-muted/50 p-3.5 transition-colors duration-200 hover:bg-muted sm:p-4"
               >
-                <p className="text-sm font-bold text-foreground">{item.label}</p>
-                <p className="mt-0.5 text-xs text-muted-foreground">
+                <p className="text-sm font-bold text-foreground sm:text-[0.9375rem] lg:text-base">
+                  {item.label}
+                </p>
+                <p className="mt-0.5 text-xs text-muted-foreground sm:text-[0.8125rem] lg:text-sm">
                   {item.desc}
                 </p>
               </div>
@@ -467,11 +467,11 @@ function TabPanelCard({
             {tab.bullets?.map((bullet) => (
               <li
                 key={`${bullet.label}-${bullet.detail ?? ""}`}
-                className="group -mx-2 flex items-start gap-3 rounded-lg border-b border-border/50 px-2 py-3 text-sm text-foreground/90 transition-colors duration-200 last:border-b-0 hover:bg-muted/50"
+                className="group -mx-2 flex items-start gap-3 rounded-lg border-b border-border/50 px-2 py-3 text-sm text-foreground/90 transition-colors duration-200 last:border-b-0 hover:bg-muted/50 sm:gap-3.5 sm:px-2.5 sm:py-3.5 sm:text-[0.9375rem] lg:text-base"
               >
                 <span
                   aria-hidden
-                  className="mt-[0.6em] size-1.5 shrink-0 rounded-full bg-foreground/30 transition-colors duration-200 group-hover:bg-foreground/50"
+                  className="mt-[0.6em] size-1.5 shrink-0 rounded-full bg-foreground/30 transition-colors duration-200 group-hover:bg-foreground/50 sm:mt-[0.62em] sm:size-2"
                 />
                 <FeatureBulletText bullet={bullet} />
               </li>

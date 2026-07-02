@@ -79,18 +79,22 @@ export function BrandTile({
   size = "size-9",
   iconSize = 17,
   className,
+  pill = false,
 }: {
   name: string;
   size?: string;
   iconSize?: number;
   className?: string;
+  /** Ícone circular proporcional ao `font-size` do pai — para pills compactas. */
+  pill?: boolean;
 }) {
   const entry = BRAND_ICONS[name];
   const commonClass = cn(
-    "flex shrink-0 items-center justify-center rounded-lg",
-    size,
+    "flex shrink-0 items-center justify-center",
+    pill ? "size-[1.55em] rounded-full" : cn("rounded-lg", size),
     className,
   );
+  const resolvedIconSize = pill ? "58%" : iconSize;
 
   if (!entry) {
     return (
@@ -118,7 +122,7 @@ export function BrandTile({
         backgroundColor: `color-mix(in srgb, ${glow} 14%, transparent)`,
       }}
     >
-      <entry.Icon size={iconSize} color={glow} />
+      <entry.Icon size={resolvedIconSize} color={glow} />
     </span>
   );
 }
