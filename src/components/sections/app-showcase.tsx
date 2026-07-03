@@ -49,17 +49,42 @@ function getResponsiveMultiplier(width: number) {
 }
 
 const FAN_MAX_OFFSET_REM = 30;
-const FAN_EDGE_SAFETY_PX = 8;
+const FAN_EDGE_SAFETY_PX = 12;
+
+/** Half-width of a rotated rectangle's axis-aligned bounding box. */
+function getRotatedHalfWidth(
+  widthPx: number,
+  heightPx: number,
+  rotationDeg: number,
+  scale: number,
+) {
+  const w = widthPx * scale;
+  const h = heightPx * scale;
+  const rad = (Math.abs(rotationDeg) * Math.PI) / 180;
+  return (Math.abs(w * Math.cos(rad)) + Math.abs(h * Math.sin(rad))) / 2;
+}
 
 /**
  * Cards use `overflow-visible` to bleed past the section on purpose (desktop hover pop),
- * but on narrow viewports that bleed can extend past the actual screen edge, where
- * `overflow-x: hidden` on <html> clips it instead of scrolling — cards end up cut off.
- * Clamp the multiplier so the outermost card never reaches past the viewport edge.
+ * but on narrow viewports that bleed can extend past the actual screen edge and trigger
+ * horizontal scroll. Clamp the multiplier so the outermost rotated card stays inside
+ * the viewport (rotation + x offset included).
  */
-function getFanMultiplier(rawMultiplier: number, viewportWidth: number, cardHalfWidthPx: number) {
+function getFanMultiplier(
+  rawMultiplier: number,
+  viewportWidth: number,
+  cardWidthPx: number,
+  cardHeightPx: number,
+) {
   const remPx = 16;
-  const maxAllowedPx = viewportWidth / 2 - cardHalfWidthPx - FAN_EDGE_SAFETY_PX;
+  const outer = FAN_POSITIONS[0];
+  const rotatedHalf = getRotatedHalfWidth(
+    cardWidthPx,
+    cardHeightPx,
+    outer.rot,
+    outer.scale,
+  );
+  const maxAllowedPx = viewportWidth / 2 - rotatedHalf - FAN_EDGE_SAFETY_PX;
   if (maxAllowedPx <= 0) return 0;
   return Math.min(rawMultiplier, maxAllowedPx / (FAN_MAX_OFFSET_REM * remPx));
 }
@@ -174,11 +199,13 @@ export function AppShowcase() {
     const previouslyVisible = prevVisible.current;
     const direction = directionRef.current;
     const isFirstMount = !hasEntered.current;
-    const cardHalfWidthPx = cardElements[0].offsetWidth / 2;
+    const cardWidthPx = cardElements[0].offsetWidth;
+    const cardHeightPx = cardElements[0].offsetHeight;
     const multiplier = getFanMultiplier(
       getResponsiveMultiplier(window.innerWidth),
       window.innerWidth,
-      cardHalfWidthPx,
+      cardWidthPx,
+      cardHeightPx,
     );
     const hMult = getHeightMultiplier(window.innerWidth);
     const slotCount = needsPagination ? MAX_VISIBLE : totalCards;
@@ -288,11 +315,13 @@ export function AppShowcase() {
     const centerSlot = visibleEntries.length >> 1;
 
     const updateHoverLayout = (hoveredSlot: number | null) => {
-      const cardHalfWidthPx = cardElements[0].offsetWidth / 2;
+      const cardWidthPx = cardElements[0].offsetWidth;
+      const cardHeightPx = cardElements[0].offsetHeight;
       const mult = getFanMultiplier(
         getResponsiveMultiplier(window.innerWidth),
         window.innerWidth,
-        cardHalfWidthPx,
+        cardWidthPx,
+        cardHeightPx,
       );
       const hM = getHeightMultiplier(window.innerWidth);
 
@@ -397,7 +426,7 @@ export function AppShowcase() {
   return (
     <section
       className={cn(
-        "mx-auto flex w-full flex-col items-center",
+        "mx-auto flex w-full flex-col items-center overflow-x-clip",
         "max-w-[min(96vw,76rem)]",
         "px-[clamp(0.75rem,2.5vw,2rem)] max-sm:px-[clamp(1rem,3.25vw,2rem)]",
         "mt-[var(--spacing-editor-to-features)] pb-[clamp(3rem,6vw,5rem)]",
@@ -427,7 +456,7 @@ export function AppShowcase() {
         </p>
       </Reveal>
 
-      <div className="flex w-full items-center justify-center overflow-visible">
+      <div className="flex w-full items-center justify-center overflow-x-clip overflow-y-visible">
         <div
           ref={containerRef}
           className={cn(
