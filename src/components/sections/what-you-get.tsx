@@ -387,14 +387,19 @@ function TabTagline({ copy }: { copy: TaglineCopy }) {
 
 function FeatureBulletText({ bullet }: { bullet: FeatureBullet }) {
   if (!bullet.detail) {
-    return <span className="font-bold text-inherit">{bullet.label}</span>;
+    return (
+      <span className="text-pretty font-bold text-inherit">{bullet.label}</span>
+    );
   }
 
   return (
-    <>
-      <span className="font-bold text-inherit">{bullet.label}</span>
-      <span className="text-muted-foreground">, {bullet.detail}</span>
-    </>
+    <span className="flex min-w-0 flex-col gap-0.5 sm:block sm:text-pretty">
+      <span className="font-bold text-inherit sm:inline">{bullet.label}</span>
+      <span className="text-[0.8125rem] leading-snug text-muted-foreground sm:inline sm:text-inherit sm:leading-inherit">
+        <span className="hidden sm:inline">, </span>
+        {bullet.detail}
+      </span>
+    </span>
   );
 }
 
@@ -453,10 +458,10 @@ function TabPanelCard({
                 key={item.label}
                 className="rounded-xl bg-muted/50 p-3.5 transition-colors duration-200 hover:bg-muted sm:p-4"
               >
-                <p className="text-sm font-bold text-foreground sm:text-[0.9375rem] lg:text-base">
+                <p className="text-pretty text-sm font-bold text-foreground sm:text-[0.9375rem] lg:text-base">
                   {item.label}
                 </p>
-                <p className="mt-0.5 text-xs text-muted-foreground sm:text-[0.8125rem] lg:text-sm">
+                <p className="mt-0.5 text-pretty text-xs leading-snug text-muted-foreground sm:text-[0.8125rem] lg:text-sm">
                   {item.desc}
                 </p>
               </div>
@@ -471,7 +476,7 @@ function TabPanelCard({
               >
                 <span
                   aria-hidden
-                  className="mt-[0.6em] size-1.5 shrink-0 rounded-full bg-foreground/30 transition-colors duration-200 group-hover:bg-foreground/50 sm:mt-[0.62em] sm:size-2"
+                  className="mt-2 size-1.5 shrink-0 rounded-full bg-foreground/30 transition-colors duration-200 group-hover:bg-foreground/50 sm:mt-[0.62em] sm:size-2"
                 />
                 <FeatureBulletText bullet={bullet} />
               </li>
