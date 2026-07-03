@@ -28,20 +28,6 @@ function DartFileIcon({ className }: { className?: string }) {
   );
 }
 
-function FlutterConfigIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 16 16"
-      className={cn("size-[1.28em] shrink-0", className)}
-      aria-hidden
-    >
-      <path fill="#54C5F8" d="m8.1 1.5 4.4 4.4-4.4 4.4-4.4-4.4L8.1 1.5Z" />
-      <path fill="#01579B" d="M8.1 10.3 12.5 14.7H3.7l4.4-4.4Z" />
-      <path fill="#29B6F6" d="M8.1 10.3 3.7 14.7h4.4V10.3Z" />
-    </svg>
-  );
-}
-
 function fileExtension(name: string) {
   if (!name.includes(".")) return "";
   return name.split(".").pop()?.toLowerCase() ?? "";
@@ -55,14 +41,9 @@ export function ExplorerFileIcon({
   className?: string;
 }) {
   const ext = fileExtension(name);
-  const isFlutterConfig = name === "pubspec.yaml" || name === "analysis_options.yaml";
 
   if (ext === "dart") {
     return <DartFileIcon className={className} />;
-  }
-
-  if (isFlutterConfig) {
-    return <FlutterConfigIcon className={className} />;
   }
 
   if (ext === "yaml" || ext === "yml") {

@@ -5,6 +5,7 @@ import {
   Camera,
   ChevronDown,
   ChevronRight,
+  Globe,
   Layers2,
   Mic,
   Moon,
@@ -13,6 +14,7 @@ import {
   SquareDashedMousePointer,
   X,
 } from "lucide-react";
+import { SiAndroid, SiApple } from "@icons-pack/react-simple-icons";
 import { useTranslations } from "next-intl";
 import type { ReactNode } from "react";
 import { useId, useState } from "react";
@@ -70,13 +72,9 @@ type TreeNode = {
 
 const PROJECT_TREE: TreeNode[] = [
   {
-    name: "flutter_app",
+    name: "kasy_app",
     open: true,
     children: [
-      { name: ".dart_tool" },
-      { name: "android" },
-      { name: "ios" },
-      { name: "assets" },
       {
         name: "lib",
         open: true,
@@ -84,12 +82,20 @@ const PROJECT_TREE: TreeNode[] = [
           { name: "main.dart" },
           {
             name: "core",
-            children: [{ name: "theme.dart" }, { name: "router.dart" }],
+            children: [{ name: "router.dart" }, { name: "theme.dart" }],
           },
           {
             name: "features",
             open: true,
             children: [
+              {
+                name: "auth",
+                open: true,
+                children: [
+                  { name: "login_page.dart" },
+                  { name: "auth_provider.dart" },
+                ],
+              },
               {
                 name: "home",
                 open: true,
@@ -97,19 +103,26 @@ const PROJECT_TREE: TreeNode[] = [
                   { name: "home_page.dart", active: true },
                   {
                     name: "widgets",
-                    open: true,
                     children: [{ name: "product_card.dart" }],
                   },
                 ],
               },
-              { name: "auth" },
-              { name: "profile" },
+              {
+                name: "paywall",
+                children: [{ name: "paywall_page.dart" }, { name: "plans_sheet.dart" }],
+              },
+              {
+                name: "profile",
+                children: [{ name: "profile_page.dart" }],
+              },
             ],
           },
-          { name: "shared" },
+          {
+            name: "shared",
+            children: [{ name: "app_button.dart" }, { name: "loading_view.dart" }],
+          },
         ],
       },
-      { name: "test" },
       { name: "pubspec.yaml" },
       { name: "analysis_options.yaml" },
     ],
@@ -311,31 +324,6 @@ function ProjectExplorer() {
         editorSurfaceClass,
       )}
     >
-      <div
-        className={cn(
-          "flex items-center justify-between border-b",
-          chromeBarClass,
-          editorLineClass,
-          editorSurfaceClass,
-        )}
-      >
-        <span
-          className={cn(
-            "font-semibold tracking-[0.08em] text-[#3c3c3c] uppercase dark:text-[#cccccc]",
-            explorerType,
-          )}
-        >
-          Explorer
-        </span>
-        <span
-          className={cn(
-            "rounded bg-black/[0.05] px-[0.45em] py-[0.1em] font-mono font-medium text-[#6d758a] dark:bg-white/[0.06] dark:text-[#9aa3b8]",
-            editorType.caption,
-          )}
-        >
-          Flutter
-        </span>
-      </div>
       <div className="flex-1 overflow-hidden px-[0.15em] py-[0.35em]">
         {PROJECT_TREE.map((node) => (
           <TreeBranch key={node.name} node={node} />
@@ -494,6 +482,42 @@ export function HeroPhonePanelCallout() {
   );
 }
 
+function PlatformTargets() {
+  const targets = [
+    { id: "web", label: "Web", Icon: Globe, color: "#38BDF8" },
+    { id: "ios", label: "iOS", Icon: SiApple, color: null, active: true },
+    { id: "android", label: "Android", Icon: SiAndroid, color: "#3DDC84" },
+  ] as const;
+
+  return (
+    <div
+      className={cn(
+        "flex shrink-0 items-center gap-[0.2em] border-l px-[0.35em] py-[0.2em]",
+        editorLineClass,
+      )}
+    >
+      {targets.map(({ id, label, Icon, color, active }) => (
+        <span
+          key={id}
+          title={label}
+          className={cn(
+            "flex size-[1.55em] items-center justify-center rounded-[0.28em] transition-colors",
+            active
+              ? "bg-black/[0.06] text-foreground dark:bg-white/[0.1] dark:text-[#eceef6]"
+              : "text-[#8b93a7] opacity-70 dark:text-[#7d869c]",
+          )}
+        >
+          <Icon
+            size="0.82em"
+            color={active ? (color ?? "currentColor") : "currentColor"}
+            aria-hidden
+          />
+        </span>
+      ))}
+    </div>
+  );
+}
+
 function PhonePanel() {
   const t = useTranslations("heroWorkspaceMock");
 
@@ -537,6 +561,7 @@ function PhonePanel() {
           >
             http://localhost:5555
           </span>
+          <PlatformTargets />
         </div>
       </div>
 
@@ -545,7 +570,7 @@ function PhonePanel() {
       </div>
 
       <div className="relative flex min-h-0 flex-1 justify-center px-[4%] pb-[3.5%] pt-[0.5%]">
-        <div className="relative h-full w-[76%] max-w-[258px] translate-y-[0.4em]">
+        <div className="relative h-full w-[76%] max-w-[258px] -translate-y-[0.1em]">
           <Image
             src={PHONE_IMAGES.light.src}
             alt={t("phoneAlt")}
