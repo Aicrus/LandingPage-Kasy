@@ -50,6 +50,7 @@ function HeroKitBackdropImage({ variant }: { variant: "light" | "dark" }) {
         alt=""
         fill
         priority
+        loading="eager"
         /* Frame é 100vw, mas o scale-[1.13]/scale-[1.2] (mobile) amplia o render visual — sizes reflete isso */
         sizes="(max-width: 639px) 120vw, 113vw"
         className={heroKitBackdropImageClass}

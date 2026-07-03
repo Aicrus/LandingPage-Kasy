@@ -58,10 +58,10 @@ export function SiteFooter() {
           "relative z-10 mx-auto flex w-full flex-col",
           "max-w-[min(96vw,76rem)]",
           "px-[clamp(0.75rem,2.5vw,2rem)] max-sm:px-[clamp(1rem,3.25vw,2rem)]",
-          "py-[clamp(3rem,6vw,5rem)]",
+          "py-[clamp(3rem,6vw,5rem)] max-sm:py-[clamp(2.5rem,8vw,3.5rem)]",
         )}
       >
-        <div className="flex flex-col items-start justify-between gap-8 sm:flex-row sm:items-center">
+        <div className="flex flex-col gap-7 max-sm:gap-6 sm:flex-row sm:items-center sm:justify-between sm:gap-8">
           <div className="flex flex-col gap-3">
             <div className="flex flex-wrap items-center gap-2.5">
               <KasyLogo />
@@ -77,34 +77,40 @@ export function SiteFooter() {
                 {t("byAicrus")}
               </a>
             </div>
-            <p className="max-w-xs text-[0.8125rem] text-muted-foreground">
-              {t("tagline")}
+            <p className="max-w-sm text-pretty text-[0.8125rem] leading-relaxed text-muted-foreground max-sm:max-w-none max-sm:leading-snug">
+              <span className="block sm:inline">{t("tagline.lead")}</span>
+              <span className="block sm:inline">
+                <span className="hidden sm:inline"> </span>
+                {t("tagline.tail")}
+              </span>
             </p>
           </div>
 
-          <nav className="flex shrink-0 items-center gap-6">
-            {FOOTER_LINKS.map((link) => {
-              const className =
-                "text-sm font-medium text-muted-foreground transition-colors hover:text-foreground";
+          <nav className="flex flex-col gap-3 max-sm:gap-2.5 sm:shrink-0 sm:flex-row sm:items-center sm:gap-6">
+            <div className="flex flex-col gap-2.5 max-sm:gap-2 sm:flex-row sm:items-center sm:gap-6">
+              {FOOTER_LINKS.map((link) => {
+                const className =
+                  "text-sm font-medium text-muted-foreground transition-colors hover:text-foreground";
 
-              if (link.href.startsWith("#")) {
+                if (link.href.startsWith("#")) {
+                  return (
+                    <HashLink key={link.href} href={link.href} className={className}>
+                      {link.label}
+                    </HashLink>
+                  );
+                }
+
                 return (
-                  <HashLink key={link.href} href={link.href} className={className}>
+                  <Link key={link.href} href={link.href} className={className}>
                     {link.label}
-                  </HashLink>
+                  </Link>
                 );
-              }
-
-              return (
-                <Link key={link.href} href={link.href} className={className}>
-                  {link.label}
-                </Link>
-              );
-            })}
+              })}
+            </div>
             <Button
               variant="outline"
               nativeButton={false}
-              className="h-auto shrink-0 rounded-full px-4 py-2"
+              className="hidden h-auto shrink-0 rounded-full px-4 py-2 sm:inline-flex"
               render={<Link href="/obter-kasy" />}
             >
               {t("cta")}
@@ -112,12 +118,20 @@ export function SiteFooter() {
           </nav>
         </div>
 
-        <div className="mt-10 flex items-center justify-between gap-4">
-          <p className="text-xs text-muted-foreground">{t("copyright")}</p>
-          <div className="flex items-center gap-2.5">
+        <div
+          className={cn(
+            "mt-8 flex flex-col gap-4 border-t pt-6 max-sm:mt-7 max-sm:gap-4 max-sm:pt-5",
+            "sm:mt-10 sm:flex-row sm:items-center sm:justify-between",
+            surfaceBorderClass,
+          )}
+        >
+          <div className="flex items-center gap-2.5 max-sm:justify-between sm:order-2 sm:justify-end">
             <LanguageSwitcher />
             <ThemeToggle />
           </div>
+          <p className="shrink-0 text-xs text-muted-foreground max-sm:whitespace-nowrap sm:order-1">
+            {t("copyright")}
+          </p>
         </div>
       </div>
     </footer>

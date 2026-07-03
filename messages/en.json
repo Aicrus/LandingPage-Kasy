@@ -10,7 +10,10 @@
   },
   "footer": {
     "byAicrus": "by Aicrus LLC",
-    "tagline": "The Flutter starter that ships on iOS, Android and Web on day one.",
+    "tagline": {
+      "lead": "The Flutter starter that ships on iOS,",
+      "tail": "Android and Web on day one."
+    },
     "links": {
       "pricing": "Pricing",
       "docs": "Documentation"

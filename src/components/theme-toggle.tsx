@@ -45,22 +45,32 @@ export function ThemeToggle() {
         surfaceBorderClass,
       )}
     >
-      <motion.span
-        aria-hidden
-        className={cn(
-          "pointer-events-none absolute top-0.5 left-0.5 size-6 rounded-full",
-          "bg-secondary shadow-[inset_0_1px_0_rgb(255_255_255/0.45)]",
-          "dark:bg-white/12 dark:shadow-[inset_0_1px_0_rgb(255_255_255/0.08)]",
-          !mounted && "opacity-0",
-        )}
-        initial={false}
-        animate={{ x: `${activeIndex * 100}%` }}
-        transition={
-          reducedMotion
-            ? { duration: 0 }
-            : { type: "spring", stiffness: 520, damping: 34, mass: 0.75 }
-        }
-      />
+      {mounted ? (
+        <motion.span
+          aria-hidden
+          className={cn(
+            "pointer-events-none absolute top-0.5 left-0.5 size-6 rounded-full",
+            "bg-secondary shadow-[inset_0_1px_0_rgb(255_255_255/0.45)]",
+            "dark:bg-white/12 dark:shadow-[inset_0_1px_0_rgb(255_255_255/0.08)]",
+          )}
+          initial={false}
+          animate={{ x: `${activeIndex * 100}%` }}
+          transition={
+            reducedMotion
+              ? { duration: 0 }
+              : { type: "spring", stiffness: 520, damping: 34, mass: 0.75 }
+          }
+        />
+      ) : (
+        <span
+          aria-hidden
+          className={cn(
+            "pointer-events-none absolute top-0.5 left-0.5 size-6 rounded-full opacity-0",
+            "bg-secondary shadow-[inset_0_1px_0_rgb(255_255_255/0.45)]",
+            "dark:bg-white/12 dark:shadow-[inset_0_1px_0_rgb(255_255_255/0.08)]",
+          )}
+        />
+      )}
 
       {OPTIONS.map(({ value, icon: Icon, labelKey }) => {
         const isActive = mounted && current === value;

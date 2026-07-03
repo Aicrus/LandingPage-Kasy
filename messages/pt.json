@@ -10,7 +10,10 @@
   },
   "footer": {
     "byAicrus": "by Aicrus LLC",
-    "tagline": "O starter Flutter que publica em iOS, Android e Web no dia um.",
+    "tagline": {
+      "lead": "O starter Flutter que publica em iOS,",
+      "tail": "Android e Web no dia um."
+    },
     "links": {
       "pricing": "Preços",
       "docs": "Documentação"
