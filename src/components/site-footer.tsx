@@ -1,13 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { HashLink } from "@/components/hash-link";
 import { KasyLogo } from "@/components/kasy-logo";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { surfaceBorderClass } from "@/lib/surface-border";
 import { cn } from "@/lib/utils";
 
 const FOOTER_LINKS = [
-  { href: "#precos", label: "Preços" },
+  { href: "/#precos", label: "Preços" },
   { href: "/documentacao", label: "Documentação" },
 ] as const;
 
@@ -27,14 +29,15 @@ function FooterBackdropArt() {
         src={FOOTER_ART_IMAGES.light.src}
         alt=""
         fill
-        sizes="100vw"
+        /* Frame é 100vw, mas scale-[1.15] amplia o render visual — sizes reflete isso */
+        sizes="115vw"
         className={cn(footerArtImageClass, "dark:hidden")}
       />
       <Image
         src={FOOTER_ART_IMAGES.dark.src}
         alt=""
         fill
-        sizes="100vw"
+        sizes="115vw"
         className={cn(footerArtImageClass, "hidden dark:block")}
       />
       <div className="footer-backdrop-fade absolute inset-0" />
@@ -77,15 +80,24 @@ export function SiteFooter() {
           </div>
 
           <nav className="flex shrink-0 items-center gap-6">
-            {FOOTER_LINKS.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-              >
-                {link.label}
-              </Link>
-            ))}
+            {FOOTER_LINKS.map((link) => {
+              const className =
+                "text-sm font-medium text-muted-foreground transition-colors hover:text-foreground";
+
+              if (link.href.includes("#")) {
+                return (
+                  <HashLink key={link.href} href={link.href} className={className}>
+                    {link.label}
+                  </HashLink>
+                );
+              }
+
+              return (
+                <Link key={link.href} href={link.href} className={className}>
+                  {link.label}
+                </Link>
+              );
+            })}
             <Button
               variant="outline"
               nativeButton={false}
@@ -97,9 +109,12 @@ export function SiteFooter() {
           </nav>
         </div>
 
-        <p className="mt-10 text-xs text-muted-foreground">
-          © 2026 Kasy. Todos os direitos reservados.
-        </p>
+        <div className="mt-10 flex items-center justify-between gap-4">
+          <p className="text-xs text-muted-foreground">
+            © 2026 Kasy. Todos os direitos reservados.
+          </p>
+          <ThemeToggle />
+        </div>
       </div>
     </footer>
   );

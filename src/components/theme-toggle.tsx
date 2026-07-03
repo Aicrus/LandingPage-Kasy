@@ -4,15 +4,13 @@ import { Monitor, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
-import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
-const themes = ["light", "dark", "system"] as const;
-
-const themeLabels: Record<(typeof themes)[number], string> = {
-  light: "Tema claro",
-  dark: "Tema escuro",
-  system: "Tema do sistema",
-};
+const options = [
+  { value: "system", icon: Monitor, label: "Tema do sistema" },
+  { value: "light", icon: Sun, label: "Tema claro" },
+  { value: "dark", icon: Moon, label: "Tema escuro" },
+] as const;
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
@@ -22,41 +20,38 @@ export function ThemeToggle() {
     setMounted(true);
   }, []);
 
-  const currentTheme =
-    theme === "light" || theme === "dark" || theme === "system"
-      ? theme
-      : "system";
-
-  const cycleTheme = () => {
-    const index = themes.indexOf(currentTheme);
-    const nextTheme = themes[(index + 1) % themes.length];
-    setTheme(nextTheme);
-  };
-
-  const Icon =
-    currentTheme === "light"
-      ? Sun
-      : currentTheme === "dark"
-        ? Moon
-        : Monitor;
+  const current =
+    theme === "light" || theme === "dark" ? theme : "system";
+  const activeIndex = options.findIndex((option) => option.value === current);
 
   return (
-    <Button
-      type="button"
-      variant="outline"
-      size="icon"
-      className="fixed bottom-4 right-4 z-50"
-      onClick={cycleTheme}
-      aria-label={
-        mounted ? themeLabels[currentTheme] : "Alternar tema"
-      }
-      title={mounted ? themeLabels[currentTheme] : undefined}
-    >
-      {mounted ? (
-        <Icon aria-hidden />
-      ) : (
-        <span className="size-4" aria-hidden />
-      )}
-    </Button>
+    <div className="relative inline-flex items-center rounded-full bg-neutral-900/90 p-1 backdrop-blur-sm">
+      <span
+        aria-hidden
+        className="absolute inset-y-0.5 left-0.5 size-6 rounded-full bg-white/15 transition-transform duration-200 ease-out"
+        style={{
+          transform: mounted ? `translateX(${activeIndex * 100}%)` : undefined,
+        }}
+      />
+      {options.map(({ value, icon: Icon, label }) => {
+        const isActive = mounted && current === value;
+
+        return (
+          <button
+            key={value}
+            type="button"
+            aria-label={label}
+            aria-pressed={isActive}
+            onClick={() => setTheme(value)}
+            className={cn(
+              "relative z-10 flex size-6 items-center justify-center rounded-full transition-colors",
+              isActive ? "text-white" : "text-white/45 hover:text-white/75",
+            )}
+          >
+            <Icon className="size-3.5" aria-hidden />
+          </button>
+        );
+      })}
+    </div>
   );
 }

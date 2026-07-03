@@ -151,6 +151,7 @@ export function Pricing() {
         "max-w-[min(96vw,76rem)]",
         "px-[clamp(0.75rem,2.5vw,2rem)] max-sm:px-[clamp(1rem,3.25vw,2rem)]",
         "mt-[var(--spacing-editor-to-features)] pb-[clamp(3rem,6vw,5rem)]",
+        "scroll-mt-[calc(var(--header-height-mobile)+0.75rem)] sm:scroll-mt-24",
       )}
     >
       <Reveal

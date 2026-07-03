@@ -6,7 +6,6 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { ThemeMetaSyncScript } from "@/components/theme-meta-sync";
 import { ThemeProvider } from "@/components/theme-provider";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { themeColorHeadInitScript } from "@/lib/theme-color";
 import "./globals.css";
 
@@ -78,7 +77,6 @@ export default function RootLayout({
           <ThemeMetaSyncScript />
           <MotionProvider>
             <SiteHeader />
-            <ThemeToggle />
             {children}
             <SiteFooter />
           </MotionProvider>
