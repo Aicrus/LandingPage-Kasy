@@ -298,11 +298,11 @@
   /* Pills do hero — mix em srgb (oklch distorce o matiz azul-acinzentado) */
   --hero-pill-surface: color-mix(in srgb, var(--background) 93%, var(--secondary) 7%);
 
-  /* Feature cards — tudo derivado de --background
-     shell: bandeja sutil · fechado: um pouco mais escuro · ativo: um pouco mais claro */
-  --feature-shell: color-mix(in srgb, var(--background) 93%, var(--foreground) 7%);
-  --feature-card: color-mix(in srgb, var(--background) 99%, var(--foreground) 1%);
-  --feature-card-active: color-mix(in srgb, var(--background) 62%, var(--card) 38%);
+  /* Feature cards — mesma fórmula em light e dark (resolve com os tokens do tema ativo)
+     shell: bandeja via foreground · cards: superfície via --card · ativo: mais --card */
+  --feature-shell: color-mix(in srgb, var(--background) 86%, var(--foreground) 14%);
+  --feature-card: color-mix(in srgb, var(--background) 62%, var(--card) 38%);
+  --feature-card-active: color-mix(in srgb, var(--background) 28%, var(--card) 72%);
 }
 
 .dark {
@@ -344,10 +344,6 @@
   --header-blur-amount: 16px;
 
   --hero-pill-surface: color-mix(in srgb, var(--background) 76%, var(--secondary) 24%);
-
-  --feature-shell: color-mix(in srgb, var(--background) 95%, #000000 5%);
-  --feature-card: color-mix(in srgb, var(--background) 99.5%, #000000 0.5%);
-  --feature-card-active: color-mix(in srgb, var(--background) 48%, var(--card) 52%);
 }
 
 @layer base {
