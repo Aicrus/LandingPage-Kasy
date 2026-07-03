@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180">
+  <defs>
+    <style>
+      .bg { stop-color: #f2f4fa; }
+      .fg { stop-color: #4a5270; }
+      @media (prefers-color-scheme: dark) {
+        .bg { stop-color: #0f1218; }
+        .fg { stop-color: #8ba4e8; }
+      }
+    </style>
+    <linearGradient id="g" gradientTransform="rotate(45)">
+      <stop offset="45%" class="bg"/>
+      <stop offset="100%" class="fg"/>
+    </linearGradient>
+  </defs>
+  <circle cx="90" cy="90" r="90" fill="url(#g)"/>
+</svg>

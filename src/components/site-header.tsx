@@ -98,7 +98,7 @@ function HeaderNav({
     <nav className={cn("flex shrink-0 items-center gap-5 sm:gap-6", className)}>
       <Link
         href="/documentacao"
-        className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+        className="font-sans text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
       >
         <span className="sm:hidden">{t("docsShort")}</span>
         <span className="hidden sm:inline">{t("docs")}</span>
@@ -108,6 +108,7 @@ function HeaderNav({
         nativeButton={false}
         className={cn(
           headerCtaButtonClass,
+          "font-sans",
           flatCta && headerCtaButtonFlatClass,
           compactCta && "text-[0.8125rem]",
         )}
@@ -264,7 +265,7 @@ function SiteHeaderMotion({ openWidth }: { openWidth: number }) {
         >
           <Link
             href="/documentacao"
-            className="shrink-0 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+            className="shrink-0 font-sans text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
           >
             <span className="sm:hidden">{t("docsShort")}</span>
             <span className="hidden sm:inline">{t("docs")}</span>
@@ -272,7 +273,7 @@ function SiteHeaderMotion({ openWidth }: { openWidth: number }) {
           <Button
             variant="outline"
             nativeButton={false}
-            className={headerCtaButtonClass}
+            className={cn(headerCtaButtonClass, "font-sans")}
             render={<Link href="/obter-kasy" />}
           >
             {t("cta")}

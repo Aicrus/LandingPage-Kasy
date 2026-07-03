@@ -355,11 +355,10 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
     font-feature-settings: "cv01", "ss03";
   }
   html {
-    @apply font-sans;
     overflow-x: hidden;
   }
 }

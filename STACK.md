@@ -15,7 +15,7 @@ Documento de referência com todas as tecnologias, pacotes npm e agent skills co
 | Componentes | shadcn/ui (estilo `base-nova`) + Base UI |
 | Animações | Motion (Framer Motion v12) |
 | Ícones | Lucide React |
-| Fontes | Geist Sans + Geist Mono (Google Fonts via `next/font`) |
+| Fontes | Inter, Satoshi Bold, Nunito, JetBrains Mono, Syne (+ Cursor Gothic reservada) via `next/font` |
 | Qualidade | ESLint + eslint-config-next |
 
 ---
@@ -67,16 +67,21 @@ npm run lint     # ESLint
 ```
 src/
 ├── app/
-│   ├── layout.tsx          # Layout raiz (fontes, MotionProvider)
-│   ├── page.tsx            # Página principal
-│   └── globals.css         # Tailwind + tema + variáveis CSS
+│   ├── [locale]/
+│   │   ├── layout.tsx      # html/body, fontVariables, providers, header/footer
+│   │   └── page.tsx        # Landing sections
+│   ├── fonts/              # Satoshi-Bold.woff2, CursorGothic-Regular.woff2
+│   └── globals.css         # Tailwind + tema + tokens tipográficos
 ├── components/
-│   ├── ui/                 # Componentes shadcn (Button, Card, Badge, Separator)
-│   ├── motion/             # MotionProvider, Reveal
-│   └── sections/           # Seções da landing (a serem criadas)
-└── lib/
-    ├── utils.ts            # cn() — merge de classes Tailwind
-    └── motion.ts           # Re-exports Motion + variants e transições
+│   ├── ui/                 # shadcn (Button, Card, Badge, Separator)
+│   ├── motion/             # MotionProvider, Reveal, BlurReveal
+│   └── sections/           # Hero, pricing, FAQ, etc.
+├── lib/
+│   ├── fonts.ts            # next/font — Inter, Satoshi, Nunito, mono, Syne
+│   ├── typography.ts       # Class tokens e mapa de famílias
+│   ├── utils.ts            # cn()
+│   └── motion.ts           # Re-exports Motion + variants
+└── messages/               # i18n (pt, en, es)
 ```
 
 ---
@@ -111,7 +116,7 @@ Integração configurada em:
 | `src/lib/motion.ts` | Exporta `motion`, hooks e variants (`fadeIn`, `fadeInUp`, `staggerContainer`, etc.) |
 | `src/components/motion/motion-provider.tsx` | `LazyMotion` no layout (bundle menor) |
 | `src/components/motion/reveal.tsx` | Componente `Reveal` — animação ao entrar na viewport |
-| `src/app/layout.tsx` | App envolvido pelo `MotionProvider` |
+| `src/app/[locale]/layout.tsx` | App envolvido pelo `MotionProvider` |
 
 **Motion** → micro-animações, entradas, hover, layout.  
 **Cinematic Scroll** (skill) → scroll cinematográfico, parallax, capítulos fixos (GSAP quando necessário).
@@ -124,8 +129,28 @@ Definidos em `src/app/globals.css`:
 
 - Paleta em **oklch** (light + dark via classe `.dark`)
 - Tokens: `--background`, `--foreground`, `--primary`, `--muted`, `--border`, `--radius`, etc.
-- Fontes: `--font-sans` (Geist), `--font-mono` (Geist Mono)
 - Border radius escalonado: `--radius-sm` até `--radius-4xl`
+
+### Tipografia
+
+Carregamento em `src/lib/fonts.ts`. Variáveis aplicadas no `<html>`; o `body` usa `font-sans` (Inter).
+
+| Variável CSS | Fonte | Uso principal |
+|---|---|---|
+| `--font-sans` | Inter (Google) | UI, corpo, links, botões, footer |
+| `--font-display` / `--font-heading` | Satoshi Bold (local `.woff2`) | Títulos, logo, preços, marquee, números |
+| `--font-rounded` | Nunito (Google) | Subtítulos e textos secundários |
+| `--font-mono` | JetBrains Mono (Google) | Código, badges técnicos |
+| `--font-syne` | Syne (Google) | Texto decorativo grande (VideoShowcase) |
+| `--font-cursor-gothic` | Cursor Gothic (local) | Carregada; reservada para mock do IDE |
+
+**Header:** logo "Kasy" → Satoshi (`font-heading`); link Documentação e CTA → Inter (`font-sans`).
+
+**Hero:** título → Satoshi; lead → Nunito; botão CTA → Inter; social proof e pill AI → Nunito; mock do editor → `system-ui` (stack nativo, simula IDE).
+
+**Seções:** títulos de seção → Satoshi; subtítulos → Nunito; FAQ (perguntas) → Inter; QualityStrip (labels) → Inter.
+
+Detalhes e class tokens: `src/lib/typography.ts`.
 
 ---
 
@@ -237,4 +262,4 @@ npx skills add anthropics/skills --skill frontend-design
 
 ---
 
-*Última atualização: junho de 2026*
+*Última atualização: julho de 2026*

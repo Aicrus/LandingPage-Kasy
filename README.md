@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Landing Page Kasy
 
-## Getting Started
+Landing pública em [kasy.dev](https://kasy.dev) (`/pt`, `/en`, `/es`).
 
-First, run the development server:
+Repositório: [github.com/Aicrus/LandingPage-Kasy](https://github.com/Aicrus/LandingPage-Kasy)
+
+## Onde evoluir o quê
+
+| O quê | Onde trabalhar | Git |
+|---|---|---|
+| Landing (UI, i18n, skills, assets) | **Este repo** (`/Users/paulomorales/LandingPage`) | `LandingPage-Kasy` |
+| Documentação (`/docs`) | `kit/site/kasy-v3/content/docs/` | repo `kasy-v3` (gitignored no kit) |
+| Instalador CLI (`/install`) | `kit/cli/install/` | monorepo `kit` |
+| Scripts de deploy | `kit/site/` (`sync-landing.sh`, `deploy.sh`) | monorepo `kit` |
+
+**Regra:** landing e skills evoluem **aqui**. O `kit/site` só orquestra deploy (copia este projeto + docs + instalador e publica na Vercel).
+
+## Dev local
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abre [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Publicar em kasy.dev
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Depois de commitar e dar push neste repo:
 
-## Learn More
+```bash
+cd /Users/paulomorales/kit
+bash site/sync-landing.sh
+bash site/deploy.sh
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Stack
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Ver `STACK.md` (Next.js 16, Tailwind v4, shadcn, Motion, next-intl).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Favicon
 
-## Deploy on Vercel
+Esfera com gradiente da paleta da landing (`globals.css`):
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Light: `#f2f4fa` → `#4a5270`
+- Dark: `#0f1218` → `#8ba4e8`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Fonte: `src/lib/brand-icon.ts` + `src/app/icon.svg`.

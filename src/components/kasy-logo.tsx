@@ -22,7 +22,7 @@ export function KasyLogo({ className }: KasyLogoProps) {
       )}
     >
       <KasyLogoIcon />
-      <span className="logo-wordmark font-features-linear">Kasy</span>
+      <span className="logo-wordmark font-heading font-features-linear">Kasy</span>
     </span>
   );
 }
