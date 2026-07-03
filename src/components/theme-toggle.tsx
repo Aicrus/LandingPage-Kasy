@@ -29,7 +29,7 @@ export function ThemeToggle() {
   }, []);
 
   const current =
-    theme === "light" || theme === "dark" ? theme : "system";
+    mounted && (theme === "light" || theme === "dark") ? theme : "system";
   const activeIndex = Math.max(
     0,
     OPTIONS.findIndex((option) => option.value === current),
