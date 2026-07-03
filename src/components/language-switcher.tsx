@@ -82,7 +82,8 @@ export function LanguageSwitcher() {
             exit={{ opacity: 0, y: 6, scale: 0.98 }}
             transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
             className={cn(
-              "absolute bottom-full right-0 z-20 mb-2 min-w-[10.5rem] origin-bottom-right rounded-2xl border p-1.5",
+              "absolute bottom-full left-0 z-20 mb-2 min-w-[10.5rem] origin-bottom-left rounded-2xl border p-1.5",
+              "sm:left-auto sm:right-0 sm:origin-bottom-right",
               "bg-background/95 shadow-[0_12px_36px_-8px_rgba(26,30,44,0.28)] backdrop-blur-md dark:shadow-[0_12px_36px_-8px_rgba(0,0,0,0.5)]",
               surfaceBorderClass,
             )}
