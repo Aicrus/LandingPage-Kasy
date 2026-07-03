@@ -24,9 +24,18 @@ import { cn } from "@/lib/utils";
 /** Continua o stagger do hero intro (último item em 0.78). */
 const HERO_CALLOUT_REVEAL_DELAY = 0.92;
 
-const PHONE_SRC = "/assets/phone-command.png";
-const PHONE_WIDTH = 1300;
-const PHONE_HEIGHT = 2642;
+const PHONE_IMAGES = {
+  light: {
+    src: "/assets/editor-device-light.png",
+    width: 1300,
+    height: 2642,
+  },
+  dark: {
+    src: "/assets/editor-device-dark.png",
+    width: 1300,
+    height: 2642,
+  },
+} as const;
 const CURSOR_LOGO_SRC = "/assets/ide-logos/cursor-light.svg";
 
 const editorSurfaceClass = "bg-white dark:bg-[#13120a]";
@@ -538,11 +547,21 @@ function PhonePanel() {
       <div className="relative flex min-h-0 flex-1 justify-center px-[4%] pb-[3.5%] pt-[0.5%]">
         <div className="relative h-full w-[76%] max-w-[258px] translate-y-[0.4em]">
           <Image
-            src={PHONE_SRC}
+            src={PHONE_IMAGES.light.src}
             alt={t("phoneAlt")}
-            width={PHONE_WIDTH}
-            height={PHONE_HEIGHT}
-            className="h-full w-full object-contain object-top drop-shadow-[0_20px_36px_rgba(0,0,0,0.16)] dark:drop-shadow-[0_20px_36px_rgba(0,0,0,0.45)]"
+            width={PHONE_IMAGES.light.width}
+            height={PHONE_IMAGES.light.height}
+            className="h-full w-full object-contain object-top drop-shadow-[0_20px_36px_rgba(0,0,0,0.16)] dark:hidden"
+            priority
+            unoptimized
+            draggable={false}
+          />
+          <Image
+            src={PHONE_IMAGES.dark.src}
+            alt={t("phoneAlt")}
+            width={PHONE_IMAGES.dark.width}
+            height={PHONE_IMAGES.dark.height}
+            className="hidden h-full w-full object-contain object-top drop-shadow-[0_20px_36px_rgba(0,0,0,0.45)] dark:block"
             priority
             unoptimized
             draggable={false}
