@@ -551,16 +551,11 @@ export function WhatYouGet() {
       return;
     }
 
-    let max = 0;
-
-    measurePanelRefs.current.forEach((panel) => {
-      max = Math.max(max, panel.offsetHeight);
-    });
-
-    if (max > 0) {
-      setPanelMinHeight(Math.ceil(max));
+    const activePanel = measurePanelRefs.current.get(activeKey);
+    if (activePanel && activePanel.offsetHeight > 0) {
+      setPanelMinHeight(Math.ceil(activePanel.offsetHeight));
     }
-  }, [isLgViewport]);
+  }, [isLgViewport, activeKey]);
 
   useEffect(() => {
     const mql = window.matchMedia("(min-width: 1024px)");
@@ -752,7 +747,7 @@ export function WhatYouGet() {
 
           <div
             ref={panelShellRef}
-            className="relative"
+            className="relative transition-[min-height] duration-300 ease-out"
             style={isLgViewport && panelMinHeight ? { minHeight: panelMinHeight } : undefined}
           >
             <div aria-hidden className="pointer-events-none invisible absolute inset-x-0 top-0 -z-10">

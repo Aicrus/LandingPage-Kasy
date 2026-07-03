@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 
 type Plan = {
   label: string;
+  description: string;
   price: string;
   per: string;
   tag?: string;
@@ -18,6 +19,7 @@ type Plan = {
 const PLANS: Plan[] = [
   {
     label: "Anual",
+    description: "Para quem já programa e quer o kit completo.",
     price: "$127",
     per: "/ ano",
     cta: "Começar agora",
@@ -32,6 +34,7 @@ const PLANS: Plan[] = [
   },
   {
     label: "Kit + Curso",
+    description: "Para sair do zero e publicar seu primeiro app.",
     price: "$227",
     per: "único pagamento",
     tag: "Mais popular",
@@ -39,7 +42,7 @@ const PLANS: Plan[] = [
     cta: "Quero o Kit + Curso",
     features: [
       "Tudo do plano Anual",
-      "Curso completo por 1 ano de acesso",
+      "Curso completo, 1 ano de acesso",
       "Da ideia ao app publicado em 7 dias",
       "Feito para não desenvolvedores",
       "Comunidade exclusiva de criadores",
@@ -54,46 +57,53 @@ const cardShadowClass = cn(
 );
 
 const featuredShadowClass = cn(
-  "shadow-[0_4px_10px_rgba(26,30,44,0.06),0_24px_56px_-20px_rgba(26,30,44,0.22)]",
-  "dark:shadow-[0_4px_14px_rgba(0,0,0,0.28),0_28px_60px_-20px_rgba(0,0,0,0.5)]",
+  "shadow-[0_6px_16px_rgba(26,30,44,0.08),0_28px_60px_-20px_rgba(26,30,44,0.26)]",
+  "dark:shadow-[0_6px_18px_rgba(0,0,0,0.32),0_32px_64px_-20px_rgba(0,0,0,0.55)]",
 );
 
 function PlanCard({ plan }: { plan: Plan }) {
   return (
     <div
       className={cn(
-        "relative flex flex-col rounded-2xl border p-6 transition-[transform,box-shadow] duration-300 sm:p-7",
+        "relative flex h-full flex-col rounded-2xl border p-7 transition-[border-color,box-shadow] duration-300 sm:p-8",
         plan.featured
           ? cn(
-              "border-primary/40 bg-card sm:-translate-y-2",
+              "border-primary/50 bg-gradient-to-b from-primary/[0.05] via-card to-card hover:border-primary/70",
               featuredShadowClass,
             )
-          : cn("border-border/70 bg-card hover:-translate-y-1", cardShadowClass),
+          : cn(
+              "border-border/70 bg-card hover:border-primary/30 hover:shadow-lg",
+              cardShadowClass,
+            ),
       )}
     >
-      {plan.featured && plan.tag ? (
+      {plan.tag ? (
         <span
           className={cn(
-            "absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full border border-border/70 bg-background px-3.5 py-1 text-xs font-semibold whitespace-nowrap text-foreground",
-            "shadow-[0_4px_14px_-4px_rgba(0,0,0,0.2)]",
+            "absolute -top-3.5 left-1/2 -translate-x-1/2 overflow-hidden rounded-full px-3.5 py-1 text-xs font-semibold whitespace-nowrap",
+            plan.featured
+              ? "bg-primary text-primary-foreground shadow-[0_4px_14px_-4px_rgba(0,0,0,0.35)]"
+              : "border border-border/70 bg-background text-foreground shadow-[0_4px_14px_-4px_rgba(0,0,0,0.2)]",
           )}
         >
-          {plan.tag}
+          <span className="relative z-10">{plan.tag}</span>
+          {plan.featured ? (
+            <span
+              aria-hidden
+              className="pointer-events-none absolute inset-y-0 left-0 w-1/3 -skew-x-[14deg] bg-gradient-to-r from-transparent via-white/70 to-transparent motion-safe:animate-[badge-shine_3.2s_ease-in-out_infinite]"
+            />
+          ) : null}
         </span>
       ) : null}
 
-      <div className="flex items-center gap-2">
-        <h3 className="font-heading text-[1.1875rem] font-semibold text-foreground">
-          {plan.label}
-        </h3>
-        {!plan.featured && plan.tag ? (
-          <span className="rounded-full border border-border/70 bg-muted px-2.5 py-0.5 text-[0.6875rem] font-medium text-muted-foreground">
-            {plan.tag}
-          </span>
-        ) : null}
-      </div>
+      <h3 className="font-heading text-[1.1875rem] font-semibold text-foreground">
+        {plan.label}
+      </h3>
+      <p className="mt-1.5 text-[0.8125rem] text-muted-foreground">
+        {plan.description}
+      </p>
 
-      <div className="mt-3.5 flex items-baseline gap-1.5">
+      <div className="mt-5 flex items-baseline gap-1.5">
         <span className="font-heading text-[2.375rem] font-bold tracking-[-0.025em] text-foreground">
           {plan.price}
         </span>
@@ -109,20 +119,25 @@ function PlanCard({ plan }: { plan: Plan }) {
         {plan.cta}
       </Button>
 
-      <ul className="mt-6 flex flex-col gap-3">
-        {plan.features.map((feature) => (
-          <li
-            key={feature}
-            className="flex items-start gap-2.5 text-[0.875rem] text-foreground/85"
-          >
-            <Check
-              className="mt-0.5 size-4 shrink-0 text-muted-foreground"
-              strokeWidth={2.5}
-            />
-            {feature}
-          </li>
-        ))}
-      </ul>
+      <div className="mt-6 border-t border-border/60 pt-6">
+        <ul className="flex flex-col gap-3">
+          {plan.features.map((feature) => (
+            <li
+              key={feature}
+              className="flex items-start gap-2.5 text-[0.875rem] text-foreground/85"
+            >
+              <Check
+                className={cn(
+                  "mt-0.5 size-4 shrink-0",
+                  plan.featured ? "text-primary" : "text-muted-foreground",
+                )}
+                strokeWidth={2.5}
+              />
+              {feature}
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
@@ -155,17 +170,17 @@ export function Pricing() {
             "leading-[1.12] tracking-[-0.02em]",
           )}
         >
-          Invista uma vez. Construa para sempre.
+          Escolha seu plano e comece a construir
         </h2>
         <p className="max-w-fluid-subtitle text-pretty font-rounded text-fluid-subtitle text-muted-foreground">
-          Cartões internacionais aceitos via Stripe. Acesso imediato, o kit é
-          seu para sempre.
+          Cartões internacionais aceitos via Stripe. Acesso liberado
+          imediatamente após a confirmação do pagamento.
         </p>
       </Reveal>
 
       <Reveal
         delay={0.1}
-        className="grid w-full max-w-[42rem] grid-cols-1 items-start gap-6 sm:grid-cols-2 sm:gap-5"
+        className="grid w-full max-w-[44rem] grid-cols-1 items-stretch gap-6 sm:grid-cols-2"
       >
         {PLANS.map((plan) => (
           <PlanCard key={plan.label} plan={plan} />
@@ -173,7 +188,7 @@ export function Pricing() {
       </Reveal>
 
       <p className="mt-8 max-w-md text-center text-[0.8125rem] text-muted-foreground">
-        Checkout seguro via Stripe. Acesso imediato, o kit é seu para sempre.
+        Checkout seguro via Stripe. Acesso imediato após a confirmação.
       </p>
     </section>
   );

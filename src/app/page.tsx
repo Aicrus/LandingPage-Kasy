@@ -1,5 +1,6 @@
 import {
   AppShowcase,
+  Faq,
   FeatureHoverCards,
   HeroIntro,
   HeroScreenReveal,
@@ -27,6 +28,7 @@ export default function Home() {
       <QualityStrip />
       <Testimonials />
       <Pricing />
+      <Faq />
     </main>
   );
 }

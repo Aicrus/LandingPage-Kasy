@@ -357,9 +357,11 @@
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "cv01", "ss03";
+    overflow-x: hidden;
   }
   html {
     @apply font-sans;
+    overflow-x: hidden;
   }
 }
 
@@ -496,6 +498,31 @@
   }
 }
 
+/* Rodapé — mesma arte hero (claro/escuro) mesclada ao fundo por gradiente:
+   opaca no topo (funde com a seção anterior), nunca revela a imagem em
+   força total, mantendo o texto do rodapé legível por cima. */
+.footer-backdrop-fade {
+  background: linear-gradient(
+    to bottom,
+    var(--background) 0%,
+    rgb(from var(--background) r g b / 88%) 20%,
+    rgb(from var(--background) r g b / 62%) 55%,
+    rgb(from var(--background) r g b / 46%) 100%
+  );
+}
+
+@supports not (color: rgb(from white r g b / 50%)) {
+  .footer-backdrop-fade {
+    background: linear-gradient(
+      to bottom,
+      var(--background) 0%,
+      color-mix(in oklch, var(--background) 88%, transparent) 20%,
+      color-mix(in oklch, var(--background) 62%, transparent) 55%,
+      color-mix(in oklch, var(--background) 46%, transparent) 100%
+    );
+  }
+}
+
 /* Indicador online — pulso leve no hero */
 @keyframes online-pulse {
   0%,
@@ -533,6 +560,25 @@
   }
   100% {
     transform: translateX(340%) skewX(-14deg);
+    opacity: 0;
+  }
+}
+
+/* Selo "Mais popular" — brilho periódico chamando atenção */
+@keyframes badge-shine {
+  0% {
+    transform: translateX(-160%) skewX(-14deg);
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  24% {
+    transform: translateX(220%) skewX(-14deg);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(220%) skewX(-14deg);
     opacity: 0;
   }
 }

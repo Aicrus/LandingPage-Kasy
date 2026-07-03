@@ -1,4 +1,5 @@
 export { AppShowcase } from "./app-showcase";
+export { Faq } from "./faq";
 export { FeatureHoverCards } from "./feature-hover-cards";
 export { HeroIntro } from "./hero-intro";
 export { HeroScreenReveal } from "./hero-screen-reveal";

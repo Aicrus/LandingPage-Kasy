@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, JetBrains_Mono, Nunito, Syne } from "next/font/google";
 import localFont from "next/font/local";
 import { MotionProvider } from "@/components/motion";
+import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { ThemeMetaSyncScript } from "@/components/theme-meta-sync";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -79,6 +80,7 @@ export default function RootLayout({
             <SiteHeader />
             <ThemeToggle />
             {children}
+            <SiteFooter />
           </MotionProvider>
         </ThemeProvider>
       </body>
