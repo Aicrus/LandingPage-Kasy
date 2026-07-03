@@ -353,9 +353,10 @@
   body {
     @apply bg-background text-foreground font-sans;
     font-feature-settings: "cv01", "ss03";
+    overflow-x: clip;
   }
   html {
-    overflow-x: hidden;
+    overflow-x: clip;
   }
 }
 
