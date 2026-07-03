@@ -59,14 +59,17 @@ export function SiteFooter() {
           <div className="flex flex-col gap-3">
             <div className="flex flex-wrap items-center gap-2.5">
               <KasyLogo />
-              <span
+              <a
+                href="https://aicrus.io/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className={cn(
-                  "rounded-full border px-2.5 py-0.5 text-[0.6875rem] font-medium text-muted-foreground",
+                  "rounded-full border px-2.5 py-0.5 text-[0.6875rem] font-medium text-muted-foreground transition-colors hover:text-foreground",
                   surfaceBorderClass,
                 )}
               >
                 by Aicrus LLC
-              </span>
+              </a>
             </div>
             <p className="max-w-xs text-[0.8125rem] text-muted-foreground">
               O starter Flutter que publica em iOS, Android e Web no dia um.

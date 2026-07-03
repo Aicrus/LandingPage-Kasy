@@ -432,7 +432,7 @@ export function AppShowcase() {
       </div>
 
       {needsPagination ? (
-        <div className="mt-8 flex items-center justify-center gap-4">
+        <div className="mt-20 flex items-center justify-center gap-4 sm:mt-16 md:mt-12 lg:mt-8">
           <button
             type="button"
             onClick={() => cycle("left")}
