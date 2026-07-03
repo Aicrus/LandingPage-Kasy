@@ -1,0 +1,398 @@
+{
+  "metadata": {
+    "title": "Kasy — Publique seu app Flutter em 7 dias",
+    "description": "O starter Flutter completo: backend, auth, pagamentos, UI e lógica prontos. Publique em iOS, Android e Web no dia um."
+  },
+  "header": {
+    "docs": "Documentação",
+    "docsShort": "Docs",
+    "cta": "Obter Kasy Pro"
+  },
+  "footer": {
+    "byAicrus": "by Aicrus LLC",
+    "tagline": "O starter Flutter que publica em iOS, Android e Web no dia um.",
+    "links": {
+      "pricing": "Preços",
+      "docs": "Documentação"
+    },
+    "cta": "Obter Kasy Pro",
+    "copyright": "© 2026 Kasy. Todos os direitos reservados."
+  },
+  "theme": {
+    "groupLabel": "Tema da interface",
+    "system": "Tema do sistema",
+    "light": "Tema claro",
+    "dark": "Tema escuro"
+  },
+  "languageSwitcher": {
+    "label": "Trocar idioma"
+  },
+  "heroIntro": {
+    "titleEmphasis": "App no ar",
+    "titleRest": "em 7 dias.",
+    "leadPart1": "O único kit Flutter completo: backend, auth, pagamentos, UI e lógica prontos.",
+    "leadPart2": "Você foca no que torna seu app único.",
+    "cta": "Obter Kasy Pro"
+  },
+  "heroSocialProof": {
+    "prefix": "Amado por",
+    "count": "+70 usuários"
+  },
+  "heroAiSubsPill": {
+    "label": "Com sua IDE favorita."
+  },
+  "heroWorkspaceMock": {
+    "composerAriaLabel": "Mensagem do composer",
+    "phoneAlt": "Interface mobile do Kasy, controle remoto dos agentes",
+    "calloutLine1": "construa uma vez,",
+    "calloutLine2": "publique em todo lugar"
+  },
+  "videoShowcase": {
+    "bigLabel": "Velocidade",
+    "play": "Reproduzir vídeo",
+    "pause": "Pausar vídeo",
+    "close": "Fechar vídeo"
+  },
+  "featureHoverCards": {
+    "heading": "Do código à loja",
+    "subtitle": "Backend, marca e publicação. Tudo que falta entre o kit e o App Store.",
+    "cards": {
+      "commands": {
+        "title": "Poucos comandos",
+        "description": "Firebase, Supabase ou REST. Login, banco, storage, push e IA num passo.",
+        "alt": "Laptop com editor de código e terminal aberto"
+      },
+      "branding": {
+        "title": "Personalize o visual",
+        "description": "Ícone, splash, cores claro e escuro. Dois arquivos e app com sua marca.",
+        "alt": "Paleta de cores e ferramentas de identidade visual de um app"
+      },
+      "everywhere": {
+        "title": "Todo lugar",
+        "description": "App Store, Play Store e Web. O Codemagic publica iOS até sem Mac.",
+        "alt": "Smartphones com apps instalados sobre uma mesa"
+      }
+    }
+  },
+  "integrationsShowcase": {
+    "heading": "Tudo que o seu app Flutter precisa",
+    "subtitle": "Backend, autenticação, assinaturas, anúncios, push e publicação — tudo já integrado, pronto no dia um.",
+    "categories": {
+      "backend": { "title": "Backend", "detail": "Firebase · Supabase · REST" },
+      "auth": { "title": "Autenticação", "detail": "Google · Apple · Facebook" },
+      "subs": { "title": "Assinaturas", "detail": "RevenueCat · Stripe" },
+      "ads": { "title": "Anúncios", "detail": "AdMob · Meta Ads" },
+      "push": { "title": "Notificações Push", "detail": "Firebase Cloud Messaging" },
+      "ui": { "title": "Componentes de UI", "detail": "60+ componentes · 95+ variantes" },
+      "cicd": { "title": "CI/CD", "detail": "Codemagic" },
+      "platforms": { "title": "Plataformas", "detail": "iOS · Android · Web" },
+      "aiReady": { "title": "AI-Ready", "detail": "Cursor · Claude Code · Windsurf" }
+    }
+  },
+  "whatYouGet": {
+    "eyebrow": "O que você recebe",
+    "headingPart1": "Tudo que você precisa.",
+    "headingEmphasis": "Nada além.",
+    "descPart1": "Cada categoria já vem",
+    "descEmphasis1": "pronta pra publicar",
+    "descPart2": "Clique numa aba e",
+    "descEmphasis2": "veja o que está incluído",
+    "statsLabel": "{categories} categorias · {features}+ recursos",
+    "tablistLabel": "Categorias de recursos",
+    "savedSuffix": "economizadas",
+    "resourcesCount": "{count} recursos",
+    "tabs": {
+      "auth": {
+        "label": "Autenticação",
+        "tagline": { "emphasis": "Todo método de login", "rest": ", configurado e pronto." },
+        "saved": "12h",
+        "bullets": [
+          { "label": "Login com Google", "detail": "iOS + Android + Web" },
+          { "label": "Login com Apple", "detail": "iOS + Android + Web" },
+          { "label": "Login com Facebook", "detail": "iOS + Android + Web" },
+          { "label": "Email e senha" },
+          { "label": "Telefone", "detail": "SMS OTP" },
+          { "label": "Auth anônimo com vinculação de conta", "detail": "sem perder dados" },
+          { "label": "Recuperação de senha" }
+        ]
+      },
+      "subs": {
+        "label": "Assinaturas",
+        "tagline": { "emphasis": "Monetize desde o dia um", "rest": " com RevenueCat e Stripe." },
+        "saved": "15h",
+        "bullets": [
+          { "label": "Integração RevenueCat", "detail": "iOS + Android + Web" },
+          { "label": "4 estilos de paywall", "detail": "Minimal, Grid, Row, Toggle" },
+          { "label": "Tabela comparativa", "detail": "componente incluído" },
+          { "label": "Testes A/B via RevenueCat Experiments", "detail": "sem rebuild" },
+          { "label": "Estado da assinatura em tempo real", "detail": "sincronizado via webhook" },
+          { "label": "Troque o paywall pelo dashboard", "detail": "sem rebuild" },
+          { "label": "Guard de paywall", "detail": "redireciona conteúdo premium" },
+          { "label": "Suporte a trial gratuito" }
+        ]
+      },
+      "notif": {
+        "label": "Notificações",
+        "tagline": { "emphasis": "Push, in-app", "rest": " e lembretes locais." },
+        "saved": "10h",
+        "bullets": [
+          { "label": "Push via Firebase Cloud Messaging", "detail": "FCM" },
+          { "label": "Lista de notificações in-app", "detail": "com timestamps" },
+          { "label": "Contador de badge", "detail": "não lidas" },
+          { "label": "Deep link", "detail": "toque na notificação, abre a tela certa" },
+          { "label": "Gerenciamento de tokens", "detail": "dispositivo e limpeza" },
+          { "label": "Cloud Function", "detail": "entrega via webhook" },
+          { "label": "Lembretes locais", "detail": "diários, semanais ou únicos, sem servidor" }
+        ]
+      },
+      "ui": {
+        "label": "Componentes",
+        "tagline": { "emphasis": "60+ componentes, 95+ variantes", "rest": ", totalmente customizáveis." },
+        "saved": "semanas",
+        "bullets": [
+          { "label": "60+ componentes prontos para produção", "detail": "95+ variantes" },
+          { "label": "Testados em iOS, Android e Web" },
+          { "label": "Modo escuro e claro", "detail": "automático ou trocado pelo usuário" },
+          {
+            "label": "Biblioteca completa",
+            "detail": "Accordion, Alert, AppBar, Avatar, Badge, BottomSheet, Button, Card, Checkbox, Chip, Dialog, Input, OTP, Skeleton, Sidebar, SwipeAction, TextArea, TextField, Toast"
+          },
+          { "label": "Animações customizadas", "detail": "transições de rota" },
+          { "label": "Feedback háptico integrado" },
+          { "label": "Galeria no navegador", "detail": "copie qualquer nome pra IA" }
+        ]
+      },
+      "sec": {
+        "label": "Segurança",
+        "tagline": { "emphasis": "Regras de nível produção", "rest": ", sem surpresas." },
+        "saved": "8h",
+        "bullets": [
+          { "label": "Regras de segurança Firestore", "detail": "prontas para produção" },
+          { "label": "Row Level Security (Supabase)", "detail": "pronto para produção" },
+          { "label": "Regras de Firebase Storage", "detail": "isolamento por usuário" },
+          { "label": "Permissões App Store e Play Store", "detail": "tratadas, sem rejeição" },
+          { "label": "Dart-defines", "detail": "separam dev de produção, sem segredo no código" }
+        ]
+      },
+      "widget": {
+        "label": "Widget nativo",
+        "tagline": { "emphasis": "Widgets nativos na tela inicial", "rest": ", sincronizados." },
+        "saved": "6h",
+        "bullets": [
+          { "label": "Widget de tela inicial", "detail": "iOS e Android" },
+          { "label": "Atualização automática", "detail": "em segundo plano" },
+          { "label": "Sincroniza com o estado do app", "detail": "assinatura, dados do usuário" },
+          { "label": "Configurável", "detail": "pelo painel admin do app" },
+          { "label": "Suporte a App Groups (iOS)", "detail": "compartilha dados com a extensão" }
+        ]
+      },
+      "ai": {
+        "label": "Chat com IA",
+        "tagline": { "emphasis": "Chat integrado", "rest": " com OpenAI ou Gemini." },
+        "saved": "8h",
+        "bullets": [
+          { "label": "Interface de chat", "detail": "OpenAI ou Google Gemini" },
+          { "label": "Histórico de conversas", "detail": "contexto completo" },
+          { "label": "API key no servidor", "detail": "nunca no app" },
+          { "label": "Proxy seguro", "detail": "Cloud Function (Firebase) ou Edge Function (Supabase)" },
+          { "label": "UI completa", "detail": "balões, loading, input de envio" }
+        ]
+      },
+      "more": {
+        "label": "Mais",
+        "tagline": { "emphasis": "Todo o resto.", "rest": " Nenhum recurso fica de fora." },
+        "saved": null,
+        "moreItems": [
+          { "label": "Perfil", "desc": "Atualize o nome, vincule ou desvincule contas, troque o avatar" },
+          { "label": "Anúncios", "desc": "Banner, intersticial, recompensado e recompensado-intersticial" },
+          { "label": "Upload de arquivos", "desc": "Progresso, uploads canceláveis e organização em pastas" },
+          { "label": "Configurações", "desc": "Seleção de tema, cores, idioma e feedback háptico" },
+          { "label": "Onboarding", "desc": "Experiência de primeiro acesso personalizável" },
+          { "label": "Analytics", "desc": "Mixpanel com rastreamento de eventos e observer de navegação" },
+          { "label": "Crash reporting", "desc": "Sentry pra monitorar erros em produção, com upload de source maps" },
+          { "label": "Localização", "desc": "EN, PT e ES incluídos, fácil de estender" },
+          { "label": "Notas (exemplo CRUD)", "desc": "Criar, ler, atualizar e deletar com sincronização em tempo real" },
+          { "label": "Serviço de log", "desc": "Logging estruturado e com níveis, pronto pra uso" },
+          { "label": "Fuso horário", "desc": "Agendamento com fuso horário que simplesmente funciona" },
+          { "label": "Abrir URLs", "desc": "Abra URLs, emails e números de telefone nativamente" },
+          { "label": "Seletor de arquivos", "desc": "Selecione arquivos e imagens direto do dispositivo" },
+          { "label": "Feedback háptico", "desc": "Feedback háptico configurável em todo o app" },
+          { "label": "Verificador de atualizações", "desc": "Checagens automáticas de versão com prompt de atualização" },
+          { "label": "Atualização forçada", "desc": "Atualização obrigatória pra versões críticas" },
+          { "label": "CI/CD", "desc": "Codemagic e GitHub Actions pra test, build e deploy" },
+          { "label": "Lint rigoroso", "desc": "Regras de lint opinionadas pra qualidade de código consistente" },
+          { "label": "Acessibilidade", "desc": "Leitores de tela, labels semânticos e boas práticas de a11y" },
+          { "label": "Suporte a editores de IA", "desc": "Regras, agentes e skills pra Cursor, Claude Code e Windsurf" },
+          { "label": "Web (PWA)", "desc": "Roda no navegador como PWA" },
+          { "label": "Feature requests", "desc": "Usuários sugerem e votam em funcionalidades no app" }
+        ]
+      }
+    }
+  },
+  "appShowcase": {
+    "eyebrow": "Feito com Kasy",
+    "heading": "Construa o próximo grande app.",
+    "subtitle": "Nosso kit é mais do que código, é uma plataforma de lançamento. Veja o que é possível quando você pula a configuração.",
+    "cardAlt": "App criado com Kasy",
+    "prev": "Anterior",
+    "next": "Próximo"
+  },
+  "marquee": {
+    "phrases": [
+      "7 dias até a App Store",
+      "Firebase · Supabase · REST",
+      "60+ componentes · 95+ variantes",
+      "iOS · Android · Web",
+      "Publique em 7 dias"
+    ]
+  },
+  "qualityStrip": {
+    "labels": {
+      "apps": "apps publicados",
+      "backends": "backends suportados",
+      "components": "componentes de UI",
+      "platforms": "plataformas"
+    }
+  },
+  "testimonials": {
+    "eyebrow": "Depoimentos",
+    "headingPart1": "Amado por quem constrói e publica",
+    "headingEmphasis": "rápido.",
+    "subtitle": "Desenvolvedores e fundadores indo da ideia para a App Store em dias, não meses.",
+    "items": [
+      {
+        "text": "Publiquei meu primeiro app em 6 dias. O CLI já tinha configurado Firebase, auth e pagamentos antes de eu abrir o editor.",
+        "name": "Lucas Almeida",
+        "role": "Desenvolvedor indie"
+      },
+      {
+        "text": "Não sou desenvolvedora e mesmo assim coloquei um app real nas duas lojas. O Kasy me guiou em cada passo.",
+        "name": "Marina Costa",
+        "role": "Fundadora"
+      },
+      {
+        "text": "Só o preview no navegador já me poupou horas. Sem emulador — iOS e Android lado a lado, direto no browser.",
+        "name": "Diego Fernández",
+        "role": "Engenheiro mobile"
+      },
+      {
+        "text": "Migrei um projeto de cliente para Supabase em minutos. Mesmo código, outro backend. Impressionante.",
+        "name": "Priya Nair",
+        "role": "Freelancer"
+      },
+      {
+        "text": "RevenueCat, push e analytics já vinham prontos. Eu só construí minhas features e publiquei.",
+        "name": "Tom Becker",
+        "role": "Founder solo"
+      },
+      {
+        "text": "Atualizações pelo CLI sem quebrar o que já estava no ar. Nenhum outro kit faz isso.",
+        "name": "Sofia Rossi",
+        "role": "Engenheira de produto"
+      },
+      {
+        "text": "Da ideia ao TestFlight em uma semana. A galeria de componentes tornou a UI a parte mais fácil.",
+        "name": "Akira Tanaka",
+        "role": "Designer & builder"
+      },
+      {
+        "text": "Um stack, três backends. Escolhi Firebase, o cliente quis REST. Zero reescrita.",
+        "name": "Hannah Müller",
+        "role": "Líder de agência"
+      },
+      {
+        "text": "As regras para editores com IA fizeram o Cursor parecer que já conhecia o projeto Kasy inteiro.",
+        "name": "Rafael Santos",
+        "role": "Dev full-stack"
+      }
+    ]
+  },
+  "faq": {
+    "eyebrow": "FAQ",
+    "heading": "Dúvidas, respondidas.",
+    "items": [
+      {
+        "id": "q1",
+        "question": "Preciso saber programar para usar o Kasy?",
+        "answer": "Conhecimento básico de desenvolvimento ajuda, mas o kit foi feito para ser acessível. Com o treinamento, você pode criar seu primeiro app do zero."
+      },
+      {
+        "id": "q2",
+        "question": "Qual a diferença entre o Kasy e outros boilerplates?",
+        "answer": "Entregamos o único kit Flutter de ponta a ponta, da configuração técnica ao design das telas. Outros entregam uma coisa ou outra. Nossa CLI também entrega atualizações sem quebrar o projeto que você já criou."
+      },
+      {
+        "id": "q3",
+        "question": "Posso usar o kit em vários projetos?",
+        "answer": "Sim. Todos os planos incluem apps ilimitados."
+      },
+      {
+        "id": "q4",
+        "question": "E se eu já tiver um projeto em andamento?",
+        "answer": "O Kasy foi projetado para novos projetos, mas os componentes podem ser copiados manualmente para projetos existentes."
+      },
+      {
+        "id": "q5",
+        "question": "O que acontece quando meu acesso anual vence?",
+        "answer": "Você pode renovar ou migrar para o acesso vitalício. Seu app continua funcionando. Você só deixa de receber atualizações."
+      },
+      {
+        "id": "q6",
+        "question": "Em quais plataformas o app roda?",
+        "answer": "iOS, Android e Web. O suporte a Linux e Windows chegará em breve."
+      },
+      {
+        "id": "q7",
+        "question": "O que é o treinamento?",
+        "answer": "Um curso prático para não desenvolvedores, que ensina você a criar um app completo em 7 dias usando o Kasy e ferramentas de IA como Cursor e Claude Code."
+      },
+      {
+        "id": "q8",
+        "question": "Posso vender os apps que criar com o kit?",
+        "answer": "Sim. A licença é comercial em todos os planos."
+      },
+      {
+        "id": "q9",
+        "question": "Posso pedir reembolso?",
+        "answer": "Depois que você tem acesso ao kit, o Kasy é seu para sempre. Por isso, as compras não são reembolsáveis. Tem dúvidas? Pergunte antes de comprar. Teremos prazer em ajudar. Em média, quem usa o Kasy publica o app em 7 dias."
+      }
+    ]
+  },
+  "pricing": {
+    "eyebrow": "Preços",
+    "heading": "Escolha seu plano e comece a construir",
+    "subtitle": "Cartões internacionais aceitos via Stripe. Acesso liberado imediatamente após a confirmação do pagamento.",
+    "checkoutNote": "Checkout seguro via Stripe. Acesso imediato após a confirmação.",
+    "plans": {
+      "annual": {
+        "label": "Anual",
+        "description": "Para quem já programa e quer o kit completo.",
+        "per": "/ ano",
+        "cta": "Começar agora",
+        "features": [
+          "Firebase, Supabase & REST API",
+          "Apps ilimitados",
+          "60+ componentes de UI (95+ variantes)",
+          "Todos os recursos opcionais",
+          "Atualizações por 1 ano",
+          "Suporte da comunidade"
+        ]
+      },
+      "kitCourse": {
+        "label": "Kit + Curso",
+        "description": "Para sair do zero e publicar seu primeiro app.",
+        "per": "único pagamento",
+        "tag": "Mais popular",
+        "cta": "Quero o Kit + Curso",
+        "features": [
+          "Tudo do plano Anual",
+          "Curso completo, 1 ano de acesso",
+          "Da ideia ao app publicado em 7 dias",
+          "Feito para não desenvolvedores",
+          "Comunidade exclusiva de criadores",
+          "Suporte prioritário"
+        ]
+      }
+    }
+  }
+}

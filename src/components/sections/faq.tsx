@@ -2,6 +2,7 @@
 
 import { Accordion } from "@base-ui/react/accordion";
 import { ChevronDown } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { Reveal } from "@/components/motion/reveal";
 import { cn } from "@/lib/utils";
@@ -12,66 +13,15 @@ type FaqItem = {
   answer: string;
 };
 
-const FAQ_ITEMS: FaqItem[] = [
-  {
-    id: "q1",
-    question: "Preciso saber programar para usar o Kasy?",
-    answer:
-      "Conhecimento básico de desenvolvimento ajuda, mas o kit foi feito para ser acessível. Com o treinamento, você pode criar seu primeiro app do zero.",
-  },
-  {
-    id: "q2",
-    question: "Qual a diferença entre o Kasy e outros boilerplates?",
-    answer:
-      "Entregamos o único kit Flutter de ponta a ponta, da configuração técnica ao design das telas. Outros entregam uma coisa ou outra. Nossa CLI também entrega atualizações sem quebrar o projeto que você já criou.",
-  },
-  {
-    id: "q3",
-    question: "Posso usar o kit em vários projetos?",
-    answer: "Sim. Todos os planos incluem apps ilimitados.",
-  },
-  {
-    id: "q4",
-    question: "E se eu já tiver um projeto em andamento?",
-    answer:
-      "O Kasy foi projetado para novos projetos, mas os componentes podem ser copiados manualmente para projetos existentes.",
-  },
-  {
-    id: "q5",
-    question: "O que acontece quando meu acesso anual vence?",
-    answer:
-      "Você pode renovar ou migrar para o acesso vitalício. Seu app continua funcionando. Você só deixa de receber atualizações.",
-  },
-  {
-    id: "q6",
-    question: "Em quais plataformas o app roda?",
-    answer: "iOS, Android e Web. O suporte a Linux e Windows chegará em breve.",
-  },
-  {
-    id: "q7",
-    question: "O que é o treinamento?",
-    answer:
-      "Um curso prático para não desenvolvedores, que ensina você a criar um app completo em 7 dias usando o Kasy e ferramentas de IA como Cursor e Claude Code.",
-  },
-  {
-    id: "q8",
-    question: "Posso vender os apps que criar com o kit?",
-    answer: "Sim. A licença é comercial em todos os planos.",
-  },
-  {
-    id: "q9",
-    question: "Posso pedir reembolso?",
-    answer:
-      "Depois que você tem acesso ao kit, o Kasy é seu para sempre. Por isso, as compras não são reembolsáveis. Tem dúvidas? Pergunte antes de comprar. Teremos prazer em ajudar. Em média, quem usa o Kasy publica o app em 7 dias.",
-  },
-];
-
 const cardShadowClass = cn(
   "shadow-[0_1px_2px_rgba(26,30,44,0.04),0_6px_16px_-10px_rgba(26,30,44,0.12)]",
   "dark:shadow-[0_1px_2px_rgba(0,0,0,0.18),0_8px_20px_-10px_rgba(0,0,0,0.4)]",
 );
 
 export function Faq() {
+  const t = useTranslations("faq");
+  const FAQ_ITEMS = t.raw("items") as FaqItem[];
+
   return (
     <section
       id="faq"
@@ -90,7 +40,7 @@ export function Faq() {
         )}
       >
         <span className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-          FAQ
+          {t("eyebrow")}
         </span>
         <h2
           className={cn(
@@ -99,7 +49,7 @@ export function Faq() {
             "leading-[1.12] tracking-[-0.02em]",
           )}
         >
-          Dúvidas, respondidas.
+          {t("heading")}
         </h2>
       </Reveal>
 

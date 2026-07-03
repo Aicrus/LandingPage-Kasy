@@ -1,32 +1,34 @@
 "use client";
 
-import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 import { BlurReveal } from "@/components/motion/blur-reveal";
 import { Button } from "@/components/ui/button";
+import { Link } from "@/i18n/navigation";
 
 import { HeroAiSubsPill } from "./hero-ai-subs-pill";
 import { HeroSocialProof } from "./hero-social-proof";
 
 export function HeroIntro() {
+  const t = useTranslations("heroIntro");
+
   return (
     <div className="mx-auto flex w-full flex-col items-center gap-hero-title-to-lead text-center">
       <h1 className="whitespace-nowrap font-heading text-fluid-display text-foreground">
         <BlurReveal as="span" delay={0}>
-          App no ar
+          {t("titleEmphasis")}
         </BlurReveal>{" "}
         <BlurReveal as="span" className="text-muted-foreground" delay={0.14}>
-          em 7 dias.
+          {t("titleRest")}
         </BlurReveal>
       </h1>
 
       <p className="w-full max-w-fluid-subtitle font-rounded text-pretty text-fluid-subtitle text-foreground">
         <BlurReveal as="span" className="md:block" delay={0.28}>
-          O único kit Flutter completo: backend, auth, pagamentos, UI e lógica
-          prontos.
+          {t("leadPart1")}
         </BlurReveal>{" "}
         <BlurReveal as="span" className="md:block" delay={0.36}>
-          Você foca no que torna seu app único.
+          {t("leadPart2")}
         </BlurReveal>
       </p>
 
@@ -45,7 +47,7 @@ export function HeroIntro() {
             aria-hidden
             className="pointer-events-none absolute inset-y-0 left-0 w-[42%] -skew-x-[14deg] bg-gradient-to-r from-transparent via-white/22 to-transparent opacity-0 will-change-[transform,opacity] motion-safe:group-hover/button:animate-[button-sheen_1.05s_cubic-bezier(0.22,1,0.36,1)]"
           />
-          <span className="relative z-10">Obter Kasy Pro</span>
+          <span className="relative z-10">{t("cta")}</span>
         </Button>
       </BlurReveal>
 

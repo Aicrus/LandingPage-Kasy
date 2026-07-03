@@ -13,6 +13,7 @@ import {
   SquareDashedMousePointer,
   X,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import type { ReactNode } from "react";
 import { useId, useState } from "react";
 
@@ -337,6 +338,7 @@ function ProjectExplorer() {
 
 function ChatPanel() {
   const [message, setMessage] = useState("");
+  const t = useTranslations("heroWorkspaceMock");
 
   return (
     <section
@@ -356,7 +358,7 @@ function ChatPanel() {
           <textarea
             value={message}
             onChange={(event) => setMessage(event.target.value)}
-            aria-label="Mensagem do composer"
+            aria-label={t("composerAriaLabel")}
             rows={4}
             className={cn(
               "min-h-[4.5em] w-full flex-1 resize-none border-0 bg-transparent p-0 text-[#2a3040] outline-none select-text focus:ring-0 dark:text-[#d8dcea]",
@@ -447,6 +449,8 @@ function HeroMockBottomFade() {
 }
 
 export function HeroPhonePanelCallout() {
+  const t = useTranslations("heroWorkspaceMock");
+
   return (
     <div
       aria-hidden
@@ -468,8 +472,8 @@ export function HeroPhonePanelCallout() {
             "text-white hero-callout-text-shadow",
           )}
         >
-          <span className="block whitespace-nowrap">construa uma vez,</span>
-          <span className="block whitespace-nowrap">publique em todo lugar</span>
+          <span className="block whitespace-nowrap">{t("calloutLine1")}</span>
+          <span className="block whitespace-nowrap">{t("calloutLine2")}</span>
         </p>
         <PhonePanelCalloutArrow
           className={cn(
@@ -482,6 +486,8 @@ export function HeroPhonePanelCallout() {
 }
 
 function PhonePanel() {
+  const t = useTranslations("heroWorkspaceMock");
+
   return (
     <aside
       className={cn(
@@ -533,7 +539,7 @@ function PhonePanel() {
         <div className="relative h-full w-[76%] max-w-[258px] translate-y-[0.4em]">
           <Image
             src={PHONE_SRC}
-            alt="Interface mobile do Clonk, controle remoto dos agentes"
+            alt={t("phoneAlt")}
             width={PHONE_WIDTH}
             height={PHONE_HEIGHT}
             className="h-full w-full object-contain object-top drop-shadow-[0_20px_36px_rgba(0,0,0,0.16)] dark:drop-shadow-[0_20px_36px_rgba(0,0,0,0.45)]"

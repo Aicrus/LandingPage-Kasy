@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 import { heroPillSurfaceClass, surfaceBorderClass } from "@/lib/surface-border";
 
@@ -86,6 +87,7 @@ function IdeLogo({
 
 export function HeroAiSubsPill() {
   const reducedMotion = useReducedMotion();
+  const t = useTranslations("heroAiSubsPill");
 
   return (
     <div
@@ -132,7 +134,7 @@ export function HeroAiSubsPill() {
       />
 
       <p className="min-w-0 text-left font-rounded text-fluid-pill-label font-semibold text-muted-foreground sm:whitespace-nowrap">
-        Com sua IDE favorita.
+        {t("label")}
       </p>
     </div>
   );

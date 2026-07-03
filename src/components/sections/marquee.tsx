@@ -1,14 +1,11 @@
+import { useTranslations } from "next-intl";
+
 import { cn } from "@/lib/utils";
 
-const PHRASES = [
-  "7 dias até a App Store",
-  "Firebase · Supabase · REST",
-  "60+ componentes · 95+ variantes",
-  "iOS · Android · Web",
-  "Publique em 7 dias",
-];
-
 export function Marquee() {
+  const t = useTranslations("marquee");
+  const PHRASES = t.raw("phrases") as string[];
+
   return (
     <div
       className={cn(

@@ -1,11 +1,12 @@
 "use client";
 
-import Link from "next/link";
 import { useTheme } from "next-themes";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
 import { KasyLogo } from "@/components/kasy-logo";
 import { Button } from "@/components/ui/button";
+import { Link } from "@/i18n/navigation";
 import {
   animate,
   motion,
@@ -91,14 +92,16 @@ function HeaderNav({
   flatCta?: boolean;
   className?: string;
 }) {
+  const t = useTranslations("header");
+
   return (
     <nav className={cn("flex shrink-0 items-center gap-5 sm:gap-6", className)}>
       <Link
         href="/documentacao"
         className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
       >
-        <span className="sm:hidden">Docs</span>
-        <span className="hidden sm:inline">Documentação</span>
+        <span className="sm:hidden">{t("docsShort")}</span>
+        <span className="hidden sm:inline">{t("docs")}</span>
       </Link>
       <Button
         variant="outline"
@@ -110,7 +113,7 @@ function HeaderNav({
         )}
         render={<Link href="/obter-kasy" />}
       >
-        Obter Kasy Pro
+        {t("cta")}
       </Button>
     </nav>
   );
@@ -171,6 +174,7 @@ export function SiteHeader() {
 function SiteHeaderMotion({ openWidth }: { openWidth: number }) {
   const { scrollY } = useScroll();
   const { resolvedTheme } = useTheme();
+  const t = useTranslations("header");
 
   // Estado por posição, com um único limiar nos dois sentidos: passou do
   // limiar → compacto, e continua compacto mesmo com pequenas rolagens pra
@@ -262,8 +266,8 @@ function SiteHeaderMotion({ openWidth }: { openWidth: number }) {
             href="/documentacao"
             className="shrink-0 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
           >
-            <span className="sm:hidden">Docs</span>
-            <span className="hidden sm:inline">Documentação</span>
+            <span className="sm:hidden">{t("docsShort")}</span>
+            <span className="hidden sm:inline">{t("docs")}</span>
           </Link>
           <Button
             variant="outline"
@@ -271,7 +275,7 @@ function SiteHeaderMotion({ openWidth }: { openWidth: number }) {
             className={headerCtaButtonClass}
             render={<Link href="/obter-kasy" />}
           >
-            Obter Kasy Pro
+            {t("cta")}
           </Button>
         </motion.nav>
       </motion.div>

@@ -16,6 +16,7 @@ import {
   SiWindsurf,
 } from "@icons-pack/react-simple-icons";
 import { Bell, Globe, ToggleRight, Webhook } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { Reveal } from "@/components/motion/reveal";
 import { cn } from "@/lib/utils";
@@ -29,16 +30,18 @@ type Logo = {
   color: string | null;
 };
 
-type Category = {
-  title: string;
-  detail: string;
+type CategoryMeta = {
+  key: string;
   logos: Logo[];
 };
 
-const ROW_ONE: Category[] = [
+type CategoryCopy = { title: string; detail: string };
+
+type Category = CategoryMeta & CategoryCopy;
+
+const ROW_ONE_META: CategoryMeta[] = [
   {
-    title: "Backend",
-    detail: "Firebase · Supabase · REST",
+    key: "backend",
     logos: [
       { name: "Firebase", Icon: SiFirebase, color: "#DD2C00" },
       { name: "Supabase", Icon: SiSupabase, color: "#3FCF8E" },
@@ -46,8 +49,7 @@ const ROW_ONE: Category[] = [
     ],
   },
   {
-    title: "Autenticação",
-    detail: "Google · Apple · Facebook",
+    key: "auth",
     logos: [
       { name: "Google", Icon: GoogleGIcon, color: null },
       { name: "Apple", Icon: SiApple, color: null },
@@ -55,42 +57,36 @@ const ROW_ONE: Category[] = [
     ],
   },
   {
-    title: "Assinaturas",
-    detail: "RevenueCat · Stripe",
+    key: "subs",
     logos: [
       { name: "RevenueCat", Icon: SiRevenuecat, color: "#F2545B" },
       { name: "Stripe", Icon: SiStripe, color: "#635BFF" },
     ],
   },
   {
-    title: "Anúncios",
-    detail: "AdMob · Meta Ads",
+    key: "ads",
     logos: [
       { name: "AdMob", Icon: SiGoogleadmob, color: "#EA4335" },
       { name: "Meta Ads", Icon: SiMeta, color: "#0467DF" },
     ],
   },
   {
-    title: "Notificações Push",
-    detail: "Firebase Cloud Messaging",
+    key: "push",
     logos: [{ name: "FCM", Icon: Bell, color: "#F59E0B" }],
   },
 ];
 
-const ROW_TWO: Category[] = [
+const ROW_TWO_META: CategoryMeta[] = [
   {
-    title: "Componentes de UI",
-    detail: "60+ componentes · 95+ variantes",
+    key: "ui",
     logos: [{ name: "UI Kit", Icon: ToggleRight, color: "#22C55E" }],
   },
   {
-    title: "CI/CD",
-    detail: "Codemagic",
+    key: "cicd",
     logos: [{ name: "Codemagic", Icon: SiCodemagic, color: "#F45E3F" }],
   },
   {
-    title: "Plataformas",
-    detail: "iOS · Android · Web",
+    key: "platforms",
     logos: [
       { name: "iOS", Icon: SiApple, color: null },
       { name: "Android", Icon: SiAndroid, color: "#3DDC84" },
@@ -98,8 +94,7 @@ const ROW_TWO: Category[] = [
     ],
   },
   {
-    title: "AI-Ready",
-    detail: "Cursor · Claude Code · Windsurf",
+    key: "aiReady",
     logos: [
       { name: "Cursor", Icon: SiCursor, color: null },
       { name: "Claude", Icon: SiClaude, color: "#D97757" },
@@ -185,7 +180,7 @@ function MarqueeRow({
         )}
       >
         {items.map((category, index) => (
-          <CategoryCard key={`${category.title}-${index}`} category={category} />
+          <CategoryCard key={`${category.key}-${index}`} category={category} />
         ))}
       </div>
     </div>
@@ -193,6 +188,16 @@ function MarqueeRow({
 }
 
 export function IntegrationsShowcase() {
+  const t = useTranslations("integrationsShowcase");
+  const categoriesCopy = t.raw("categories") as Record<string, CategoryCopy>;
+  const ROW_ONE: Category[] = ROW_ONE_META.map((meta) => ({
+    ...meta,
+    ...categoriesCopy[meta.key],
+  }));
+  const ROW_TWO: Category[] = ROW_TWO_META.map((meta) => ({
+    ...meta,
+    ...categoriesCopy[meta.key],
+  }));
   const allIntegrations = [...ROW_ONE, ...ROW_TWO];
 
   return (
@@ -218,11 +223,10 @@ export function IntegrationsShowcase() {
             "leading-[1.12] tracking-[-0.02em]",
           )}
         >
-          Tudo que o seu app Flutter precisa
+          {t("heading")}
         </h2>
         <p className="max-w-fluid-subtitle text-pretty font-rounded text-fluid-subtitle text-muted-foreground">
-          Backend, autenticação, assinaturas, anúncios, push e publicação —
-          tudo já integrado, pronto no dia um.
+          {t("subtitle")}
         </p>
       </Reveal>
 
@@ -239,7 +243,7 @@ export function IntegrationsShowcase() {
 
       <ul className="sr-only">
         {allIntegrations.map((category) => (
-          <li key={category.title}>
+          <li key={category.key}>
             {category.title}: {category.detail}
           </li>
         ))}

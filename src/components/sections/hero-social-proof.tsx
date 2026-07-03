@@ -1,3 +1,7 @@
+"use client";
+
+import { useTranslations } from "next-intl";
+
 import { heroPillSurfaceClass, surfaceBorderClass } from "@/lib/surface-border";
 import { cn } from "@/lib/utils";
 
@@ -14,6 +18,8 @@ function OnlineIndicator() {
 }
 
 export function HeroSocialProof() {
+  const t = useTranslations("heroSocialProof");
+
   return (
     <div
       className={cn(
@@ -24,8 +30,8 @@ export function HeroSocialProof() {
     >
       <OnlineIndicator />
       <p className="min-w-0 text-left font-rounded text-fluid-social-proof leading-[var(--text-fluid-social-proof--line-height)] sm:whitespace-nowrap">
-        <span className="font-medium text-muted-foreground">Amado por </span>
-        <span className="font-extrabold text-foreground">+70 usuários</span>
+        <span className="font-medium text-muted-foreground">{t("prefix")} </span>
+        <span className="font-extrabold text-foreground">{t("count")}</span>
       </p>
     </div>
   );

@@ -2,23 +2,25 @@
 
 import { Monitor, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
 import { motion, useReducedMotion } from "@/lib/motion";
 import { surfaceBorderClass } from "@/lib/surface-border";
 import { cn } from "@/lib/utils";
 
-const options = [
-  { value: "system", icon: Monitor, label: "Tema do sistema" },
-  { value: "light", icon: Sun, label: "Tema claro" },
-  { value: "dark", icon: Moon, label: "Tema escuro" },
+const OPTIONS = [
+  { value: "system", icon: Monitor, labelKey: "system" },
+  { value: "light", icon: Sun, labelKey: "light" },
+  { value: "dark", icon: Moon, labelKey: "dark" },
 ] as const;
 
 const segmentClass =
-  "relative z-10 flex size-7 shrink-0 items-center justify-center rounded-full";
+  "relative z-10 flex size-6 shrink-0 items-center justify-center rounded-full";
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
+  const t = useTranslations("theme");
   const [mounted, setMounted] = useState(false);
   const reducedMotion = useReducedMotion();
 
@@ -30,15 +32,15 @@ export function ThemeToggle() {
     theme === "light" || theme === "dark" ? theme : "system";
   const activeIndex = Math.max(
     0,
-    options.findIndex((option) => option.value === current),
+    OPTIONS.findIndex((option) => option.value === current),
   );
 
   return (
     <div
       role="group"
-      aria-label="Tema da interface"
+      aria-label={t("groupLabel")}
       className={cn(
-        "relative inline-flex items-center rounded-full border p-1",
+        "relative inline-flex items-center rounded-full border p-0.5",
         "bg-background/80 shadow-sm backdrop-blur-md",
         surfaceBorderClass,
       )}
@@ -46,7 +48,7 @@ export function ThemeToggle() {
       <motion.span
         aria-hidden
         className={cn(
-          "pointer-events-none absolute top-1 left-1 size-7 rounded-full",
+          "pointer-events-none absolute top-0.5 left-0.5 size-6 rounded-full",
           "bg-secondary shadow-[inset_0_1px_0_rgb(255_255_255/0.45)]",
           "dark:bg-white/12 dark:shadow-[inset_0_1px_0_rgb(255_255_255/0.08)]",
           !mounted && "opacity-0",
@@ -60,14 +62,14 @@ export function ThemeToggle() {
         }
       />
 
-      {options.map(({ value, icon: Icon, label }) => {
+      {OPTIONS.map(({ value, icon: Icon, labelKey }) => {
         const isActive = mounted && current === value;
 
         return (
           <button
             key={value}
             type="button"
-            aria-label={label}
+            aria-label={t(labelKey)}
             aria-pressed={isActive}
             onClick={() => setTheme(value)}
             className={cn(
@@ -80,7 +82,7 @@ export function ThemeToggle() {
           >
             <Icon
               className={cn(
-                "size-[15px] shrink-0 stroke-[1.75]",
+                "size-3.5 shrink-0 stroke-[1.75]",
                 "transition-[transform,opacity] duration-200",
                 isActive ? "scale-100 opacity-100" : "scale-90 opacity-50",
               )}

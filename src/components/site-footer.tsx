@@ -1,17 +1,14 @@
 import Image from "next/image";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 import { HashLink } from "@/components/hash-link";
 import { KasyLogo } from "@/components/kasy-logo";
+import { LanguageSwitcher } from "@/components/language-switcher";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
+import { Link } from "@/i18n/navigation";
 import { surfaceBorderClass } from "@/lib/surface-border";
 import { cn } from "@/lib/utils";
-
-const FOOTER_LINKS = [
-  { href: "/#precos", label: "Preços" },
-  { href: "/documentacao", label: "Documentação" },
-] as const;
 
 /** Mesma dupla claro/escuro do hero — aqui só a base da paisagem, sutil, atrás do conteúdo. */
 const FOOTER_ART_IMAGES = {
@@ -19,8 +16,7 @@ const FOOTER_ART_IMAGES = {
   dark: { src: "/assets/hero-dark.png", width: 2944, height: 1648 },
 } as const;
 
-const footerArtImageClass =
-  "object-cover object-[50%_78%] scale-[1.15]";
+const footerArtImageClass = "object-cover object-[50%_78%] scale-[1.15]";
 
 function FooterBackdropArt() {
   return (
@@ -46,6 +42,13 @@ function FooterBackdropArt() {
 }
 
 export function SiteFooter() {
+  const t = useTranslations("footer");
+
+  const FOOTER_LINKS = [
+    { href: "#precos", label: t("links.pricing") },
+    { href: "/documentacao", label: t("links.docs") },
+  ] as const;
+
   return (
     <footer className="relative isolate flex min-h-[clamp(20rem,34vw,28rem)] items-end overflow-hidden">
       <FooterBackdropArt />
@@ -71,11 +74,11 @@ export function SiteFooter() {
                   surfaceBorderClass,
                 )}
               >
-                by Aicrus LLC
+                {t("byAicrus")}
               </a>
             </div>
             <p className="max-w-xs text-[0.8125rem] text-muted-foreground">
-              O starter Flutter que publica em iOS, Android e Web no dia um.
+              {t("tagline")}
             </p>
           </div>
 
@@ -84,7 +87,7 @@ export function SiteFooter() {
               const className =
                 "text-sm font-medium text-muted-foreground transition-colors hover:text-foreground";
 
-              if (link.href.includes("#")) {
+              if (link.href.startsWith("#")) {
                 return (
                   <HashLink key={link.href} href={link.href} className={className}>
                     {link.label}
@@ -104,16 +107,17 @@ export function SiteFooter() {
               className="h-auto shrink-0 rounded-full px-4 py-2"
               render={<Link href="/obter-kasy" />}
             >
-              Obter Kasy Pro
+              {t("cta")}
             </Button>
           </nav>
         </div>
 
         <div className="mt-10 flex items-center justify-between gap-4">
-          <p className="text-xs text-muted-foreground">
-            © 2026 Kasy. Todos os direitos reservados.
-          </p>
-          <ThemeToggle />
+          <p className="text-xs text-muted-foreground">{t("copyright")}</p>
+          <div className="flex items-center gap-2.5">
+            <LanguageSwitcher />
+            <ThemeToggle />
+          </div>
         </div>
       </div>
     </footer>

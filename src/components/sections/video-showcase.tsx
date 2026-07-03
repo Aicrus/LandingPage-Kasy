@@ -1,6 +1,7 @@
 "use client";
 
 import { Pause, Play, X } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import {
@@ -27,6 +28,7 @@ const toggleButtonIconClass =
   "flex size-12 items-center justify-center rounded-xl sm:size-14 sm:rounded-2xl bg-white/15 backdrop-blur-md transition-[transform,opacity] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110 motion-safe:group-active:scale-95";
 
 export function VideoShowcase() {
+  const t = useTranslations("videoShowcase");
   const [playing, setPlaying] = useState(false);
   const [controlsVisible, setControlsVisible] = useState(true);
   const [fullscreenOpen, setFullscreenOpen] = useState(false);
@@ -144,7 +146,7 @@ export function VideoShowcase() {
             "text-[clamp(2.75rem,10vw,8rem)]",
           )}
         >
-          Velocidade
+          {t("bigLabel")}
         </motion.p>
 
         <motion.div
@@ -188,7 +190,7 @@ export function VideoShowcase() {
 
           <button
             type="button"
-            aria-label={playing ? "Pausar vídeo" : "Reproduzir vídeo"}
+            aria-label={playing ? t("pause") : t("play")}
             onClick={handleToggle}
             className={cn(
               "absolute inset-0 flex size-full items-center justify-center outline-none",
@@ -231,7 +233,7 @@ export function VideoShowcase() {
 
         <button
           type="button"
-          aria-label={playing ? "Pausar vídeo" : "Reproduzir vídeo"}
+          aria-label={playing ? t("pause") : t("play")}
           onClick={handleToggle}
           className="absolute inset-0 flex size-full items-center justify-center outline-none"
         >
@@ -254,7 +256,7 @@ export function VideoShowcase() {
 
         <button
           type="button"
-          aria-label="Fechar vídeo"
+          aria-label={t("close")}
           onClick={closeFullscreen}
           className={cn(
             "absolute top-[max(1rem,env(safe-area-inset-top))] right-[max(1rem,env(safe-area-inset-right))]",

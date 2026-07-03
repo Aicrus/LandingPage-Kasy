@@ -1,3 +1,7 @@
+import { hasLocale } from "next-intl";
+import { setRequestLocale } from "next-intl/server";
+import { notFound } from "next/navigation";
+
 import {
   AppShowcase,
   Faq,
@@ -12,8 +16,21 @@ import {
   VideoShowcase,
   WhatYouGet,
 } from "@/components/sections";
+import { routing } from "@/i18n/routing";
 
-export default function Home() {
+export default async function Home({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
+
+  setRequestLocale(locale);
+
   return (
     <main className="bg-background">
       <HeroScreenReveal>

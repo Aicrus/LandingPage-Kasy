@@ -1,15 +1,16 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 
 import { useInView, useReducedMotion } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
-const STATS = [
-  { value: 100, suffix: "+", label: "apps publicados" },
-  { value: 3, suffix: "", label: "backends suportados" },
-  { value: 60, suffix: "+", label: "componentes de UI" },
-  { value: 3, suffix: "", label: "plataformas" },
+const STATS_META = [
+  { key: "apps", value: 100, suffix: "+" },
+  { key: "backends", value: 3, suffix: "" },
+  { key: "components", value: 60, suffix: "+" },
+  { key: "platforms", value: 3, suffix: "" },
 ] as const;
 
 function Counter({ target, suffix }: { target: number; suffix: string }) {
@@ -40,6 +41,9 @@ function Counter({ target, suffix }: { target: number; suffix: string }) {
 }
 
 export function QualityStrip() {
+  const t = useTranslations("qualityStrip");
+  const labels = t.raw("labels") as Record<string, string>;
+  const STATS = STATS_META.map((meta) => ({ ...meta, label: labels[meta.key] }));
   const ref = useRef<HTMLDivElement>(null);
   const reducedMotion = useReducedMotion();
   const isInView = useInView(ref, { once: true, margin: "-80px 0px" });
@@ -59,7 +63,7 @@ export function QualityStrip() {
       >
         {STATS.map((stat, i) => (
           <div
-            key={stat.label}
+            key={stat.key}
             className={cn(
               "flex flex-col items-center justify-center gap-1.5 px-4 py-8 text-center sm:py-9",
               "border-border/70",

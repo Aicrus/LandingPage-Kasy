@@ -2,6 +2,7 @@
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import {
   useCallback,
   useEffect,
@@ -14,21 +15,16 @@ import { Reveal } from "@/components/motion/reveal";
 import { animate, useReducedMotion } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
-type CardItem = {
-  imgUrl: string;
-  alt: string;
-};
-
-const CARDS: CardItem[] = [
-  { imgUrl: "/images/gallery/vertical-1.jpg", alt: "App criado com Kasy" },
-  { imgUrl: "/images/gallery/vertical-2.jpg", alt: "App criado com Kasy" },
-  { imgUrl: "/images/gallery/vertical-3.jpg", alt: "App criado com Kasy" },
-  { imgUrl: "/images/gallery/vertical-4.jpg", alt: "App criado com Kasy" },
-  { imgUrl: "/images/gallery/vertical-1.jpg", alt: "App criado com Kasy" },
-  { imgUrl: "/images/gallery/vertical-2.jpg", alt: "App criado com Kasy" },
-  { imgUrl: "/images/gallery/vertical-3.jpg", alt: "App criado com Kasy" },
-  { imgUrl: "/images/gallery/vertical-4.jpg", alt: "App criado com Kasy" },
-  { imgUrl: "/images/gallery/vertical-1.jpg", alt: "App criado com Kasy" },
+const CARD_IMAGES = [
+  "/images/gallery/vertical-1.jpg",
+  "/images/gallery/vertical-2.jpg",
+  "/images/gallery/vertical-3.jpg",
+  "/images/gallery/vertical-4.jpg",
+  "/images/gallery/vertical-1.jpg",
+  "/images/gallery/vertical-2.jpg",
+  "/images/gallery/vertical-3.jpg",
+  "/images/gallery/vertical-4.jpg",
+  "/images/gallery/vertical-1.jpg",
 ];
 
 const MAX_VISIBLE = 7;
@@ -84,6 +80,9 @@ const ENTER_SPRING = { type: "spring", stiffness: 170, damping: 13, mass: 0.85 }
 const HOVER_SPRING = { type: "spring", stiffness: 300, damping: 20 } as const;
 
 export function AppShowcase() {
+  const t = useTranslations("appShowcase");
+  const cardAlt = t("cardAlt");
+  const CARDS = CARD_IMAGES.map((imgUrl) => ({ imgUrl, alt: cardAlt }));
   const containerRef = useRef<HTMLDivElement>(null);
   const isAnimating = useRef(false);
   const hasEntered = useRef(false);
@@ -386,7 +385,7 @@ export function AppShowcase() {
         )}
       >
         <span className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-          Feito com Kasy
+          {t("eyebrow")}
         </span>
         <h2
           className={cn(
@@ -395,11 +394,10 @@ export function AppShowcase() {
             "leading-[1.12] tracking-[-0.02em]",
           )}
         >
-          Construa o próximo grande app.
+          {t("heading")}
         </h2>
         <p className="max-w-fluid-subtitle text-pretty font-rounded text-fluid-subtitle text-muted-foreground">
-          Nosso kit é mais do que código, é uma plataforma de lançamento. Veja
-          o que é possível quando você pula a configuração.
+          {t("subtitle")}
         </p>
       </Reveal>
 
@@ -436,7 +434,7 @@ export function AppShowcase() {
           <button
             type="button"
             onClick={() => cycle("left")}
-            aria-label="Anterior"
+            aria-label={t("prev")}
             className="flex size-11 shrink-0 items-center justify-center rounded-full border border-border/70 bg-card text-muted-foreground transition-colors hover:border-border hover:bg-muted hover:text-foreground active:opacity-70"
           >
             <ChevronLeft className="size-5" strokeWidth={2.5} />
@@ -457,7 +455,7 @@ export function AppShowcase() {
           <button
             type="button"
             onClick={() => cycle("right")}
-            aria-label="Próximo"
+            aria-label={t("next")}
             className="flex size-11 shrink-0 items-center justify-center rounded-full border border-border/70 bg-card text-muted-foreground transition-colors hover:border-border hover:bg-muted hover:text-foreground active:opacity-70"
           >
             <ChevronRight className="size-5" strokeWidth={2.5} />

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { useCallback, useState } from "react";
 
 import { Reveal } from "@/components/motion/reveal";
@@ -11,33 +12,26 @@ import { type as typeScale } from "@/lib/typography";
 
 const LG_MEDIA = "(min-width: 1024px)";
 
-const CARDS = [
+type CardCopy = { title: string; description: string; alt: string };
+
+const CARDS_META = [
   {
+    key: "commands",
     num: "01",
-    title: "Poucos comandos",
-    description:
-      "Firebase, Supabase ou REST. Login, banco, storage, push e IA num passo.",
     image:
       "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=640&h=800&q=80",
-    alt: "Laptop com editor de código e terminal aberto",
   },
   {
+    key: "branding",
     num: "02",
-    title: "Personalize o visual",
-    description:
-      "Ícone, splash, cores claro e escuro. Dois arquivos e app com sua marca.",
     image:
       "https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=640&h=800&q=80",
-    alt: "Paleta de cores e ferramentas de identidade visual de um app",
   },
   {
+    key: "everywhere",
     num: "03",
-    title: "Todo lugar",
-    description:
-      "App Store, Play Store e Web. O Codemagic publica iOS até sem Mac.",
     image:
       "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=640&h=800&q=80",
-    alt: "Smartphones com apps instalados sobre uma mesa",
   },
 ] as const;
 
@@ -65,8 +59,11 @@ const CARD_IDLE_SHADOW =
   "bg-feature-card shadow-[0_1px_1px_rgba(26,30,44,0.02),0_4px_12px_-8px_rgba(26,30,44,0.035)] dark:shadow-[0_1px_2px_rgba(0,0,0,0.08),0_4px_14px_-8px_rgba(0,0,0,0.14)]";
 
 export function FeatureHoverCards() {
+  const t = useTranslations("featureHoverCards");
   const isLgUp = useMediaQuery(LG_MEDIA);
   const [active, setActive] = useState(0);
+  const cardsCopy = t.raw("cards") as Record<string, CardCopy>;
+  const CARDS = CARDS_META.map((meta) => ({ ...meta, ...cardsCopy[meta.key] }));
 
   const activate = useCallback(
     (index: number) => {
@@ -98,15 +95,14 @@ export function FeatureHoverCards() {
             "leading-[1.12] tracking-[-0.02em]",
           )}
         >
-          Do código à loja
+          {t("heading")}
         </h2>
         <p
           className={cn(
             "max-w-fluid-subtitle text-pretty font-rounded text-fluid-subtitle text-muted-foreground",
           )}
         >
-          Backend, marca e publicação. Tudo que falta entre o kit e o App
-          Store.
+          {t("subtitle")}
         </p>
       </Reveal>
 

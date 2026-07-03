@@ -1,11 +1,13 @@
-import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { Check } from "lucide-react";
 
 import { Reveal } from "@/components/motion/reveal";
 import { Button } from "@/components/ui/button";
+import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
 type Plan = {
+  key: string;
   label: string;
   description: string;
   price: string;
@@ -16,40 +18,14 @@ type Plan = {
   features: string[];
 };
 
-const PLANS: Plan[] = [
-  {
-    label: "Anual",
-    description: "Para quem já programa e quer o kit completo.",
-    price: "$127",
-    per: "/ ano",
-    cta: "Começar agora",
-    features: [
-      "Firebase, Supabase & REST API",
-      "Apps ilimitados",
-      "60+ componentes de UI (95+ variantes)",
-      "Todos os recursos opcionais",
-      "Atualizações por 1 ano",
-      "Suporte da comunidade",
-    ],
-  },
-  {
-    label: "Kit + Curso",
-    description: "Para sair do zero e publicar seu primeiro app.",
-    price: "$227",
-    per: "único pagamento",
-    tag: "Mais popular",
-    featured: true,
-    cta: "Quero o Kit + Curso",
-    features: [
-      "Tudo do plano Anual",
-      "Curso completo, 1 ano de acesso",
-      "Da ideia ao app publicado em 7 dias",
-      "Feito para não desenvolvedores",
-      "Comunidade exclusiva de criadores",
-      "Suporte prioritário",
-    ],
-  },
+type PlanMeta = { key: string; price: string; featured?: boolean };
+
+const PLANS_META: PlanMeta[] = [
+  { key: "annual", price: "$127" },
+  { key: "kitCourse", price: "$227", featured: true },
 ];
+
+type PlanCopy = Omit<Plan, "key" | "price" | "featured">;
 
 const cardShadowClass = cn(
   "shadow-[0_1px_2px_rgba(26,30,44,0.04),0_6px_16px_-10px_rgba(26,30,44,0.12)]",
@@ -143,6 +119,10 @@ function PlanCard({ plan }: { plan: Plan }) {
 }
 
 export function Pricing() {
+  const t = useTranslations("pricing");
+  const plansCopy = t.raw("plans") as Record<string, PlanCopy>;
+  const PLANS: Plan[] = PLANS_META.map((meta) => ({ ...meta, ...plansCopy[meta.key] }));
+
   return (
     <section
       id="precos"
@@ -162,7 +142,7 @@ export function Pricing() {
         )}
       >
         <span className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-          Preços
+          {t("eyebrow")}
         </span>
         <h2
           className={cn(
@@ -171,11 +151,10 @@ export function Pricing() {
             "leading-[1.12] tracking-[-0.02em]",
           )}
         >
-          Escolha seu plano e comece a construir
+          {t("heading")}
         </h2>
         <p className="max-w-fluid-subtitle text-pretty font-rounded text-fluid-subtitle text-muted-foreground">
-          Cartões internacionais aceitos via Stripe. Acesso liberado
-          imediatamente após a confirmação do pagamento.
+          {t("subtitle")}
         </p>
       </Reveal>
 
@@ -184,12 +163,12 @@ export function Pricing() {
         className="grid w-full max-w-[44rem] grid-cols-1 items-stretch gap-6 sm:grid-cols-2"
       >
         {PLANS.map((plan) => (
-          <PlanCard key={plan.label} plan={plan} />
+          <PlanCard key={plan.key} plan={plan} />
         ))}
       </Reveal>
 
       <p className="mt-8 max-w-md text-center text-[0.8125rem] text-muted-foreground">
-        Checkout seguro via Stripe. Acesso imediato após a confirmação.
+        {t("checkoutNote")}
       </p>
     </section>
   );

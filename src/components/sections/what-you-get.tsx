@@ -11,6 +11,7 @@ import {
   Smartphone,
   type LucideIcon,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 
 import { Reveal } from "@/components/motion/reveal";
@@ -29,351 +30,60 @@ type FeatureBullet = {
   detail?: string;
 };
 
-type FeatureTab = {
+type FeatureTabMeta = {
   key: string;
   icon: LucideIcon;
-  label: string;
   /** Cor de assinatura da categoria — cada aba tem a sua, não um azul genérico repetido. */
   accent: string;
+  providers: string[];
+};
+
+type FeatureTabCopy = {
+  label: string;
   tagline: TaglineCopy;
   /** `null` = sem número fixo (ex.: categoria "Mais", que é uma mistura). */
   saved: string | null;
-  providers: string[];
   bullets?: FeatureBullet[];
   moreItems?: { label: string; desc: string }[];
 };
 
-const FEATURE_TABS: FeatureTab[] = [
-  {
-    key: "auth",
-    icon: KeyRound,
-    label: "Autenticação",
-    accent: "#2563eb",
-    tagline: {
-      emphasis: "Todo método de login",
-      rest: ", configurado e pronto.",
-    },
-    saved: "12h",
-    providers: ["Google", "Apple", "Facebook"],
-    bullets: [
-      { label: "Login com Google", detail: "iOS + Android + Web" },
-      { label: "Login com Apple", detail: "iOS + Android + Web" },
-      { label: "Login com Facebook", detail: "iOS + Android + Web" },
-      { label: "Email e senha" },
-      { label: "Telefone", detail: "SMS OTP" },
-      {
-        label: "Auth anônimo com vinculação de conta",
-        detail: "sem perder dados",
-      },
-      { label: "Recuperação de senha" },
-    ],
-  },
-  {
-    key: "subs",
-    icon: CreditCard,
-    label: "Assinaturas",
-    accent: "#7c3aed",
-    tagline: {
-      emphasis: "Monetize desde o dia um",
-      rest: " com RevenueCat e Stripe.",
-    },
-    saved: "15h",
-    providers: ["RevenueCat", "Stripe"],
-    bullets: [
-      { label: "Integração RevenueCat", detail: "iOS + Android + Web" },
-      {
-        label: "4 estilos de paywall",
-        detail: "Minimal, Grid, Row, Toggle",
-      },
-      { label: "Tabela comparativa", detail: "componente incluído" },
-      {
-        label: "Testes A/B via RevenueCat Experiments",
-        detail: "sem rebuild",
-      },
-      {
-        label: "Estado da assinatura em tempo real",
-        detail: "sincronizado via webhook",
-      },
-      { label: "Troque o paywall pelo dashboard", detail: "sem rebuild" },
-      {
-        label: "Guard de paywall",
-        detail: "redireciona conteúdo premium",
-      },
-      { label: "Suporte a trial gratuito" },
-    ],
-  },
-  {
-    key: "notif",
-    icon: Bell,
-    label: "Notificações",
-    accent: "#f59e0b",
-    tagline: {
-      emphasis: "Push, in-app",
-      rest: " e lembretes locais.",
-    },
-    saved: "10h",
-    providers: ["iOS", "Android"],
-    bullets: [
-      { label: "Push via Firebase Cloud Messaging", detail: "FCM" },
-      {
-        label: "Lista de notificações in-app",
-        detail: "com timestamps",
-      },
-      { label: "Contador de badge", detail: "não lidas" },
-      {
-        label: "Deep link",
-        detail: "toque na notificação, abre a tela certa",
-      },
-      {
-        label: "Gerenciamento de tokens",
-        detail: "dispositivo e limpeza",
-      },
-      { label: "Cloud Function", detail: "entrega via webhook" },
-      {
-        label: "Lembretes locais",
-        detail: "diários, semanais ou únicos, sem servidor",
-      },
-    ],
-  },
-  {
-    key: "ui",
-    icon: LayoutGrid,
-    label: "Componentes",
-    accent: "#059669",
-    tagline: {
-      emphasis: "60+ componentes, 95+ variantes",
-      rest: ", totalmente customizáveis.",
-    },
-    saved: "semanas",
-    providers: ["iOS", "Android", "Web"],
-    bullets: [
-      {
-        label: "60+ componentes prontos para produção",
-        detail: "95+ variantes",
-      },
-      { label: "Testados em iOS, Android e Web" },
-      {
-        label: "Modo escuro e claro",
-        detail: "automático ou trocado pelo usuário",
-      },
-      {
-        label: "Biblioteca completa",
-        detail:
-          "Accordion, Alert, AppBar, Avatar, Badge, BottomSheet, Button, Card, Checkbox, Chip, Dialog, Input, OTP, Skeleton, Sidebar, SwipeAction, TextArea, TextField, Toast",
-      },
-      { label: "Animações customizadas", detail: "transições de rota" },
-      { label: "Feedback háptico integrado" },
-      {
-        label: "Galeria no navegador",
-        detail: "copie qualquer nome pra IA",
-      },
-    ],
-  },
+type FeatureTab = FeatureTabMeta & FeatureTabCopy;
+
+const FEATURE_TABS_META: FeatureTabMeta[] = [
+  { key: "auth", icon: KeyRound, accent: "#2563eb", providers: ["Google", "Apple", "Facebook"] },
+  { key: "subs", icon: CreditCard, accent: "#7c3aed", providers: ["RevenueCat", "Stripe"] },
+  { key: "notif", icon: Bell, accent: "#f59e0b", providers: ["iOS", "Android"] },
+  { key: "ui", icon: LayoutGrid, accent: "#059669", providers: ["iOS", "Android", "Web"] },
   {
     key: "sec",
     icon: ShieldCheck,
-    label: "Segurança",
     accent: "#0d9488",
-    tagline: {
-      emphasis: "Regras de nível produção",
-      rest: ", sem surpresas.",
-    },
-    saved: "8h",
     providers: ["Firebase", "Supabase", "REST API"],
-    bullets: [
-      {
-        label: "Regras de segurança Firestore",
-        detail: "prontas para produção",
-      },
-      {
-        label: "Row Level Security (Supabase)",
-        detail: "pronto para produção",
-      },
-      {
-        label: "Regras de Firebase Storage",
-        detail: "isolamento por usuário",
-      },
-      {
-        label: "Permissões App Store e Play Store",
-        detail: "tratadas, sem rejeição",
-      },
-      {
-        label: "Dart-defines",
-        detail: "separam dev de produção, sem segredo no código",
-      },
-    ],
   },
-  {
-    key: "widget",
-    icon: Smartphone,
-    label: "Widget nativo",
-    accent: "#db2777",
-    tagline: {
-      emphasis: "Widgets nativos na tela inicial",
-      rest: ", sincronizados.",
-    },
-    saved: "6h",
-    providers: ["iOS", "Android"],
-    bullets: [
-      { label: "Widget de tela inicial", detail: "iOS e Android" },
-      { label: "Atualização automática", detail: "em segundo plano" },
-      {
-        label: "Sincroniza com o estado do app",
-        detail: "assinatura, dados do usuário",
-      },
-      { label: "Configurável", detail: "pelo painel admin do app" },
-      {
-        label: "Suporte a App Groups (iOS)",
-        detail: "compartilha dados com a extensão",
-      },
-    ],
-  },
+  { key: "widget", icon: Smartphone, accent: "#db2777", providers: ["iOS", "Android"] },
   {
     key: "ai",
     icon: MessageSquare,
-    label: "Chat com IA",
     accent: "#9333ea",
-    tagline: {
-      emphasis: "Chat integrado",
-      rest: " com OpenAI ou Gemini.",
-    },
-    saved: "8h",
     providers: ["Firebase", "Supabase", "REST API"],
-    bullets: [
-      {
-        label: "Interface de chat",
-        detail: "OpenAI ou Google Gemini",
-      },
-      {
-        label: "Histórico de conversas",
-        detail: "contexto completo",
-      },
-      { label: "API key no servidor", detail: "nunca no app" },
-      {
-        label: "Proxy seguro",
-        detail: "Cloud Function (Firebase) ou Edge Function (Supabase)",
-      },
-      {
-        label: "UI completa",
-        detail: "balões, loading, input de envio",
-      },
-    ],
   },
   {
     key: "more",
     icon: PlusCircle,
-    label: "Mais",
     accent: "#64748b",
-    tagline: {
-      emphasis: "Todo o resto.",
-      rest: " Nenhum recurso fica de fora.",
-    },
-    saved: null,
     providers: ["Firebase", "Supabase", "REST API"],
-    moreItems: [
-      {
-        label: "Perfil",
-        desc: "Atualize o nome, vincule ou desvincule contas, troque o avatar",
-      },
-      {
-        label: "Anúncios",
-        desc: "Banner, intersticial, recompensado e recompensado-intersticial",
-      },
-      {
-        label: "Upload de arquivos",
-        desc: "Progresso, uploads canceláveis e organização em pastas",
-      },
-      {
-        label: "Configurações",
-        desc: "Seleção de tema, cores, idioma e feedback háptico",
-      },
-      {
-        label: "Onboarding",
-        desc: "Experiência de primeiro acesso personalizável",
-      },
-      {
-        label: "Analytics",
-        desc: "Mixpanel com rastreamento de eventos e observer de navegação",
-      },
-      {
-        label: "Crash reporting",
-        desc: "Sentry pra monitorar erros em produção, com upload de source maps",
-      },
-      {
-        label: "Localização",
-        desc: "EN, PT e ES incluídos, fácil de estender",
-      },
-      {
-        label: "Notas (exemplo CRUD)",
-        desc: "Criar, ler, atualizar e deletar com sincronização em tempo real",
-      },
-      {
-        label: "Serviço de log",
-        desc: "Logging estruturado e com níveis, pronto pra uso",
-      },
-      {
-        label: "Fuso horário",
-        desc: "Agendamento com fuso horário que simplesmente funciona",
-      },
-      {
-        label: "Abrir URLs",
-        desc: "Abra URLs, emails e números de telefone nativamente",
-      },
-      {
-        label: "Seletor de arquivos",
-        desc: "Selecione arquivos e imagens direto do dispositivo",
-      },
-      {
-        label: "Feedback háptico",
-        desc: "Feedback háptico configurável em todo o app",
-      },
-      {
-        label: "Verificador de atualizações",
-        desc: "Checagens automáticas de versão com prompt de atualização",
-      },
-      {
-        label: "Atualização forçada",
-        desc: "Atualização obrigatória pra versões críticas",
-      },
-      {
-        label: "CI/CD",
-        desc: "Codemagic e GitHub Actions pra test, build e deploy",
-      },
-      {
-        label: "Lint rigoroso",
-        desc: "Regras de lint opinionadas pra qualidade de código consistente",
-      },
-      {
-        label: "Acessibilidade",
-        desc: "Leitores de tela, labels semânticos e boas práticas de a11y",
-      },
-      {
-        label: "Suporte a editores de IA",
-        desc: "Regras, agentes e skills pra Cursor, Claude Code e Windsurf",
-      },
-      { label: "Web (PWA)", desc: "Roda no navegador como PWA" },
-      {
-        label: "Feature requests",
-        desc: "Usuários sugerem e votam em funcionalidades no app",
-      },
-    ],
   },
 ];
-
-const TOTAL_FEATURE_COUNT = FEATURE_TABS.reduce(
-  (sum, tab) => sum + (tab.bullets?.length ?? tab.moreItems?.length ?? 0),
-  0,
-);
 
 const CARD_SHADOW_CLASS = cn(
   "shadow-[0_1px_2px_rgba(26,30,44,0.04),0_6px_16px_-10px_rgba(26,30,44,0.12)]",
   "dark:shadow-[0_1px_2px_rgba(0,0,0,0.18),0_8px_20px_-10px_rgba(0,0,0,0.4)]",
 );
 
-function savedLabel(saved: string) {
+function savedLabel(saved: string, suffix: string) {
   return /^\d/.test(saved)
-    ? `+${saved} economizadas`
-    : `${saved.charAt(0).toUpperCase()}${saved.slice(1)} economizadas`;
+    ? `+${saved} ${suffix}`
+    : `${saved.charAt(0).toUpperCase()}${saved.slice(1)} ${suffix}`;
 }
 
 function TabTagline({ copy }: { copy: TaglineCopy }) {
@@ -410,6 +120,8 @@ function TabPanelCard({
   tab: FeatureTab;
   fillHeight?: boolean;
 }) {
+  const t = useTranslations("whatYouGet");
+
   return (
     <div
       className={cn(
@@ -441,11 +153,11 @@ function TabPanelCard({
         </div>
         {tab.saved ? (
           <span className="w-fit shrink-0 rounded-md bg-emerald-500/10 px-2.5 py-1 font-mono text-xs font-semibold text-emerald-600 dark:text-emerald-400">
-            {savedLabel(tab.saved)}
+            {savedLabel(tab.saved, t("savedSuffix"))}
           </span>
         ) : tab.moreItems ? (
           <span className="w-fit shrink-0 rounded-md bg-primary/10 px-2.5 py-1 font-mono text-xs font-semibold text-primary">
-            {tab.moreItems.length} recursos
+            {t("resourcesCount", { count: tab.moreItems.length })}
           </span>
         ) : null}
       </div>
@@ -534,7 +246,17 @@ function tabListMaskStyle(edgeFade: { left: boolean; right: boolean }) {
 }
 
 export function WhatYouGet() {
-  const [activeKey, setActiveKey] = useState(FEATURE_TABS[0].key);
+  const t = useTranslations("whatYouGet");
+  const tabsCopy = t.raw("tabs") as Record<string, FeatureTabCopy>;
+  const FEATURE_TABS: FeatureTab[] = FEATURE_TABS_META.map((meta) => ({
+    ...meta,
+    ...tabsCopy[meta.key],
+  }));
+  const TOTAL_FEATURE_COUNT = FEATURE_TABS.reduce(
+    (sum, tab) => sum + (tab.bullets?.length ?? tab.moreItems?.length ?? 0),
+    0,
+  );
+  const [activeKey, setActiveKey] = useState(FEATURE_TABS_META[0].key);
   const [edgeFade, setEdgeFade] = useState({ left: false, right: false });
   const [panelMinHeight, setPanelMinHeight] = useState<number>();
   const [isLgViewport, setIsLgViewport] = useState(false);
@@ -668,7 +390,7 @@ export function WhatYouGet() {
       <div className="grid w-full grid-cols-1 gap-10 lg:grid-cols-[minmax(0,19rem)_1fr] lg:gap-14">
         <Reveal className="flex flex-col gap-3.5">
           <span className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-            O que você recebe
+            {t("eyebrow")}
           </span>
           <h2
             className={cn(
@@ -677,17 +399,17 @@ export function WhatYouGet() {
               "leading-[1.14] tracking-[-0.02em]",
             )}
           >
-            Tudo que você precisa.{" "}
-            <span className="text-primary">Nada além.</span>
+            {t("headingPart1")}{" "}
+            <span className="text-primary">{t("headingEmphasis")}</span>
           </h2>
           <p className="text-pretty font-rounded text-fluid-subtitle text-muted-foreground">
-            Cada categoria já vem{" "}
-            <span className="text-copy-emphasis">pronta pra publicar</span>.
-            Clique numa aba e{" "}
-            <span className="text-copy-mark">veja o que está incluído</span>.
+            {t("descPart1")}{" "}
+            <span className="text-copy-emphasis">{t("descEmphasis1")}</span>.{" "}
+            {t("descPart2")}{" "}
+            <span className="text-copy-mark">{t("descEmphasis2")}</span>.
           </p>
           <span className="font-mono text-[0.8125rem] text-muted-foreground/70">
-            8 categorias · {TOTAL_FEATURE_COUNT}+ recursos
+            {t("statsLabel", { categories: FEATURE_TABS_META.length, features: TOTAL_FEATURE_COUNT })}
           </span>
         </Reveal>
 
@@ -701,7 +423,7 @@ export function WhatYouGet() {
             <div
               ref={tabListRef}
               role="tablist"
-              aria-label="Categorias de recursos"
+              aria-label={t("tablistLabel")}
               style={tabListMaskStyle(edgeFade)}
               className={cn(
                 "flex flex-nowrap gap-2 overflow-x-auto overscroll-x-contain touch-pan-x pb-0.5",

@@ -357,7 +357,6 @@
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "cv01", "ss03";
-    overflow-x: hidden;
   }
   html {
     @apply font-sans;

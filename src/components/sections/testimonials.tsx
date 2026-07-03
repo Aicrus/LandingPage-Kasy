@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Fragment } from "react";
 
 import { Reveal } from "@/components/motion/reveal";
@@ -22,54 +23,6 @@ const AVATAR_COLORS = [
   "#9333ea",
   "#0891b2",
   "#e11d48",
-];
-
-const TESTIMONIALS: Testimonial[] = [
-  {
-    text: "Publiquei meu primeiro app em 6 dias. O CLI já tinha configurado Firebase, auth e pagamentos antes de eu abrir o editor.",
-    name: "Lucas Almeida",
-    role: "Desenvolvedor indie",
-  },
-  {
-    text: "Não sou desenvolvedora e mesmo assim coloquei um app real nas duas lojas. O Kasy me guiou em cada passo.",
-    name: "Marina Costa",
-    role: "Fundadora",
-  },
-  {
-    text: "Só o preview no navegador já me poupou horas. Sem emulador — iOS e Android lado a lado, direto no browser.",
-    name: "Diego Fernández",
-    role: "Engenheiro mobile",
-  },
-  {
-    text: "Migrei um projeto de cliente para Supabase em minutos. Mesmo código, outro backend. Impressionante.",
-    name: "Priya Nair",
-    role: "Freelancer",
-  },
-  {
-    text: "RevenueCat, push e analytics já vinham prontos. Eu só construí minhas features e publiquei.",
-    name: "Tom Becker",
-    role: "Founder solo",
-  },
-  {
-    text: "Atualizações pelo CLI sem quebrar o que já estava no ar. Nenhum outro kit faz isso.",
-    name: "Sofia Rossi",
-    role: "Engenheira de produto",
-  },
-  {
-    text: "Da ideia ao TestFlight em uma semana. A galeria de componentes tornou a UI a parte mais fácil.",
-    name: "Akira Tanaka",
-    role: "Designer & builder",
-  },
-  {
-    text: "Um stack, três backends. Escolhi Firebase, o cliente quis REST. Zero reescrita.",
-    name: "Hannah Müller",
-    role: "Líder de agência",
-  },
-  {
-    text: "As regras para editores com IA fizeram o Cursor parecer que já conhecia o projeto Kasy inteiro.",
-    name: "Rafael Santos",
-    role: "Dev full-stack",
-  },
 ];
 
 const cardShadowClass = cn(
@@ -169,6 +122,8 @@ function TestimonialsColumn({
 }
 
 export function Testimonials() {
+  const t = useTranslations("testimonials");
+  const TESTIMONIALS = t.raw("items") as Testimonial[];
   const col1 = TESTIMONIALS.slice(0, 3);
   const col2 = TESTIMONIALS.slice(3, 6);
   const col3 = TESTIMONIALS.slice(6, 9);
@@ -190,7 +145,7 @@ export function Testimonials() {
         )}
       >
         <span className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-          Depoimentos
+          {t("eyebrow")}
         </span>
         <h2
           className={cn(
@@ -199,12 +154,11 @@ export function Testimonials() {
             "leading-[1.12] tracking-[-0.02em]",
           )}
         >
-          Amado por quem constrói e publica{" "}
-          <span className="text-[#16a34a] dark:text-[#4ade80]">rápido.</span>
+          {t("headingPart1")}{" "}
+          <span className="text-[#16a34a] dark:text-[#4ade80]">{t("headingEmphasis")}</span>
         </h2>
         <p className="max-w-fluid-subtitle text-pretty font-rounded text-fluid-subtitle text-muted-foreground">
-          Desenvolvedores e fundadores indo da ideia para a App Store em dias,
-          não meses.
+          {t("subtitle")}
         </p>
       </Reveal>
 
