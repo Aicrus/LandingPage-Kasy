@@ -34,6 +34,8 @@ export function VideoShowcase() {
   const [fullscreenOpen, setFullscreenOpen] = useState(false);
   const hideTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
+  const inlineVideoRef = useRef<HTMLVideoElement>(null);
+  const fullscreenVideoRef = useRef<HTMLVideoElement>(null);
   const reducedMotion = useReducedMotion();
   const isLgUp = useMediaQuery(LG_MEDIA);
 
@@ -74,13 +76,32 @@ export function VideoShowcase() {
   }
 
   function handleToggle() {
+    if (fullscreenOpen) {
+      const video = fullscreenVideoRef.current;
+      if (!video) return;
+
+      if (playing) {
+        video.pause();
+        setPlaying(false);
+        setControlsVisible(true);
+        clearHideTimeout();
+      } else {
+        void video.play();
+        setPlaying(true);
+        setControlsVisible(true);
+        scheduleHide();
+      }
+      return;
+    }
+
     if (playing) {
-      // Pausar volta para o loop de fundo, em vez de congelar num frame do vídeo.
+      // Desktop: pausar volta para o loop de fundo.
+      inlineVideoRef.current?.pause();
       setPlaying(false);
       setControlsVisible(true);
       clearHideTimeout();
     } else if (!isLgUp) {
-      // Mobile/tablet: o play abre o vídeo em tela cheia em vez de tocar inline.
+      // Mobile/tablet: play abre tela cheia; pause/play ficam no overlay.
       setPlaying(true);
       setFullscreenOpen(true);
     } else {
@@ -91,6 +112,7 @@ export function VideoShowcase() {
   }
 
   const closeFullscreen = useCallback(() => {
+    fullscreenVideoRef.current?.pause();
     setFullscreenOpen(false);
     setPlaying(false);
     setControlsVisible(true);
@@ -166,6 +188,7 @@ export function VideoShowcase() {
         >
           {playing && !fullscreenOpen ? (
             <video
+              ref={inlineVideoRef}
               src={VIDEO_SRC}
               autoPlay
               playsInline
@@ -223,10 +246,19 @@ export function VideoShowcase() {
         onMouseMove={handleMouseMove}
       >
         <video
+          ref={fullscreenVideoRef}
           src={VIDEO_SRC}
           autoPlay
           playsInline
-          onPlay={scheduleHide}
+          onPlay={() => {
+            setPlaying(true);
+            scheduleHide();
+          }}
+          onPause={() => {
+            setPlaying(false);
+            setControlsVisible(true);
+            clearHideTimeout();
+          }}
           onEnded={closeFullscreen}
           className="size-full object-contain"
         />
@@ -257,9 +289,12 @@ export function VideoShowcase() {
         <button
           type="button"
           aria-label={t("close")}
-          onClick={closeFullscreen}
+          onClick={(event) => {
+            event.stopPropagation();
+            closeFullscreen();
+          }}
           className={cn(
-            "absolute top-[max(1rem,env(safe-area-inset-top))] right-[max(1rem,env(safe-area-inset-right))]",
+            "absolute top-[max(1rem,env(safe-area-inset-top))] right-[max(1rem,env(safe-area-inset-right))] z-10",
             "flex size-11 items-center justify-center rounded-full bg-white/15 backdrop-blur-md",
             "transition-opacity duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
             playing && !controlsVisible ? "opacity-0" : "opacity-100",

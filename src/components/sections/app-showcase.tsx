@@ -48,6 +48,22 @@ function getResponsiveMultiplier(width: number) {
   return 1.0;
 }
 
+const FAN_MAX_OFFSET_REM = 30;
+const FAN_EDGE_SAFETY_PX = 8;
+
+/**
+ * Cards use `overflow-visible` to bleed past the section on purpose (desktop hover pop),
+ * but on narrow viewports that bleed can extend past the actual screen edge, where
+ * `overflow-x: hidden` on <html> clips it instead of scrolling — cards end up cut off.
+ * Clamp the multiplier so the outermost card never reaches past the viewport edge.
+ */
+function getFanMultiplier(rawMultiplier: number, viewportWidth: number, cardHalfWidthPx: number) {
+  const remPx = 16;
+  const maxAllowedPx = viewportWidth / 2 - cardHalfWidthPx - FAN_EDGE_SAFETY_PX;
+  if (maxAllowedPx <= 0) return 0;
+  return Math.min(rawMultiplier, maxAllowedPx / (FAN_MAX_OFFSET_REM * remPx));
+}
+
 function getHeightMultiplier(width: number) {
   let idealPx: number;
   if (width < 480) idealPx = 22 * 16;
@@ -158,7 +174,12 @@ export function AppShowcase() {
     const previouslyVisible = prevVisible.current;
     const direction = directionRef.current;
     const isFirstMount = !hasEntered.current;
-    const multiplier = getResponsiveMultiplier(window.innerWidth);
+    const cardHalfWidthPx = cardElements[0].offsetWidth / 2;
+    const multiplier = getFanMultiplier(
+      getResponsiveMultiplier(window.innerWidth),
+      window.innerWidth,
+      cardHalfWidthPx,
+    );
     const hMult = getHeightMultiplier(window.innerWidth);
     const slotCount = needsPagination ? MAX_VISIBLE : totalCards;
     const config = (slot: number) => getSlotConfig(slotCount, slot);
@@ -267,7 +288,12 @@ export function AppShowcase() {
     const centerSlot = visibleEntries.length >> 1;
 
     const updateHoverLayout = (hoveredSlot: number | null) => {
-      const mult = getResponsiveMultiplier(window.innerWidth);
+      const cardHalfWidthPx = cardElements[0].offsetWidth / 2;
+      const mult = getFanMultiplier(
+        getResponsiveMultiplier(window.innerWidth),
+        window.innerWidth,
+        cardHalfWidthPx,
+      );
       const hM = getHeightMultiplier(window.innerWidth);
 
       visibleEntries.forEach(({ el, slot }) => {
