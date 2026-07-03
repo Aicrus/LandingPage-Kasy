@@ -119,6 +119,8 @@ function getSlotConfig(totalCards: number, slot: number) {
 /** Entrada/troca de fan — spring bounce se aproxima do "elastic.out" usado no GSAP original. */
 const ENTER_SPRING = { type: "spring", stiffness: 170, damping: 13, mass: 0.85 } as const;
 const HOVER_SPRING = { type: "spring", stiffness: 300, damping: 20 } as const;
+const AUTOPLAY_INTERVAL_MS = 5_500;
+const AUTOPLAY_START_DELAY_MS = 800;
 
 export function AppShowcase() {
   const t = useTranslations("appShowcase");
@@ -128,8 +130,10 @@ export function AppShowcase() {
   const isAnimating = useRef(false);
   const hasEntered = useRef(false);
   const directionRef = useRef<"left" | "right" | null>(null);
+  const autoplayPausedRef = useRef(false);
   const prevVisible = useRef<Set<number>>(new Set());
   const [inView, setInView] = useState(false);
+  const [isInViewport, setIsInViewport] = useState(false);
   const reducedMotion = useReducedMotion();
 
   const totalCards = CARDS.length;
@@ -157,8 +161,9 @@ export function AppShowcase() {
   );
 
   const cycle = useCallback(
-    (direction: "left" | "right") => {
+    (direction: "left" | "right", options?: { userInitiated?: boolean }) => {
       if (isAnimating.current || !needsPagination) return;
+      if (options?.userInitiated) autoplayPausedRef.current = true;
       isAnimating.current = true;
       directionRef.current = direction;
       setCenterIndex((prev) =>
@@ -175,16 +180,41 @@ export function AppShowcase() {
     if (!el) return;
     const obs = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-          obs.disconnect();
-        }
+        setIsInViewport(entry.isIntersecting);
+        if (entry.isIntersecting) setInView(true);
       },
       { threshold: 0.3 },
     );
     obs.observe(el);
     return () => obs.disconnect();
   }, []);
+
+  useEffect(() => {
+    if (!needsPagination || reducedMotion || !isInViewport) return;
+
+    const tick = () => {
+      if (
+        autoplayPausedRef.current ||
+        isAnimating.current ||
+        !hasEntered.current
+      ) {
+        return;
+      }
+      cycle("right");
+    };
+
+    let intervalId: number | undefined;
+
+    const startTimer = window.setTimeout(() => {
+      tick();
+      intervalId = window.setInterval(tick, AUTOPLAY_INTERVAL_MS);
+    }, AUTOPLAY_START_DELAY_MS);
+
+    return () => {
+      window.clearTimeout(startTimer);
+      if (intervalId !== undefined) window.clearInterval(intervalId);
+    };
+  }, [needsPagination, reducedMotion, isInViewport, cycle]);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -426,7 +456,7 @@ export function AppShowcase() {
   return (
     <section
       className={cn(
-        "mx-auto flex w-full flex-col items-center overflow-x-clip",
+        "mx-auto flex w-full flex-col items-center",
         "max-w-[min(96vw,76rem)]",
         "px-[clamp(0.75rem,2.5vw,2rem)] max-sm:px-[clamp(1rem,3.25vw,2rem)]",
         "mt-[var(--spacing-editor-to-features)] pb-[clamp(3rem,6vw,5rem)]",
@@ -456,12 +486,13 @@ export function AppShowcase() {
         </p>
       </Reveal>
 
-      <div className="flex w-full items-center justify-center overflow-x-clip overflow-y-visible">
+      <div className="flex w-screen [margin-inline:calc(50%-50vw)] items-center justify-center overflow-visible max-md:-translate-y-5">
         <div
           ref={containerRef}
           className={cn(
             "relative flex w-full max-w-[80rem] items-center justify-center",
             "h-[19rem] min-[480px]:h-[21rem] sm:h-[23rem] md:h-[27rem] lg:h-[29rem]",
+            "max-md:origin-center max-md:scale-[0.94]",
           )}
         >
           {CARDS.map((card, index) => (
@@ -488,7 +519,7 @@ export function AppShowcase() {
         <div className="mt-20 flex items-center justify-center gap-4 sm:mt-16 md:mt-12 lg:mt-8">
           <button
             type="button"
-            onClick={() => cycle("left")}
+            onClick={() => cycle("left", { userInitiated: true })}
             aria-label={t("prev")}
             className="flex size-11 shrink-0 items-center justify-center rounded-full border border-border/70 bg-card text-muted-foreground transition-colors hover:border-border hover:bg-muted hover:text-foreground active:opacity-70"
           >
@@ -509,7 +540,7 @@ export function AppShowcase() {
           </div>
           <button
             type="button"
-            onClick={() => cycle("right")}
+            onClick={() => cycle("right", { userInitiated: true })}
             aria-label={t("next")}
             className="flex size-11 shrink-0 items-center justify-center rounded-full border border-border/70 bg-card text-muted-foreground transition-colors hover:border-border hover:bg-muted hover:text-foreground active:opacity-70"
           >
