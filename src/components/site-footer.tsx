@@ -47,7 +47,7 @@ function FooterBackdropArt() {
 
 export function SiteFooter() {
   return (
-    <footer className="relative isolate flex min-h-[clamp(24rem,42vw,34rem)] items-end overflow-hidden">
+    <footer className="relative isolate flex min-h-[clamp(20rem,34vw,28rem)] items-end overflow-hidden">
       <FooterBackdropArt />
 
       <div

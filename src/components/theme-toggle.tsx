@@ -4,6 +4,8 @@ import { Monitor, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
+import { motion, useReducedMotion } from "@/lib/motion";
+import { surfaceBorderClass } from "@/lib/surface-border";
 import { cn } from "@/lib/utils";
 
 const options = [
@@ -12,9 +14,13 @@ const options = [
   { value: "dark", icon: Moon, label: "Tema escuro" },
 ] as const;
 
+const segmentClass =
+  "relative z-10 flex size-7 shrink-0 items-center justify-center rounded-full";
+
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const reducedMotion = useReducedMotion();
 
   useEffect(() => {
     setMounted(true);
@@ -22,17 +28,38 @@ export function ThemeToggle() {
 
   const current =
     theme === "light" || theme === "dark" ? theme : "system";
-  const activeIndex = options.findIndex((option) => option.value === current);
+  const activeIndex = Math.max(
+    0,
+    options.findIndex((option) => option.value === current),
+  );
 
   return (
-    <div className="relative inline-flex items-center rounded-full bg-neutral-900/90 p-1 backdrop-blur-sm">
-      <span
+    <div
+      role="group"
+      aria-label="Tema da interface"
+      className={cn(
+        "relative inline-flex items-center rounded-full border p-1",
+        "bg-background/80 shadow-sm backdrop-blur-md",
+        surfaceBorderClass,
+      )}
+    >
+      <motion.span
         aria-hidden
-        className="absolute inset-y-0.5 left-0.5 size-6 rounded-full bg-white/15 transition-transform duration-200 ease-out"
-        style={{
-          transform: mounted ? `translateX(${activeIndex * 100}%)` : undefined,
-        }}
+        className={cn(
+          "pointer-events-none absolute top-1 left-1 size-7 rounded-full",
+          "bg-secondary shadow-[inset_0_1px_0_rgb(255_255_255/0.45)]",
+          "dark:bg-white/12 dark:shadow-[inset_0_1px_0_rgb(255_255_255/0.08)]",
+          !mounted && "opacity-0",
+        )}
+        initial={false}
+        animate={{ x: `${activeIndex * 100}%` }}
+        transition={
+          reducedMotion
+            ? { duration: 0 }
+            : { type: "spring", stiffness: 520, damping: 34, mass: 0.75 }
+        }
       />
+
       {options.map(({ value, icon: Icon, label }) => {
         const isActive = mounted && current === value;
 
@@ -44,11 +71,21 @@ export function ThemeToggle() {
             aria-pressed={isActive}
             onClick={() => setTheme(value)}
             className={cn(
-              "relative z-10 flex size-6 items-center justify-center rounded-full transition-colors",
-              isActive ? "text-white" : "text-white/45 hover:text-white/75",
+              segmentClass,
+              "transition-colors duration-200",
+              isActive
+                ? "text-foreground"
+                : "text-muted-foreground hover:text-foreground/80",
             )}
           >
-            <Icon className="size-3.5" aria-hidden />
+            <Icon
+              className={cn(
+                "size-[15px] shrink-0 stroke-[1.75]",
+                "transition-[transform,opacity] duration-200",
+                isActive ? "scale-100 opacity-100" : "scale-90 opacity-50",
+              )}
+              aria-hidden
+            />
           </button>
         );
       })}
