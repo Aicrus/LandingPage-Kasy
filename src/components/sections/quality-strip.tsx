@@ -12,21 +12,11 @@ const STATS = [
   { value: 3, suffix: "", label: "plataformas" },
 ] as const;
 
-function Counter({
-  target,
-  suffix,
-  active,
-}: {
-  target: number;
-  suffix: string;
-  active: boolean;
-}) {
+function Counter({ target, suffix }: { target: number; suffix: string }) {
   const [count, setCount] = useState(0);
   const raf = useRef(0);
 
   useEffect(() => {
-    if (!active) return;
-
     const start = performance.now();
     const duration = 1400;
 
@@ -39,7 +29,7 @@ function Counter({
 
     raf.current = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf.current);
-  }, [active, target]);
+  }, [target]);
 
   return (
     <span className="font-heading text-[clamp(2rem,1.55rem+1.6vw,2.75rem)] font-bold tracking-[-0.03em] text-foreground tabular-nums">
@@ -79,7 +69,7 @@ export function QualityStrip() {
             )}
           >
             {active ? (
-              <Counter target={stat.value} suffix={stat.suffix} active={active} />
+              <Counter target={stat.value} suffix={stat.suffix} />
             ) : (
               <span className="font-heading text-[clamp(2rem,1.55rem+1.6vw,2.75rem)] font-bold tracking-[-0.03em] text-foreground tabular-nums">
                 0{stat.suffix}

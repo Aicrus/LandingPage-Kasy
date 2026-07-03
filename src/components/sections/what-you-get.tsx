@@ -378,7 +378,7 @@ function savedLabel(saved: string) {
 
 function TabTagline({ copy }: { copy: TaglineCopy }) {
   return (
-    <p className="text-pretty text-[0.9375rem] leading-snug text-muted-foreground sm:text-[1rem] sm:leading-snug lg:text-[1.0625rem]">
+    <p className="text-pretty text-[0.9375rem] leading-snug text-muted-foreground sm:text-base">
       <span className="font-bold text-inherit">{copy.emphasis}</span>
       {copy.rest}
     </p>
@@ -413,9 +413,9 @@ function TabPanelCard({
   return (
     <div
       className={cn(
-        "rounded-2xl border border-border/70 bg-card p-5 sm:p-6 lg:p-7",
+        "rounded-2xl border border-border/70 bg-card p-5 sm:p-6",
         CARD_SHADOW_CLASS,
-        fillHeight && "min-h-full",
+        fillHeight && "lg:min-h-full",
       )}
     >
       <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between sm:gap-4">
@@ -423,7 +423,7 @@ function TabPanelCard({
           <TabTagline copy={tab.tagline} />
           <div
             className={cn(
-              "mt-2.5 flex flex-nowrap items-center gap-1.5 overflow-x-auto overflow-y-visible py-0.5 sm:mt-3 sm:gap-2",
+              "mt-2.5 flex flex-nowrap items-center gap-1.5 overflow-x-auto overflow-y-visible py-0.5 sm:gap-2",
               "max-sm:-mx-0.5 max-sm:px-0.5",
               "[scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden",
             )}
@@ -431,7 +431,7 @@ function TabPanelCard({
             {tab.providers.map((name) => (
               <span
                 key={name}
-                className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full bg-muted/70 py-0.5 pr-2.5 pl-0.5 text-[0.6875rem] font-medium text-muted-foreground transition-colors duration-200 hover:bg-muted sm:gap-2 sm:py-1 sm:pr-3 sm:pl-1 sm:text-xs lg:text-[0.8125rem]"
+                className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full bg-muted/70 py-0.5 pr-2.5 pl-0.5 text-[0.6875rem] font-medium text-muted-foreground transition-colors duration-200 hover:bg-muted sm:gap-2 sm:py-1 sm:pr-3 sm:pl-1 sm:text-xs"
               >
                 <BrandTile name={name} pill />
                 {name}
@@ -440,11 +440,11 @@ function TabPanelCard({
           </div>
         </div>
         {tab.saved ? (
-          <span className="w-fit shrink-0 rounded-md bg-emerald-500/10 px-2.5 py-1 font-mono text-xs font-semibold text-emerald-600 sm:px-3 sm:py-1.5 sm:text-[0.8125rem] dark:text-emerald-400">
+          <span className="w-fit shrink-0 rounded-md bg-emerald-500/10 px-2.5 py-1 font-mono text-xs font-semibold text-emerald-600 dark:text-emerald-400">
             {savedLabel(tab.saved)}
           </span>
         ) : tab.moreItems ? (
-          <span className="w-fit shrink-0 rounded-md bg-primary/10 px-2.5 py-1 font-mono text-xs font-semibold text-primary sm:px-3 sm:py-1.5 sm:text-[0.8125rem]">
+          <span className="w-fit shrink-0 rounded-md bg-primary/10 px-2.5 py-1 font-mono text-xs font-semibold text-primary">
             {tab.moreItems.length} recursos
           </span>
         ) : null}
@@ -458,10 +458,10 @@ function TabPanelCard({
                 key={item.label}
                 className="rounded-xl bg-muted/50 p-3.5 transition-colors duration-200 hover:bg-muted sm:p-4"
               >
-                <p className="text-pretty text-sm font-bold text-foreground sm:text-[0.9375rem] lg:text-base">
+                <p className="text-pretty text-sm font-bold text-foreground">
                   {item.label}
                 </p>
-                <p className="mt-0.5 text-pretty text-xs leading-snug text-muted-foreground sm:text-[0.8125rem] lg:text-sm">
+                <p className="mt-0.5 text-pretty text-xs leading-snug text-muted-foreground">
                   {item.desc}
                 </p>
               </div>
@@ -472,11 +472,11 @@ function TabPanelCard({
             {tab.bullets?.map((bullet) => (
               <li
                 key={`${bullet.label}-${bullet.detail ?? ""}`}
-                className="group -mx-2 flex items-start gap-3 rounded-lg border-b border-border/50 px-2 py-3 text-sm text-foreground/90 transition-colors duration-200 last:border-b-0 hover:bg-muted/50 sm:gap-3.5 sm:px-2.5 sm:py-3.5 sm:text-[0.9375rem] lg:text-base"
+                className="group -mx-2 flex items-start gap-3 rounded-lg border-b border-border/50 px-2 py-3 text-sm text-foreground/90 transition-colors duration-200 last:border-b-0 hover:bg-muted/50 sm:px-2.5"
               >
                 <span
                   aria-hidden
-                  className="mt-2 size-1.5 shrink-0 rounded-full bg-foreground/30 transition-colors duration-200 group-hover:bg-foreground/50 sm:mt-[0.62em] sm:size-2"
+                  className="mt-2 size-1.5 shrink-0 rounded-full bg-foreground/30 transition-colors duration-200 group-hover:bg-foreground/50 sm:mt-[0.55em]"
                 />
                 <FeatureBulletText bullet={bullet} />
               </li>
@@ -488,7 +488,13 @@ function TabPanelCard({
   );
 }
 
-function TabPanel({ tab }: { tab: FeatureTab }) {
+function TabPanel({
+  tab,
+  fillHeight = false,
+}: {
+  tab: FeatureTab;
+  fillHeight?: boolean;
+}) {
   return (
     <motion.div
       role="tabpanel"
@@ -499,9 +505,9 @@ function TabPanel({ tab }: { tab: FeatureTab }) {
       animate="visible"
       exit="hidden"
       transition={{ duration: 0.2 }}
-      className="min-h-full"
+      className={fillHeight ? "lg:min-h-full" : undefined}
     >
-      <TabPanelCard tab={tab} fillHeight />
+      <TabPanelCard tab={tab} fillHeight={fillHeight} />
     </motion.div>
   );
 }
@@ -531,6 +537,7 @@ export function WhatYouGet() {
   const [activeKey, setActiveKey] = useState(FEATURE_TABS[0].key);
   const [edgeFade, setEdgeFade] = useState({ left: false, right: false });
   const [panelMinHeight, setPanelMinHeight] = useState<number>();
+  const [isLgViewport, setIsLgViewport] = useState(false);
   const tabListRef = useRef<HTMLDivElement>(null);
   const panelShellRef = useRef<HTMLDivElement>(null);
   const tabButtonRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
@@ -539,6 +546,11 @@ export function WhatYouGet() {
     FEATURE_TABS.find((tab) => tab.key === activeKey) ?? FEATURE_TABS[0];
 
   const measurePanelHeights = useCallback(() => {
+    if (!isLgViewport) {
+      setPanelMinHeight(undefined);
+      return;
+    }
+
     let max = 0;
 
     measurePanelRefs.current.forEach((panel) => {
@@ -548,6 +560,19 @@ export function WhatYouGet() {
     if (max > 0) {
       setPanelMinHeight(Math.ceil(max));
     }
+  }, [isLgViewport]);
+
+  useEffect(() => {
+    const mql = window.matchMedia("(min-width: 1024px)");
+
+    const syncViewport = () => {
+      setIsLgViewport(mql.matches);
+    };
+
+    syncViewport();
+    mql.addEventListener("change", syncViewport);
+
+    return () => mql.removeEventListener("change", syncViewport);
   }, []);
 
   useLayoutEffect(() => {
@@ -728,7 +753,7 @@ export function WhatYouGet() {
           <div
             ref={panelShellRef}
             className="relative"
-            style={panelMinHeight ? { minHeight: panelMinHeight } : undefined}
+            style={isLgViewport && panelMinHeight ? { minHeight: panelMinHeight } : undefined}
           >
             <div aria-hidden className="pointer-events-none invisible absolute inset-x-0 top-0 -z-10">
               {FEATURE_TABS.map((tab) => (
@@ -746,7 +771,7 @@ export function WhatYouGet() {
             </div>
 
             <AnimatePresence mode="wait" initial={false}>
-              <TabPanel key={activeTab.key} tab={activeTab} />
+              <TabPanel key={activeTab.key} tab={activeTab} fillHeight={isLgViewport} />
             </AnimatePresence>
           </div>
         </Reveal>
