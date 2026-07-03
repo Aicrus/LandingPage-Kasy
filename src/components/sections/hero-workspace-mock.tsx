@@ -484,9 +484,9 @@ export function HeroPhonePanelCallout() {
 
 function PlatformTargets() {
   const targets = [
-    { id: "web", label: "Web", Icon: Globe, color: "#38BDF8" },
+    { id: "web", label: "Web", Icon: Globe, color: "#38BDF8", active: false },
     { id: "ios", label: "iOS", Icon: SiApple, color: null, active: true },
-    { id: "android", label: "Android", Icon: SiAndroid, color: "#3DDC84" },
+    { id: "android", label: "Android", Icon: SiAndroid, color: "#3DDC84", active: false },
   ] as const;
 
   return (
