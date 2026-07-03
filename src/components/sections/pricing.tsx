@@ -18,7 +18,7 @@ type Plan = {
 const PLANS: Plan[] = [
   {
     label: "Anual",
-    price: "$89",
+    price: "$127",
     per: "/ ano",
     cta: "Começar agora",
     features: [
@@ -31,34 +31,19 @@ const PLANS: Plan[] = [
     ],
   },
   {
-    label: "Vitalício",
-    price: "$149",
+    label: "Kit + Curso",
+    price: "$227",
     per: "único pagamento",
     tag: "Mais popular",
     featured: true,
-    cta: "Acesso vitalício",
+    cta: "Quero o Kit + Curso",
     features: [
-      "Firebase, Supabase & REST API",
-      "Apps ilimitados",
-      "60+ componentes de UI (95+ variantes)",
-      "Todos os recursos opcionais",
-      "Todas as atualizações, para sempre",
-      "Suporte prioritário da comunidade",
-      "Novos componentes e telas conforme lançamos",
-    ],
-  },
-  {
-    label: "Kit + Treinamento",
-    price: "$190",
-    per: "único pagamento",
-    tag: "Comece do zero",
-    cta: "Kit + Treinamento",
-    features: [
-      "Tudo do Vitalício",
-      "Acesso ao treinamento por 1 ano",
+      "Tudo do plano Anual",
+      "Curso completo por 1 ano de acesso",
       "Da ideia ao app publicado em 7 dias",
       "Feito para não desenvolvedores",
       "Comunidade exclusiva de criadores",
+      "Suporte prioritário",
     ],
   },
 ];
@@ -80,7 +65,7 @@ function PlanCard({ plan }: { plan: Plan }) {
         "relative flex flex-col rounded-2xl border p-6 transition-[transform,box-shadow] duration-300 sm:p-7",
         plan.featured
           ? cn(
-              "border-primary/40 bg-card lg:-translate-y-2",
+              "border-primary/40 bg-card sm:-translate-y-2",
               featuredShadowClass,
             )
           : cn("border-border/70 bg-card hover:-translate-y-1", cardShadowClass),
@@ -180,7 +165,7 @@ export function Pricing() {
 
       <Reveal
         delay={0.1}
-        className="grid w-full max-w-[64rem] grid-cols-1 items-start gap-6 lg:grid-cols-3 lg:gap-5"
+        className="grid w-full max-w-[42rem] grid-cols-1 items-start gap-6 sm:grid-cols-2 sm:gap-5"
       >
         {PLANS.map((plan) => (
           <PlanCard key={plan.label} plan={plan} />

@@ -1,6 +1,11 @@
+export { AppShowcase } from "./app-showcase";
 export { FeatureHoverCards } from "./feature-hover-cards";
 export { HeroIntro } from "./hero-intro";
 export { HeroScreenReveal } from "./hero-screen-reveal";
 export { IntegrationsShowcase } from "./integrations-showcase";
+export { Marquee } from "./marquee";
+export { Pricing } from "./pricing";
+export { QualityStrip } from "./quality-strip";
+export { Testimonials } from "./testimonials";
 export { VideoShowcase } from "./video-showcase";
 export { WhatYouGet } from "./what-you-get";
