@@ -9,6 +9,7 @@ import {
   resolveCheckoutLineItem,
   stripeLocale,
 } from "@/lib/stripe/catalog";
+import { checkoutBrandingSettings } from "@/lib/stripe/branding";
 import { getSiteUrl, getStripe } from "@/lib/stripe/server";
 
 type CheckoutBody = {
@@ -43,6 +44,7 @@ export async function POST(request: Request) {
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
       locale: stripeLocale(siteLocale),
+      branding_settings: checkoutBrandingSettings(),
       line_items: [resolveCheckoutLineItem(body.plan, country, siteLocale)],
       allow_promotion_codes: true,
       customer_creation: "always",
