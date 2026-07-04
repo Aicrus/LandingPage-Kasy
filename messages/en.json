@@ -251,10 +251,14 @@
   },
   "qualityStrip": {
     "labels": {
-      "apps": "apps shipped",
       "backends": "supported backends",
       "components": "UI components",
-      "platforms": "platforms"
+      "platforms": "supported platforms"
+    },
+    "details": {
+      "backends": "Firebase · Supabase · REST",
+      "components": "95+ variants",
+      "platforms": "iOS · Android · Web"
     }
   },
   "testimonials": {

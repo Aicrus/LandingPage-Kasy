@@ -251,10 +251,14 @@
   },
   "qualityStrip": {
     "labels": {
-      "apps": "apps publicados",
       "backends": "backends suportados",
       "components": "componentes de UI",
-      "platforms": "plataformas"
+      "platforms": "plataformas suportadas"
+    },
+    "details": {
+      "backends": "Firebase · Supabase · REST",
+      "components": "95+ variantes",
+      "platforms": "iOS · Android · Web"
     }
   },
   "testimonials": {
