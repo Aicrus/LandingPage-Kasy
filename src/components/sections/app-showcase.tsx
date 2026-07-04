@@ -486,7 +486,7 @@ export function AppShowcase() {
         </p>
       </Reveal>
 
-      <div className="flex w-screen [margin-inline:calc(50%-50vw)] items-center justify-center overflow-visible px-[clamp(0.5rem,1.5vw,1rem)] pt-1 max-md:-translate-y-5 md:-translate-y-1 lg:pt-2">
+      <div className="flex w-screen [margin-inline:calc(50%-50vw)] items-center justify-center overflow-visible px-[clamp(0.5rem,1.5vw,1rem)] pt-1 max-md:-translate-y-5 max-md:pb-8 md:-translate-y-1 lg:pt-2">
         <div
           ref={containerRef}
           className={cn(
@@ -522,7 +522,7 @@ export function AppShowcase() {
       </div>
 
       {needsPagination ? (
-        <div className="mt-6 flex items-center justify-center gap-4 sm:mt-5 md:mt-3 lg:mt-2">
+        <div className="flex items-center justify-center gap-4 max-md:mt-16 sm:mt-5 md:mt-3 lg:mt-2">
           <button
             type="button"
             onClick={() => cycle("left", { userInitiated: true })}
