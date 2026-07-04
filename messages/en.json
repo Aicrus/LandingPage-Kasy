@@ -397,5 +397,13 @@
         ]
       }
     }
+  },
+  "checkout": {
+    "success": {
+      "eyebrow": "Payment confirmed",
+      "heading": "Welcome to Kasy",
+      "body": "We sent your activation key by email. Install the CLI with npm install -g kasy-cli and run kasy new when you're ready.",
+      "cta": "View documentation"
+    }
   }
 }

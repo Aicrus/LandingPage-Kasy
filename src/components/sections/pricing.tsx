@@ -1,13 +1,18 @@
-import { useTranslations } from "next-intl";
+import { headers } from "next/headers";
+import { getLocale, getTranslations } from "next-intl/server";
 import { Check } from "lucide-react";
 
+import { CheckoutButton } from "@/components/checkout-button";
 import { Reveal } from "@/components/motion/reveal";
-import { Button } from "@/components/ui/button";
-import { Link } from "@/i18n/navigation";
+import {
+  currencyForCountry,
+  PLAN_DISPLAY,
+  type CheckoutPlan,
+} from "@/lib/stripe/catalog";
 import { cn } from "@/lib/utils";
 
 type Plan = {
-  key: string;
+  key: CheckoutPlan;
   label: string;
   description: string;
   price: string;
@@ -18,11 +23,11 @@ type Plan = {
   features: string[];
 };
 
-type PlanMeta = { key: string; price: string; featured?: boolean };
+type PlanMeta = { key: CheckoutPlan; featured?: boolean };
 
 const PLANS_META: PlanMeta[] = [
-  { key: "annual", price: "$127" },
-  { key: "kitCourse", price: "$193", featured: true },
+  { key: "annual" },
+  { key: "kitCourse", featured: true },
 ];
 
 type PlanCopy = Omit<Plan, "key" | "price" | "featured">;
@@ -37,7 +42,7 @@ const featuredShadowClass = cn(
   "dark:shadow-[0_6px_18px_rgba(0,0,0,0.32),0_32px_64px_-20px_rgba(0,0,0,0.55)]",
 );
 
-function PlanCard({ plan }: { plan: Plan }) {
+function PlanCard({ plan, locale }: { plan: Plan; locale: string }) {
   return (
     <div
       className={cn(
@@ -86,14 +91,14 @@ function PlanCard({ plan }: { plan: Plan }) {
         <span className="text-sm text-muted-foreground">{plan.per}</span>
       </div>
 
-      <Button
+      <CheckoutButton
+        plan={plan.key}
+        locale={locale}
         variant={plan.featured ? "default" : "outline"}
-        nativeButton={false}
         className="mt-6 h-auto w-full justify-center rounded-full py-2.5 text-[0.9375rem]"
-        render={<Link href="/obter-kasy" />}
       >
         {plan.cta}
-      </Button>
+      </CheckoutButton>
 
       <div className="mt-6 border-t border-border/60 pt-6">
         <ul className="flex flex-col gap-3">
@@ -118,10 +123,18 @@ function PlanCard({ plan }: { plan: Plan }) {
   );
 }
 
-export function Pricing() {
-  const t = useTranslations("pricing");
+export async function Pricing() {
+  const t = await getTranslations("pricing");
+  const locale = await getLocale();
+  const country = (await headers()).get("x-vercel-ip-country");
+  const currency = currencyForCountry(country);
   const plansCopy = t.raw("plans") as Record<string, PlanCopy>;
-  const PLANS: Plan[] = PLANS_META.map((meta) => ({ ...meta, ...plansCopy[meta.key] }));
+
+  const PLANS: Plan[] = PLANS_META.map((meta) => ({
+    ...meta,
+    ...plansCopy[meta.key],
+    price: PLAN_DISPLAY[meta.key][currency].amount,
+  }));
 
   return (
     <section
@@ -163,7 +176,7 @@ export function Pricing() {
         className="grid w-full max-w-[44rem] grid-cols-1 items-stretch gap-6 sm:grid-cols-2"
       >
         {PLANS.map((plan) => (
-          <PlanCard key={plan.key} plan={plan} />
+          <PlanCard key={plan.key} locale={locale} plan={plan} />
         ))}
       </Reveal>
 
