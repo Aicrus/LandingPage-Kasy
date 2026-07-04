@@ -16,15 +16,15 @@ import { animate, useReducedMotion } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 const CARD_IMAGES = [
-  "/images/gallery/vertical-1.jpg",
-  "/images/gallery/vertical-2.jpg",
+  "/images/gallery/app-screen-schedule.jpg",
+  "/images/gallery/app-screen-finance.png",
   "/images/gallery/app-screen-food-home.png",
   "/images/gallery/app-screen-dreamsville.png",
   "/images/gallery/app-screen-homeapp.png",
-  "/images/gallery/vertical-2.jpg",
-  "/images/gallery/vertical-3.jpg",
-  "/images/gallery/vertical-4.jpg",
-  "/images/gallery/vertical-1.jpg",
+  "/images/gallery/app-screen-card.png",
+  "/images/gallery/app-screen-kasy.jpg",
+  "/images/gallery/app-screen-football.jpg",
+  "/images/gallery/app-screen-barber.png",
 ];
 
 const MAX_VISIBLE = 7;
