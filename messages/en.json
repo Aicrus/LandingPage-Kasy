@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "title": "Kasy — Ship your Flutter app in 7 days",
+    "title": "Kasy | Ship your Flutter app in 7 days",
     "description": "The complete Flutter starter: backend, auth, payments, UI and logic, ready to go. Ship on iOS, Android and Web on day one."
   },
   "header": {
@@ -79,7 +79,7 @@
   },
   "integrationsShowcase": {
     "heading": "Everything your Flutter app needs",
-    "subtitle": "Backend, authentication, subscriptions, ads, push and publishing — all integrated, ready on day one.",
+    "subtitle": "Backend, authentication, subscriptions, ads, push and publishing, all integrated, ready on day one.",
     "categories": {
       "backend": { "title": "Backend", "detail": "Firebase · Supabase · REST" },
       "auth": { "title": "Authentication", "detail": "Google · Apple · Facebook" },
@@ -278,7 +278,7 @@
         "role": "Founder"
       },
       {
-        "text": "The browser preview alone saved me hours. No emulator — iOS and Android side by side, right in the browser.",
+        "text": "The browser preview alone saved me hours. No emulator: iOS and Android side by side, right in the browser.",
         "name": "Diego Fernández",
         "role": "Mobile engineer"
       },
@@ -361,15 +361,15 @@
       {
         "id": "q9",
         "question": "Can I get a refund?",
-        "answer": "Once you have access to the kit, Kasy is yours forever. Because of that, purchases are non-refundable. Have questions? Ask before you buy — we're happy to help. On average, Kasy users ship their app in 7 days."
+        "answer": "Once you have access to the kit, Kasy is yours forever. Because of that, purchases are non-refundable. Have questions? Ask before you buy. We're happy to help. On average, Kasy users ship their app in 7 days."
       }
     ]
   },
   "pricing": {
     "eyebrow": "Pricing",
     "heading": "Choose your plan and start building",
-    "subtitle": "International cards accepted via Stripe. After payment, your activation key arrives by email within minutes.",
-    "checkoutNote": "Secure checkout via Stripe. Use a valid email — that's where we send your access key.",
+    "subtitle": "From kit to build in minutes. Pick the plan that fits you.",
+    "checkoutNote": "Secure checkout via Stripe. International cards accepted. Your activation key arrives by email within minutes.",
     "plans": {
       "annual": {
         "label": "Annual",

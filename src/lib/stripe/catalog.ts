@@ -55,29 +55,29 @@ const PLAN_CHECKOUT_COPY: Record<
 > = {
   annual: {
     pt: {
-      name: "Kasy — Plano Anual",
+      name: "Kasy Plano Anual",
       description: "Kit completo Kasy com atualizações por 1 ano.",
     },
     en: {
-      name: "Kasy — Annual Plan",
+      name: "Kasy Annual Plan",
       description: "Full Kasy kit with updates for 1 year.",
     },
     es: {
-      name: "Kasy — Plan Anual",
+      name: "Kasy Plan Anual",
       description: "Kit completo de Kasy con actualizaciones por 1 año.",
     },
   },
   kitCourse: {
     pt: {
-      name: "Kasy — Kit + Curso",
+      name: "Kasy Kit + Curso",
       description: "Kit completo + curso prático por 1 ano.",
     },
     en: {
-      name: "Kasy — Kit + Course",
+      name: "Kasy Kit + Course",
       description: "Full kit + hands-on course access for 1 year.",
     },
     es: {
-      name: "Kasy — Kit + Curso",
+      name: "Kasy Kit + Curso",
       description: "Kit completo + curso práctico por 1 año.",
     },
   },

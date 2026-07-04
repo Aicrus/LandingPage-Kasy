@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "title": "Kasy — Publica tu app Flutter en 7 días",
+    "title": "Kasy | Publica tu app Flutter en 7 días",
     "description": "El starter Flutter completo: backend, auth, pagos, UI y lógica listos. Publica en iOS, Android y Web desde el primer día."
   },
   "header": {
@@ -79,7 +79,7 @@
   },
   "integrationsShowcase": {
     "heading": "Todo lo que tu app Flutter necesita",
-    "subtitle": "Backend, autenticación, suscripciones, anuncios, push y publicación — todo integrado, listo desde el primer día.",
+    "subtitle": "Backend, autenticación, suscripciones, anuncios, push y publicación, todo integrado, listo desde el primer día.",
     "categories": {
       "backend": { "title": "Backend", "detail": "Firebase · Supabase · REST" },
       "auth": { "title": "Autenticación", "detail": "Google · Apple · Facebook" },
@@ -278,7 +278,7 @@
         "role": "Fundadora"
       },
       {
-        "text": "Solo el preview en el navegador ya me ahorró horas. Sin emulador — iOS y Android lado a lado, directo en el navegador.",
+        "text": "Solo el preview en el navegador ya me ahorró horas. Sin emulador: iOS y Android lado a lado, directo en el navegador.",
         "name": "Diego Fernández",
         "role": "Ingeniero mobile"
       },
@@ -368,8 +368,8 @@
   "pricing": {
     "eyebrow": "Precios",
     "heading": "Elige tu plan y empieza a construir",
-    "subtitle": "Tarjetas internacionales aceptadas vía Stripe. Tras el pago, tu clave de activación llega por email en minutos.",
-    "checkoutNote": "Checkout seguro vía Stripe. Usa un email válido — ahí enviamos tu clave de acceso.",
+    "subtitle": "Del kit al build en minutos. Elige el plan ideal para ti.",
+    "checkoutNote": "Checkout seguro vía Stripe. Tarjetas internacionales aceptadas. Tu clave de activación llega por email en minutos.",
     "plans": {
       "annual": {
         "label": "Anual",
