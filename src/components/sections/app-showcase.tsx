@@ -18,9 +18,9 @@ import { cn } from "@/lib/utils";
 const CARD_IMAGES = [
   "/images/gallery/vertical-1.jpg",
   "/images/gallery/vertical-2.jpg",
-  "/images/gallery/vertical-3.jpg",
-  "/images/gallery/vertical-4.jpg",
-  "/images/gallery/vertical-1.jpg",
+  "/images/gallery/app-screen-food-home.png",
+  "/images/gallery/app-screen-dreamsville.png",
+  "/images/gallery/app-screen-homeapp.png",
   "/images/gallery/vertical-2.jpg",
   "/images/gallery/vertical-3.jpg",
   "/images/gallery/vertical-4.jpg",
@@ -31,13 +31,13 @@ const MAX_VISIBLE = 7;
 const HALF = 3;
 
 const FAN_POSITIONS = [
-  { rot: -21, scale: 0.7756, x: -30, y: 7.3, zIndex: 1 },
-  { rot: -14, scale: 0.8498, x: -22, y: 4.0, zIndex: 2 },
-  { rot: -7, scale: 0.9346, x: -11, y: 1.3, zIndex: 3 },
+  { rot: -21, scale: 0.7756, x: -20, y: 7.3, zIndex: 1 },
+  { rot: -14, scale: 0.8498, x: -14, y: 4.0, zIndex: 2 },
+  { rot: -7, scale: 0.9346, x: -7, y: 1.3, zIndex: 3 },
   { rot: 0, scale: 1.0, x: 0, y: 0.0, zIndex: 10 },
-  { rot: 7, scale: 0.9346, x: 11, y: 1.3, zIndex: 3 },
-  { rot: 14, scale: 0.8498, x: 22, y: 4.0, zIndex: 2 },
-  { rot: 21, scale: 0.7756, x: 30, y: 7.3, zIndex: 1 },
+  { rot: 7, scale: 0.9346, x: 7, y: 1.3, zIndex: 3 },
+  { rot: 14, scale: 0.8498, x: 14, y: 4.0, zIndex: 2 },
+  { rot: 21, scale: 0.7756, x: 20, y: 7.3, zIndex: 1 },
 ];
 
 function getResponsiveMultiplier(width: number) {
@@ -48,7 +48,7 @@ function getResponsiveMultiplier(width: number) {
   return 1.0;
 }
 
-const FAN_MAX_OFFSET_REM = 30;
+const FAN_MAX_OFFSET_REM = 20;
 const FAN_EDGE_SAFETY_PX = 12;
 
 /** Half-width of a rotated rectangle's axis-aligned bounding box. */
@@ -94,8 +94,8 @@ function getHeightMultiplier(width: number) {
   if (width < 480) idealPx = 22 * 16;
   else if (width < 640) idealPx = 26 * 16;
   else if (width < 768) idealPx = 28 * 16;
-  else if (width < 1024) idealPx = 34 * 16;
-  else idealPx = 38 * 16;
+  else if (width < 1024) idealPx = 36 * 16;
+  else idealPx = 40 * 16;
 
   const available = window.innerHeight * 0.7;
   if (available >= idealPx) return 1;
@@ -110,7 +110,7 @@ function getSlotConfig(totalCards: number, slot: number) {
   return {
     rot: distance * 21,
     scale: 1.0 - 0.2244 * absDistance * absDistance,
-    x: distance * 30,
+    x: distance * 20,
     y: absDistance * absDistance * 7.3,
     zIndex: 10 - Math.abs(slot - center),
   };
@@ -119,7 +119,7 @@ function getSlotConfig(totalCards: number, slot: number) {
 /** Entrada/troca de fan — spring bounce se aproxima do "elastic.out" usado no GSAP original. */
 const ENTER_SPRING = { type: "spring", stiffness: 170, damping: 13, mass: 0.85 } as const;
 const HOVER_SPRING = { type: "spring", stiffness: 300, damping: 20 } as const;
-const AUTOPLAY_INTERVAL_MS = 5_500;
+const AUTOPLAY_INTERVAL_MS = 4_500;
 const AUTOPLAY_START_DELAY_MS = 800;
 
 export function AppShowcase() {
@@ -459,14 +459,14 @@ export function AppShowcase() {
         "mx-auto flex w-full flex-col items-center",
         "max-w-[min(96vw,76rem)]",
         "px-[clamp(0.75rem,2.5vw,2rem)] max-sm:px-[clamp(1rem,3.25vw,2rem)]",
-        "mt-[var(--spacing-editor-to-features)] pb-[clamp(3rem,6vw,5rem)]",
+        "mt-[clamp(3.5rem,5.5vw+1rem,5.5rem)] pb-[clamp(1.25rem,2vw,2rem)]",
       )}
     >
       <Reveal
         className={cn(
           "flex w-full flex-col items-center text-center",
           "gap-[clamp(0.75rem,1vw+0.25rem,1.125rem)]",
-          "mb-[clamp(2rem,4vw,3rem)] px-[clamp(1.25rem,4vw,3.5rem)]",
+          "mb-[clamp(1.5rem,2.5vw,2.25rem)] px-[clamp(1.25rem,4vw,3.5rem)]",
         )}
       >
         <span className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
@@ -486,20 +486,23 @@ export function AppShowcase() {
         </p>
       </Reveal>
 
-      <div className="flex w-screen [margin-inline:calc(50%-50vw)] items-center justify-center overflow-visible max-md:-translate-y-5">
+      <div className="flex w-screen [margin-inline:calc(50%-50vw)] items-center justify-center overflow-visible px-[clamp(0.5rem,1.5vw,1rem)] pt-1 max-md:-translate-y-5 md:-translate-y-1 lg:pt-2">
         <div
           ref={containerRef}
           className={cn(
             "relative flex w-full max-w-[80rem] items-center justify-center",
-            "h-[19rem] min-[480px]:h-[21rem] sm:h-[23rem] md:h-[27rem] lg:h-[29rem]",
+            "h-[21rem] min-[480px]:h-[23rem] sm:h-[25rem] md:h-[33rem] lg:h-[37rem]",
             "max-md:origin-center max-md:scale-[0.94]",
           )}
         >
-          {CARDS.map((card, index) => (
+          {CARDS.map((card, index) => {
+            const isAppScreen = !card.imgUrl.includes("/vertical-");
+
+            return (
             <div
               key={index}
               className={cn(
-                "fan-card absolute top-1/2 left-1/2 -ml-[6.5rem] -mt-[8.65rem] h-[17.3rem] w-[13rem] overflow-hidden rounded-[1.25rem] border border-border/70 bg-muted opacity-0 will-change-transform md:-ml-[7.5rem] md:-mt-[10rem] md:h-[20rem] md:w-[15rem]",
+                "fan-card absolute top-1/2 left-1/2 -ml-[4.625rem] -mt-[10rem] h-[20rem] w-[9.25rem] overflow-hidden rounded-[1rem] border border-border/70 bg-muted opacity-0 will-change-transform md:top-[41%] md:-ml-[5.625rem] md:-mt-[12.25rem] md:h-[24.5rem] md:w-[11.25rem] md:rounded-[1.15rem] lg:top-[39.5%] lg:-ml-[6rem] lg:-mt-[13rem] lg:h-[26rem] lg:w-[12rem] lg:rounded-[1.2rem]",
               )}
               style={cardShellStyle}
             >
@@ -507,16 +510,19 @@ export function AppShowcase() {
                 src={card.imgUrl}
                 alt={card.alt}
                 fill
-                sizes="(max-width: 768px) 13rem, 15rem"
-                className="object-cover"
+                quality={95}
+                unoptimized={isAppScreen}
+                sizes="(max-width: 768px) 9.25rem, (max-width: 1024px) 11.25rem, 12rem"
+                className="object-cover object-center"
               />
             </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
       {needsPagination ? (
-        <div className="mt-20 flex items-center justify-center gap-4 sm:mt-16 md:mt-12 lg:mt-8">
+        <div className="mt-6 flex items-center justify-center gap-4 sm:mt-5 md:mt-3 lg:mt-2">
           <button
             type="button"
             onClick={() => cycle("left", { userInitiated: true })}

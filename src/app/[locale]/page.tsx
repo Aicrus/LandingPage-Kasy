@@ -41,10 +41,10 @@ export default async function Home({
       <IntegrationsShowcase />
       <WhatYouGet />
       <AppShowcase />
-      <Marquee />
       <QualityStrip />
       <Testimonials />
       <Pricing />
+      <Marquee />
       <Faq />
     </main>
   );
