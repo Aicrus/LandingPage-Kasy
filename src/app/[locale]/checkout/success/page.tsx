@@ -15,6 +15,9 @@ export default async function CheckoutSuccessPage() {
         {t("heading")}
       </h1>
       <p className="mt-4 text-pretty text-muted-foreground">{t("body")}</p>
+      <p className="mt-3 text-pretty text-[0.875rem] text-muted-foreground/80">
+        {t("emailHint")}
+      </p>
       <Button
         nativeButton={false}
         className="mt-8 rounded-full px-6"

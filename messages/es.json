@@ -368,8 +368,8 @@
   "pricing": {
     "eyebrow": "Precios",
     "heading": "Elige tu plan y empieza a construir",
-    "subtitle": "Tarjetas internacionales aceptadas vía Stripe. Acceso liberado de inmediato tras confirmar el pago.",
-    "checkoutNote": "Checkout seguro vía Stripe. Acceso inmediato tras la confirmación.",
+    "subtitle": "Tarjetas internacionales aceptadas vía Stripe. Tras el pago, tu clave de activación llega por email en minutos.",
+    "checkoutNote": "Checkout seguro vía Stripe. Usa un email válido — ahí enviamos tu clave de acceso.",
     "plans": {
       "annual": {
         "label": "Anual",
@@ -406,7 +406,8 @@
     "success": {
       "eyebrow": "Pago confirmado",
       "heading": "Bienvenido a Kasy",
-      "body": "Enviamos tu clave de activación por email. Instala el CLI con npm install -g kasy-cli y ejecuta kasy new cuando estés listo.",
+      "body": "Enviamos tu clave de activación al email que usaste en el checkout. Instala el CLI con npm install -g kasy-cli y ejecuta kasy new cuando estés listo.",
+      "emailHint": "Revisa tu bandeja de entrada y la carpeta de spam. El email puede tardar unos minutos en llegar.",
       "cta": "Ver documentación"
     }
   }

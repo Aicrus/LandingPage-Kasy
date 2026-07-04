@@ -4,8 +4,10 @@ import { NextResponse } from "next/server";
 import { routing } from "@/i18n/routing";
 import {
   isCheckoutPlan,
+  isSiteLocale,
   metadataPlan,
-  resolvePriceId,
+  resolveCheckoutLineItem,
+  stripeLocale,
 } from "@/lib/stripe/catalog";
 import { getSiteUrl, getStripe } from "@/lib/stripe/server";
 
@@ -31,21 +33,22 @@ export async function POST(request: Request) {
     typeof body.locale === "string" && routing.locales.includes(body.locale as (typeof routing.locales)[number])
       ? body.locale
       : routing.defaultLocale;
+  const siteLocale = isSiteLocale(locale) ? locale : "en";
 
   const country = (await headers()).get("x-vercel-ip-country");
-  const priceId = resolvePriceId(body.plan, country);
   const siteUrl = getSiteUrl();
 
   try {
     const stripe = getStripe();
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
-      line_items: [{ price: priceId, quantity: 1 }],
+      locale: stripeLocale(siteLocale),
+      line_items: [resolveCheckoutLineItem(body.plan, country, siteLocale)],
       allow_promotion_codes: true,
       customer_creation: "always",
       metadata: {
         plan: metadataPlan(body.plan),
-        locale,
+        locale: siteLocale,
       },
       success_url: `${siteUrl}/${locale}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${siteUrl}/${locale}/#precos`,
