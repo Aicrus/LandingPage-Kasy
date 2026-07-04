@@ -22,7 +22,7 @@ type PlanMeta = { key: string; price: string; featured?: boolean };
 
 const PLANS_META: PlanMeta[] = [
   { key: "annual", price: "$127" },
-  { key: "kitCourse", price: "$227", featured: true },
+  { key: "kitCourse", price: "$193", featured: true },
 ];
 
 type PlanCopy = Omit<Plan, "key" | "price" | "featured">;
