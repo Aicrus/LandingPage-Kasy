@@ -18,20 +18,22 @@ const CARDS_META = [
   {
     key: "commands",
     num: "01",
-    image:
-      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=640&h=800&q=80",
+    image: "/assets/kasy-terminal-commands.png",
+    quality: 95,
+    mobileImageClassName: "max-sm:aspect-[563/560] max-sm:h-auto",
+    imageClassName: "object-cover object-center max-sm:object-top",
   },
   {
     key: "branding",
     num: "02",
     image:
-      "https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=640&h=800&q=80",
+      "https://images.unsplash.com/photo-1551658975-87d212249c59?auto=format&fit=crop&w=640&h=800&q=80",
   },
   {
     key: "everywhere",
     num: "03",
     image:
-      "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=640&h=800&q=80",
+      "https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=640&h=800&q=80",
   },
 ] as const;
 
@@ -182,7 +184,7 @@ export function FeatureHoverCards() {
                       {card.num}
                     </span>
 
-                    <div className="min-w-0">
+                    <div className="flex min-w-0 flex-col gap-[var(--spacing-feature-title-to-desc)]">
                       <h3
                         className={cn(
                           typeScale.featureTitle,
@@ -196,7 +198,7 @@ export function FeatureHoverCards() {
                       <p
                         className={cn(
                           typeScale.featureDesc,
-                          "mt-[var(--spacing-feature-title-to-desc)] text-pretty text-muted-foreground",
+                          "text-pretty text-muted-foreground",
                         )}
                       >
                         {card.description}
@@ -211,8 +213,10 @@ export function FeatureHoverCards() {
                       EASE,
                       isExpanded
                         ? cn(
-                            "opacity-100",
-                            "h-[var(--spacing-feature-image-h-mobile)] w-full",
+                            "opacity-100 w-full",
+                            "mobileImageClassName" in card
+                              ? card.mobileImageClassName
+                              : "h-[var(--spacing-feature-image-h-mobile)]",
                             "sm:min-h-[var(--spacing-feature-image-h-tablet)] sm:flex-1 sm:self-stretch",
                             "lg:h-full lg:w-[var(--feature-col-w)] lg:flex-none",
                           )
@@ -228,8 +232,11 @@ export function FeatureHoverCards() {
                         src={card.image}
                         alt={card.alt}
                         fill
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 260px"
-                        className="object-cover object-top"
+                        quality={"quality" in card ? card.quality : 75}
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 360px"
+                        className={cn(
+                          "imageClassName" in card ? card.imageClassName : "object-cover object-center",
+                        )}
                       />
                     ) : null}
                   </div>

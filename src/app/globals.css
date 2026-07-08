@@ -158,7 +158,7 @@
   --spacing-feature-card-y-mobile: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
   --spacing-feature-card-gap: clamp(0.75rem, 0.65rem + 0.35vw, 1rem);
   --spacing-feature-num-to-title: clamp(1.125rem, 0.95rem + 0.55vw, 1.75rem);
-  --spacing-feature-title-to-desc: clamp(0.5rem, 0.42rem + 0.18vw, 0.625rem);
+  --spacing-feature-title-to-desc: clamp(1.375rem, 1.2rem + 0.55vw, 1.875rem);
   --spacing-feature-image-h-mobile: clamp(15.5rem, 12.5rem + 9.5vw, 18rem);
   --spacing-feature-image-h-tablet: clamp(11.5rem, 9.5rem + 5vw, 13rem);
   /* Padding do shell = gap entre os cards (mesmo ritmo em todos os lados) */
@@ -234,7 +234,7 @@
     --feature-col-w: min(
       16.25rem,
       max(
-        11.25rem,
+        14.5rem,
         calc(
           (
             var(--feature-shell-w-target) -

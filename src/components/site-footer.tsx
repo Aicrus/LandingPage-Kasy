@@ -7,6 +7,7 @@ import { LanguageSwitcher } from "@/components/language-switcher";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
+import { CONTACT_EMAIL, contactMailtoHref } from "@/lib/contact";
 import { surfaceBorderClass } from "@/lib/surface-border";
 import { cn } from "@/lib/utils";
 
@@ -83,6 +84,15 @@ export function SiteFooter() {
                 <span className="hidden sm:inline"> </span>
                 {t("tagline.tail")}
               </span>
+            </p>
+            <p className="text-[0.8125rem] text-muted-foreground">
+              {t("contactLabel")}{" "}
+              <a
+                href={contactMailtoHref()}
+                className="font-medium text-foreground transition-colors hover:text-primary"
+              >
+                {CONTACT_EMAIL}
+              </a>
             </p>
           </div>
 

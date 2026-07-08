@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
   // Permite acessar o dev server pelo IP da rede (ex.: celular na mesma Wi‑Fi).
   allowedDevOrigins: ["192.168.15.6"],
   images: {
+    qualities: [75, 95],
     remotePatterns: [
       {
         protocol: "https",

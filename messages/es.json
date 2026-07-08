@@ -19,6 +19,7 @@
       "docs": "Documentación"
     },
     "cta": "Obtener Kasy Pro",
+    "contactLabel": "¿Dudas?",
     "copyright": "© 2026 Kasy. Todos los derechos reservados."
   },
   "theme": {
@@ -61,19 +62,19 @@
     "subtitle": "Backend, marca y publicación. Todo lo que falta entre el kit y la App Store.",
     "cards": {
       "commands": {
-        "title": "Pocos comandos",
-        "description": "Firebase, Supabase o REST. Login, base de datos, storage, push e IA en un paso.",
-        "alt": "Laptop con editor de código y terminal abierta"
+        "title": "CLI inteligente",
+        "description": "CLI multilingüe y autoconfigurable. Responde unas preguntas y configura casi todo sola. Pensada para no desarrolladores en la terminal.",
+        "alt": "Terminal de Kasy CLI con configuración guiada en portugués"
       },
       "branding": {
-        "title": "Personaliza el diseño",
-        "description": "Ícono, splash, colores claro y oscuro. Dos archivos y tu app con tu marca.",
-        "alt": "Paleta de colores y herramientas de identidad visual de una app"
+        "title": "Tu marca",
+        "description": "Skills de rebrand incluidas en el proyecto. Con Cursor o Claude y tu Figma, la IA aplica tu identidad al kit. Tipografía, íconos, colores y espaciado en instantes.",
+        "alt": "Design system e identidad visual aplicados a una app"
       },
       "everywhere": {
-        "title": "En todas partes",
-        "description": "App Store, Play Store y Web. Codemagic publica en iOS incluso sin Mac.",
-        "alt": "Smartphones con apps instaladas sobre una mesa"
+        "title": "Una sola base",
+        "description": "Una configuración para Android, iOS y Web. Sin retrabajo entre plataformas. Con Preview Device, validas la implementación con fidelidad en la Web.",
+        "alt": "App en Android, iOS y Web desde una única base de código"
       }
     }
   },
@@ -317,6 +318,12 @@
   "faq": {
     "eyebrow": "FAQ",
     "heading": "Dudas, resueltas.",
+    "contact": {
+      "heading": "¿Aún tienes dudas?",
+      "body": "Escríbenos antes de comprar. Respondemos en hasta 24 horas.",
+      "cta": "Enviar correo",
+      "mailSubject": "Duda sobre Kasy"
+    },
     "items": [
       {
         "id": "q1",
@@ -361,7 +368,7 @@
       {
         "id": "q9",
         "question": "¿Puedo pedir un reembolso?",
-        "answer": "Una vez que tienes acceso al kit, Kasy es tuyo para siempre. Por eso, las compras no son reembolsables. ¿Tienes dudas? Pregunta antes de comprar, con gusto te ayudamos. En promedio, quienes usan Kasy publican su app en 7 días."
+        "answer": "Una vez que tienes acceso al kit, Kasy es tuyo para siempre. Por eso, las compras no son reembolsables. ¿Tienes dudas? Escríbenos a hello@kasy.dev antes de comprar, con gusto te ayudamos. En promedio, quienes usan Kasy publican su app en 7 días."
       }
     ]
   },

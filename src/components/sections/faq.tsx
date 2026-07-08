@@ -5,6 +5,8 @@ import { ChevronDown } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import { Reveal } from "@/components/motion/reveal";
+import { Button } from "@/components/ui/button";
+import { contactMailtoHref } from "@/lib/contact";
 import { cn } from "@/lib/utils";
 
 type FaqItem = {
@@ -99,6 +101,30 @@ export function Faq() {
             </Accordion.Item>
           ))}
         </Accordion.Root>
+
+        <div
+          className={cn(
+            "mt-4 flex flex-col gap-3 rounded-2xl border border-border/70 bg-card px-5 py-3.5 sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:px-6 sm:py-4",
+            cardShadowClass,
+          )}
+        >
+          <div className="min-w-0 text-left">
+            <h3 className="text-[0.9375rem] font-semibold text-foreground">{t("contact.heading")}</h3>
+            <p className="mt-0.5 text-[0.8125rem] leading-snug text-muted-foreground">
+              {t("contact.body")}
+            </p>
+          </div>
+          <Button
+            variant="outline"
+            nativeButton={false}
+            className="h-auto w-full shrink-0 rounded-full px-4 py-2 sm:w-auto"
+            render={
+              <a href={contactMailtoHref(t("contact.mailSubject"))} aria-label={t("contact.cta")} />
+            }
+          >
+            {t("contact.cta")}
+          </Button>
+        </div>
       </Reveal>
     </section>
   );
