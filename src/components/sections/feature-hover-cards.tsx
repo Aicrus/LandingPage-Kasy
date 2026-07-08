@@ -18,22 +18,26 @@ const CARDS_META = [
   {
     key: "commands",
     num: "01",
-    image: "/assets/kasy-terminal-commands.png",
+    image: "/assets/feature-commands.png",
     quality: 95,
-    mobileImageClassName: "max-sm:aspect-[563/560] max-sm:h-auto",
+    mobileImageClassName: "max-sm:aspect-[562/560] max-sm:h-auto",
     imageClassName: "object-cover object-center max-sm:object-top",
   },
   {
     key: "branding",
     num: "02",
-    image:
-      "https://images.unsplash.com/photo-1551658975-87d212249c59?auto=format&fit=crop&w=640&h=800&q=80",
+    image: "/assets/feature-branding.png",
+    quality: 95,
+    mobileImageClassName: "max-sm:aspect-[562/560] max-sm:h-auto",
+    imageClassName: "object-cover object-center max-sm:object-top",
   },
   {
     key: "everywhere",
     num: "03",
-    image:
-      "https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=640&h=800&q=80",
+    image: "/assets/feature-everywhere.png",
+    quality: 95,
+    mobileImageClassName: "max-sm:aspect-[563/560] max-sm:h-auto",
+    imageClassName: "object-cover object-center max-sm:object-top",
   },
 ] as const;
 

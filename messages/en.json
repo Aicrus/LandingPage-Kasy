@@ -69,12 +69,12 @@
       "branding": {
         "title": "Your brand",
         "description": "Rebrand skills included with every project. Use Cursor or Claude with your Figma file and AI applies your identity to the kit. Typography, icons, colors and spacing in minutes.",
-        "alt": "Design system and visual identity applied to an app"
+        "alt": "Kasy design system colors and token panel"
       },
       "everywhere": {
         "title": "One codebase",
         "description": "One setup for Android, iOS and Web. No rework between platforms. With Preview Device, validate your implementation with fidelity on the Web.",
-        "alt": "App on Android, iOS and Web from a single codebase"
+        "alt": "App Preview Device on iPhone 16"
       }
     }
   },

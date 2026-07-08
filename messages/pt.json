@@ -69,12 +69,12 @@
       "branding": {
         "title": "Sua marca",
         "description": "Skills de rebrand inclusas no projeto. Com Cursor ou Claude e seu Figma, a IA aplica sua identidade no kit. Tipografia, ícones, cores e espaçamento em instantes.",
-        "alt": "Design system e identidade visual aplicados a um app"
+        "alt": "Painel de cores e tokens do design system Kasy"
       },
       "everywhere": {
         "title": "Uma base só",
         "description": "Uma configuração para Android, iOS e Web. Sem retrabalho entre plataformas. Com o Preview Device, você valida a implementação com fidelidade na Web.",
-        "alt": "App em Android, iOS e Web a partir de uma única base de código"
+        "alt": "Preview Device do app em um iPhone 16"
       }
     }
   },
