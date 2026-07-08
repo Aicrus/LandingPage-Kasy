@@ -377,6 +377,7 @@
     "heading": "Escolha seu plano e comece a construir",
     "subtitle": "Do kit ao build em minutos. Escolha o plano certo para você.",
     "checkoutNote": "Checkout seguro via Stripe. Cartões internacionais aceitos. Sua chave de ativação chega por e-mail em minutos.",
+    "checkoutLoading": "Abrindo checkout...",
     "plans": {
       "annual": {
         "label": "Anual",

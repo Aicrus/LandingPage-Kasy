@@ -18,26 +18,26 @@ const CARDS_META = [
   {
     key: "commands",
     num: "01",
-    image: "/assets/feature-commands.png",
-    quality: 95,
-    mobileImageClassName: "max-sm:aspect-[562/560] max-sm:h-auto",
-    imageClassName: "object-cover object-center max-sm:object-top",
+    image: "/assets/feature-cli-terminal.png",
+    unoptimized: true,
+    mobileImageClassName: "max-sm:aspect-[562/750] max-sm:h-auto",
+    imageClassName: "object-cover object-top",
   },
   {
     key: "branding",
     num: "02",
     image: "/assets/feature-branding.png",
-    quality: 95,
-    mobileImageClassName: "max-sm:aspect-[562/560] max-sm:h-auto",
-    imageClassName: "object-cover object-center max-sm:object-top",
+    unoptimized: true,
+    mobileImageClassName: "max-sm:aspect-[562/750] max-sm:h-auto",
+    imageClassName: "object-cover object-top",
   },
   {
     key: "everywhere",
     num: "03",
     image: "/assets/feature-everywhere.png",
-    quality: 95,
-    mobileImageClassName: "max-sm:aspect-[563/560] max-sm:h-auto",
-    imageClassName: "object-cover object-center max-sm:object-top",
+    unoptimized: true,
+    mobileImageClassName: "max-sm:aspect-[563/750] max-sm:h-auto",
+    imageClassName: "object-cover object-top",
   },
 ] as const;
 
@@ -124,6 +124,9 @@ export function FeatureHoverCards() {
           <Reveal
             variants={staggerContainer}
             delay={0.1}
+            onMouseLeave={() => {
+              if (isLgUp) setActive(0);
+            }}
             className={cn(
               "grid w-full gap-[var(--spacing-feature-shell-pad)]",
               "max-sm:grid-cols-1",
@@ -231,18 +234,20 @@ export function FeatureHoverCards() {
                     )}
                     aria-hidden={!isExpanded}
                   >
-                    {isExpanded ? (
-                      <Image
-                        src={card.image}
-                        alt={card.alt}
-                        fill
-                        quality={"quality" in card ? card.quality : 75}
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 360px"
-                        className={cn(
-                          "imageClassName" in card ? card.imageClassName : "object-cover object-center",
-                        )}
-                      />
-                    ) : null}
+                    <Image
+                      src={card.image}
+                      alt={card.alt}
+                      fill
+                      unoptimized={"unoptimized" in card && card.unoptimized}
+                      priority={index === 0}
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 360px"
+                      className={cn(
+                        "imageClassName" in card
+                          ? card.imageClassName
+                          : "object-cover object-top",
+                        !isExpanded && "invisible",
+                      )}
+                    />
                   </div>
                 </div>
               </motion.article>

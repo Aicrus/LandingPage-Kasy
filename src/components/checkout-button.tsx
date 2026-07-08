@@ -1,5 +1,7 @@
 "use client";
 
+import { Loader2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -21,6 +23,7 @@ export function CheckoutButton({
   variant = "default",
   children,
 }: CheckoutButtonProps) {
+  const t = useTranslations("pricing");
   const [loading, setLoading] = useState(false);
 
   async function handleCheckout() {
@@ -51,10 +54,18 @@ export function CheckoutButton({
       type="button"
       variant={variant}
       disabled={loading}
+      aria-busy={loading}
       className={cn(className)}
       onClick={handleCheckout}
     >
-      {loading ? "…" : children}
+      {loading ? (
+        <>
+          <Loader2 className="size-4 animate-spin" aria-hidden />
+          {t("checkoutLoading")}
+        </>
+      ) : (
+        children
+      )}
     </Button>
   );
 }
