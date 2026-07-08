@@ -28,7 +28,7 @@ const CARDS_META = [
     num: "02",
     image: "/assets/feature-branding.png",
     unoptimized: true,
-    mobileImageClassName: "max-sm:aspect-[562/750] max-sm:h-auto",
+    mobileImageClassName: "max-sm:aspect-[563/750] max-sm:h-auto",
     imageClassName: "object-cover object-top",
   },
   {
