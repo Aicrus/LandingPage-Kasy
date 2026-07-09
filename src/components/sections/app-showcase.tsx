@@ -175,6 +175,26 @@ export function AppShowcase() {
     [totalCards, needsPagination],
   );
 
+  const goToCenter = useCallback(
+    (targetIndex: number) => {
+      if (!needsPagination || isAnimating.current) return;
+
+      setCenterIndex((prev) => {
+        if (targetIndex === prev) return prev;
+
+        autoplayPausedRef.current = true;
+        isAnimating.current = true;
+
+        const forward = (targetIndex - prev + totalCards) % totalCards;
+        directionRef.current =
+          forward <= totalCards / 2 ? "right" : "left";
+
+        return targetIndex;
+      });
+    },
+    [totalCards, needsPagination],
+  );
+
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
@@ -497,12 +517,35 @@ export function AppShowcase() {
         >
           {CARDS.map((card, index) => {
             const isAppScreen = !card.imgUrl.includes("/vertical-");
+            const visibleMap = getVisibleMap(centerIndex);
+            const slot = visibleMap.get(index);
+            const isVisible = slot !== undefined;
+            const isCenter = slot === HALF;
+            const isSelectable = needsPagination && isVisible && !isCenter;
 
             return (
             <div
               key={index}
+              role={isSelectable ? "button" : undefined}
+              tabIndex={isSelectable ? 0 : -1}
+              aria-label={isSelectable ? t("centerCard") : undefined}
+              onClick={() => {
+                if (isSelectable) goToCenter(index);
+              }}
+              onKeyDown={(event) => {
+                if (
+                  isSelectable &&
+                  (event.key === "Enter" || event.key === " ")
+                ) {
+                  event.preventDefault();
+                  goToCenter(index);
+                }
+              }}
               className={cn(
                 "fan-card absolute top-1/2 left-1/2 -ml-[4.625rem] -mt-[10rem] h-[20rem] w-[9.25rem] overflow-hidden rounded-[1rem] border border-border/70 bg-muted opacity-0 will-change-transform md:top-[41%] md:-ml-[5.625rem] md:-mt-[12.25rem] md:h-[24.5rem] md:w-[11.25rem] md:rounded-[1.15rem] lg:top-[39.5%] lg:-ml-[6rem] lg:-mt-[13rem] lg:h-[26rem] lg:w-[12rem] lg:rounded-[1.2rem]",
+                !isVisible && "pointer-events-none",
+                isSelectable &&
+                  "cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
               )}
               style={cardShellStyle}
             >

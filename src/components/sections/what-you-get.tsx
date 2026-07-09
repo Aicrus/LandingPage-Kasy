@@ -400,7 +400,7 @@ export function WhatYouGet() {
             )}
           >
             {t("headingPart1")}{" "}
-            <span className="text-primary">{t("headingEmphasis")}</span>
+            <span className="text-heading-accent">{t("headingEmphasis")}</span>
           </h2>
           <p className="text-pretty font-rounded text-fluid-subtitle text-muted-foreground">
             {t("descPart1")}{" "}

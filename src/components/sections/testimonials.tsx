@@ -155,7 +155,7 @@ export function Testimonials() {
           )}
         >
           {t("headingPart1")}{" "}
-          <span className="text-[#16a34a] dark:text-[#4ade80]">{t("headingEmphasis")}</span>
+          <span className="text-heading-accent">{t("headingEmphasis")}</span>
         </h2>
         <p className="max-w-fluid-subtitle text-pretty font-rounded text-fluid-subtitle text-muted-foreground">
           {t("subtitle")}

@@ -38,7 +38,7 @@ export function Marquee() {
                   {phrase}
                   <span
                     aria-hidden
-                    className="mx-[clamp(1.25rem,2.5vw,1.75rem)] text-[0.875rem] text-[#16a34a] dark:text-[#4ade80]"
+                    className="mx-[clamp(1.25rem,2.5vw,1.75rem)] text-[0.875rem] text-heading-accent"
                   >
                     ✦
                   </span>

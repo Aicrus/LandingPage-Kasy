@@ -93,6 +93,7 @@
   --color-secondary: var(--secondary);
   --color-primary-foreground: var(--primary-foreground);
   --color-primary: var(--primary);
+  --color-heading-accent: var(--heading-accent);
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
@@ -280,6 +281,7 @@
   --chart-4: #f2f4fa;
   --chart-5: #e8ebf4;
   --copy-mark-highlight: #ffe8a7;
+  --heading-accent: #4560c8;
   --radius: 0.625rem;
   --sidebar: #f2f4fa;
   --sidebar-foreground: #1a1e2c;
@@ -330,6 +332,7 @@
   --chart-4: #1a1e2c;
   --chart-5: #0f1218;
   --copy-mark-highlight: color-mix(in srgb, #d4b05c 50%, transparent);
+  --heading-accent: #8ba4e8;
   --sidebar: #0f1218;
   --sidebar-foreground: #eceef6;
   --sidebar-primary: #8ba4e8;
@@ -598,6 +601,10 @@
 }
 
 /* Ênfase editorial — bold + marca-texto em copy de landing */
+.text-heading-accent {
+  color: var(--heading-accent);
+}
+
 .text-copy-emphasis {
   font-weight: 800;
   color: inherit;
