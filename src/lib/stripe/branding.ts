@@ -5,8 +5,8 @@ export const CHECKOUT_BRANDING = {
   display_name: "Kasy",
   font_family: "inter" as const,
   border_style: "pill" as const,
-  background_color: "#f2f4fa",
-  button_color: "#4a5270",
+  background_color: "#f3f7f6",
+  button_color: "#0f766e",
 };
 
 export function checkoutBrandingSettings() {

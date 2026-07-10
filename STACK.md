@@ -127,7 +127,8 @@ Integração configurada em:
 
 Definidos em `src/app/globals.css`:
 
-- Paleta em **oklch** (light + dark via classe `.dark`)
+- Âncora da marca: `#0F766E` (Teal técnico; demais tokens são variações: claro, escuro, muted, tint)
+- Light / dark via classe `.dark`
 - Tokens: `--background`, `--foreground`, `--primary`, `--muted`, `--border`, `--radius`, etc.
 - Border radius escalonado: `--radius-sm` até `--radius-4xl`
 

@@ -42,7 +42,7 @@ Ver `STACK.md` (Next.js 16, Tailwind v4, shadcn, Motion, next-intl).
 
 Esfera com gradiente da paleta da landing (`globals.css`):
 
-- Light: `#f2f4fa` → `#4a5270`
-- Dark: `#0f1218` → `#8ba4e8`
+- Light: `#f3f7f6` → `#0f766e`
+- Dark: `#0b1211` → `#529c97`
 
 Fonte: `src/lib/brand-icon.ts` + `src/app/icon.svg`.

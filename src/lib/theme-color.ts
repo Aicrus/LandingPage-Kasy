@@ -11,8 +11,8 @@
  *    (sem flash) e 1 observer em runtime. Nada de sync paralelo no React.
  */
 export const THEME_BACKGROUND = {
-  light: "#f2f4fa",
-  dark: "#0f1218",
+  light: "#f3f7f6",
+  dark: "#0b1211",
 } as const;
 
 /**

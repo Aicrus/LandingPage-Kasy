@@ -76,7 +76,7 @@ const FEATURE_TABS_META: FeatureTabMeta[] = [
 ];
 
 const CARD_SHADOW_CLASS = cn(
-  "shadow-[0_1px_2px_rgba(26,30,44,0.04),0_6px_16px_-10px_rgba(26,30,44,0.12)]",
+  "shadow-[0_1px_2px_rgba(3,26,24,0.04),0_6px_16px_-10px_rgba(3,26,24,0.12)]",
   "dark:shadow-[0_1px_2px_rgba(0,0,0,0.18),0_8px_20px_-10px_rgba(0,0,0,0.4)]",
 );
 

@@ -23,7 +23,7 @@ export function HeroSocialProof() {
   return (
     <div
       className={cn(
-        "inline-flex max-w-full items-center gap-2 rounded-full border px-2.5 py-1.5 shadow-[0_1px_2px_rgba(26,30,44,0.04),0_4px_14px_-6px_rgba(26,30,44,0.07)] dark:shadow-[0_1px_2px_rgba(0,0,0,0.2),0_4px_14px_-6px_rgba(0,0,0,0.24)] sm:gap-2.5 sm:px-3 sm:py-1.5",
+        "inline-flex max-w-full items-center gap-2 rounded-full border px-2.5 py-1.5 shadow-[0_1px_2px_rgba(3,26,24,0.04),0_4px_14px_-6px_rgba(3,26,24,0.07)] dark:shadow-[0_1px_2px_rgba(0,0,0,0.2),0_4px_14px_-6px_rgba(0,0,0,0.24)] sm:gap-2.5 sm:px-3 sm:py-1.5",
         heroPillSurfaceClass,
         surfaceBorderClass,
       )}

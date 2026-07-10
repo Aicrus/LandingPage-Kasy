@@ -59,10 +59,10 @@ const TRANSITION =
   "transition-[flex-grow,flex-basis,width,opacity,gap,max-width,background-color,box-shadow] duration-500 motion-reduce:transition-none";
 
 const CARD_ACTIVE_SHADOW =
-  "bg-feature-card-active shadow-[0_1px_2px_rgba(26,30,44,0.025),0_6px_16px_-8px_rgba(26,30,44,0.05)] dark:shadow-[0_1px_8px_rgba(0,0,0,0.12),0_8px_22px_-10px_rgba(0,0,0,0.2)]";
+  "bg-feature-card-active shadow-[0_1px_2px_rgba(3,26,24,0.025),0_6px_16px_-8px_rgba(3,26,24,0.05)] dark:shadow-[0_1px_8px_rgba(0,0,0,0.12),0_8px_22px_-10px_rgba(0,0,0,0.2)]";
 
 const CARD_IDLE_SHADOW =
-  "bg-feature-card shadow-[0_1px_1px_rgba(26,30,44,0.02),0_4px_12px_-8px_rgba(26,30,44,0.035)] dark:shadow-[0_1px_2px_rgba(0,0,0,0.08),0_4px_14px_-8px_rgba(0,0,0,0.14)]";
+  "bg-feature-card shadow-[0_1px_1px_rgba(3,26,24,0.02),0_4px_12px_-8px_rgba(3,26,24,0.035)] dark:shadow-[0_1px_2px_rgba(0,0,0,0.08),0_4px_14px_-8px_rgba(0,0,0,0.14)]";
 
 export function FeatureHoverCards() {
   const t = useTranslations("featureHoverCards");

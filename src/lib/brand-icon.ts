@@ -1,18 +1,18 @@
-/** Landing palette — keep in sync with `src/app/globals.css` */
-export const LANDING_BACKGROUND_LIGHT = "#f2f4fa";
-export const LANDING_PRIMARY_LIGHT = "#4a5270";
-export const LANDING_BACKGROUND_DARK = "#0f1218";
-export const LANDING_PRIMARY_DARK = "#8ba4e8";
+/** Landing palette — keep in sync with `src/app/globals.css` (Teal #0F766E) */
+export const LANDING_BACKGROUND_LIGHT = "#f3f7f6";
+export const LANDING_PRIMARY_LIGHT = "#0f766e";
+export const LANDING_BACKGROUND_DARK = "#0b1211";
+export const LANDING_PRIMARY_DARK = "#529c97";
 
-/** Docs tab accents (favicon glow per section, dark UI). */
+/** Docs tab accents (favicon glow per section, dark UI) — variações do teal. */
 export const SECTION_FAVICON_COLORS: Record<string, string> = {
   comece: LANDING_PRIMARY_DARK,
-  conceitos: "hsl(217, 100%, 75%)",
-  funcionalidades: "hsl(280, 85%, 78%)",
-  personalizacao: "hsl(330, 85%, 78%)",
-  gerenciar: "hsl(25, 95%, 72%)",
-  publicar: "#fff383",
-  referencia: "hsl(200, 90%, 72%)",
+  conceitos: "#5eaaa5",
+  funcionalidades: "#7bb8b3",
+  personalizacao: "#93c1be",
+  gerenciar: "#a9cecb",
+  publicar: "#c5dedb",
+  referencia: "#ecf4f3",
 };
 
 type SphereOptions = {

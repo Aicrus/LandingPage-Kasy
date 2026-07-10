@@ -254,7 +254,7 @@ function ComposerToolbar() {
       </div>
       <div className="flex items-center gap-[0.45em]">
         <Mic className="size-[0.95em] text-foreground/45" strokeWidth={2} />
-        <span className="flex size-[1.55em] items-center justify-center rounded-full bg-foreground text-background dark:bg-[#eceef6] dark:text-[#10131a]">
+        <span className="flex size-[1.55em] items-center justify-center rounded-full bg-foreground text-background dark:bg-[#f5f8f7] dark:text-[#0b1211]">
           <svg
             aria-hidden
             viewBox="0 0 16 16"
@@ -347,7 +347,7 @@ function ChatPanel() {
       <div className="mt-auto flex flex-col">
         <div
           className={cn(
-            "flex min-h-[62%] flex-col rounded-[0.85em] border bg-white px-[4.5%] py-[4%] shadow-[0_1px_3px_rgba(26,30,44,0.05),0_10px_30px_-16px_rgba(26,30,44,0.12)]",
+            "flex min-h-[62%] flex-col rounded-[0.85em] border bg-white px-[4.5%] py-[4%] shadow-[0_1px_3px_rgba(3,26,24,0.05),0_10px_30px_-16px_rgba(3,26,24,0.12)]",
             editorLineClass,
             "dark:bg-[#13120a] dark:shadow-none",
           )}
@@ -503,7 +503,7 @@ function PlatformTargets() {
           className={cn(
             "flex size-[1.55em] items-center justify-center rounded-[0.28em] transition-colors",
             active
-              ? "bg-black/[0.06] text-foreground dark:bg-white/[0.1] dark:text-[#eceef6]"
+              ? "bg-black/[0.06] text-foreground dark:bg-white/[0.1] dark:text-[#f5f8f7]"
               : "text-[#8b93a7] opacity-70 dark:text-[#7d869c]",
           )}
         >
