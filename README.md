@@ -40,9 +40,10 @@ Ver `STACK.md` (Next.js 16, Tailwind v4, shadcn, Motion, next-intl).
 
 ## Favicon
 
-Esfera com gradiente da paleta da landing (`globals.css`):
+Wordmark arredondado (raio ~22%), light/dark:
 
-- Light: `#f3f7f6` → `#0f766e`
-- Dark: `#0b1211` → `#529c97`
+- Light: `/assets/favicon-light.png`
+- Dark: `/assets/favicon-dark.png`
+- Default App Router: `src/app/icon.png` + `apple-icon.png`
 
-Fonte: `src/lib/brand-icon.ts` + `src/app/icon.svg`.
+Logo do header/footer/docs: `/assets/kasy-logo-light.png` e `kasy-logo-dark.png`.

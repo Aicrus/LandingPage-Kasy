@@ -97,7 +97,7 @@ function HeaderNav({
   return (
     <nav className={cn("flex shrink-0 items-center gap-5 sm:gap-6", className)}>
       <Link
-        href="/documentacao"
+        href="/docs"
         className="font-sans text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
       >
         <span className="sm:hidden">{t("docsShort")}</span>
@@ -264,7 +264,7 @@ function SiteHeaderMotion({ openWidth }: { openWidth: number }) {
           style={{ gap: navGap }}
         >
           <Link
-            href="/documentacao"
+            href="/docs"
             className="shrink-0 font-sans text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
           >
             <span className="sm:hidden">{t("docsShort")}</span>

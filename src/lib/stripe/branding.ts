@@ -16,7 +16,7 @@ export function checkoutBrandingSettings() {
     ...CHECKOUT_BRANDING,
     logo: {
       type: "url" as const,
-      url: `${siteUrl}/icon.svg`,
+      url: `${siteUrl}/icon.png`,
     },
   };
 }

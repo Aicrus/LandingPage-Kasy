@@ -1,11 +1,14 @@
-import { THEME_BACKGROUND, themeMetaSyncScript } from "@/lib/theme-color";
+"use client";
 
+import { useEffect } from "react";
+
+import { themeMetaSyncScript } from "@/lib/theme-color";
+
+/** Runtime sync of theme-color + favicon. Head init lives in the locale layout. */
 export function ThemeMetaSyncScript() {
-  return (
-    <script
-      dangerouslySetInnerHTML={{
-        __html: `(${themeMetaSyncScript.toString()})(${JSON.stringify(THEME_BACKGROUND)})`,
-      }}
-    />
-  );
+  useEffect(() => {
+    themeMetaSyncScript();
+  }, []);
+
+  return null;
 }

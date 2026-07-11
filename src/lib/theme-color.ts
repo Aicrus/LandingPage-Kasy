@@ -1,39 +1,49 @@
 /**
- * Cor da status bar / safe-area do navegador mobile (meta `theme-color`).
- * Os valores espelham `--background` do globals.css.
+ * Cor da status bar / safe-area do navegador mobile (meta `theme-color`)
+ * e favicon light/dark. Os valores de fundo espelham `--background` do globals.css.
  *
  * Padrão robusto p/ a status bar do iOS Safari (a parte que "travava" no claro):
  *  - UMA única <meta name="theme-color">, sempre MUTANDO o `content`.
- *    Remover/recriar a meta — ou ter várias — faz o iOS travar na cor antiga.
- *  - SEM atributo `media`: assim o tema escolhido no site vence o tema do SO
- *    (com `media`, o iOS seguiria só o sistema e ignoraria o toggle do site).
- *  - Só DOIS atores, sem concorrência: 1 script no <head> p/ o primeiro paint
- *    (sem flash) e 1 observer em runtime. Nada de sync paralelo no React.
+ *  - SEM atributo `media`: o tema do site vence o tema do SO.
+ *  - Favicon: UMA única <link rel="icon" data-kasy-theme-icon>, mutando `href`.
+ *  - Só DOIS atores: 1 script no <head> (primeiro paint) + 1 observer em runtime.
  */
 export const THEME_BACKGROUND = {
   light: "#f3f7f6",
   dark: "#0b1211",
 } as const;
 
-/**
- * Primeiro paint — roda no <head> ANTES do body. Lê o mesmo localStorage do
- * next-themes e pinta a meta de forma síncrona, evitando flash de cor errada.
- * Precisa ser <script> cru (não React) p/ a hidratação não reverter o content.
- */
-export const themeColorHeadInitScript = `(function(c){function d(){try{var t=localStorage.getItem("theme")||"system";return t==="dark"||(t==="system"&&window.matchMedia("(prefers-color-scheme: dark)").matches)}catch(e){return window.matchMedia("(prefers-color-scheme: dark)").matches}}var color=d()?c.dark:c.light,m=document.querySelector('meta[name="theme-color"]:not([media])');if(!m){m=document.createElement("meta");m.name="theme-color";document.head.appendChild(m)}if(m.content!==color){m.content=color}})(${JSON.stringify(THEME_BACKGROUND)})`;
+export const THEME_FAVICON = {
+  light: "/assets/favicon-light.png",
+  dark: "/assets/favicon-dark.png",
+} as const;
+
+type ThemeChrome = {
+  background: typeof THEME_BACKGROUND;
+  favicon: typeof THEME_FAVICON;
+};
+
+const THEME_CHROME: ThemeChrome = {
+  background: THEME_BACKGROUND,
+  favicon: THEME_FAVICON,
+};
 
 /**
- * Runtime — roda depois do next-themes. Observa a classe do <html> (sinal
- * canônico: o next-themes alterna `.dark` tanto no toggle manual quanto no modo
- * "system") e MUTA o content da meta única. O matchMedia cobre a troca de tema
- * do SO enquanto o site está em "system".
+ * Primeiro paint — roda no <head> ANTES do body. Lê o mesmo localStorage do
+ * next-themes e pinta theme-color + favicon de forma síncrona (sem flash).
+ */
+export const themeColorHeadInitScript = `(function(c){function d(){try{var t=localStorage.getItem("theme")||"system";return t==="dark"||(t==="system"&&window.matchMedia("(prefers-color-scheme: dark)").matches)}catch(e){return window.matchMedia("(prefers-color-scheme: dark)").matches}}var dark=d(),color=dark?c.background.dark:c.background.light,href=dark?c.favicon.dark:c.favicon.light,m=document.querySelector('meta[name="theme-color"]:not([media])');if(!m){m=document.createElement("meta");m.name="theme-color";document.head.appendChild(m)}if(m.content!==color){m.content=color}var link=document.querySelector('link[rel="icon"][data-kasy-theme-icon]');if(!link){link=document.createElement("link");link.rel="icon";link.type="image/png";link.setAttribute("data-kasy-theme-icon","true");document.head.appendChild(link)}if(link.getAttribute("href")!==href){link.setAttribute("href",href)}})(${JSON.stringify(THEME_CHROME)})`;
+
+/**
+ * Runtime — depois do next-themes. Observa `.dark` no <html> e muta
+ * theme-color + favicon. matchMedia cobre troca do SO em modo "system".
  * @see https://github.com/pacocoursey/next-themes/issues/78
  */
-export function themeMetaSyncScript(colors: typeof THEME_BACKGROUND) {
-  function syncThemeColor() {
-    const color = document.documentElement.classList.contains("dark")
-      ? colors.dark
-      : colors.light;
+export function themeMetaSyncScript(chrome: ThemeChrome = THEME_CHROME) {
+  function syncThemeChrome() {
+    const dark = document.documentElement.classList.contains("dark");
+    const color = dark ? chrome.background.dark : chrome.background.light;
+    const href = dark ? chrome.favicon.dark : chrome.favicon.light;
 
     let meta = document.querySelector<HTMLMetaElement>(
       'meta[name="theme-color"]:not([media])',
@@ -46,9 +56,23 @@ export function themeMetaSyncScript(colors: typeof THEME_BACKGROUND) {
     if (meta.getAttribute("content") !== color) {
       meta.setAttribute("content", color);
     }
+
+    let link = document.querySelector<HTMLLinkElement>(
+      'link[rel="icon"][data-kasy-theme-icon]',
+    );
+    if (!link) {
+      link = document.createElement("link");
+      link.rel = "icon";
+      link.type = "image/png";
+      link.setAttribute("data-kasy-theme-icon", "true");
+      document.head.appendChild(link);
+    }
+    if (link.getAttribute("href") !== href) {
+      link.setAttribute("href", href);
+    }
   }
 
-  new MutationObserver(syncThemeColor).observe(document.documentElement, {
+  new MutationObserver(syncThemeChrome).observe(document.documentElement, {
     attributes: true,
     attributeFilter: ["class"],
   });
@@ -58,12 +82,12 @@ export function themeMetaSyncScript(colors: typeof THEME_BACKGROUND) {
     .addEventListener("change", () => {
       try {
         if ((localStorage.getItem("theme") || "system") === "system") {
-          syncThemeColor();
+          syncThemeChrome();
         }
       } catch {
         /* ignore */
       }
     });
 
-  syncThemeColor();
+  syncThemeChrome();
 }

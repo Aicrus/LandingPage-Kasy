@@ -47,7 +47,7 @@ export function SiteFooter() {
 
   const FOOTER_LINKS = [
     { href: "#precos", label: t("links.pricing") },
-    { href: "/documentacao", label: t("links.docs") },
+    { href: "/docs", label: t("links.docs") },
   ] as const;
 
   return (

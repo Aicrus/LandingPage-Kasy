@@ -6,6 +6,15 @@ const withNextIntl = createNextIntlPlugin();
 const nextConfig: NextConfig = {
   // Permite acessar o dev server pelo IP da rede (ex.: celular na mesma Wi‑Fi).
   allowedDevOrigins: ["192.168.15.6"],
+  async redirects() {
+    return [
+      {
+        source: "/:locale(pt|en|es)/documentacao",
+        destination: "/:locale/docs",
+        permanent: false,
+      },
+    ];
+  },
   images: {
     qualities: [75, 95],
     remotePatterns: [
