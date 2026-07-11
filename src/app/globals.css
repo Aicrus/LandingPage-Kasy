@@ -370,19 +370,34 @@
     font-feature-settings: "cv01", "ss03";
   }
 
-  /* Logo wordmark (PNG light/dark) — compacta no header/footer */
+  /* Logo wordmark (PNG): uma variante por tema, nunca as duas juntas */
   .logo-wordmark-img {
-    display: block;
-    height: 1.5rem !important;
+    height: 1.75rem !important;
     width: auto !important;
-    max-height: 1.75rem;
+    max-height: 2rem;
     object-fit: contain;
   }
 
   @media (min-width: 640px) {
     .logo-wordmark-img {
-      height: 1.75rem !important;
+      height: 2rem !important;
     }
+  }
+
+  html:not(.dark) .logo-wordmark-img--light {
+    display: block !important;
+  }
+
+  html:not(.dark) .logo-wordmark-img--dark {
+    display: none !important;
+  }
+
+  html.dark .logo-wordmark-img--light {
+    display: none !important;
+  }
+
+  html.dark .logo-wordmark-img--dark {
+    display: block !important;
   }
 
   /* Feature cards — Satoshi (título) + Nunito (descrição), como no hero */
