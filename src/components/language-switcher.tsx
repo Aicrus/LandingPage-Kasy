@@ -15,7 +15,12 @@ const LANGUAGES = [
   { value: "es", label: "Español" },
 ] as const;
 
-export function LanguageSwitcher() {
+type LanguageSwitcherProps = {
+  /** Icon-only trigger for tight slots (docs sidebar / chrome capsule). */
+  compact?: boolean;
+};
+
+export function LanguageSwitcher({ compact = false }: LanguageSwitcherProps) {
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
@@ -52,7 +57,11 @@ export function LanguageSwitcher() {
   }
 
   return (
-    <div ref={rootRef} className="relative inline-flex">
+    <div
+      ref={rootRef}
+      className="relative inline-flex"
+      {...(compact ? { "data-lang-toggle-compact": "" } : {})}
+    >
       <button
         type="button"
         aria-haspopup="listbox"
@@ -60,17 +69,29 @@ export function LanguageSwitcher() {
         aria-label={t("label")}
         onClick={() => setOpen((v) => !v)}
         className={cn(
-          "inline-flex items-center gap-1.5 rounded-full border py-1.5 pr-2.5 pl-2.5 text-xs font-medium",
+          "inline-flex items-center text-xs font-medium",
           "bg-background/80 text-muted-foreground shadow-sm backdrop-blur-md transition-colors hover:text-foreground",
-          surfaceBorderClass,
+          compact
+            ? "size-8 justify-center rounded-full border-0 bg-transparent p-0 shadow-none"
+            : cn(
+                "gap-1.5 rounded-full border py-1.5 pr-2.5 pl-2.5",
+                surfaceBorderClass,
+              ),
         )}
       >
         <Globe className="size-3.5" aria-hidden />
-        <span className="whitespace-nowrap">{current.label}</span>
-        <ChevronDown
-          className={cn("size-3.5 transition-transform duration-200", open && "rotate-180")}
-          aria-hidden
-        />
+        {compact ? null : (
+          <>
+            <span className="whitespace-nowrap">{current.label}</span>
+            <ChevronDown
+              className={cn(
+                "size-3.5 transition-transform duration-200",
+                open && "rotate-180",
+              )}
+              aria-hidden
+            />
+          </>
+        )}
       </button>
 
       <AnimatePresence>
@@ -83,7 +104,9 @@ export function LanguageSwitcher() {
             transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
             className={cn(
               "absolute bottom-full left-0 z-20 mb-2 min-w-[10.5rem] origin-bottom-left rounded-2xl border p-1.5",
-              "sm:left-auto sm:right-0 sm:origin-bottom-right",
+              compact
+                ? "left-0 origin-bottom-left"
+                : "sm:left-auto sm:right-0 sm:origin-bottom-right",
               "bg-background/95 shadow-[0_12px_36px_-8px_rgba(3,26,24,0.28)] backdrop-blur-md dark:shadow-[0_12px_36px_-8px_rgba(0,0,0,0.5)]",
               surfaceBorderClass,
             )}
