@@ -80,12 +80,6 @@ const CARD_SHADOW_CLASS = cn(
   "dark:shadow-[0_1px_2px_rgba(0,0,0,0.18),0_8px_20px_-10px_rgba(0,0,0,0.4)]",
 );
 
-function savedLabel(saved: string, suffix: string) {
-  return /^\d/.test(saved)
-    ? `+${saved} ${suffix}`
-    : `${saved.charAt(0).toUpperCase()}${saved.slice(1)} ${suffix}`;
-}
-
 function TabTagline({ copy }: { copy: TaglineCopy }) {
   return (
     <p className="text-pretty text-[0.9375rem] leading-snug text-muted-foreground sm:text-base">
@@ -152,8 +146,8 @@ function TabPanelCard({
           </div>
         </div>
         {tab.saved ? (
-          <span className="w-fit shrink-0 rounded-md bg-emerald-500/10 px-2.5 py-1 font-mono text-xs font-semibold text-emerald-600 dark:text-emerald-400">
-            {savedLabel(tab.saved, t("savedSuffix"))}
+          <span className="w-fit max-w-[14rem] shrink-0 text-pretty rounded-md bg-emerald-500/10 px-2.5 py-1 font-mono text-xs font-semibold leading-snug text-emerald-600 dark:text-emerald-400 sm:max-w-[16rem]">
+            {tab.saved}
           </span>
         ) : tab.moreItems ? (
           <span className="w-fit shrink-0 rounded-md bg-primary/10 px-2.5 py-1 font-mono text-xs font-semibold text-primary">

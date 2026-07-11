@@ -52,7 +52,7 @@
     "calloutLine2": "publique em todo lugar"
   },
   "videoShowcase": {
-    "bigLabel": "Velocidade",
+    "bigLabel": "Na prática",
     "play": "Reproduzir vídeo",
     "pause": "Pausar vídeo",
     "close": "Fechar vídeo"
@@ -103,13 +103,12 @@
     "descEmphasis2": "veja o que está incluído",
     "statsLabel": "{categories} categorias · {features}+ recursos",
     "tablistLabel": "Categorias de recursos",
-    "savedSuffix": "economizadas",
     "resourcesCount": "{count} recursos",
     "tabs": {
       "auth": {
         "label": "Autenticação",
         "tagline": { "emphasis": "Todo método de login", "rest": ", configurado e pronto." },
-        "saved": "12h",
+        "saved": "semanas a menos de dor de cabeça",
         "bullets": [
           { "label": "Login com Google", "detail": "iOS + Android + Web" },
           { "label": "Login com Apple", "detail": "iOS + Android + Web" },
@@ -123,7 +122,7 @@
       "subs": {
         "label": "Assinaturas",
         "tagline": { "emphasis": "Monetize desde o dia um", "rest": " com RevenueCat e Stripe." },
-        "saved": "15h",
+        "saved": "semanas a menos montando assinaturas",
         "bullets": [
           { "label": "Integração RevenueCat", "detail": "iOS + Android + Web" },
           { "label": "4 estilos de paywall", "detail": "Minimal, Grid, Row, Toggle" },
@@ -138,7 +137,7 @@
       "notif": {
         "label": "Notificações",
         "tagline": { "emphasis": "Push, in-app", "rest": " e lembretes locais." },
-        "saved": "10h",
+        "saved": "dias a menos montando push",
         "bullets": [
           { "label": "Push via Firebase Cloud Messaging", "detail": "FCM" },
           { "label": "Lista de notificações in-app", "detail": "com timestamps" },
@@ -152,7 +151,7 @@
       "ui": {
         "label": "Componentes",
         "tagline": { "emphasis": "60+ componentes, 95+ variantes", "rest": ", totalmente customizáveis." },
-        "saved": "semanas",
+        "saved": "~1 mês de UI do zero",
         "bullets": [
           { "label": "60+ componentes prontos para produção", "detail": "95+ variantes" },
           { "label": "Testados em iOS, Android e Web" },
@@ -169,7 +168,7 @@
       "sec": {
         "label": "Segurança",
         "tagline": { "emphasis": "Regras de nível produção", "rest": ", sem surpresas." },
-        "saved": "8h",
+        "saved": "+7 dias a menos de dor de cabeça",
         "bullets": [
           { "label": "Regras de segurança Firestore", "detail": "prontas para produção" },
           { "label": "Row Level Security (Supabase)", "detail": "pronto para produção" },
@@ -181,7 +180,7 @@
       "widget": {
         "label": "Widget nativo",
         "tagline": { "emphasis": "Widgets nativos na tela inicial", "rest": ", sincronizados." },
-        "saved": "6h",
+        "saved": "sem escrever extensão nativa",
         "bullets": [
           { "label": "Widget de tela inicial", "detail": "iOS e Android" },
           { "label": "Atualização automática", "detail": "em segundo plano" },
@@ -193,7 +192,7 @@
       "ai": {
         "label": "Chat com IA",
         "tagline": { "emphasis": "Chat integrado", "rest": " com OpenAI ou Gemini." },
-        "saved": "8h",
+        "saved": "sem briga com API key",
         "bullets": [
           { "label": "Interface de chat", "detail": "OpenAI ou Google Gemini" },
           { "label": "Histórico de conversas", "detail": "contexto completo" },

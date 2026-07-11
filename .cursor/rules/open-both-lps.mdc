@@ -1,0 +1,22 @@
+---
+description: Após editar Kit LP ou Club LP, garantir dev servers e abrir ambas no browser
+alwaysApply: true
+---
+
+# Abrir Kit LP e Club LP no browser
+
+Sempre que terminar alterações em **qualquer** destas LPs, faça isto no fim do turno (sem esperar o usuário pedir):
+
+| LP | Repo | URL típica |
+|---|---|---|
+| Kit | `/Users/paulomorales/LandingPage` | `http://localhost:3001/pt` |
+| Club | `/Users/paulomorales/Kasy-Club` | `http://localhost:3000/pt` |
+
+## Passos
+
+1. Verificar se `npm run dev` está ativo em cada repo (portas acima; confirmar com `lsof`/`curl` se necessário).
+2. Se faltar um servidor: subir com `npm run dev` (Club: `-p 3000`; Kit: `-p 3001` se 3000 estiver ocupada).
+3. Abrir **as duas** URLs no browser padrão: `open http://localhost:3001/pt` e `open http://localhost:3000/pt`.
+4. Devolver as URLs na resposta final.
+
+Aplica-se a edições em Kit **ou** Club: mesmo editando só uma, abrir as duas.

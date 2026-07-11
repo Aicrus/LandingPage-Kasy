@@ -221,7 +221,7 @@ function DeviceToolbar() {
           <Camera className="size-[0.9em]" strokeWidth={iconStroke} />
         </ToolbarIcon>
       </span>
-      <ToolbarIcon className="mx-[0.2em] size-[1.55em] rounded-[0.32em] bg-[#0a84ff] text-white">
+      <ToolbarIcon className="mx-[0.2em] size-[1.55em] rounded-[0.32em] bg-primary text-primary-foreground">
         <SquareDashedMousePointer className="size-[0.78em]" strokeWidth={iconStroke} />
       </ToolbarIcon>
       <ToolbarIcon className="mx-[0.1em]">
@@ -254,7 +254,7 @@ function ComposerToolbar() {
       </div>
       <div className="flex items-center gap-[0.45em]">
         <Mic className="size-[0.95em] text-foreground/45" strokeWidth={2} />
-        <span className="flex size-[1.55em] items-center justify-center rounded-full bg-foreground text-background dark:bg-[#f5f8f7] dark:text-[#0b1211]">
+        <span className="flex size-[1.55em] items-center justify-center rounded-full bg-foreground text-background dark:bg-[#f5f8f7] dark:text-[#0c1211]">
           <svg
             aria-hidden
             viewBox="0 0 16 16"

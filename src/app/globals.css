@@ -171,14 +171,20 @@
   --max-width-fluid-body: 72ch;
   --max-width-fluid-subtitle: 80ch;
 
-  /* Header — largura da barra + altura do header fixo no mobile (< 640px) */
+  /* Header — largura da barra + altura do header fixo no mobile (< 640px).
+     --header-brand-slot trava a altura da fileira (igual no Kit e no Clube),
+     mesmo quando a wordmark visual tem tamanhos diferentes. */
   --max-width-header: min(62rem, calc(100% - 2 * var(--spacing-page-x)));
-  --header-height-mobile: 3.5rem;
+  --header-brand-slot: 2.5rem;
+  --logo-wordmark-height: 2rem;
+  --header-height-mobile: calc(var(--header-brand-slot) + 1.25rem);
 }
 
-/* Tablet (sm+): tipografia dos feature cards */
+/* Tablet (sm+): tipografia dos feature cards + slot da logo no header */
 @media (min-width: 640px) {
   :root {
+    --header-brand-slot: 2.75rem;
+    --logo-wordmark-height: 2.25rem;
     --text-fluid-feature-title: 1.1875rem;
     --text-fluid-feature-desc: 0.875rem;
     --text-fluid-feature-num: 0.9375rem;
@@ -310,36 +316,37 @@
 }
 
 .dark {
-  --background: #0b1211;
+  /* Canvas com leve teal (meio-termo: nao neutro morto, nao verde forte) */
+  --background: #0c1211;
   --foreground: #f5f8f7;
-  --card: #0b1e1c;
+  --card: #101918;
   --card-foreground: #f5f8f7;
-  --popover: #0b1e1c;
+  --popover: #101918;
   --popover-foreground: #f5f8f7;
   --primary: #529c97;
-  --primary-foreground: #0b1211;
-  --secondary: #0c2422;
+  --primary-foreground: #0c1211;
+  --secondary: #121c1b;
   --secondary-foreground: #f5f8f7;
-  --muted: #0c2422;
-  --muted-foreground: #93c1be;
+  --muted: #121c1b;
+  --muted-foreground: #8aa3a0;
   --accent: #5eaaa5;
-  --accent-foreground: #0b1211;
+  --accent-foreground: #0c1211;
   --destructive: oklch(0.704 0.191 22.216);
   --border: #529c9733;
   --input: #529c9740;
   --ring: #529c97;
   --chart-1: #529c97;
-  --chart-2: #93c1be;
+  --chart-2: #8aa3a0;
   --chart-3: #f5f8f7;
-  --chart-4: #0b1e1c;
-  --chart-5: #0b1211;
+  --chart-4: #101918;
+  --chart-5: #0c1211;
   --copy-mark-highlight: color-mix(in srgb, #0f766e 40%, transparent);
   --heading-accent: #5eaaa5;
-  --sidebar: #0b1211;
+  --sidebar: #0c1211;
   --sidebar-foreground: #f5f8f7;
   --sidebar-primary: #529c97;
-  --sidebar-primary-foreground: #0b1211;
-  --sidebar-accent: #0c2422;
+  --sidebar-primary-foreground: #0c1211;
+  --sidebar-accent: #121c1b;
   --sidebar-accent-foreground: #f5f8f7;
   --sidebar-border: #529c9733;
   --sidebar-ring: #529c97;
@@ -372,16 +379,10 @@
 
   /* Logo wordmark (PNG): uma variante por tema, nunca as duas juntas */
   .logo-wordmark-img {
-    height: 1.75rem !important;
+    height: var(--logo-wordmark-height) !important;
     width: auto !important;
-    max-height: 2rem;
+    max-height: var(--header-brand-slot);
     object-fit: contain;
-  }
-
-  @media (min-width: 640px) {
-    .logo-wordmark-img {
-      height: 2rem !important;
-    }
   }
 
   html:not(.dark) .logo-wordmark-img--light {

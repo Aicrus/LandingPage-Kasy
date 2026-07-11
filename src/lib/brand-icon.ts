@@ -1,7 +1,7 @@
 /** Landing palette — keep in sync with `src/app/globals.css` (Teal #0F766E) */
 export const LANDING_BACKGROUND_LIGHT = "#f3f7f6";
 export const LANDING_PRIMARY_LIGHT = "#0f766e";
-export const LANDING_BACKGROUND_DARK = "#0b1211";
+export const LANDING_BACKGROUND_DARK = "#0c1211";
 export const LANDING_PRIMARY_DARK = "#529c97";
 
 /** Docs tab accents (favicon glow per section, dark UI) — variações do teal. */

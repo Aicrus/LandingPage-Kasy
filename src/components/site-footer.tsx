@@ -64,14 +64,14 @@ export function SiteFooter() {
       >
         <div className="flex flex-col gap-7 max-sm:gap-6 sm:flex-row sm:items-center sm:justify-between sm:gap-8">
           <div className="flex flex-col gap-3">
-            <div className="flex flex-wrap items-center gap-2.5">
+            <div className="flex flex-wrap items-center gap-1.5">
               <KasyLogo />
               <a
                 href="https://aicrus.io/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={cn(
-                  "rounded-full border px-2.5 py-0.5 text-[0.6875rem] font-medium text-muted-foreground transition-colors hover:text-foreground",
+                  "translate-y-[0.35rem] rounded-full border px-2 py-px text-[0.625rem] font-medium leading-none text-muted-foreground transition-colors hover:text-foreground",
                   surfaceBorderClass,
                 )}
               >

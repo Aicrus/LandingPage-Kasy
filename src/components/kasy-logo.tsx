@@ -12,18 +12,23 @@ type KasyLogoProps = {
 };
 
 const wordmarkClassName =
-  "logo-wordmark-img !h-7 sm:!h-8 !w-auto max-h-8 object-contain object-left";
+  "logo-wordmark-img !h-[length:var(--logo-wordmark-height)] !w-auto max-h-[length:var(--header-brand-slot)] object-contain object-left";
 
 export function KasyLogo({ className }: KasyLogoProps) {
   return (
-    <span className={cn("inline-flex h-8 items-center", className)}>
+    <span
+      className={cn(
+        "inline-flex h-[length:var(--header-brand-slot)] items-center",
+        className,
+      )}
+    >
       <Image
         src={KASY_WORDMARK.light.src}
         alt="Kasy"
         width={KASY_WORDMARK.light.width}
         height={KASY_WORDMARK.light.height}
         className={cn(wordmarkClassName, "logo-wordmark-img--light")}
-        style={{ width: "auto", height: "1.75rem" }}
+        style={{ width: "auto", height: "var(--logo-wordmark-height)" }}
         sizes="140px"
         priority
         unoptimized
@@ -34,7 +39,7 @@ export function KasyLogo({ className }: KasyLogoProps) {
         width={KASY_WORDMARK.dark.width}
         height={KASY_WORDMARK.dark.height}
         className={cn(wordmarkClassName, "logo-wordmark-img--dark")}
-        style={{ width: "auto", height: "1.75rem" }}
+        style={{ width: "auto", height: "var(--logo-wordmark-height)" }}
         sizes="140px"
         priority
         unoptimized

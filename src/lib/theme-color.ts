@@ -10,7 +10,7 @@
  */
 export const THEME_BACKGROUND = {
   light: "#f3f7f6",
-  dark: "#0b1211",
+  dark: "#0c1211",
 } as const;
 
 export const THEME_FAVICON = {

@@ -1,4 +1,4 @@
-export const CONTACT_EMAIL = "hello@kasy.dev" as const;
+export const CONTACT_EMAIL = "kasy@aicrus.io" as const;
 
 export function contactMailtoHref(subject?: string) {
   if (!subject) {
