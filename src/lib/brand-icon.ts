@@ -4,15 +4,15 @@ export const LANDING_PRIMARY_LIGHT = "#0553b1";
 export const LANDING_BACKGROUND_DARK = "#0a1220";
 export const LANDING_PRIMARY_DARK = "#4ba3ff";
 
-/** Docs tab accents (favicon glow per section, dark UI) — variações do Flutter blue/sky. */
+/** Docs tab accents (favicon glow per section, dark UI) — mesma ordem do docs.css no Kit. */
 export const SECTION_FAVICON_COLORS: Record<string, string> = {
   comece: LANDING_PRIMARY_DARK,
-  conceitos: "#5bb0ff",
-  funcionalidades: "#7ac0ff",
-  personalizacao: "#97ceff",
-  gerenciar: "#b4dbff",
-  publicar: "#d1e9ff",
-  referencia: "#e8effa",
+  conceitos: "#38bdf8",
+  funcionalidades: "#1cdac5",
+  gerenciar: "#fb923c",
+  personalizacao: "#a78bfa",
+  publicar: "#f472b6",
+  referencia: "#94a3b8",
 };
 
 type SphereOptions = {
