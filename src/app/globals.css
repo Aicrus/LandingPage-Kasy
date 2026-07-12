@@ -261,44 +261,52 @@
   }
 }
 
-/* Paleta Kasy — Teal técnico. Âncora #0F766E; demais tokens são variações */
+/* Paleta Kasy Kit — Flutter brand (flutter.dev/brand).
+   Primárias: Navy #042B59 · Blue #0553B1 · Sky #027DFD
+   Secundárias de apoio: Green #1CDAC5 · Purple #6200EE */
 :root {
-  --brand: #0f766e;
+  --flutter-navy: #042b59;
+  --flutter-blue: #0553b1;
+  --flutter-sky: #027dfd;
+  --flutter-green: #1cdac5;
+  --flutter-purple: #6200ee;
 
-  --background: #f3f7f6;
-  --foreground: #031a18;
-  --card: #fafbfb;
-  --card-foreground: #031a18;
-  --popover: #fafbfb;
-  --popover-foreground: #031a18;
-  --primary: #0f766e;
-  --primary-foreground: #f3f7f6;
-  --secondary: #ecf4f3;
-  --secondary-foreground: #031a18;
-  --muted: #ecf4f3;
-  --muted-foreground: #637170;
-  --accent: #0c615a;
-  --accent-foreground: #f3f7f6;
+  --brand: var(--flutter-blue);
+
+  --background: #f2f6fc;
+  --foreground: #042b59;
+  --card: #fafbfe;
+  --card-foreground: #042b59;
+  --popover: #fafbfe;
+  --popover-foreground: #042b59;
+  --primary: #0553b1;
+  --primary-foreground: #f2f6fc;
+  --secondary: #e8effa;
+  --secondary-foreground: #042b59;
+  --muted: #e8effa;
+  --muted-foreground: #5a6f8f;
+  --accent: #027dfd;
+  --accent-foreground: #f2f6fc;
   --destructive: oklch(0.577 0.245 27.325);
-  --border: #0f766e26;
-  --input: #0f766e33;
-  --ring: #0f766e;
-  --chart-1: #0f766e;
-  --chart-2: #529c97;
-  --chart-3: #031a18;
-  --chart-4: #f3f7f6;
-  --chart-5: #ecf4f3;
-  --copy-mark-highlight: #cfdfc7;
-  --heading-accent: #0f766e;
+  --border: #0553b126;
+  --input: #0553b133;
+  --ring: #0553b1;
+  --chart-1: #0553b1;
+  --chart-2: #027dfd;
+  --chart-3: #042b59;
+  --chart-4: #f2f6fc;
+  --chart-5: #1cdac5;
+  --copy-mark-highlight: #b8d9ff;
+  --heading-accent: #027dfd;
   --radius: 0.625rem;
-  --sidebar: #f3f7f6;
-  --sidebar-foreground: #031a18;
-  --sidebar-primary: #0f766e;
-  --sidebar-primary-foreground: #f3f7f6;
-  --sidebar-accent: #ecf4f3;
-  --sidebar-accent-foreground: #031a18;
-  --sidebar-border: #0f766e26;
-  --sidebar-ring: #0f766e;
+  --sidebar: #f2f6fc;
+  --sidebar-foreground: #042b59;
+  --sidebar-primary: #0553b1;
+  --sidebar-primary-foreground: #f2f6fc;
+  --sidebar-accent: #e8effa;
+  --sidebar-accent-foreground: #042b59;
+  --sidebar-border: #0553b126;
+  --sidebar-ring: #0553b1;
 
   /* Header blur — opacidade real do --background (não color-mix com transparent:
      transparent = preto com alpha 0 e distorce a cor em oklch). */
@@ -316,40 +324,40 @@
 }
 
 .dark {
-  /* Canvas com leve teal (meio-termo: nao neutro morto, nao verde forte) */
-  --background: #0c1211;
-  --foreground: #f5f8f7;
-  --card: #101918;
-  --card-foreground: #f5f8f7;
-  --popover: #101918;
-  --popover-foreground: #f5f8f7;
-  --primary: #529c97;
-  --primary-foreground: #0c1211;
-  --secondary: #121c1b;
-  --secondary-foreground: #f5f8f7;
-  --muted: #121c1b;
-  --muted-foreground: #8aa3a0;
-  --accent: #5eaaa5;
-  --accent-foreground: #0c1211;
+  /* Canvas navy profundo — azul Flutter, não cinza morto */
+  --background: #0a1220;
+  --foreground: #e8f0fc;
+  --card: #0f1a2c;
+  --card-foreground: #e8f0fc;
+  --popover: #0f1a2c;
+  --popover-foreground: #e8f0fc;
+  --primary: #4ba3ff;
+  --primary-foreground: #0a1220;
+  --secondary: #121d30;
+  --secondary-foreground: #e8f0fc;
+  --muted: #121d30;
+  --muted-foreground: #8ba0bf;
+  --accent: #5bb0ff;
+  --accent-foreground: #0a1220;
   --destructive: oklch(0.704 0.191 22.216);
-  --border: #529c9733;
-  --input: #529c9740;
-  --ring: #529c97;
-  --chart-1: #529c97;
-  --chart-2: #8aa3a0;
-  --chart-3: #f5f8f7;
-  --chart-4: #101918;
-  --chart-5: #0c1211;
-  --copy-mark-highlight: color-mix(in srgb, #0f766e 40%, transparent);
-  --heading-accent: #5eaaa5;
-  --sidebar: #0c1211;
-  --sidebar-foreground: #f5f8f7;
-  --sidebar-primary: #529c97;
-  --sidebar-primary-foreground: #0c1211;
-  --sidebar-accent: #121c1b;
-  --sidebar-accent-foreground: #f5f8f7;
-  --sidebar-border: #529c9733;
-  --sidebar-ring: #529c97;
+  --border: #4ba3ff33;
+  --input: #4ba3ff40;
+  --ring: #4ba3ff;
+  --chart-1: #4ba3ff;
+  --chart-2: #027dfd;
+  --chart-3: #e8f0fc;
+  --chart-4: #0f1a2c;
+  --chart-5: #1cdac5;
+  --copy-mark-highlight: color-mix(in srgb, #027dfd 42%, transparent);
+  --heading-accent: #5bb0ff;
+  --sidebar: #0a1220;
+  --sidebar-foreground: #e8f0fc;
+  --sidebar-primary: #4ba3ff;
+  --sidebar-primary-foreground: #0a1220;
+  --sidebar-accent: #121d30;
+  --sidebar-accent-foreground: #e8f0fc;
+  --sidebar-border: #4ba3ff33;
+  --sidebar-ring: #4ba3ff;
 
   /* Header blur — fill um pouco maior no dark para compensar o backdrop-filter */
   --header-blur-fill: 82%;
@@ -533,6 +541,11 @@
       color-mix(in oklch, var(--background) 46%, transparent) 100%
     );
   }
+}
+
+/* Hero dark — leve virada para Flutter Navy (arte original tinha teal residual) */
+.hero-kit-backdrop-flutter-tint {
+  filter: hue-rotate(18deg) saturate(1.08);
 }
 
 /* Indicador online — pulso leve no hero */

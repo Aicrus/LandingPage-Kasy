@@ -9,8 +9,8 @@
  *  - Só DOIS atores: 1 script no <head> (primeiro paint) + 1 observer em runtime.
  */
 export const THEME_BACKGROUND = {
-  light: "#f3f7f6",
-  dark: "#0c1211",
+  light: "#f2f6fc",
+  dark: "#0a1220",
 } as const;
 
 export const THEME_FAVICON = {

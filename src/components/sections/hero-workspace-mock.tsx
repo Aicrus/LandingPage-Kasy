@@ -254,7 +254,7 @@ function ComposerToolbar() {
       </div>
       <div className="flex items-center gap-[0.45em]">
         <Mic className="size-[0.95em] text-foreground/45" strokeWidth={2} />
-        <span className="flex size-[1.55em] items-center justify-center rounded-full bg-foreground text-background dark:bg-[#f5f8f7] dark:text-[#0c1211]">
+        <span className="flex size-[1.55em] items-center justify-center rounded-full bg-foreground text-background dark:bg-[#e8f0fc] dark:text-[#0a1220]">
           <svg
             aria-hidden
             viewBox="0 0 16 16"
@@ -503,7 +503,7 @@ function PlatformTargets() {
           className={cn(
             "flex size-[1.55em] items-center justify-center rounded-[0.28em] transition-colors",
             active
-              ? "bg-black/[0.06] text-foreground dark:bg-white/[0.1] dark:text-[#f5f8f7]"
+              ? "bg-black/[0.06] text-foreground dark:bg-white/[0.1] dark:text-[#e8f0fc]"
               : "text-[#8b93a7] opacity-70 dark:text-[#7d869c]",
           )}
         >

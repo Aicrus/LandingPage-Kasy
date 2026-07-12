@@ -104,7 +104,7 @@ const ROW_TWO_META: CategoryMeta[] = [
 ];
 
 const cardShadowClass = cn(
-  "shadow-[0_1px_2px_rgba(3,26,24,0.04),0_6px_16px_-10px_rgba(3,26,24,0.12)]",
+  "shadow-[0_1px_2px_rgba(4,43,89,0.04),0_6px_16px_-10px_rgba(4,43,89,0.12)]",
   "dark:shadow-[0_1px_2px_rgba(0,0,0,0.18),0_8px_20px_-10px_rgba(0,0,0,0.4)]",
 );
 

@@ -92,7 +92,7 @@ export function HeroAiSubsPill() {
   return (
     <div
       className={cn(
-        "inline-flex max-w-full items-center gap-3 rounded-full border-[1.5px] border-solid px-3.5 py-1 shadow-[0_1px_36px_-10px_rgba(3,26,24,0.02)] sm:gap-3.5 sm:px-4 sm:py-1.5 dark:shadow-[0_1px_36px_-10px_rgba(0,0,0,0.075)]",
+        "inline-flex max-w-full items-center gap-3 rounded-full border-[1.5px] border-solid px-3.5 py-1 shadow-[0_1px_36px_-10px_rgba(4,43,89,0.02)] sm:gap-3.5 sm:px-4 sm:py-1.5 dark:shadow-[0_1px_36px_-10px_rgba(0,0,0,0.075)]",
         heroPillSurfaceClass,
         surfaceBorderClass,
       )}

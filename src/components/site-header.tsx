@@ -35,7 +35,7 @@ const MORPH_DURATION_UP = 0.26;
 const headerShellBorderClass = cn("border-[0.5px]", surfaceBorderClass);
 
 const headerCtaButtonClass =
-  "h-auto shrink-0 rounded-full px-4 py-2 shadow-[0_1px_4px_rgba(3,26,24,0.05),0_12px_36px_-4px_rgba(3,26,24,0.11)] hover:shadow-[0_1px_4px_rgba(3,26,24,0.06),0_14px_40px_-4px_rgba(3,26,24,0.13)] dark:shadow-none dark:hover:shadow-none";
+  "h-auto shrink-0 rounded-full px-4 py-2 shadow-[0_1px_4px_rgba(4,43,89,0.05),0_12px_36px_-4px_rgba(4,43,89,0.11)] hover:shadow-[0_1px_4px_rgba(4,43,89,0.06),0_14px_40px_-4px_rgba(4,43,89,0.13)] dark:shadow-none dark:hover:shadow-none";
 
 const headerCtaButtonFlatClass =
   "bg-card hover:bg-card/92 dark:bg-input/30 dark:hover:bg-input/50 shadow-none hover:shadow-none dark:shadow-none dark:hover:shadow-none";

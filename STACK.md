@@ -127,7 +127,7 @@ Integração configurada em:
 
 Definidos em `src/app/globals.css`:
 
-- Âncora da marca: `#0F766E` (Teal técnico; demais tokens são variações: claro, escuro, muted, tint)
+- Âncora da marca: `#0553B1` (Flutter Blue; família oficial: Navy `#042B59`, Blue `#0553B1`, Sky `#027DFD`)
 - Light / dark via classe `.dark`
 - Tokens: `--background`, `--foreground`, `--primary`, `--muted`, `--border`, `--radius`, etc.
 - Border radius escalonado: `--radius-sm` até `--radius-4xl`

@@ -1,18 +1,18 @@
-/** Landing palette — keep in sync with `src/app/globals.css` (Teal #0F766E) */
-export const LANDING_BACKGROUND_LIGHT = "#f3f7f6";
-export const LANDING_PRIMARY_LIGHT = "#0f766e";
-export const LANDING_BACKGROUND_DARK = "#0c1211";
-export const LANDING_PRIMARY_DARK = "#529c97";
+/** Landing palette — keep in sync with `src/app/globals.css` (Flutter Blue #0553B1) */
+export const LANDING_BACKGROUND_LIGHT = "#f2f6fc";
+export const LANDING_PRIMARY_LIGHT = "#0553b1";
+export const LANDING_BACKGROUND_DARK = "#0a1220";
+export const LANDING_PRIMARY_DARK = "#4ba3ff";
 
-/** Docs tab accents (favicon glow per section, dark UI) — variações do teal. */
+/** Docs tab accents (favicon glow per section, dark UI) — variações do Flutter blue/sky. */
 export const SECTION_FAVICON_COLORS: Record<string, string> = {
   comece: LANDING_PRIMARY_DARK,
-  conceitos: "#5eaaa5",
-  funcionalidades: "#7bb8b3",
-  personalizacao: "#93c1be",
-  gerenciar: "#a9cecb",
-  publicar: "#c5dedb",
-  referencia: "#ecf4f3",
+  conceitos: "#5bb0ff",
+  funcionalidades: "#7ac0ff",
+  personalizacao: "#97ceff",
+  gerenciar: "#b4dbff",
+  publicar: "#d1e9ff",
+  referencia: "#e8effa",
 };
 
 type SphereOptions = {

@@ -35,7 +35,14 @@ function FooterBackdropArt() {
         alt=""
         fill
         sizes="115vw"
-        className={cn(footerArtImageClass, "hidden dark:block")}
+        className={cn(
+          footerArtImageClass,
+          "hero-kit-backdrop-flutter-tint hidden dark:block",
+        )}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 hidden bg-[color-mix(in_srgb,var(--flutter-navy)_22%,transparent)] mix-blend-soft-light dark:block"
       />
       <div className="footer-backdrop-fade absolute inset-0" />
     </div>

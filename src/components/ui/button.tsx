@@ -13,7 +13,7 @@ const buttonVariants = cva(
         outline: cn(
           "border border-[0.5px] border-solid",
           surfaceBorderClass,
-          "bg-background shadow-[0_1px_3px_rgba(3,26,24,0.04),0_8px_24px_-6px_rgba(3,26,24,0.07)] hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:bg-input/30 dark:shadow-none dark:hover:bg-input/50",
+          "bg-background shadow-[0_1px_3px_rgba(4,43,89,0.04),0_8px_24px_-6px_rgba(4,43,89,0.07)] hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:bg-input/30 dark:shadow-none dark:hover:bg-input/50",
         ),
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] aria-expanded:bg-secondary aria-expanded:text-secondary-foreground",

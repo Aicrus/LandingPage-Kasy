@@ -53,8 +53,17 @@ function HeroKitBackdropImage({ variant }: { variant: "light" | "dark" }) {
         loading="eager"
         /* Frame é 100vw, mas o scale-[1.13]/scale-[1.2] (mobile) amplia o render visual — sizes reflete isso */
         sizes="(max-width: 639px) 120vw, 113vw"
-        className={heroKitBackdropImageClass}
+        className={cn(
+          heroKitBackdropImageClass,
+          variant === "dark" && "hero-kit-backdrop-flutter-tint",
+        )}
       />
+      {variant === "dark" ? (
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-[color-mix(in_srgb,var(--flutter-navy)_22%,transparent)] mix-blend-soft-light"
+        />
+      ) : null}
       <div className="hero-kit-backdrop-fade-bottom absolute inset-x-0 bottom-0" />
     </div>
   );

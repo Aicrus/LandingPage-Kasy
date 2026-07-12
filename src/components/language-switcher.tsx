@@ -107,7 +107,7 @@ export function LanguageSwitcher({ compact = false }: LanguageSwitcherProps) {
               compact
                 ? "left-0 origin-bottom-left"
                 : "sm:left-auto sm:right-0 sm:origin-bottom-right",
-              "bg-background/95 shadow-[0_12px_36px_-8px_rgba(3,26,24,0.28)] backdrop-blur-md dark:shadow-[0_12px_36px_-8px_rgba(0,0,0,0.5)]",
+              "bg-background/95 shadow-[0_12px_36px_-8px_rgba(4,43,89,0.28)] backdrop-blur-md dark:shadow-[0_12px_36px_-8px_rgba(0,0,0,0.5)]",
               surfaceBorderClass,
             )}
           >
