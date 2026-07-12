@@ -9,7 +9,8 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/80",
+        default:
+          "bg-primary text-primary-foreground hover:bg-[color-mix(in_srgb,var(--primary),white_16%)] dark:hover:text-white",
         outline: cn(
           "border border-[0.5px] border-solid",
           surfaceBorderClass,

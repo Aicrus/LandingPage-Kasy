@@ -221,7 +221,7 @@ function DeviceToolbar() {
           <Camera className="size-[0.9em]" strokeWidth={iconStroke} />
         </ToolbarIcon>
       </span>
-      <ToolbarIcon className="mx-[0.2em] size-[1.55em] rounded-[0.32em] bg-primary text-primary-foreground">
+      <ToolbarIcon className="mx-[0.2em] size-[1.55em] rounded-[0.32em] bg-primary text-white dark:text-white">
         <SquareDashedMousePointer className="size-[0.78em]" strokeWidth={iconStroke} />
       </ToolbarIcon>
       <ToolbarIcon className="mx-[0.1em]">
