@@ -48,8 +48,8 @@
   "heroWorkspaceMock": {
     "composerAriaLabel": "Mensagem do composer",
     "phoneAlt": "Interface mobile do Kasy, controle remoto dos agentes",
-    "calloutLine1": "construa uma vez,",
-    "calloutLine2": "publique em todo lugar"
+    "calloutLine1": "o device no navegador,",
+    "calloutLine2": "o app em todo lugar"
   },
   "videoShowcase": {
     "bigLabel": "Na prática",

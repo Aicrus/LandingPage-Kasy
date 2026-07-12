@@ -48,8 +48,8 @@
   "heroWorkspaceMock": {
     "composerAriaLabel": "Composer message",
     "phoneAlt": "Kasy's mobile interface, remote control for agents",
-    "calloutLine1": "build once,",
-    "calloutLine2": "ship everywhere"
+    "calloutLine1": "the device in the browser,",
+    "calloutLine2": "the app everywhere"
   },
   "videoShowcase": {
     "bigLabel": "In practice",
