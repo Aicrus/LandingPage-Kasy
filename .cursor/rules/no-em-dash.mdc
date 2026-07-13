@@ -1,0 +1,13 @@
+---
+description: Nunca usar travessão (em dash —) em copy, UI ou textos do Paulo
+alwaysApply: true
+---
+
+# Sem travessão
+
+O Paulo **não usa travessão** (caractere `—`, em dash / em-dash).
+
+- Nunca escreva `—` em copy de LP, UI, FAQ, e-mails, commits ou mensagens.
+- Prefira vírgula, ponto, dois-pontos, parênteses ou reformule a frase.
+- Evite também o padrão típico de IA: frase — frase — frase.
+- Em português, inglês e espanhol: mesma regra.

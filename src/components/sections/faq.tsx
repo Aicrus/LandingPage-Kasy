@@ -13,6 +13,8 @@ type FaqItem = {
   id: string;
   question: string;
   answer: string;
+  linkHref?: string;
+  linkLabel?: string;
 };
 
 const cardShadowClass = cn(
@@ -94,9 +96,21 @@ export function Faq() {
                   "data-[starting-style]:h-0 data-[ending-style]:h-0",
                 )}
               >
-                <p className="px-5 pb-5 text-[0.875rem] leading-[1.6] text-muted-foreground sm:px-6 sm:pb-6">
-                  {item.answer}
-                </p>
+                <div className="px-5 pb-5 sm:px-6 sm:pb-6">
+                  <p className="text-[0.875rem] leading-[1.6] text-muted-foreground">
+                    {item.answer}
+                  </p>
+                  {item.linkHref && item.linkLabel ? (
+                    <a
+                      href={item.linkHref}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-2 inline-flex text-[0.875rem] font-medium text-primary underline-offset-4 hover:underline"
+                    >
+                      {item.linkLabel}
+                    </a>
+                  ) : null}
+                </div>
               </Accordion.Panel>
             </Accordion.Item>
           ))}

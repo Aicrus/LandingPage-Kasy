@@ -1,24 +1,24 @@
 {
   "metadata": {
     "title": "Kasy | Ship your Flutter app in 7 days",
-    "description": "The complete Flutter starter: backend, auth, payments, UI and logic, ready to go. Ship on iOS, Android and Web on day one."
+    "description": "The complete Flutter kit for people with an idea, not months of setup. Backend, auth, payments, UI, and CLI ready. iOS, Android, and Web on day one."
   },
   "header": {
     "docs": "Documentation",
     "docsShort": "Docs",
-    "cta": "Get Kasy Pro"
+    "cta": "Get Kasy"
   },
   "footer": {
     "byAicrus": "by Aicrus LLC",
     "tagline": {
-      "lead": "The Flutter starter that ships on iOS,",
-      "tail": "Android and Web on day one."
+      "lead": "The Flutter kit to ship on iOS,",
+      "tail": "Android, and Web without building everything from scratch."
     },
     "links": {
       "pricing": "Pricing",
       "docs": "Documentation"
     },
-    "cta": "Get Kasy Pro",
+    "cta": "Get Kasy",
     "contactLabel": "Questions?",
     "copyright": "© 2026 Kasy. All rights reserved."
   },
@@ -34,20 +34,20 @@
   "heroIntro": {
     "titleEmphasis": "Ship your app",
     "titleRest": "in 7 days.",
-    "leadPart1": "The only complete Flutter kit: backend, auth, payments, UI and logic, ready to go.",
-    "leadPart2": "You focus on what makes your app unique.",
-    "cta": "Get Kasy Pro"
+    "leadPart1": "No weeks of setup. No reinventing components. No rework for Android, iOS, and Web.",
+    "leadPart2": "The complete Flutter kit: backend, auth, payments, UI, and our CLI. You focus on the idea.",
+    "cta": "Get Kasy"
   },
   "heroSocialProof": {
-    "prefix": "Loved by",
-    "count": "70+ users"
+    "prefix": "Used by",
+    "count": "70+ creators"
   },
   "heroAiSubsPill": {
-    "label": "With your favorite IDE."
+    "label": "Works with your favorite IDE."
   },
   "heroWorkspaceMock": {
     "composerAriaLabel": "Composer message",
-    "phoneAlt": "Kasy's mobile interface, remote control for agents",
+    "phoneAlt": "Kasy mobile interface, remote control for agents",
     "calloutLine1": "the device in the browser,",
     "calloutLine2": "the app everywhere"
   },
@@ -58,29 +58,29 @@
     "close": "Close video"
   },
   "featureHoverCards": {
-    "heading": "From code to store",
-    "subtitle": "Backend, branding and publishing. Everything missing between the kit and the App Store.",
+    "heading": "What slows the launch",
+    "subtitle": "Setup, visual identity, and multi-platform work, handled before you open the editor.",
     "cards": {
       "commands": {
-        "title": "Smart CLI",
-        "description": "Multilingual and self-configuring. Answer a few prompts and it sets up nearly everything on its own. Built for non-developers in the terminal.",
-        "alt": "Kasy CLI terminal with guided setup in Portuguese"
+        "title": "Our smart CLI",
+        "description": "Tired of burning AI tokens (and money) just to configure a project? Answer a few prompts: our multilingual CLI sets up nearly everything on its own. Also built for people who have never written a hello world.",
+        "alt": "Kasy CLI terminal with guided setup"
       },
       "branding": {
-        "title": "Your brand",
-        "description": "Rebrand skills included with every project. Use Cursor or Claude with your Figma file and AI applies your identity to the kit. Typography, icons, colors and spacing in minutes.",
+        "title": "Your visual identity",
+        "description": "Rebrand skills ship with the project. With Cursor or Claude and your Figma file, AI applies typography, icons, colors, and spacing to the kit in minutes, not weeks.",
         "alt": "Kasy design system colors and token panel"
       },
       "everywhere": {
-        "title": "One codebase",
-        "description": "One setup for Android, iOS and Web. No rework between platforms. With Preview Device, validate your implementation with fidelity on the Web.",
+        "title": "iOS, Android, and Web",
+        "description": "Stop rebuilding for each platform. With Flutter, one codebase covers all three without the usual cross-platform rework. With Preview Device, you validate in the browser with real fidelity.",
         "alt": "App Preview Device on iPhone 16"
       }
     }
   },
   "integrationsShowcase": {
-    "heading": "Everything your Flutter app needs",
-    "subtitle": "Backend, authentication, subscriptions, ads, push and publishing, all integrated, ready on day one.",
+    "heading": "Everything a real app needs",
+    "subtitle": "Backend, login, subscriptions, ads, push notifications, and publishing, already wired. You don't assemble the stack. You ship.",
     "categories": {
       "backend": { "title": "Backend", "detail": "Firebase · Supabase · REST" },
       "auth": { "title": "Authentication", "detail": "Google · Apple · Facebook" },
@@ -90,16 +90,16 @@
       "ui": { "title": "UI components", "detail": "60+ components · 95+ variants" },
       "cicd": { "title": "CI/CD", "detail": "Codemagic" },
       "platforms": { "title": "Platforms", "detail": "iOS · Android · Web" },
-      "aiReady": { "title": "AI-Ready", "detail": "Cursor · Claude Code · Windsurf" }
+      "aiReady": { "title": "AI-ready", "detail": "Cursor · Claude Code · Windsurf" }
     }
   },
   "whatYouGet": {
     "eyebrow": "What you get",
-    "headingPart1": "Everything you need.",
-    "headingEmphasis": "Nothing else.",
+    "headingPart1": "Ready to ship.",
+    "headingEmphasis": "Not ready to assemble.",
     "descPart1": "Every category comes",
-    "descEmphasis1": "ready to ship",
-    "descPart2": "Click a tab and",
+    "descEmphasis1": "store-ready",
+    "descPart2": "Open a tab and",
     "descEmphasis2": "see what's included",
     "statsLabel": "{categories} categories · {features}+ features",
     "tablistLabel": "Feature categories",
@@ -130,7 +130,7 @@
           { "label": "A/B testing via RevenueCat Experiments", "detail": "no rebuild" },
           { "label": "Real-time subscription state", "detail": "synced via webhook" },
           { "label": "Swap the paywall from the dashboard", "detail": "no rebuild" },
-          { "label": "Paywall guard", "detail": "redirects premium content" },
+          { "label": "Paywall guard", "detail": "protects premium content" },
           { "label": "Free trial support" }
         ]
       },
@@ -139,22 +139,22 @@
         "tagline": { "emphasis": "Push, in-app", "rest": " and local reminders." },
         "saved": "days less wiring push",
         "bullets": [
-          { "label": "Push via Firebase Cloud Messaging", "detail": "FCM" },
+          { "label": "Push notifications via Firebase Cloud Messaging", "detail": "FCM" },
           { "label": "In-app notification list", "detail": "with timestamps" },
           { "label": "Badge counter", "detail": "unread" },
           { "label": "Deep link", "detail": "tap the notification, opens the right screen" },
           { "label": "Token management", "detail": "device and cleanup" },
           { "label": "Cloud Function", "detail": "delivery via webhook" },
-          { "label": "Local reminders", "detail": "daily, weekly or one-off, no server" }
+          { "label": "Local reminders", "detail": "daily, weekly, or one-off, no server" }
         ]
       },
       "ui": {
         "label": "Components",
-        "tagline": { "emphasis": "60+ components, 95+ variants", "rest": ", fully customizable." },
+        "tagline": { "emphasis": "60+ components, 95+ variants", "rest": ", ready to customize." },
         "saved": "~1 month of UI from scratch",
         "bullets": [
           { "label": "60+ production-ready components", "detail": "95+ variants" },
-          { "label": "Tested on iOS, Android and Web" },
+          { "label": "Tested on iOS, Android, and Web" },
           { "label": "Dark and light mode", "detail": "automatic or user-switched" },
           {
             "label": "Full library",
@@ -167,19 +167,19 @@
       },
       "sec": {
         "label": "Security",
-        "tagline": { "emphasis": "Production-grade rules", "rest": ", no surprises." },
+        "tagline": { "emphasis": "Production-grade rules", "rest": ", no store surprises." },
         "saved": "7+ days less of headache",
         "bullets": [
-          { "label": "Firestore security rules", "detail": "production ready" },
-          { "label": "Row Level Security (Supabase)", "detail": "production ready" },
+          { "label": "Firestore security rules", "detail": "production-ready" },
+          { "label": "Row Level Security (Supabase)", "detail": "production-ready" },
           { "label": "Firebase Storage rules", "detail": "per-user isolation" },
-          { "label": "App Store and Play Store permissions", "detail": "handled, no rejections" },
-          { "label": "Dart-defines", "detail": "separate dev from production, no secrets in code" }
+          { "label": "App Store and Play Store permissions", "detail": "handled, fewer rejections" },
+          { "label": "Dart defines", "detail": "separate dev from production, no secrets in code" }
         ]
       },
       "widget": {
         "label": "Native widget",
-        "tagline": { "emphasis": "Native home-screen widgets", "rest": ", synced." },
+        "tagline": { "emphasis": "Native home-screen widgets", "rest": ", kept in sync." },
         "saved": "no native extension code",
         "bullets": [
           { "label": "Home-screen widget", "detail": "iOS and Android" },
@@ -190,7 +190,7 @@
         ]
       },
       "ai": {
-        "label": "AI Chat",
+        "label": "AI chat",
         "tagline": { "emphasis": "Built-in chat", "rest": " with OpenAI or Gemini." },
         "saved": "no API key fights",
         "bullets": [
@@ -198,34 +198,34 @@
           { "label": "Conversation history", "detail": "full context" },
           { "label": "Server-side API key", "detail": "never in the app" },
           { "label": "Secure proxy", "detail": "Cloud Function (Firebase) or Edge Function (Supabase)" },
-          { "label": "Full UI", "detail": "bubbles, loading, send input" }
+          { "label": "Full UI", "detail": "bubbles, loading, send field" }
         ]
       },
       "more": {
         "label": "More",
-        "tagline": { "emphasis": "Everything else.", "rest": " No feature left out." },
+        "tagline": { "emphasis": "The rest of the product.", "rest": " Nothing essential left out." },
         "saved": null,
         "moreItems": [
           { "label": "Profile", "desc": "Update your name, link or unlink accounts, change your avatar" },
-          { "label": "Ads", "desc": "Banner, interstitial, rewarded and rewarded-interstitial" },
-          { "label": "File upload", "desc": "Progress, cancelable uploads and folder organization" },
-          { "label": "Settings", "desc": "Theme, color, language and haptic feedback selection" },
+          { "label": "Ads", "desc": "Banner, interstitial, rewarded, and rewarded-interstitial" },
+          { "label": "File upload", "desc": "Progress, cancelable uploads, and folder organization" },
+          { "label": "Settings", "desc": "Theme, colors, language, and haptic feedback" },
           { "label": "Onboarding", "desc": "Customizable first-run experience" },
           { "label": "Analytics", "desc": "Mixpanel with event tracking and navigation observer" },
-          { "label": "Crash reporting", "desc": "Sentry to monitor production errors, with source map upload" },
-          { "label": "Localization", "desc": "EN, PT and ES included, easy to extend" },
-          { "label": "Notes (CRUD example)", "desc": "Create, read, update and delete with real-time sync" },
+          { "label": "Crash reporting", "desc": "Sentry for production errors, with source map upload" },
+          { "label": "Localization", "desc": "EN, PT, and ES included, easy to extend" },
+          { "label": "Notes (CRUD example)", "desc": "Create, read, update, and delete with real-time sync" },
           { "label": "Logging service", "desc": "Structured, leveled logging, ready to use" },
-          { "label": "Timezone", "desc": "Timezone-aware scheduling that just works" },
-          { "label": "Open URLs", "desc": "Open URLs, emails and phone numbers natively" },
+          { "label": "Timezone", "desc": "Timezone-aware scheduling that actually works" },
+          { "label": "Open URLs", "desc": "Open URLs, emails, and phone numbers natively" },
           { "label": "File picker", "desc": "Pick files and images directly from the device" },
-          { "label": "Haptic feedback", "desc": "Configurable haptic feedback across the app" },
+          { "label": "Haptic feedback", "desc": "Configurable haptics across the app" },
           { "label": "Update checker", "desc": "Automatic version checks with an update prompt" },
           { "label": "Forced update", "desc": "Mandatory update for critical versions" },
-          { "label": "CI/CD", "desc": "Codemagic and GitHub Actions for test, build and deploy" },
-          { "label": "Strict linting", "desc": "Opinionated lint rules for consistent code quality" },
-          { "label": "Accessibility", "desc": "Screen readers, semantic labels and a11y best practices" },
-          { "label": "AI editor support", "desc": "Rules, agents and skills for Cursor, Claude Code and Windsurf" },
+          { "label": "CI/CD", "desc": "Codemagic for test, build, and deploy" },
+          { "label": "Strict linting", "desc": "Well-defined lint rules for consistent quality" },
+          { "label": "Accessibility", "desc": "Screen readers, semantic labels, and a11y best practices" },
+          { "label": "AI editor support", "desc": "Rules, agents, and skills for Cursor, Claude Code, and Windsurf" },
           { "label": "Web (PWA)", "desc": "Runs in the browser as a PWA" },
           { "label": "Feature requests", "desc": "Users suggest and vote on features in the app" }
         ]
@@ -233,9 +233,9 @@
     }
   },
   "appShowcase": {
-    "eyebrow": "Made with Kasy",
-    "heading": "Build the next big app.",
-    "subtitle": "Our kit is more than code, it's a launch platform. See what's possible when you skip the setup.",
+    "eyebrow": "Ideas shipping",
+    "heading": "Your idea. In the stores.",
+    "subtitle": "More than code: the shortest path from idea to a published app. See what's possible when you skip the setup.",
     "cardAlt": "App built with Kasy",
     "centerCard": "Show this app in focus",
     "prev": "Previous",
@@ -264,62 +264,62 @@
   },
   "testimonials": {
     "eyebrow": "Testimonials",
-    "headingPart1": "Loved by people who build and ship",
-    "headingEmphasis": "fast.",
-    "subtitle": "Developers and founders going from idea to the App Store in days, not months.",
+    "headingPart1": "From people who left the idea",
+    "headingEmphasis": "and shipped.",
+    "subtitle": "Founders and developers: idea to App Store in days, not months.",
     "items": [
       {
-        "text": "I shipped my first app in 6 days. The CLI already had Firebase, auth and payments set up before I even opened the editor.",
+        "text": "My app was in the stores in 6 days. The CLI set up Firebase, login, and payments before I touched a single screen.",
         "name": "Lucas Almeida",
         "role": "Indie developer"
       },
       {
-        "text": "I'm not a developer and I still got a real app into both stores. Kasy guided me through every step.",
+        "text": "I don't code. I still published on both stores. Kasy walked me through every step.",
         "name": "Marina Costa",
         "role": "Founder"
       },
       {
-        "text": "The browser preview alone saved me hours. No emulator: iOS and Android side by side, right in the browser.",
+        "text": "The browser preview alone saved me hours. No emulator. iOS and Android side by side in the browser.",
         "name": "Diego Fernández",
         "role": "Mobile engineer"
       },
       {
-        "text": "I migrated a client project to Supabase in minutes. Same code, different backend. Impressive.",
+        "text": "I moved a client project to Supabase in minutes. Same code. Felt unreal.",
         "name": "Priya Nair",
         "role": "Freelancer"
       },
       {
-        "text": "RevenueCat, push and analytics all came ready. I just built my features and shipped.",
+        "text": "RevenueCat, push, and analytics were already there. I just built my features and shipped.",
         "name": "Tom Becker",
         "role": "Solo founder"
       },
       {
-        "text": "CLI updates without breaking what was already live. No other kit does that.",
+        "text": "I updated through the CLI and nothing broke on the live app. I've never seen another kit do that.",
         "name": "Sofia Rossi",
         "role": "Product engineer"
       },
       {
-        "text": "From idea to TestFlight in a week. The component gallery made the UI the easiest part.",
+        "text": "Idea to TestFlight in a week. The component gallery made the UI the easy part.",
         "name": "Akira Tanaka",
         "role": "Designer & builder"
       },
       {
-        "text": "One stack, three backends. I chose Firebase, the client wanted REST. Zero rewrites.",
+        "text": "I picked Firebase. The client wanted REST. I didn't rewrite the project.",
         "name": "Hannah Müller",
         "role": "Agency lead"
       },
       {
-        "text": "The AI editor rules made Cursor feel like it already knew the entire Kasy project.",
+        "text": "The Cursor rules made the AI feel like it already knew the whole project. Saved me a ton of time.",
         "name": "Rafael Santos",
-        "role": "Full-stack dev"
+        "role": "Full-stack developer"
       }
     ]
   },
   "faq": {
     "eyebrow": "FAQ",
-    "heading": "Questions, answered.",
+    "heading": "Straight questions. Straight answers.",
     "contact": {
-      "heading": "Still have questions?",
+      "heading": "Still have a question?",
       "body": "Reach out before you buy. We reply within 24 hours.",
       "cta": "Send email",
       "mailSubject": "Question about Kasy"
@@ -328,84 +328,89 @@
       {
         "id": "q1",
         "question": "Do I need to know how to code to use Kasy?",
-        "answer": "Basic development knowledge helps, but the kit was built to be accessible. With the training, you can build your first app from scratch."
+        "answer": "No. The kit is built for people who have never written a hello world and for people who already code. Either way, the goal is the same: ship without spending months on setup."
       },
       {
         "id": "q2",
-        "question": "What's the difference between Kasy and other boilerplates?",
-        "answer": "We deliver the only end-to-end Flutter kit, from technical setup to screen design. Others deliver one or the other. Our CLI also ships updates without breaking the project you already built."
+        "question": "How is Kasy different from other boilerplates?",
+        "answer": "Many deliver only a technical setup (sometimes buggy) or only UI. Kasy delivers the full path: configuration, components, visual identity, subscriptions, and publishing. We're the only ones with Preview Device: build and inspect in the browser. Our CLI also ships ongoing updates with an active subscription, without breaking the project you already built."
       },
       {
         "id": "q3",
         "question": "Can I use the kit on multiple projects?",
-        "answer": "Yes. All plans include unlimited apps."
+        "answer": "Yes. Every plan includes unlimited apps. The license is commercial: publish, sell your apps, and build for clients. What you can't do is sell, share, or give away the kit. Piracy is tied to your purchase ID and can lead to legal action."
       },
       {
         "id": "q4",
         "question": "What if I already have a project in progress?",
-        "answer": "Kasy is designed for new projects, but components can be copied manually into existing ones."
+        "answer": "Kasy is designed for new projects. For existing ones, you can copy components in manually."
       },
       {
         "id": "q5",
         "question": "What happens when my annual access expires?",
-        "answer": "You can renew or upgrade to lifetime access. Your app keeps working. You just stop receiving updates."
+        "answer": "Your app keeps working. You stop receiving CLI updates. To renew, email kasy@aicrus.io. Renewal includes a US$50 increase over the plan price."
       },
       {
         "id": "q6",
         "question": "Which platforms does the app run on?",
-        "answer": "iOS, Android and Web. Linux and Windows support is coming soon."
+        "answer": "iOS, Android, and Web, with setup and responsiveness ready. Because it's Flutter, you can enable Linux and Windows yourself, but the polished focus of the kit is those three platforms."
       },
       {
         "id": "q7",
-        "question": "What is the training?",
-        "answer": "A hands-on course for non-developers that teaches you to build a complete app in 7 days using Kasy and AI tools like Cursor and Claude Code."
+        "question": "What is Kasy Club?",
+        "answer": "It's the community and hands-on training around Kasy: exclusive classes, weekly live sessions, networking, and support. Ideal if you want guidance beyond the kit alone.",
+        "linkHref": "https://club.kasy.dev/",
+        "linkLabel": "Explore Kasy Club"
       },
       {
         "id": "q8",
         "question": "Can I sell the apps I build with the kit?",
-        "answer": "Yes. The license is commercial on all plans."
+        "answer": "Yes. On every plan the license is commercial: publish, sell your apps, or build for other people. Just don't sell or share the kit itself."
       },
       {
         "id": "q9",
         "question": "Can I get a refund?",
-        "answer": "Once you have access to the kit, Kasy is yours forever. Because of that, purchases are non-refundable. Have questions? Email hello@kasy.dev before you buy. We're happy to help. On average, Kasy users ship their app in 7 days."
+        "answer": "Once you have access, the kit is yours. The kit portion is non-refundable. On the Kit + Kasy Club combo, the Club has a 7-day guarantee: you can watch, join lives, and if it's not for you, request a refund for the Club difference only. Questions before buying? Email kasy@aicrus.io."
       }
     ]
   },
   "pricing": {
     "eyebrow": "Pricing",
-    "heading": "Choose your plan and start building",
-    "subtitle": "From kit to build in minutes. Pick the plan that fits you.",
+    "heading": "Pick the plan that fits your moment",
+    "subtitle": "Both plans work for people who code and for people who never have. The difference is Kasy Club: guidance, networking, and priority support.",
     "checkoutNote": "Secure checkout via Stripe. International cards accepted. Your activation key arrives by email within minutes.",
     "checkoutLoading": "Opening checkout...",
     "plans": {
       "annual": {
-        "label": "Annual",
-        "description": "For those who already code and want the complete kit.",
+        "label": "Annual Kit",
+        "description": "The full kit to ship, built for non-developers and for people who already code.",
         "per": "/ year",
-        "cta": "Get started",
+        "cta": "Get the Annual Kit",
         "features": [
-          "Firebase, Supabase & REST API",
+          "Built for non-developers and for people who already code",
+          "Firebase, Supabase, and REST API",
           "Unlimited apps",
           "60+ UI components (95+ variants)",
-          "All optional features",
-          "1 year of updates",
-          "Community support"
+          "In the CLI, you choose what to enable in your project",
+          "1 year of CLI updates",
+          "Support"
         ]
       },
       "kitCourse": {
-        "label": "Kit + Course",
-        "description": "To go from zero to publishing your first app.",
+        "label": "Kit + Kasy Club",
+        "description": "Everything in the Annual Kit, plus community, classes, lives, and priority support.",
         "per": "one-time payment",
         "tag": "Most popular",
-        "cta": "Get the Kit + Course",
+        "cta": "Get Kit + Kasy Club",
+        "clubLinkLabel": "Explore Kasy Club",
+        "clubLinkHref": "https://club.kasy.dev/",
         "features": [
-          "Everything in the Annual plan",
-          "Full course, 1 year of access",
-          "From idea to published app in 7 days",
-          "Built for non-developers",
-          "Exclusive creator community",
-          "Priority support"
+          "Everything in the Annual Kit",
+          "1 year of Kasy Club access",
+          "Exclusive classes and weekly lives",
+          "Community for networking and co-founders",
+          "Priority support",
+          "7-day guarantee on the Club portion only"
         ]
       }
     }
@@ -415,7 +420,7 @@
       "eyebrow": "Payment confirmed",
       "heading": "Welcome to Kasy",
       "body": "We sent your activation key to the email you used at checkout. Install the CLI with npm install -g kasy-cli and run kasy new when you're ready.",
-      "emailHint": "Check your inbox and spam folder. The email may take a few minutes to arrive.",
+      "emailHint": "Check your inbox and spam folder. The email may take a few minutes.",
       "cta": "View documentation"
     }
   }

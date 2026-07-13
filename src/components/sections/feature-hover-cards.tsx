@@ -195,9 +195,7 @@ export function FeatureHoverCards() {
                       <h3
                         className={cn(
                           typeScale.featureTitle,
-                          "text-foreground",
-                          "max-lg:text-balance",
-                          "lg:truncate",
+                          "text-balance text-foreground",
                         )}
                       >
                         {card.title}

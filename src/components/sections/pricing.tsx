@@ -30,7 +30,10 @@ const PLANS_META: PlanMeta[] = [
   { key: "kitCourse", featured: true },
 ];
 
-type PlanCopy = Omit<Plan, "key" | "price" | "featured">;
+type PlanCopy = Omit<Plan, "key" | "price" | "featured"> & {
+  clubLinkLabel?: string;
+  clubLinkHref?: string;
+};
 
 const cardShadowClass = cn(
   "shadow-[0_1px_2px_rgba(4,43,89,0.04),0_6px_16px_-10px_rgba(4,43,89,0.12)]",
@@ -42,7 +45,17 @@ const featuredShadowClass = cn(
   "dark:shadow-[0_6px_18px_rgba(0,0,0,0.32),0_32px_64px_-20px_rgba(0,0,0,0.55)]",
 );
 
-function PlanCard({ plan, locale }: { plan: Plan; locale: string }) {
+function PlanCard({
+  plan,
+  locale,
+  clubLinkLabel,
+  clubLinkHref,
+}: {
+  plan: Plan;
+  locale: string;
+  clubLinkLabel?: string;
+  clubLinkHref?: string;
+}) {
   return (
     <div
       className={cn(
@@ -118,6 +131,16 @@ function PlanCard({ plan, locale }: { plan: Plan; locale: string }) {
             </li>
           ))}
         </ul>
+        {clubLinkHref && clubLinkLabel ? (
+          <a
+            href={clubLinkHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-4 inline-flex text-[0.8125rem] font-medium text-primary underline-offset-4 hover:underline"
+          >
+            {clubLinkLabel}
+          </a>
+        ) : null}
       </div>
     </div>
   );
@@ -130,11 +153,19 @@ export async function Pricing() {
   const currency = currencyForCountry(country);
   const plansCopy = t.raw("plans") as Record<string, PlanCopy>;
 
-  const PLANS: Plan[] = PLANS_META.map((meta) => ({
-    ...meta,
-    ...plansCopy[meta.key],
-    price: PLAN_DISPLAY[meta.key][currency].amount,
-  }));
+  const PLANS: Plan[] = PLANS_META.map((meta) => {
+    const copy = plansCopy[meta.key];
+    return {
+      ...meta,
+      label: copy.label,
+      description: copy.description,
+      per: copy.per,
+      tag: copy.tag,
+      cta: copy.cta,
+      features: copy.features,
+      price: PLAN_DISPLAY[meta.key][currency].amount,
+    };
+  });
 
   return (
     <section
@@ -175,9 +206,18 @@ export async function Pricing() {
         delay={0.1}
         className="grid w-full max-w-[44rem] grid-cols-1 items-stretch gap-6 sm:grid-cols-2"
       >
-        {PLANS.map((plan) => (
-          <PlanCard key={plan.key} locale={locale} plan={plan} />
-        ))}
+        {PLANS.map((plan) => {
+          const copy = plansCopy[plan.key];
+          return (
+            <PlanCard
+              key={plan.key}
+              locale={locale}
+              plan={plan}
+              clubLinkLabel={copy.clubLinkLabel}
+              clubLinkHref={copy.clubLinkHref}
+            />
+          );
+        })}
       </Reveal>
 
       <p className="mt-8 max-w-md text-center text-[0.8125rem] text-muted-foreground">
