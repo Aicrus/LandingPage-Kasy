@@ -1,22 +1,28 @@
 ---
-description: Após editar Kit LP ou Club LP, garantir dev servers e abrir ambas no browser
+description: Após editar uma LP, abrir só essa LP no browser (Kit ou Club — nunca as duas por padrão)
 alwaysApply: true
 ---
 
-# Abrir Kit LP e Club LP no browser
+# Abrir só a LP em que se está trabalhando
 
-Sempre que terminar alterações em **qualquer** destas LPs, faça isto no fim do turno (sem esperar o usuário pedir):
+Sempre que terminar alterações, abra **apenas** a LP do repo em que trabalhou neste turno. Não abra as duas.
 
 | LP | Repo | URL típica |
 |---|---|---|
 | Kit | `/Users/paulomorales/LandingPage` | `http://localhost:3001/pt` |
 | Club | `/Users/paulomorales/Kasy-Club` | `http://localhost:3000/pt` |
 
+## Qual abrir
+
+- Trabalhou no **Club** (`Kasy-Club`) → abrir só `http://localhost:3000/pt` (ou a rota relevante, ex. `/pt/admin`, `/pt/login`).
+- Trabalhou no **Kit** (`LandingPage`) → abrir só `http://localhost:3001/pt`.
+- Se o turno tocou **os dois** repos de propósito → aí sim abrir as duas.
+
 ## Passos
 
-1. Verificar se `npm run dev` está ativo em cada repo (portas acima; confirmar com `lsof`/`curl` se necessário).
-2. Se faltar um servidor: subir com `npm run dev` (Club: `-p 3000`; Kit: `-p 3001` se 3000 estiver ocupada).
-3. Abrir **as duas** URLs no browser padrão: `open http://localhost:3001/pt` e `open http://localhost:3000/pt`.
-4. Devolver as URLs na resposta final.
+1. Identificar qual LP foi editada neste turno.
+2. Garantir que o `npm run dev` dessa LP está ativo (Club `3000`; Kit `3001` se `3000` estiver ocupada).
+3. Abrir **só** a URL correspondente no browser padrão.
+4. Devolver essa URL na resposta final.
 
-Aplica-se a edições em Kit **ou** Club: mesmo editando só uma, abrir as duas.
+**Não** abrir a outra LP “por precaução”.
