@@ -422,6 +422,14 @@
       "body": "Enviamos sua chave de ativação para o e-mail do checkout. Instale a CLI com npm install -g kasy-cli e rode kasy new quando estiver pronto.",
       "emailHint": "Confira a caixa de entrada e o spam. O e-mail pode levar alguns minutos.",
       "cta": "Ver documentação"
+    },
+    "successCombo": {
+      "eyebrow": "Pagamento confirmado",
+      "heading": "Kit + Kasy Club liberados",
+      "body": "Enviamos a chave do Kit para o e-mail do checkout. O acesso ao Kasy Club também já está liberado nesse mesmo e-mail: entre ou crie sua conta para começar as aulas.",
+      "emailHint": "Confira a caixa de entrada e o spam. O e-mail do Kit pode levar alguns minutos.",
+      "cta": "Ver documentação",
+      "ctaClub": "Entrar no Kasy Club"
     }
   }
 }

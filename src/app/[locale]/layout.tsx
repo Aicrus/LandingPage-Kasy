@@ -72,9 +72,11 @@ export default async function LocaleLayout({
           <ThemeProvider>
             <ThemeMetaSyncScript />
             <MotionProvider>
-              <SiteHeader />
-              {children}
-              <SiteFooter />
+              <div className="flex min-h-dvh flex-col">
+                <SiteHeader />
+                <div className="flex min-h-0 flex-1 flex-col">{children}</div>
+                <SiteFooter />
+              </div>
             </MotionProvider>
           </ThemeProvider>
         </NextIntlClientProvider>

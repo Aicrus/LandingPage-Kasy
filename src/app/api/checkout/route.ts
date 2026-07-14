@@ -56,7 +56,7 @@ export async function POST(request: Request) {
         products: body.plan === "kitCourse" ? "kit_club" : "kit",
         locale: siteLocale,
       },
-      success_url: `${siteUrl}/${locale}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
+      success_url: `${siteUrl}/${locale}/checkout/success?session_id={CHECKOUT_SESSION_ID}&plan=${body.plan}`,
       cancel_url: `${siteUrl}/${locale}/#precos`,
     });
 

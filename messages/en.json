@@ -422,6 +422,14 @@
       "body": "We sent your activation key to the email you used at checkout. Install the CLI with npm install -g kasy-cli and run kasy new when you're ready.",
       "emailHint": "Check your inbox and spam folder. The email may take a few minutes.",
       "cta": "View documentation"
+    },
+    "successCombo": {
+      "eyebrow": "Payment confirmed",
+      "heading": "Kit + Kasy Club unlocked",
+      "body": "We sent your Kit activation key to the checkout email. Kasy Club access is also ready on that same email: sign in or create your account to start the lessons.",
+      "emailHint": "Check your inbox and spam folder. The Kit email may take a few minutes.",
+      "cta": "View documentation",
+      "ctaClub": "Open Kasy Club"
     }
   }
 }
