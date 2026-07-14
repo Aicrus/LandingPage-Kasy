@@ -14,9 +14,10 @@ export function checkoutBrandingSettings() {
 
   return {
     ...CHECKOUT_BRANDING,
+    // Tight-crop wordmark so Stripe renders the logo larger in Checkout.
     logo: {
       type: "url" as const,
-      url: `${siteUrl}/icon.png`,
+      url: `${siteUrl}/stripe-checkout-logo.png`,
     },
   };
 }
