@@ -4,6 +4,7 @@ import { useTheme } from "next-themes";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
+import { HashLink } from "@/components/hash-link";
 import { KasyLogo } from "@/components/kasy-logo";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
@@ -112,7 +113,7 @@ function HeaderNav({
           flatCta && headerCtaButtonFlatClass,
           compactCta && "text-[0.8125rem]",
         )}
-        render={<Link href="/obter-kasy" />}
+        render={<HashLink href="#precos" />}
       >
         {t("cta")}
       </Button>
@@ -274,7 +275,7 @@ function SiteHeaderMotion({ openWidth }: { openWidth: number }) {
             variant="outline"
             nativeButton={false}
             className={cn(headerCtaButtonClass, "font-sans")}
-            render={<Link href="/obter-kasy" />}
+            render={<HashLink href="#precos" />}
           >
             {t("cta")}
           </Button>

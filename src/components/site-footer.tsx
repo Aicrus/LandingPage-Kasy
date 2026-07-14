@@ -128,7 +128,7 @@ export function SiteFooter() {
               variant="outline"
               nativeButton={false}
               className="hidden h-auto shrink-0 rounded-full px-4 py-2 sm:inline-flex"
-              render={<Link href="/obter-kasy" />}
+              render={<HashLink href="#precos" />}
             >
               {t("cta")}
             </Button>

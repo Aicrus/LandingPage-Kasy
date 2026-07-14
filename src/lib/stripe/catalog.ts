@@ -5,12 +5,12 @@ export type SiteLocale = "pt" | "en" | "es";
 
 export const PLAN_DISPLAY = {
   annual: {
-    usd: { amount: "$127", perKey: "perYear" as const },
-    brl: { amount: "R$657", perKey: "perYear" as const },
+    usd: { amount: "$123", perKey: "perYear" as const },
+    brl: { amount: "R$623", perKey: "perYear" as const },
   },
   kitCourse: {
-    usd: { amount: "$193", perKey: "oneTime" as const },
-    brl: { amount: "R$998", perKey: "oneTime" as const },
+    usd: { amount: "$187", perKey: "oneTime" as const },
+    brl: { amount: "R$997", perKey: "oneTime" as const },
   },
 } satisfies Record<
   CheckoutPlan,
@@ -30,12 +30,12 @@ const PRICE_ENV_KEYS: Record<CheckoutPlan, Record<Currency, string>> = {
 
 const DEFAULT_PRICE_IDS: Record<CheckoutPlan, Record<Currency, string>> = {
   annual: {
-    usd: "price_1TpNltASZ821iIoqppYS3paq",
-    brl: "price_1TpNluASZ821iIoqSvG9cJdL",
+    usd: "price_1TtC3JASZ821iIoqZ6cEpQnR",
+    brl: "price_1TtC3IASZ821iIoqw4RTjQa3",
   },
   kitCourse: {
-    usd: "price_1TpNluASZ821iIoqm0XHrt5E",
-    brl: "price_1TpNlvASZ821iIoqjmIzDds4",
+    usd: "price_1TtC3IASZ821iIoqhGAS6qJu",
+    brl: "price_1TtC3IASZ821iIoqhO51z5Pq",
   },
 };
 
@@ -45,8 +45,8 @@ const PLAN_METADATA: Record<CheckoutPlan, string> = {
 };
 
 const PLAN_UNIT_AMOUNT: Record<CheckoutPlan, Record<Currency, number>> = {
-  annual: { usd: 12700, brl: 65700 },
-  kitCourse: { usd: 19300, brl: 99800 },
+  annual: { usd: 12300, brl: 62300 },
+  kitCourse: { usd: 18700, brl: 99700 },
 };
 
 const PLAN_CHECKOUT_COPY: Record<
@@ -69,15 +69,15 @@ const PLAN_CHECKOUT_COPY: Record<
   },
   kitCourse: {
     pt: {
-      name: "Kasy Kit + Kasy Club",
+      name: "Kasy Kit + Club",
       description: "Kit completo + acesso ao Kasy Club por 1 ano.",
     },
     en: {
-      name: "Kasy Kit + Kasy Club",
+      name: "Kasy Kit + Club",
       description: "Full kit + Kasy Club access for 1 year.",
     },
     es: {
-      name: "Kasy Kit + Kasy Club",
+      name: "Kasy Kit + Club",
       description: "Kit completo + acceso al Kasy Club por 1 año.",
     },
   },

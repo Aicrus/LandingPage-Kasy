@@ -49,7 +49,11 @@ export async function POST(request: Request) {
       allow_promotion_codes: true,
       customer_creation: "always",
       metadata: {
+        // source distinguishes Kit LP vs Club LP when both share one Stripe account/webhook.
+        source: "kit_lp",
         plan: metadataPlan(body.plan),
+        // annual = kit only; kit_course = kit + club (combo on this LP).
+        products: body.plan === "kitCourse" ? "kit_club" : "kit",
         locale: siteLocale,
       },
       success_url: `${siteUrl}/${locale}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
