@@ -333,12 +333,12 @@
       {
         "id": "q2",
         "question": "¿Cuál es la diferencia entre Kasy y otros boilerplates?",
-        "answer": "Muchos entregan solo un setup técnico (a veces con bugs) o solo UI. Kasy entrega el camino completo: configuración, componentes, identidad visual, suscripciones y publicación. Somos los únicos con Preview Device: desarrollas e inspeccionas en el navegador. Nuestra CLI además trae actualizaciones continuas con suscripción activa, sin romper el proyecto que ya creaste."
+        "answer": "Muchos entregan solo un setup técnico (a veces con bugs) o solo UI. Kasy entrega el camino completo: configuración, componentes, identidad visual, suscripciones y publicación. Somos los únicos con Preview Device: desarrollas e inspeccionas en el navegador. Nuestra CLI además crea y actualiza proyectos con suscripción activa, sin romper lo que ya lanzaste."
       },
       {
         "id": "q3",
         "question": "¿Puedo usar el kit en varios proyectos?",
-        "answer": "Sí. Todos los planes incluyen apps ilimitadas. La licencia es comercial: publica, vende tus apps y desarrolla para clientes. Lo que no puedes hacer es vender, compartir o regalar el kit. La piratería se identifica con el ID de compra y puede generar acción legal."
+        "answer": "Sí. Con la suscripción activa puedes crear y actualizar apps ilimitadas. La licencia es comercial: publica, vende tus apps y desarrolla para clientes. Lo que no puedes hacer es vender, compartir o regalar el kit. La piratería se identifica con el ID de compra y puede generar acción legal."
       },
       {
         "id": "q4",
@@ -348,7 +348,7 @@
       {
         "id": "q5",
         "question": "¿Qué pasa cuando vence mi acceso anual?",
-        "answer": "Tu app sigue funcionando. Dejas de recibir actualizaciones de la CLI. Para renovar, escribe a kasy@aicrus.io. La renovación tiene un aumento de US$ 50 sobre el valor del plan."
+        "answer": "La app que ya publicaste sigue funcionando con normalidad. Con el acceso vencido, la CLI deja de crear proyectos nuevos y de traer actualizaciones. Para renovar, escribe a kasy@aicrus.io. La renovación tiene un aumento de US$ 50 sobre el valor del plan."
       },
       {
         "id": "q6",
@@ -370,7 +370,7 @@
       {
         "id": "q9",
         "question": "¿Puedo pedir un reembolso?",
-        "answer": "Después del acceso, el kit es tuyo. Por eso la parte del kit no es reembolsable. En el combo Kit + Kasy Club, el Club tiene garantía de 7 días: puedes ver las clases, entrar a las lives y, si no te convence, pedir la devolución solo de la diferencia del Club. ¿Dudas antes de comprar? Escribe a kasy@aicrus.io."
+        "answer": "El acceso al kit es digital e inmediato. Por eso la parte del kit no es reembolsable. En el combo Kit + Kasy Club, el Club tiene garantía de 7 días: puedes ver las clases, entrar a las lives y, si no te convence, pedir la devolución solo de la diferencia del Club. ¿Dudas antes de comprar? Escribe a kasy@aicrus.io."
       }
     ]
   },
@@ -389,10 +389,10 @@
         "features": [
           "Hecho para no desarrolladores y para quien ya programa",
           "Firebase, Supabase y REST API",
-          "Apps ilimitadas",
+          "Crear y actualizar apps ilimitadas por 1 año",
           "60+ componentes de UI (95+ variantes)",
           "En la CLI, tú eliges qué activar en tu proyecto",
-          "Actualizaciones de la CLI por 1 año",
+          "Licencia comercial para publicar y vender",
           "Soporte"
         ]
       },

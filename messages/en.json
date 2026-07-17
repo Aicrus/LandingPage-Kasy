@@ -333,12 +333,12 @@
       {
         "id": "q2",
         "question": "How is Kasy different from other boilerplates?",
-        "answer": "Many deliver only a technical setup (sometimes buggy) or only UI. Kasy delivers the full path: configuration, components, visual identity, subscriptions, and publishing. We're the only ones with Preview Device: build and inspect in the browser. Our CLI also ships ongoing updates with an active subscription, without breaking the project you already built."
+        "answer": "Many deliver only a technical setup (sometimes buggy) or only UI. Kasy delivers the full path: configuration, components, visual identity, subscriptions, and publishing. We're the only ones with Preview Device: build and inspect in the browser. Our CLI also creates and updates projects with an active subscription, without breaking what you already shipped."
       },
       {
         "id": "q3",
         "question": "Can I use the kit on multiple projects?",
-        "answer": "Yes. Every plan includes unlimited apps. The license is commercial: publish, sell your apps, and build for clients. What you can't do is sell, share, or give away the kit. Piracy is tied to your purchase ID and can lead to legal action."
+        "answer": "Yes. With an active subscription you can create and update unlimited apps. The license is commercial: publish, sell your apps, and build for clients. What you can't do is sell, share, or give away the kit. Piracy is tied to your purchase ID and can lead to legal action."
       },
       {
         "id": "q4",
@@ -348,7 +348,7 @@
       {
         "id": "q5",
         "question": "What happens when my annual access expires?",
-        "answer": "Your app keeps working. You stop receiving CLI updates. To renew, email kasy@aicrus.io. Renewal includes a US$50 increase over the plan price."
+        "answer": "The app you already shipped keeps working as usual. When access expires, the CLI stops creating new projects and delivering updates. To renew, email kasy@aicrus.io. Renewal includes a US$50 increase over the plan price."
       },
       {
         "id": "q6",
@@ -370,7 +370,7 @@
       {
         "id": "q9",
         "question": "Can I get a refund?",
-        "answer": "Once you have access, the kit is yours. The kit portion is non-refundable. On the Kit + Kasy Club combo, the Club has a 7-day guarantee: you can watch, join lives, and if it's not for you, request a refund for the Club difference only. Questions before buying? Email kasy@aicrus.io."
+        "answer": "Kit access is digital and immediate. That's why the kit portion is non-refundable. On the Kit + Kasy Club combo, the Club has a 7-day guarantee: you can watch, join lives, and if it's not for you, request a refund for the Club difference only. Questions before buying? Email kasy@aicrus.io."
       }
     ]
   },
@@ -389,10 +389,10 @@
         "features": [
           "Built for non-developers and for people who already code",
           "Firebase, Supabase, and REST API",
-          "Unlimited apps",
+          "Create and update unlimited apps for 1 year",
           "60+ UI components (95+ variants)",
           "In the CLI, you choose what to enable in your project",
-          "1 year of CLI updates",
+          "Commercial license to publish and sell",
           "Support"
         ]
       },

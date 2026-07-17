@@ -56,29 +56,29 @@ const PLAN_CHECKOUT_COPY: Record<
   annual: {
     pt: {
       name: "Kasy Kit Anual",
-      description: "Kit completo Kasy com atualizações da CLI por 1 ano.",
+      description: "Kit completo Kasy: criar e atualizar apps pela CLI por 1 ano.",
     },
     en: {
       name: "Kasy Annual Kit",
-      description: "Full Kasy kit with CLI updates for 1 year.",
+      description: "Full Kasy kit: create and update apps with the CLI for 1 year.",
     },
     es: {
       name: "Kasy Kit Anual",
-      description: "Kit completo de Kasy con actualizaciones de la CLI por 1 año.",
+      description: "Kit completo de Kasy: crear y actualizar apps con la CLI por 1 año.",
     },
   },
   kitCourse: {
     pt: {
       name: "Kasy Kit + Club",
-      description: "Kit completo + acesso ao Kasy Club por 1 ano.",
+      description: "Kit completo (criar e atualizar por 1 ano) + Kasy Club por 1 ano.",
     },
     en: {
       name: "Kasy Kit + Club",
-      description: "Full kit + Kasy Club access for 1 year.",
+      description: "Full kit (create and update for 1 year) + Kasy Club for 1 year.",
     },
     es: {
       name: "Kasy Kit + Club",
-      description: "Kit completo + acceso al Kasy Club por 1 año.",
+      description: "Kit completo (crear y actualizar por 1 año) + Kasy Club por 1 año.",
     },
   },
 };

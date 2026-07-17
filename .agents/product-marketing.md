@@ -8,7 +8,7 @@ Fonte: brief do fundador + LP atual. Usar com as skills `copywriting`, `copy-edi
 
 Inclui: backend (Firebase / Supabase / REST), autenticação, assinaturas (RevenueCat / Stripe), anúncios, push, 60+ componentes UI, design system aplicável, CI/CD, regras para editores de IA, Preview Device no navegador.
 
-**Diferencial:** CLI inteligente, multilíngue e autoconfigurável; atualiza o projeto com novas features/componentes sem quebrar o que já está no ar (assinatura ativa). Curso prático para quem nunca programou.
+**Diferencial:** CLI inteligente, multilíngue e autoconfigurável; cria projetos e atualiza features/componentes sem quebrar o que já está no ar (assinatura ativa). Curso prático para quem nunca programou.
 
 ## Persona principal (ICP)
 
@@ -34,7 +34,7 @@ Também atende **devs avançados** que não querem perder semanas em boilerplate
 | Design system e componentes do zero | 60+ componentes, marca aplicada com IA |
 | Medo de “nunca lançar” | Promessa concreta: 7 dias / App Store |
 | Stack incompleta (só boilerplate OU só UI) | Kit ponta a ponta |
-| Kit que envelhece e quebra | CLI com updates contínuos (assinatura ativa) |
+| Kit que envelhece e quebra | CLI com criação e updates contínuos (assinatura ativa) |
 | “Será que é pra mim?” (não-dev) | FAQ + plano Kit + Curso + depoimento fundadora |
 
 ## Transformação
@@ -44,10 +44,10 @@ Também atende **devs avançados** que não querem perder semanas em boilerplate
 
 ## Oferta / planos
 
-- **Kit Anual:** kit completo + updates da CLI por 1 ano. Para não-devs e para quem já programa.
+- **Kit Anual:** kit completo + criar e atualizar apps pela CLI por 1 ano (assinatura ativa). Para não-devs e para quem já programa. Vencido o acesso, o app publicado continua rodando; criar novo e atualizar exigem renovação.
 - **Kit + Kasy Club (mais popular):** tudo do Kit Anual + Kasy Club (aulas, lives semanais, network, suporte prioritário). Link: https://club.kasy.dev/
 
-Checkout Stripe. Kit sem reembolso após acesso. No combo, só a parte do Club tem garantia de 7 dias. Contato: kasy@aicrus.io. Licença comercial (apps ilimitados); não vender/compartilhar o kit.
+Checkout Stripe. Kit sem reembolso após acesso (acesso digital imediato). No combo, só a parte do Club tem garantia de 7 dias. Contato: kasy@aicrus.io. Licença comercial (apps ilimitados com assinatura ativa); não vender/compartilhar o kit.
 
 **Copy:** nunca usar travessão (`—`).
 
