@@ -9,6 +9,7 @@ import {
   resolveCheckoutLineItem,
   stripeLocale,
 } from "@/lib/stripe/catalog";
+import { resolveViewerCountry } from "@/lib/stripe/regional-discount";
 import { checkoutBrandingSettings } from "@/lib/stripe/branding";
 import { getSiteUrl, getStripe } from "@/lib/stripe/server";
 
@@ -36,7 +37,7 @@ export async function POST(request: Request) {
       : routing.defaultLocale;
   const siteLocale = isSiteLocale(locale) ? locale : "en";
 
-  const country = (await headers()).get("x-vercel-ip-country");
+  const country = resolveViewerCountry((await headers()).get("x-vercel-ip-country"));
   const siteUrl = getSiteUrl();
 
   try {

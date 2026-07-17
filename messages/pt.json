@@ -380,11 +380,18 @@
     "subtitle": "Os dois planos servem para quem programa e para quem nunca escreveu código. A diferença é o Kasy Club: direcionamento, networking e suporte prioritário.",
     "checkoutNote": "Checkout seguro via Stripe. Cartões internacionais aceitos. A chave de ativação chega por e-mail em minutos.",
     "checkoutLoading": "Abrindo checkout...",
+    "regionalDiscount": {
+      "message": "Descontos regionais para o Kasy ser acessível a todos. 🌎",
+      "hint": "Use no checkout",
+      "copyAria": "Copiar cupom KASY20",
+      "copied": "Cupom copiado",
+      "withCoupon": "Com {code}:"
+    },
     "plans": {
       "annual": {
         "label": "Kit Anual",
         "description": "Backend, UI e CLI prontos para lançar.",
-        "per": "/ ano",
+        "per": "por 1 ano",
         "cta": "Quero o Kit Anual",
         "features": [
           "Firebase, Supabase e REST API",
@@ -400,7 +407,7 @@
       "kitCourse": {
         "label": "Kit + Kasy Club",
         "description": "Tudo do Kit, mais aulas, lives e suporte.",
-        "per": "pagamento único",
+        "per": "por 1 ano",
         "tag": "Mais popular",
         "cta": "Quero o Kit + Kasy Club",
         "clubLinkLabel": "Conhecer o Kasy Club",

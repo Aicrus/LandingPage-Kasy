@@ -608,6 +608,39 @@
   }
 }
 
+/* Cupom regional KASY20 — brilho suave e periódico */
+@keyframes coupon-shine {
+  0%,
+  55% {
+    transform: translateX(-140%) skewX(-12deg);
+    opacity: 0;
+  }
+  62% {
+    opacity: 0.85;
+  }
+  78% {
+    transform: translateX(160%) skewX(-12deg);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(160%) skewX(-12deg);
+    opacity: 0;
+  }
+}
+
+@keyframes coupon-glow {
+  0%,
+  100% {
+    text-shadow: 0 0 0 transparent;
+    color: var(--foreground);
+  }
+  40%,
+  55% {
+    text-shadow: 0 0 12px color-mix(in oklab, var(--primary) 45%, transparent);
+    color: var(--primary);
+  }
+}
+
 /* Marquee de integrações — loop horizontal contínuo */
 @keyframes marquee-left {
   from {

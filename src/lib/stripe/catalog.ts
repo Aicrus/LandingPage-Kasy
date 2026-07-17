@@ -1,6 +1,6 @@
 export type CheckoutPlan = "annual" | "kitCourse";
 
-type Currency = "usd" | "brl";
+export type Currency = "usd" | "brl";
 export type SiteLocale = "pt" | "en" | "es";
 
 export const PLAN_DISPLAY = {
@@ -44,10 +44,37 @@ const PLAN_METADATA: Record<CheckoutPlan, string> = {
   kitCourse: "kit_course",
 };
 
-const PLAN_UNIT_AMOUNT: Record<CheckoutPlan, Record<Currency, number>> = {
+export const PLAN_UNIT_AMOUNT: Record<CheckoutPlan, Record<Currency, number>> = {
   annual: { usd: 12300, brl: 62300 },
   kitCourse: { usd: 18700, brl: 99700 },
 };
+
+/** Formata centavos Stripe para vitrine ($98.40 / R$498,40). */
+export function formatMoney(cents: number, currency: Currency): string {
+  const value = cents / 100;
+  if (currency === "brl") {
+    const formatted = value.toLocaleString("pt-BR", {
+      minimumFractionDigits: Number.isInteger(value) ? 0 : 2,
+      maximumFractionDigits: 2,
+    });
+    return `R$${formatted}`;
+  }
+  const formatted = value.toLocaleString("en-US", {
+    minimumFractionDigits: Number.isInteger(value) ? 0 : 2,
+    maximumFractionDigits: 2,
+  });
+  return `$${formatted}`;
+}
+
+export function planAmountWithPercentOff(
+  plan: CheckoutPlan,
+  currency: Currency,
+  percentOff: number,
+): string {
+  const full = PLAN_UNIT_AMOUNT[plan][currency];
+  const discounted = Math.round(full * (1 - percentOff / 100));
+  return formatMoney(discounted, currency);
+}
 
 const PLAN_CHECKOUT_COPY: Record<
   CheckoutPlan,

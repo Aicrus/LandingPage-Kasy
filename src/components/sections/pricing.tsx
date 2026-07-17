@@ -4,18 +4,28 @@ import { Check } from "lucide-react";
 
 import { CheckoutButton } from "@/components/checkout-button";
 import { Reveal } from "@/components/motion/reveal";
+import { PlanPrice } from "@/components/sections/plan-price";
+import { RegionalDiscountNote } from "@/components/sections/regional-discount-banner";
 import {
   currencyForCountry,
-  PLAN_DISPLAY,
+  PLAN_UNIT_AMOUNT,
   type CheckoutPlan,
+  type Currency,
 } from "@/lib/stripe/catalog";
+import {
+  isRegionalDiscountEligible,
+  REGIONAL_DISCOUNT_PERCENT,
+  resolveViewerCountry,
+} from "@/lib/stripe/regional-discount";
 import { cn } from "@/lib/utils";
 
 type Plan = {
   key: CheckoutPlan;
   label: string;
   description: string;
-  price: string;
+  fullCents: number;
+  discountedCents?: number;
+  currency: Currency;
   per: string;
   tag?: string;
   featured?: boolean;
@@ -30,7 +40,10 @@ const PLANS_META: PlanMeta[] = [
   { key: "kitCourse", featured: true },
 ];
 
-type PlanCopy = Omit<Plan, "key" | "price" | "featured"> & {
+type PlanCopy = Omit<
+  Plan,
+  "key" | "fullCents" | "discountedCents" | "currency" | "featured"
+> & {
   clubLinkLabel?: string;
   clubLinkHref?: string;
 };
@@ -97,12 +110,13 @@ function PlanCard({
         {plan.description}
       </p>
 
-      <div className="mt-6 flex items-baseline gap-1.5">
-        <span className="font-heading text-[2.375rem] font-bold tracking-[-0.025em] text-foreground">
-          {plan.price}
-        </span>
-        <span className="text-sm text-muted-foreground">{plan.per}</span>
-      </div>
+      <PlanPrice
+        fullCents={plan.fullCents}
+        discountedCents={plan.discountedCents}
+        currency={plan.currency}
+        per={plan.per}
+        delay={plan.featured ? 3.4 : 2.8}
+      />
 
       <CheckoutButton
         plan={plan.key}
@@ -149,12 +163,14 @@ function PlanCard({
 export async function Pricing() {
   const t = await getTranslations("pricing");
   const locale = await getLocale();
-  const country = (await headers()).get("x-vercel-ip-country");
+  const country = resolveViewerCountry((await headers()).get("x-vercel-ip-country"));
   const currency = currencyForCountry(country);
+  const showRegionalDiscount = isRegionalDiscountEligible(country);
   const plansCopy = t.raw("plans") as Record<string, PlanCopy>;
 
   const PLANS: Plan[] = PLANS_META.map((meta) => {
     const copy = plansCopy[meta.key];
+    const fullCents = PLAN_UNIT_AMOUNT[meta.key][currency];
     return {
       ...meta,
       label: copy.label,
@@ -163,7 +179,11 @@ export async function Pricing() {
       tag: copy.tag,
       cta: copy.cta,
       features: copy.features,
-      price: PLAN_DISPLAY[meta.key][currency].amount,
+      currency,
+      fullCents,
+      discountedCents: showRegionalDiscount
+        ? Math.round(fullCents * (1 - REGIONAL_DISCOUNT_PERCENT / 100))
+        : undefined,
     };
   });
 
@@ -220,7 +240,14 @@ export async function Pricing() {
         })}
       </Reveal>
 
-      <p className="mt-8 max-w-md text-center text-[0.8125rem] text-muted-foreground">
+      {showRegionalDiscount ? <RegionalDiscountNote /> : null}
+
+      <p
+        className={cn(
+          "max-w-md text-center text-[0.8125rem] text-muted-foreground",
+          showRegionalDiscount ? "mt-3" : "mt-8",
+        )}
+      >
         {t("checkoutNote")}
       </p>
     </section>
