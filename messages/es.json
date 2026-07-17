@@ -383,22 +383,23 @@
     "plans": {
       "annual": {
         "label": "Kit Anual",
-        "description": "El kit completo para lanzar, hecho para no desarrolladores y para quien ya programa.",
+        "description": "Backend, UI y CLI listos para lanzar.",
         "per": "/ año",
         "cta": "Quiero el Kit Anual",
         "features": [
-          "Hecho para no desarrolladores y para quien ya programa",
           "Firebase, Supabase y REST API",
-          "Crear y actualizar apps ilimitadas por 1 año",
-          "60+ componentes de UI (95+ variantes)",
-          "En la CLI, tú eliges qué activar en tu proyecto",
-          "Licencia comercial para publicar y vender",
-          "Soporte"
+          "Creación y updates ilimitados · 1 año",
+          "60+ componentes · 95+ variantes",
+          "CLI con setup a medida",
+          "Preview Device en el navegador",
+          "iOS, Android y Web desde el día uno",
+          "Auth, suscripciones y push listos",
+          "Soporte incluido"
         ]
       },
       "kitCourse": {
         "label": "Kit + Kasy Club",
-        "description": "Todo el Kit Anual, más comunidad, clases, lives y soporte prioritario.",
+        "description": "Todo el Kit, más clases, lives y soporte.",
         "per": "pago único",
         "tag": "Más popular",
         "cta": "Quiero el Kit + Kasy Club",
@@ -410,7 +411,7 @@
           "Clases exclusivas y lives semanales",
           "Comunidad para networking y socios",
           "Soporte prioritario",
-          "Garantía de 7 días solo en la parte del Club"
+          "Garantía de 7 días en el Club"
         ]
       }
     }

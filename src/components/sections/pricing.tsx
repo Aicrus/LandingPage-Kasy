@@ -93,11 +93,11 @@ function PlanCard({
       <h3 className="font-heading text-[1.1875rem] font-semibold text-foreground">
         {plan.label}
       </h3>
-      <p className="mt-1.5 text-[0.8125rem] text-muted-foreground">
+      <p className="mt-2 text-[0.875rem] leading-snug text-muted-foreground">
         {plan.description}
       </p>
 
-      <div className="mt-5 flex items-baseline gap-1.5">
+      <div className="mt-6 flex items-baseline gap-1.5">
         <span className="font-heading text-[2.375rem] font-bold tracking-[-0.025em] text-foreground">
           {plan.price}
         </span>
@@ -113,12 +113,12 @@ function PlanCard({
         {plan.cta}
       </CheckoutButton>
 
-      <div className="mt-6 border-t border-border/60 pt-6">
-        <ul className="flex flex-col gap-3">
+      <div className="mt-7 border-t border-border/60 pt-6">
+        <ul className="flex flex-col gap-3.5">
           {plan.features.map((feature) => (
             <li
               key={feature}
-              className="flex items-start gap-2.5 text-[0.875rem] text-foreground/85"
+              className="flex items-start gap-2.5 text-[0.875rem] leading-snug text-foreground/85"
             >
               <Check
                 className={cn(

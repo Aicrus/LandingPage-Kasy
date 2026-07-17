@@ -383,22 +383,23 @@
     "plans": {
       "annual": {
         "label": "Annual Kit",
-        "description": "The full kit to ship, built for non-developers and for people who already code.",
+        "description": "Backend, UI, and CLI ready to ship.",
         "per": "/ year",
         "cta": "Get the Annual Kit",
         "features": [
-          "Built for non-developers and for people who already code",
           "Firebase, Supabase, and REST API",
-          "Create and update unlimited apps for 1 year",
-          "60+ UI components (95+ variants)",
-          "In the CLI, you choose what to enable in your project",
-          "Commercial license to publish and sell",
-          "Support"
+          "Unlimited create and updates · 1 year",
+          "60+ components · 95+ variants",
+          "CLI with guided setup",
+          "Preview Device in the browser",
+          "iOS, Android, and Web on day one",
+          "Auth, subscriptions, and push ready",
+          "Support included"
         ]
       },
       "kitCourse": {
         "label": "Kit + Kasy Club",
-        "description": "Everything in the Annual Kit, plus community, classes, lives, and priority support.",
+        "description": "Everything in the Kit, plus classes, lives, and support.",
         "per": "one-time payment",
         "tag": "Most popular",
         "cta": "Get Kit + Kasy Club",
@@ -410,7 +411,7 @@
           "Exclusive classes and weekly lives",
           "Community for networking and co-founders",
           "Priority support",
-          "7-day guarantee on the Club portion only"
+          "7-day Club guarantee"
         ]
       }
     }
