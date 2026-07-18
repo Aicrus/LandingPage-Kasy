@@ -20,7 +20,11 @@
     },
     "cta": "Get Kasy",
     "contactLabel": "Questions?",
-    "copyright": "© 2026 Kasy. All rights reserved."
+    "copyright": "© 2026 Kasy. All rights reserved.",
+    "social": {
+      "instagram": "Kasy on Instagram",
+      "twitter": "Kasy on X (Twitter)"
+    }
   },
   "theme": {
     "groupLabel": "Interface theme",
