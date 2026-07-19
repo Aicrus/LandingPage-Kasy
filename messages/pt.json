@@ -270,50 +270,50 @@
     "eyebrow": "Depoimentos",
     "headingPart1": "De quem já saiu da ideia",
     "headingEmphasis": "e publicou.",
-    "subtitle": "Fundadores e desenvolvedores: da ideia à App Store em dias, não em meses.",
+    "subtitle": "Fundadores e desenvolvedores que saíram do setup e chegaram a publicar.",
     "items": [
       {
-        "text": "Em 6 dias meu app estava nas lojas. A CLI configurou Firebase, login e pagamentos antes de eu mexer em qualquer tela.",
+        "text": "A CLI configurou Firebase, login e pagamentos antes de eu tocar numa tela. Em cerca de uma semana eu já tava no TestFlight.",
         "name": "Lucas Almeida",
         "role": "Desenvolvedor indie"
       },
       {
-        "text": "Eu não programo. Mesmo assim consegui publicar nas duas lojas. O Kasy foi guiando passo a passo.",
+        "text": "Eu não programo. Mesmo assim cheguei a submeter nas duas lojas, seguindo o kit e pedindo ajuda quando travei.",
         "name": "Marina Costa",
         "role": "Fundadora"
       },
       {
-        "text": "O preview no navegador me poupou horas. Sem emulador: iOS e Android lado a lado, direto no browser.",
+        "text": "O preview no navegador me poupou horas. Sem ficar abrindo emulador: iOS e Android lado a lado, direto no browser.",
         "name": "Diego Fernández",
         "role": "Engenheiro mobile"
       },
       {
-        "text": "Troquei o backend de um cliente para Supabase em minutos. Mesmo código. Parecia mágica.",
+        "text": "Mudei o backend de um cliente pra Supabase sem reescrever o app. Em outro projeto isso me teria custado dias.",
         "name": "Priya Nair",
         "role": "Freelancer"
       },
       {
-        "text": "RevenueCat, push e analytics já vinham prontos. Eu só foquei nas minhas features e publiquei.",
+        "text": "RevenueCat, push e analytics já vinham prontos. Eu foquei nas minhas features e mandei pra revisão.",
         "name": "Tom Becker",
         "role": "Fundador solo"
       },
       {
-        "text": "Atualizei pela CLI e nada quebrou no app que já estava no ar. Isso eu nunca vi em outro kit.",
+        "text": "Atualizei pela CLI e nada quebrou no app que já tava no ar. Em outro kit isso sempre me dava dor de cabeça.",
         "name": "Sofia Rossi",
         "role": "Engenheira de produto"
       },
       {
-        "text": "Da ideia ao TestFlight em uma semana. A galeria de componentes deixou a UI bem mais fácil.",
+        "text": "Da ideia ao TestFlight em cerca de uma semana. A galeria de componentes me poupou de montar a UI do zero.",
         "name": "Akira Tanaka",
         "role": "Designer e criador"
       },
       {
-        "text": "Escolhi Firebase. O cliente pediu REST. Não precisei reescrever o projeto.",
+        "text": "Comecei com Firebase. O cliente pediu REST no meio do caminho. Não precisei recomeçar o projeto.",
         "name": "Hannah Müller",
         "role": "Líder de agência"
       },
       {
-        "text": "As regras para o Cursor fizeram a IA parecer que já conhecia o projeto inteiro. Economizei um tempo absurdo.",
+        "text": "As regras pro Cursor fizeram a IA seguir o padrão do projeto. Menos tempo corrigindo coisa óbvia.",
         "name": "Rafael Santos",
         "role": "Dev full-stack"
       }

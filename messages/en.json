@@ -270,50 +270,50 @@
     "eyebrow": "Testimonials",
     "headingPart1": "From people who left the idea",
     "headingEmphasis": "and shipped.",
-    "subtitle": "Founders and developers: idea to App Store in days, not months.",
+    "subtitle": "Founders and developers who got past setup and made it to publish.",
     "items": [
       {
-        "text": "My app was in the stores in 6 days. The CLI set up Firebase, login, and payments before I touched a single screen.",
+        "text": "The CLI set up Firebase, login, and payments before I touched a single screen. In about a week I was already on TestFlight.",
         "name": "Lucas Almeida",
         "role": "Indie developer"
       },
       {
-        "text": "I don't code. I still published on both stores. Kasy walked me through every step.",
+        "text": "I don't code. I still got my app submitted to both stores, following the kit and asking for help when I got stuck.",
         "name": "Marina Costa",
         "role": "Founder"
       },
       {
-        "text": "The browser preview alone saved me hours. No emulator. iOS and Android side by side in the browser.",
+        "text": "The browser preview saved me hours. No spinning up emulators: iOS and Android side by side in the browser.",
         "name": "Diego Fernández",
         "role": "Mobile engineer"
       },
       {
-        "text": "I moved a client project to Supabase in minutes. Same code. Felt unreal.",
+        "text": "I moved a client project to Supabase without rewriting the app. That would have taken me days elsewhere.",
         "name": "Priya Nair",
         "role": "Freelancer"
       },
       {
-        "text": "RevenueCat, push, and analytics were already there. I just built my features and shipped.",
+        "text": "RevenueCat, push, and analytics were already there. I built my features and submitted for review.",
         "name": "Tom Becker",
         "role": "Solo founder"
       },
       {
-        "text": "I updated through the CLI and nothing broke on the live app. I've never seen another kit do that.",
+        "text": "I updated through the CLI and nothing broke on the live app. With other kits that always gave me headaches.",
         "name": "Sofia Rossi",
         "role": "Product engineer"
       },
       {
-        "text": "Idea to TestFlight in a week. The component gallery made the UI the easy part.",
+        "text": "Idea to TestFlight in about a week. The component gallery saved me from building the UI from scratch.",
         "name": "Akira Tanaka",
         "role": "Designer & builder"
       },
       {
-        "text": "I picked Firebase. The client wanted REST. I didn't rewrite the project.",
+        "text": "I started with Firebase. The client asked for REST mid-project. I didn't have to start over.",
         "name": "Hannah Müller",
         "role": "Agency lead"
       },
       {
-        "text": "The Cursor rules made the AI feel like it already knew the whole project. Saved me a ton of time.",
+        "text": "The Cursor rules made the AI follow the project's patterns. Less time fixing the obvious stuff.",
         "name": "Rafael Santos",
         "role": "Full-stack developer"
       }
