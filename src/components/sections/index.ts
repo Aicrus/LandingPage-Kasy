@@ -5,6 +5,7 @@ export { HeroIntro } from "./hero-intro";
 export { HeroScreenReveal } from "./hero-screen-reveal";
 export { IntegrationsShowcase } from "./integrations-showcase";
 export { Marquee } from "./marquee";
+export { McpShowcase } from "./mcp-showcase";
 export { Pricing } from "./pricing";
 export { QualityStrip } from "./quality-strip";
 export { Testimonials } from "./testimonials";

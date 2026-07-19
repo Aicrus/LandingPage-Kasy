@@ -236,6 +236,42 @@
       }
     }
   },
+  "mcpShowcase": {
+    "eyebrow": "MCP Kasy",
+    "worksWith": "Funciona com a IA favorita.",
+    "headingLine1": "Crie meu projeto.",
+    "headingLine2": "Monte essa tela.",
+    "headingLine3": "A IA já sabe o caminho.",
+    "subtitle": "O MCP da Kasy prepara a máquina, cria o app e entrega o design system no chat. Menos oscilação. Mais tela pronta. Sem terminal.",
+    "cardTitle": "Peça no chat",
+    "cardSubtitle": "A IA chama as tools. O kit responde.",
+    "cardBadge": "sem terminal",
+    "prompts": {
+      "prepare": {
+        "quote": "Prepare minha máquina",
+        "detail": "Doctor do Kasy: Flutter, deps e ambiente no lugar."
+      },
+      "create": {
+        "quote": "Crie meu projeto com o MCP Kasy",
+        "detail": "Scaffold completo pelo chat, com a CLI por baixo."
+      },
+      "screen": {
+        "quote": "Monte essa tela com o kit",
+        "detail": "Design system e componentes reais. A IA não inventa widget."
+      }
+    },
+    "toolsLabel": "Tools inclusas",
+    "tools": {
+      "prepare_machine": "prepare_machine",
+      "create_project": "create_project",
+      "list_features": "list_features",
+      "add_feature": "add_feature",
+      "list_components": "list_components",
+      "check_status": "check_status",
+      "update_project": "update_project",
+      "run_kasy_command": "run_kasy_command"
+    }
+  },
   "appShowcase": {
     "eyebrow": "Ideias no ar",
     "heading": "Sua ideia, nas lojas.",

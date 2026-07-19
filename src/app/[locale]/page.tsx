@@ -10,6 +10,7 @@ import {
   HeroScreenReveal,
   IntegrationsShowcase,
   Marquee,
+  McpShowcase,
   Pricing,
   QualityStrip,
   Testimonials,
@@ -40,6 +41,7 @@ export default async function Home({
       <FeatureHoverCards />
       <IntegrationsShowcase />
       <WhatYouGet />
+      <McpShowcase />
       <AppShowcase />
       <QualityStrip />
       <Testimonials />
