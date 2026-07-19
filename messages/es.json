@@ -239,37 +239,28 @@
   "mcpShowcase": {
     "eyebrow": "MCP Kasy",
     "worksWith": "Funciona con tu IA favorita.",
-    "headingLine1": "Crea mi proyecto.",
-    "headingLine2": "Monta esta pantalla.",
-    "headingLine3": "La IA ya sabe el camino.",
-    "subtitle": "El MCP de Kasy prepara la máquina, crea la app y entrega el design system en el chat. Menos oscilación. Más pantalla lista. Sin terminal.",
-    "cardTitle": "Pídelo en el chat",
-    "cardSubtitle": "La IA llama a las tools. El kit responde.",
-    "cardBadge": "sin terminal",
-    "prompts": {
+    "headingPart1": "Pídelo en el chat.",
+    "headingEmphasis": "El kit responde.",
+    "subtitle": "El MCP de Kasy prepara la máquina, crea la app y entrega el design system en el chat. Sin que la IA oscile.",
+    "moreTools": "+8 tools disponibles",
+    "composerPlaceholder": "Pídele algo al MCP Kasy…",
+    "youLabel": "Tú",
+    "mcpLabel": "MCP Kasy",
+    "cursorLabel": "Cursor",
+    "modelLabel": "Composer 2.5",
+    "demos": {
       "prepare": {
-        "quote": "Prepara mi máquina",
-        "detail": "Doctor de Kasy: Flutter, deps y entorno listos."
+        "ask": "Prepara mi máquina",
+        "reply": "Entorno listo. Flutter y la toolchain en su lugar."
       },
       "create": {
-        "quote": "Crea mi proyecto con el MCP Kasy",
-        "detail": "Scaffold completo desde el chat, con la CLI por debajo."
+        "ask": "Crea mi proyecto",
+        "reply": "Creado con arquitectura y setup listos para publicar."
       },
       "screen": {
-        "quote": "Monta esta pantalla con el kit",
-        "detail": "Design system y componentes reales. La IA no inventa widgets."
+        "ask": "Monta esta pantalla para mí",
+        "reply": "Hecha con el design system y los patrones del kit."
       }
-    },
-    "toolsLabel": "Tools incluidas",
-    "tools": {
-      "prepare_machine": "prepare_machine",
-      "create_project": "create_project",
-      "list_features": "list_features",
-      "add_feature": "add_feature",
-      "list_components": "list_components",
-      "check_status": "check_status",
-      "update_project": "update_project",
-      "run_kasy_command": "run_kasy_command"
     }
   },
   "appShowcase": {

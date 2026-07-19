@@ -479,7 +479,7 @@ export function AppShowcase() {
         "mx-auto flex w-full flex-col items-center",
         "max-w-[min(96vw,76rem)]",
         "px-[clamp(0.75rem,2.5vw,2rem)] max-sm:px-[clamp(1rem,3.25vw,2rem)]",
-        "mt-[clamp(3.5rem,5.5vw+1rem,5.5rem)] pb-[clamp(1.25rem,2vw,2rem)]",
+        "mt-[var(--spacing-editor-to-features)] pb-[clamp(1.25rem,2vw,2rem)]",
       )}
     >
       <Reveal

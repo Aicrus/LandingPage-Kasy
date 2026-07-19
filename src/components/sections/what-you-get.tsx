@@ -15,7 +15,7 @@ import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 
 import { Reveal } from "@/components/motion/reveal";
-import { AnimatePresence, fadeIn, motion } from "@/lib/motion";
+import { AnimatePresence, fadeIn, motion, useInView } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 import { BrandTile } from "./brand-icons";
@@ -256,6 +256,8 @@ export function WhatYouGet() {
   const [isLgViewport, setIsLgViewport] = useState(false);
   const tabListRef = useRef<HTMLDivElement>(null);
   const panelShellRef = useRef<HTMLDivElement>(null);
+  const markRef = useRef<HTMLSpanElement>(null);
+  const markInView = useInView(markRef, { once: true, margin: "-10% 0px" });
   const tabButtonRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
   const measurePanelRefs = useRef<Map<string, HTMLDivElement>>(new Map());
   const activeTab =
@@ -400,7 +402,13 @@ export function WhatYouGet() {
             {t("descPart1")}{" "}
             <span className="text-copy-emphasis">{t("descEmphasis1")}</span>.{" "}
             {t("descPart2")}{" "}
-            <span className="text-copy-mark">{t("descEmphasis2")}</span>.
+            <span
+              ref={markRef}
+              className={cn("text-copy-mark", markInView && "is-in-view")}
+            >
+              {t("descEmphasis2")}
+            </span>
+            .
           </p>
           <span className="font-mono text-[0.8125rem] text-muted-foreground/70">
             {t("statsLabel", { categories: FEATURE_TABS_META.length, features: TOTAL_FEATURE_COUNT })}

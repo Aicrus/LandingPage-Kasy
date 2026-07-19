@@ -239,37 +239,28 @@
   "mcpShowcase": {
     "eyebrow": "MCP Kasy",
     "worksWith": "Works with your favorite AI.",
-    "headingLine1": "Create my project.",
-    "headingLine2": "Build this screen.",
-    "headingLine3": "The AI already knows the path.",
-    "subtitle": "Kasy MCP prepares your machine, scaffolds the app, and hands the design system to the chat. Less drift. More finished screens. No terminal.",
-    "cardTitle": "Ask in chat",
-    "cardSubtitle": "The AI calls the tools. The kit answers.",
-    "cardBadge": "no terminal",
-    "prompts": {
+    "headingPart1": "Ask in chat.",
+    "headingEmphasis": "The kit answers.",
+    "subtitle": "Kasy MCP prepares your machine, scaffolds the app, and hands the design system to the chat. No AI drift.",
+    "moreTools": "8+ tools available",
+    "composerPlaceholder": "Ask Kasy MCP…",
+    "youLabel": "You",
+    "mcpLabel": "MCP Kasy",
+    "cursorLabel": "Cursor",
+    "modelLabel": "Composer 2.5",
+    "demos": {
       "prepare": {
-        "quote": "Prepare my machine",
-        "detail": "Kasy doctor: Flutter, deps, and environment ready."
+        "ask": "Prepare my machine",
+        "reply": "Environment ready. Flutter and the toolchain in place."
       },
       "create": {
-        "quote": "Create my project with Kasy MCP",
-        "detail": "Full scaffold from chat, CLI underneath."
+        "ask": "Create my project",
+        "reply": "Created with architecture and setup ready to ship."
       },
       "screen": {
-        "quote": "Build this screen with the kit",
-        "detail": "Real design system and components. The AI doesn't invent widgets."
+        "ask": "Build this screen for me",
+        "reply": "Built with the design system and the kit patterns."
       }
-    },
-    "toolsLabel": "Included tools",
-    "tools": {
-      "prepare_machine": "prepare_machine",
-      "create_project": "create_project",
-      "list_features": "list_features",
-      "add_feature": "add_feature",
-      "list_components": "list_components",
-      "check_status": "check_status",
-      "update_project": "update_project",
-      "run_kasy_command": "run_kasy_command"
     }
   },
   "appShowcase": {
