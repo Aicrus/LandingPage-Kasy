@@ -23,7 +23,8 @@
     "copyright": "© 2026 Kasy. Todos os direitos reservados.",
     "social": {
       "instagram": "Instagram da Kasy",
-      "twitter": "X (Twitter) da Kasy"
+      "twitter": "X (Twitter) da Kasy",
+      "youtube": "YouTube da Kasy"
     }
   },
   "theme": {
@@ -59,7 +60,8 @@
     "bigLabel": "Na prática",
     "play": "Reproduzir vídeo",
     "pause": "Pausar vídeo",
-    "close": "Fechar vídeo"
+    "close": "Fechar vídeo",
+    "youtubeTitle": "Vídeo da Kasy no YouTube"
   },
   "featureHoverCards": {
     "heading": "O que atrasa o lançamento",

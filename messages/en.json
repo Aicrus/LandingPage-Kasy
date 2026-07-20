@@ -23,7 +23,8 @@
     "copyright": "© 2026 Kasy. All rights reserved.",
     "social": {
       "instagram": "Kasy on Instagram",
-      "twitter": "Kasy on X (Twitter)"
+      "twitter": "Kasy on X (Twitter)",
+      "youtube": "Kasy on YouTube"
     }
   },
   "theme": {
@@ -59,7 +60,8 @@
     "bigLabel": "In practice",
     "play": "Play video",
     "pause": "Pause video",
-    "close": "Close video"
+    "close": "Close video",
+    "youtubeTitle": "Kasy video on YouTube"
   },
   "featureHoverCards": {
     "heading": "What slows the launch",

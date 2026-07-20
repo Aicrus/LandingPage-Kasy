@@ -51,6 +51,19 @@ function XIcon({ className }: { className?: string }) {
   );
 }
 
+function YouTubeIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={className}
+      aria-hidden
+    >
+      <path d="M23.5 6.2a3.02 3.02 0 0 0-2.12-2.14C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.38.56A3.02 3.02 0 0 0 .5 6.2 31.6 31.6 0 0 0 0 12a31.6 31.6 0 0 0 .5 5.8 3.02 3.02 0 0 0 2.12 2.14C4.5 20.5 12 20.5 12 20.5s7.5 0 9.38-.56a3.02 3.02 0 0 0 2.12-2.14A31.6 31.6 0 0 0 24 12a31.6 31.6 0 0 0-.5-5.8zM9.75 15.02V8.98L15.5 12l-5.75 3.02z" />
+    </svg>
+  );
+}
+
 const SOCIAL_LINKS = [
   {
     href: "https://www.instagram.com/trykasy",
@@ -61,6 +74,11 @@ const SOCIAL_LINKS = [
     href: "https://x.com/trykasy",
     labelKey: "social.twitter" as const,
     icon: XIcon,
+  },
+  {
+    href: "https://www.youtube.com/@trykasy",
+    labelKey: "social.youtube" as const,
+    icon: YouTubeIcon,
   },
 ] as const;
 

@@ -5,6 +5,10 @@ import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import {
+  YouTubeEmbed,
+  type YouTubeEmbedHandle,
+} from "@/components/youtube-embed";
+import {
   motion,
   useReducedMotion,
   useScroll,
@@ -12,49 +16,54 @@ import {
 } from "@/lib/motion";
 import { useMediaQuery } from "@/lib/use-media-query";
 import { cn } from "@/lib/utils";
+import { getShowcaseYouTubeId } from "@/lib/youtube";
 
 const LG_MEDIA = "(min-width: 1024px)";
 
-const CONTROLS_HIDE_DELAY_MS = 2200;
+const CONTROLS_HIDE_DELAY_MS = 250;
 
-/** Loop de fundo — toca mudo até a pessoa dar play; volta quando pausa. */
+/** Loop de fundo — toca mudo até a pessoa dar play. */
 const LOOP_VIDEO_SRC =
   "https://framerusercontent.com/assets/t3oWwHTiHPdqvISgXglF9dJecA.mp4";
 
+/** Fallback local se ainda não houver ID do YouTube em `YOUTUBE_SHOWCASE_VIDEO`. */
 const VIDEO_SRC =
   "https://framerusercontent.com/assets/P3x9QvFGoxzu1AUq58rA1x2gNA.mp4";
 
-const toggleButtonIconClass =
-  "flex size-12 items-center justify-center rounded-xl sm:size-14 sm:rounded-2xl bg-white/15 backdrop-blur-md transition-[transform,opacity] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110 motion-safe:group-active:scale-95";
+const YOUTUBE_VIDEO_ID = getShowcaseYouTubeId();
+
+/** Botão de vidro (só no loop, antes do YouTube). */
+const glassPlayButtonClass =
+  "flex size-12 items-center justify-center rounded-xl sm:size-14 sm:rounded-2xl bg-white/15 backdrop-blur-md transition-[transform,opacity] duration-150 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110 motion-safe:group-active:scale-95";
 
 export function VideoShowcase() {
   const t = useTranslations("videoShowcase");
   const [playing, setPlaying] = useState(false);
+  /** Depois do primeiro play, o YouTube fica montado (pause não volta ao loop). */
+  const [youtubeStarted, setYoutubeStarted] = useState(false);
   const [controlsVisible, setControlsVisible] = useState(true);
   const [fullscreenOpen, setFullscreenOpen] = useState(false);
   const hideTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
   const inlineVideoRef = useRef<HTMLVideoElement>(null);
   const fullscreenVideoRef = useRef<HTMLVideoElement>(null);
+  const youtubeRef = useRef<YouTubeEmbedHandle>(null);
+  const fullscreenYoutubeRef = useRef<YouTubeEmbedHandle>(null);
   const reducedMotion = useReducedMotion();
   const isLgUp = useMediaQuery(LG_MEDIA);
 
-  // Contínuo — amarrado direto na posição de scroll da seção, sem travar a rolagem.
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "center center"],
   });
-  const width = useTransform(scrollYProgress, [0, 1], ["70vw", "97vw"]);
-  const scale = useTransform(scrollYProgress, [0, 1], [0.6, 1]);
+  const width = useTransform(scrollYProgress, [0, 1], ["58vw", "82vw"]);
+  const scale = useTransform(scrollYProgress, [0, 1], [0.55, 0.92]);
   const groupY = useTransform(scrollYProgress, [0, 1], [90, 0]);
   const groupOpacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
-  // Desktop: o vídeo sobe e cobre o texto conforme cresce.
-  const videoOverlapMarginTop = useTransform(scrollYProgress, [0, 0.55], [44, -160]);
-  // Mobile/tablet: texto some no scroll; vídeo só alarga — sem scale nem overlap
-  // (evita cortar topo/baixo no overflow-hidden do wrapper).
-  const textOpacityMobile = useTransform(scrollYProgress, [0.22, 0.55], [1, 0]);
-  const textYMobile = useTransform(scrollYProgress, [0.22, 0.55], [0, -14]);
-  const widthMobile = useTransform(scrollYProgress, [0, 1], ["82vw", "94vw"]);
+  const videoOverlapMarginTop = useTransform(scrollYProgress, [0, 0.55], [36, -96]);
+  const textOpacity = useTransform(scrollYProgress, [0.38, 0.72], [1, 0]);
+  const textY = useTransform(scrollYProgress, [0.38, 0.72], [0, -72]);
+  const widthMobile = useTransform(scrollYProgress, [0, 1], ["76vw", "86vw"]);
   const videoGapMobile = useTransform(scrollYProgress, [0, 0.55], [24, 10]);
 
   function clearHideTimeout() {
@@ -70,13 +79,16 @@ export function VideoShowcase() {
   }
 
   function handleMouseMove() {
-    if (!playing) return;
+    if (!playing || (YOUTUBE_VIDEO_ID && youtubeStarted)) return;
     setControlsVisible(true);
     scheduleHide();
   }
 
+  /** Play inicial no loop (vidro) ou toggle do MP4 fallback. YouTube depois usa controles nativos. */
   function handleToggle() {
     if (fullscreenOpen) {
+      if (YOUTUBE_VIDEO_ID) return;
+
       const video = fullscreenVideoRef.current;
       if (!video) return;
 
@@ -94,24 +106,35 @@ export function VideoShowcase() {
       return;
     }
 
+    // YouTube já ativo: play/pause é nativo no iframe
+    if (YOUTUBE_VIDEO_ID && youtubeStarted) return;
+
     if (playing) {
-      // Desktop: pausar volta para o loop de fundo.
       inlineVideoRef.current?.pause();
       setPlaying(false);
       setControlsVisible(true);
       clearHideTimeout();
-    } else if (!isLgUp) {
-      // Mobile/tablet: play abre tela cheia; pause/play ficam no overlay.
+      return;
+    }
+
+    if (!isLgUp) {
+      setYoutubeStarted(true);
       setPlaying(true);
       setFullscreenOpen(true);
-    } else {
-      setPlaying(true);
+      return;
+    }
+
+    setYoutubeStarted(true);
+    setPlaying(true);
+    setControlsVisible(false);
+    if (!YOUTUBE_VIDEO_ID) {
       setControlsVisible(true);
       scheduleHide();
     }
   }
 
   const closeFullscreen = useCallback(() => {
+    fullscreenYoutubeRef.current?.pause();
     fullscreenVideoRef.current?.pause();
     setFullscreenOpen(false);
     setPlaying(false);
@@ -136,6 +159,13 @@ export function VideoShowcase() {
     };
   }, [fullscreenOpen, closeFullscreen]);
 
+  const showYoutubeInline =
+    Boolean(YOUTUBE_VIDEO_ID) && youtubeStarted && !fullscreenOpen;
+
+  /** Overlay nosso só no loop / MP4 — nunca por cima do YouTube. */
+  const showCustomOverlay =
+    !showYoutubeInline && !(fullscreenOpen && YOUTUBE_VIDEO_ID);
+
   return (
     <>
     <div
@@ -157,9 +187,9 @@ export function VideoShowcase() {
         <motion.p
           aria-hidden
           style={
-            reducedMotion || isLgUp
+            reducedMotion
               ? undefined
-              : { opacity: textOpacityMobile, y: textYMobile }
+              : { opacity: textOpacity, y: textY }
           }
           className={cn(
             "pointer-events-none relative z-0 select-none whitespace-nowrap uppercase",
@@ -175,18 +205,27 @@ export function VideoShowcase() {
           onMouseMove={handleMouseMove}
           style={
             reducedMotion
-              ? { width: "min(94vw, 66rem)" }
+              ? { width: "min(86vw, 52rem)" }
               : isLgUp
                 ? { width, scale, marginTop: videoOverlapMarginTop }
                 : { width: widthMobile, marginTop: videoGapMobile }
           }
           className={cn(
-            "group relative z-10 aspect-[16/7.5] overflow-hidden",
+            "group relative z-10 aspect-video overflow-hidden",
             "rounded-[1.5rem] sm:rounded-[2rem]",
             "bg-[#0b0d13]",
           )}
         >
-          {playing && !fullscreenOpen ? (
+          {showYoutubeInline ? (
+            <YouTubeEmbed
+              ref={youtubeRef}
+              videoId={YOUTUBE_VIDEO_ID!}
+              title={t("youtubeTitle")}
+              autoplay
+              mute={false}
+              onPlayingChange={setPlaying}
+            />
+          ) : playing && !fullscreenOpen ? (
             <video
               ref={inlineVideoRef}
               src={VIDEO_SRC}
@@ -200,6 +239,13 @@ export function VideoShowcase() {
               }}
               className="absolute inset-0 size-full object-cover"
             />
+          ) : youtubeStarted && !fullscreenOpen ? (
+            <video
+              ref={inlineVideoRef}
+              src={VIDEO_SRC}
+              playsInline
+              className="absolute inset-0 size-full object-cover"
+            />
           ) : (
             <video
               src={LOOP_VIDEO_SRC}
@@ -211,18 +257,83 @@ export function VideoShowcase() {
             />
           )}
 
+          {showCustomOverlay ? (
+            <button
+              type="button"
+              aria-label={playing ? t("pause") : t("play")}
+              onClick={handleToggle}
+              className={cn(
+                "absolute inset-0 z-20 flex size-full items-center justify-center outline-none",
+                "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+              )}
+            >
+              <span
+                className={cn(
+                  glassPlayButtonClass,
+                  playing && !controlsVisible ? "opacity-0" : "opacity-100",
+                )}
+              >
+                {playing ? (
+                  <Pause className="size-6 text-white sm:size-7" strokeWidth={1.75} />
+                ) : (
+                  <Play
+                    className="size-6 translate-x-0.5 text-white sm:size-7"
+                    strokeWidth={1.75}
+                  />
+                )}
+              </span>
+            </button>
+          ) : null}
+        </motion.div>
+      </motion.div>
+    </div>
+
+    {fullscreenOpen ? (
+      <div
+        className="fixed inset-0 z-50 flex items-center justify-center bg-black lg:hidden"
+        onMouseMove={handleMouseMove}
+      >
+        {YOUTUBE_VIDEO_ID ? (
+          <div className="relative aspect-video w-full max-w-[100vw] max-h-[100dvh]">
+            <YouTubeEmbed
+              ref={fullscreenYoutubeRef}
+              videoId={YOUTUBE_VIDEO_ID}
+              title={t("youtubeTitle")}
+              autoplay
+              mute={false}
+              onPlayingChange={setPlaying}
+            />
+          </div>
+        ) : (
+          <video
+            ref={fullscreenVideoRef}
+            src={VIDEO_SRC}
+            autoPlay
+            playsInline
+            onPlay={() => {
+              setPlaying(true);
+              scheduleHide();
+            }}
+            onPause={() => {
+              setPlaying(false);
+              setControlsVisible(true);
+              clearHideTimeout();
+            }}
+            onEnded={closeFullscreen}
+            className="size-full object-contain"
+          />
+        )}
+
+        {!YOUTUBE_VIDEO_ID ? (
           <button
             type="button"
             aria-label={playing ? t("pause") : t("play")}
             onClick={handleToggle}
-            className={cn(
-              "absolute inset-0 flex size-full items-center justify-center outline-none",
-              "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-            )}
+            className="absolute inset-0 z-20 flex size-full items-center justify-center outline-none"
           >
             <span
               className={cn(
-                toggleButtonIconClass,
+                glassPlayButtonClass,
                 playing && !controlsVisible ? "opacity-0" : "opacity-100",
               )}
             >
@@ -236,55 +347,7 @@ export function VideoShowcase() {
               )}
             </span>
           </button>
-        </motion.div>
-      </motion.div>
-    </div>
-
-    {fullscreenOpen ? (
-      <div
-        className="fixed inset-0 z-50 flex items-center justify-center bg-black lg:hidden"
-        onMouseMove={handleMouseMove}
-      >
-        <video
-          ref={fullscreenVideoRef}
-          src={VIDEO_SRC}
-          autoPlay
-          playsInline
-          onPlay={() => {
-            setPlaying(true);
-            scheduleHide();
-          }}
-          onPause={() => {
-            setPlaying(false);
-            setControlsVisible(true);
-            clearHideTimeout();
-          }}
-          onEnded={closeFullscreen}
-          className="size-full object-contain"
-        />
-
-        <button
-          type="button"
-          aria-label={playing ? t("pause") : t("play")}
-          onClick={handleToggle}
-          className="absolute inset-0 flex size-full items-center justify-center outline-none"
-        >
-          <span
-            className={cn(
-              toggleButtonIconClass,
-              playing && !controlsVisible ? "opacity-0" : "opacity-100",
-            )}
-          >
-            {playing ? (
-              <Pause className="size-6 text-white sm:size-7" strokeWidth={1.75} />
-            ) : (
-              <Play
-                className="size-6 translate-x-0.5 text-white sm:size-7"
-                strokeWidth={1.75}
-              />
-            )}
-          </span>
-        </button>
+        ) : null}
 
         <button
           type="button"
@@ -296,8 +359,7 @@ export function VideoShowcase() {
           className={cn(
             "absolute top-[max(1rem,env(safe-area-inset-top))] right-[max(1rem,env(safe-area-inset-right))] z-10",
             "flex size-11 items-center justify-center rounded-full bg-white/15 backdrop-blur-md",
-            "transition-opacity duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
-            playing && !controlsVisible ? "opacity-0" : "opacity-100",
+            "transition-opacity duration-150 ease-[cubic-bezier(0.22,1,0.36,1)]",
           )}
         >
           <X className="size-5 text-white" strokeWidth={1.75} />
