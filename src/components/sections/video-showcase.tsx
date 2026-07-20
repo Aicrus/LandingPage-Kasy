@@ -81,15 +81,28 @@ export function VideoShowcase() {
   }
 
   function handleMouseMove() {
-    if (!playing || (YOUTUBE_VIDEO_ID && youtubeStarted)) return;
+    if (!playing) return;
     setControlsVisible(true);
     scheduleHide();
   }
 
-  /** Play inicial no loop (vidro) ou toggle do MP4 fallback. YouTube depois usa controles nativos. */
+  /** Play/pause nosso (YouTube fica com pointer-events off para o duplo clique chegar). */
   function handleToggle() {
     if (fullscreenOpen) {
-      if (YOUTUBE_VIDEO_ID) return;
+      if (YOUTUBE_VIDEO_ID) {
+        if (playing) {
+          fullscreenYoutubeRef.current?.pause();
+          setPlaying(false);
+          setControlsVisible(true);
+          clearHideTimeout();
+        } else {
+          fullscreenYoutubeRef.current?.play();
+          setPlaying(true);
+          setControlsVisible(true);
+          scheduleHide();
+        }
+        return;
+      }
 
       const video = fullscreenVideoRef.current;
       if (!video) return;
@@ -108,8 +121,21 @@ export function VideoShowcase() {
       return;
     }
 
-    // YouTube já ativo: play/pause é nativo no iframe
-    if (YOUTUBE_VIDEO_ID && youtubeStarted) return;
+    // YouTube já ativo no inline: play/pause via API (iframe não recebe clique)
+    if (YOUTUBE_VIDEO_ID && youtubeStarted) {
+      if (playing) {
+        youtubeRef.current?.pause();
+        setPlaying(false);
+        setControlsVisible(true);
+        clearHideTimeout();
+      } else {
+        youtubeRef.current?.play();
+        setPlaying(true);
+        setControlsVisible(true);
+        scheduleHide();
+      }
+      return;
+    }
 
     if (playing) {
       inlineVideoRef.current?.pause();
@@ -197,10 +223,6 @@ export function VideoShowcase() {
   const youtubePreloadedInline =
     Boolean(YOUTUBE_VIDEO_ID) && !fullscreenOpen;
 
-  /** Overlay nosso só no loop / MP4 — nunca por cima do YouTube ativo. */
-  const showCustomOverlay =
-    !showYoutubeInline && !(fullscreenOpen && YOUTUBE_VIDEO_ID);
-
   return (
     <>
     <div
@@ -269,7 +291,8 @@ export function VideoShowcase() {
                 videoId={YOUTUBE_VIDEO_ID!}
                 title={t("youtubeTitle")}
                 previewLoop
-                interactive={youtubeStarted}
+                // Sempre off: o overlay captura clique e duplo clique (fullscreen)
+                interactive={false}
                 onPlayingChange={(isPlaying) => {
                   if (youtubeStartedRef.current) setPlaying(isPlaying);
                 }}
@@ -305,38 +328,37 @@ export function VideoShowcase() {
             )
           ) : null}
 
-          {showCustomOverlay ? (
-            <button
-              type="button"
-              aria-label={playing ? t("pause") : t("play")}
-              onClick={handleToggle}
-              onDoubleClick={(event) => {
-                event.preventDefault();
-                event.stopPropagation();
-                handleDoubleClickVideo();
-              }}
+          {/* Overlay sempre por cima: clique = play/pause, duplo = fullscreen */}
+          <button
+            type="button"
+            aria-label={playing ? t("pause") : t("play")}
+            onClick={handleToggle}
+            onDoubleClick={(event) => {
+              event.preventDefault();
+              event.stopPropagation();
+              handleDoubleClickVideo();
+            }}
+            className={cn(
+              "absolute inset-0 z-20 flex size-full cursor-pointer items-center justify-center outline-none",
+              "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+            )}
+          >
+            <span
               className={cn(
-                "absolute inset-0 z-20 flex size-full cursor-pointer items-center justify-center outline-none",
-                "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+                glassPlayButtonClass,
+                playing && !controlsVisible ? "opacity-0" : "opacity-100",
               )}
             >
-              <span
-                className={cn(
-                  glassPlayButtonClass,
-                  playing && !controlsVisible ? "opacity-0" : "opacity-100",
-                )}
-              >
-                {playing ? (
-                  <Pause className="size-6 text-white sm:size-7" strokeWidth={1.75} />
-                ) : (
-                  <Play
-                    className="size-6 translate-x-0.5 text-white sm:size-7"
-                    strokeWidth={1.75}
-                  />
-                )}
-              </span>
-            </button>
-          ) : null}
+              {playing ? (
+                <Pause className="size-6 text-white sm:size-7" strokeWidth={1.75} />
+              ) : (
+                <Play
+                  className="size-6 translate-x-0.5 text-white sm:size-7"
+                  strokeWidth={1.75}
+                />
+              )}
+            </span>
+          </button>
         </motion.div>
       </motion.div>
     </div>
@@ -347,13 +369,17 @@ export function VideoShowcase() {
         onMouseMove={handleMouseMove}
       >
         {YOUTUBE_VIDEO_ID ? (
-          <div className="relative aspect-video w-full max-w-[100vw] max-h-[100dvh]">
+          <div
+            className="relative aspect-video w-full max-w-[100vw] max-h-[100dvh]"
+            onDoubleClick={() => fullscreenYoutubeRef.current?.toggleFullscreen()}
+          >
             <YouTubeEmbed
               ref={fullscreenYoutubeRef}
               videoId={YOUTUBE_VIDEO_ID}
               title={t("youtubeTitle")}
               autoplay
               mute={false}
+              interactive={false}
               onPlayingChange={setPlaying}
             />
           </div>
@@ -377,30 +403,38 @@ export function VideoShowcase() {
           />
         )}
 
-        {!YOUTUBE_VIDEO_ID ? (
-          <button
-            type="button"
-            aria-label={playing ? t("pause") : t("play")}
-            onClick={handleToggle}
-            className="absolute inset-0 z-20 flex size-full items-center justify-center outline-none"
+        <button
+          type="button"
+          aria-label={playing ? t("pause") : t("play")}
+          onClick={handleToggle}
+          onDoubleClick={(event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            if (YOUTUBE_VIDEO_ID) {
+              fullscreenYoutubeRef.current?.toggleFullscreen();
+              return;
+            }
+            const video = fullscreenVideoRef.current;
+            if (video?.requestFullscreen) void video.requestFullscreen();
+          }}
+          className="absolute inset-0 z-20 flex size-full items-center justify-center outline-none"
+        >
+          <span
+            className={cn(
+              glassPlayButtonClass,
+              playing && !controlsVisible ? "opacity-0" : "opacity-100",
+            )}
           >
-            <span
-              className={cn(
-                glassPlayButtonClass,
-                playing && !controlsVisible ? "opacity-0" : "opacity-100",
-              )}
-            >
-              {playing ? (
-                <Pause className="size-6 text-white sm:size-7" strokeWidth={1.75} />
-              ) : (
-                <Play
-                  className="size-6 translate-x-0.5 text-white sm:size-7"
-                  strokeWidth={1.75}
-                />
-              )}
-            </span>
-          </button>
-        ) : null}
+            {playing ? (
+              <Pause className="size-6 text-white sm:size-7" strokeWidth={1.75} />
+            ) : (
+              <Play
+                className="size-6 translate-x-0.5 text-white sm:size-7"
+                strokeWidth={1.75}
+              />
+            )}
+          </span>
+        </button>
 
         <button
           type="button"
