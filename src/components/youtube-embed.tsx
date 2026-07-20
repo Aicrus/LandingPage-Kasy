@@ -134,8 +134,8 @@ export const YouTubeEmbed = forwardRef<YouTubeEmbedHandle, YouTubeEmbedProps>(
       const quality: YoutubeQualityHint = preferYouTubeQuality();
       const startMuted = previewLoop || mute;
       const startAutoplay = previewLoop || autoplay;
-      // Preview: sem barra/config. Ativo: controles + fullscreen.
-      const showControls = previewLoop ? 0 : 1;
+      // Controles nativos sempre on: no preview o overlay + pointer-events:none escondem o chrome.
+      // Depois do 1º play, interactive=true e o play/pause do YouTube aparece.
 
       void loadYouTubeIframeApi().then(() => {
         if (cancelled || !window.YT?.Player) return;
@@ -153,8 +153,7 @@ export const YouTubeEmbed = forwardRef<YouTubeEmbedHandle, YouTubeEmbedProps>(
             playsinline: 1,
             rel: 0,
             modestbranding: 1,
-            controls: showControls,
-            // Fullscreen no duplo clique (mesmo no preview; botão some com controls:0)
+            controls: 1,
             fs: 1,
             disablekb: previewLoop ? 1 : 0,
             iv_load_policy: 3,
