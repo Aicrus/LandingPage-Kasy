@@ -41,6 +41,7 @@ export function VideoShowcase() {
   const [playing, setPlaying] = useState(false);
   /** Depois do primeiro play, o YouTube fica montado (pause não volta ao loop). */
   const [youtubeStarted, setYoutubeStarted] = useState(false);
+  const youtubeStartedRef = useRef(false);
   const [controlsVisible, setControlsVisible] = useState(true);
   const [fullscreenOpen, setFullscreenOpen] = useState(false);
   const hideTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -56,14 +57,15 @@ export function VideoShowcase() {
     target: sectionRef,
     offset: ["start end", "center center"],
   });
-  const width = useTransform(scrollYProgress, [0, 1], ["58vw", "82vw"]);
-  const scale = useTransform(scrollYProgress, [0, 1], [0.55, 0.92]);
+  const width = useTransform(scrollYProgress, [0, 1], ["52vw", "74vw"]);
+  // Sem CSS scale no frame com YouTube: scale em iframe gera linha/hairline no pause.
+  const scaleLoop = useTransform(scrollYProgress, [0, 1], [0.55, 0.92]);
   const groupY = useTransform(scrollYProgress, [0, 1], [90, 0]);
   const groupOpacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
   const videoOverlapMarginTop = useTransform(scrollYProgress, [0, 0.55], [36, -96]);
   const textOpacity = useTransform(scrollYProgress, [0.38, 0.72], [1, 0]);
   const textY = useTransform(scrollYProgress, [0.38, 0.72], [0, -72]);
-  const widthMobile = useTransform(scrollYProgress, [0, 1], ["76vw", "86vw"]);
+  const widthMobile = useTransform(scrollYProgress, [0, 1], ["72vw", "82vw"]);
   const videoGapMobile = useTransform(scrollYProgress, [0, 0.55], [24, 10]);
 
   function clearHideTimeout() {
@@ -118,16 +120,21 @@ export function VideoShowcase() {
     }
 
     if (!isLgUp) {
+      youtubeStartedRef.current = true;
       setYoutubeStarted(true);
       setPlaying(true);
       setFullscreenOpen(true);
       return;
     }
 
+    // Desktop: revela o YouTube já pré-carregado (mudo → unmute + início)
+    youtubeStartedRef.current = true;
     setYoutubeStarted(true);
     setPlaying(true);
     setControlsVisible(false);
-    if (!YOUTUBE_VIDEO_ID) {
+    if (YOUTUBE_VIDEO_ID) {
+      queueMicrotask(() => youtubeRef.current?.play());
+    } else {
       setControlsVisible(true);
       scheduleHide();
     }
@@ -141,6 +148,30 @@ export function VideoShowcase() {
     setControlsVisible(true);
     clearHideTimeout();
   }, []);
+
+  function handleDoubleClickVideo() {
+    if (showYoutubeInline) {
+      youtubeRef.current?.toggleFullscreen();
+      return;
+    }
+
+    if (YOUTUBE_VIDEO_ID) {
+      youtubeStartedRef.current = true;
+      setYoutubeStarted(true);
+      setPlaying(true);
+      setControlsVisible(false);
+      if (!isLgUp) {
+        setFullscreenOpen(true);
+        return;
+      }
+      queueMicrotask(() => youtubeRef.current?.play());
+      window.setTimeout(() => youtubeRef.current?.toggleFullscreen(), 450);
+      return;
+    }
+
+    const video = inlineVideoRef.current;
+    if (video?.requestFullscreen) void video.requestFullscreen();
+  }
 
   useEffect(() => {
     if (!fullscreenOpen) return;
@@ -162,7 +193,11 @@ export function VideoShowcase() {
   const showYoutubeInline =
     Boolean(YOUTUBE_VIDEO_ID) && youtubeStarted && !fullscreenOpen;
 
-  /** Overlay nosso só no loop / MP4 — nunca por cima do YouTube. */
+  /** YouTube montado cedo (loop mudo / pré-carga), mesmo antes do play. */
+  const youtubePreloadedInline =
+    Boolean(YOUTUBE_VIDEO_ID) && !fullscreenOpen;
+
+  /** Overlay nosso só no loop / MP4 — nunca por cima do YouTube ativo. */
   const showCustomOverlay =
     !showYoutubeInline && !(fullscreenOpen && YOUTUBE_VIDEO_ID);
 
@@ -203,67 +238,85 @@ export function VideoShowcase() {
 
         <motion.div
           onMouseMove={handleMouseMove}
+          onDoubleClick={handleDoubleClickVideo}
+          title={showYoutubeInline ? t("doubleClickFullscreen") : undefined}
           style={
             reducedMotion
-              ? { width: "min(86vw, 52rem)" }
+              ? { width: "min(82vw, 48rem)" }
               : isLgUp
-                ? { width, scale, marginTop: videoOverlapMarginTop }
+                ? YOUTUBE_VIDEO_ID
+                  ? // YouTube (pré-carga ou ativo): sem scale (evita linha no iframe)
+                    { width, marginTop: videoOverlapMarginTop, scale: 1 }
+                  : { width, scale: scaleLoop, marginTop: videoOverlapMarginTop }
                 : { width: widthMobile, marginTop: videoGapMobile }
           }
           className={cn(
             "group relative z-10 aspect-video overflow-hidden",
             "rounded-[1.5rem] sm:rounded-[2rem]",
             "bg-[#0b0d13]",
+            YOUTUBE_VIDEO_ID && "transform-gpu [backface-visibility:hidden]",
           )}
         >
-          {showYoutubeInline ? (
-            <YouTubeEmbed
-              ref={youtubeRef}
-              videoId={YOUTUBE_VIDEO_ID!}
-              title={t("youtubeTitle")}
-              autoplay
-              mute={false}
-              onPlayingChange={setPlaying}
-            />
-          ) : playing && !fullscreenOpen ? (
-            <video
-              ref={inlineVideoRef}
-              src={VIDEO_SRC}
-              autoPlay
-              playsInline
-              onPlay={scheduleHide}
-              onEnded={() => {
-                setPlaying(false);
-                setControlsVisible(true);
-                clearHideTimeout();
-              }}
-              className="absolute inset-0 size-full object-cover"
-            />
-          ) : youtubeStarted && !fullscreenOpen ? (
-            <video
-              ref={inlineVideoRef}
-              src={VIDEO_SRC}
-              playsInline
-              className="absolute inset-0 size-full object-cover"
-            />
-          ) : (
-            <video
-              src={LOOP_VIDEO_SRC}
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="absolute inset-0 size-full object-cover"
-            />
-          )}
+          {youtubePreloadedInline ? (
+            <div
+              className={cn(
+                "absolute inset-0 z-0",
+                youtubeStarted ? "z-[1]" : "pointer-events-none",
+              )}
+            >
+              <YouTubeEmbed
+                ref={youtubeRef}
+                videoId={YOUTUBE_VIDEO_ID!}
+                title={t("youtubeTitle")}
+                previewLoop
+                interactive={youtubeStarted}
+                onPlayingChange={(isPlaying) => {
+                  if (youtubeStartedRef.current) setPlaying(isPlaying);
+                }}
+              />
+            </div>
+          ) : null}
+
+          {/* Fallback MP4 só se não houver YouTube */}
+          {!YOUTUBE_VIDEO_ID && !youtubeStarted && !fullscreenOpen ? (
+            playing ? (
+              <video
+                ref={inlineVideoRef}
+                src={VIDEO_SRC}
+                autoPlay
+                playsInline
+                onPlay={scheduleHide}
+                onEnded={() => {
+                  setPlaying(false);
+                  setControlsVisible(true);
+                  clearHideTimeout();
+                }}
+                className="absolute inset-0 z-[1] size-full object-cover"
+              />
+            ) : (
+              <video
+                src={LOOP_VIDEO_SRC}
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="absolute inset-0 z-[1] size-full object-cover"
+              />
+            )
+          ) : null}
 
           {showCustomOverlay ? (
             <button
               type="button"
               aria-label={playing ? t("pause") : t("play")}
               onClick={handleToggle}
+              onDoubleClick={(event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                handleDoubleClickVideo();
+              }}
               className={cn(
-                "absolute inset-0 z-20 flex size-full items-center justify-center outline-none",
+                "absolute inset-0 z-20 flex size-full cursor-pointer items-center justify-center outline-none",
                 "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
               )}
             >

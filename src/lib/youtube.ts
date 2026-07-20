@@ -17,21 +17,56 @@ export function getShowcaseYouTubeId(): string | null {
   return parseYouTubeVideoId(YOUTUBE_SHOWCASE_VIDEO);
 }
 
+/** Preferência de qualidade (YouTube pode ignorar e usar ABR). */
+export type YoutubeQualityHint = "hd720" | "hd1080" | "highres";
+
+type NetworkConnection = {
+  effectiveType?: string;
+  downlink?: number;
+  saveData?: boolean;
+};
+
+/**
+ * Hint de qualidade pela rede (Network Information API; Safari costuma não ter).
+ * highres ≈ melhor disponível (pode chegar em 4K se o vídeo e a rede permitirem).
+ */
+export function preferYouTubeQuality(): YoutubeQualityHint {
+  if (typeof navigator === "undefined") return "hd1080";
+
+  const nav = navigator as Navigator & {
+    connection?: NetworkConnection;
+    mozConnection?: NetworkConnection;
+    webkitConnection?: NetworkConnection;
+  };
+  const conn = nav.connection ?? nav.mozConnection ?? nav.webkitConnection;
+
+  if (!conn) return "hd1080";
+  if (conn.saveData) return "hd720";
+
+  const downlink = conn.downlink ?? 0;
+  const type = conn.effectiveType ?? "";
+
+  if (type === "4g" && downlink >= 10) return "highres";
+  if (type === "4g" || downlink >= 5) return "hd1080";
+  if (type === "3g" || type === "2g" || type === "slow-2g") return "hd720";
+
+  return "hd1080";
+}
+
 type YouTubeEmbedOptions = {
   /** Autoplay (precisa de mute nos browsers modernos). */
   autoplay?: boolean;
   mute?: boolean;
   /** Preferência de qualidade (melhor esforço; o YouTube pode adaptar). */
-  quality?: "hd1080" | "hd720" | "large";
+  quality?: YoutubeQualityHint;
   origin?: string;
   /** enablejsapi=1 para play/pause e desligar legendas via API. */
   enableJsApi?: boolean;
 };
 
 /**
- * Embed com preferência 1080p + legendas desligadas.
+ * Embed com preferência de qualidade + legendas desligadas.
  * Sem `playlist` (evita botões avançar/voltar). Loop fica a cargo da IFrame API.
- * `vq=hd1080` e player largo aumentam a chance de começar em Full HD.
  */
 export function youtubeEmbedSrc(
   videoId: string,
@@ -53,7 +88,6 @@ export function youtubeEmbedSrc(
     disablekb: "1",
     fs: "0",
     iv_load_policy: "3",
-    // 0 = não forçar legendas; a API ainda desliga tracks/CC ao ready
     cc_load_policy: "0",
     vq: quality,
   });

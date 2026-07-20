@@ -61,7 +61,8 @@
     "play": "Reproduzir vídeo",
     "pause": "Pausar vídeo",
     "close": "Fechar vídeo",
-    "youtubeTitle": "Vídeo da Kasy no YouTube"
+    "youtubeTitle": "Vídeo da Kasy no YouTube",
+    "doubleClickFullscreen": "Clique duas vezes para tela cheia"
   },
   "featureHoverCards": {
     "heading": "O que atrasa o lançamento",
@@ -243,7 +244,7 @@
     "worksWith": "Funciona com a IA favorita.",
     "headingPart1": "Peça no chat.",
     "headingEmphasis": "O kit responde.",
-    "subtitle": "O MCP da Kasy prepara a máquina, cria o app e entrega o design system no chat. Sem a IA oscilar.",
+    "subtitle": "No chat, o MCP da Kasy prepara a máquina, cria o app e monta as telas no padrão do kit. A IA não improvisa: ela segue o que já está pronto.",
     "moreTools": "+8 tools disponíveis",
     "composerPlaceholder": "Peça algo ao MCP Kasy…",
     "youLabel": "Você",
@@ -252,16 +253,16 @@
     "modelLabel": "Composer 2.5",
     "demos": {
       "prepare": {
-        "ask": "Prepare minha máquina",
-        "reply": "Ambiente pronto. Flutter e a toolchain no lugar."
+        "ask": "Deixa meu computador pronto pra eu criar o app",
+        "reply": "Pronto. Máquina preparada de ponta a ponta. É só começar."
       },
       "create": {
-        "ask": "Crie meu projeto",
-        "reply": "Criado com arquitetura e setup prontos pra publicar."
+        "ask": "Cria o meu app",
+        "reply": "App criado. Base completa, já no caminho pra publicar nas lojas."
       },
       "screen": {
-        "ask": "Monte essa tela para mim",
-        "reply": "Feita com o design system e os padrões do kit."
+        "ask": "Monta essa tela pra mim",
+        "reply": "Tela pronta. Visual do kit aplicado, do jeito que o app deve ficar."
       }
     }
   },

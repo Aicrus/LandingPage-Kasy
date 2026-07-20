@@ -61,7 +61,8 @@
     "play": "Play video",
     "pause": "Pause video",
     "close": "Close video",
-    "youtubeTitle": "Kasy video on YouTube"
+    "youtubeTitle": "Kasy video on YouTube",
+    "doubleClickFullscreen": "Double-click for fullscreen"
   },
   "featureHoverCards": {
     "heading": "What slows the launch",
@@ -243,7 +244,7 @@
     "worksWith": "Works with your favorite AI.",
     "headingPart1": "Ask in chat.",
     "headingEmphasis": "The kit answers.",
-    "subtitle": "Kasy MCP prepares your machine, scaffolds the app, and hands the design system to the chat. No AI drift.",
+    "subtitle": "In chat, Kasy MCP sets up your machine, creates the app, and builds screens in the kit standard. The AI doesn't freestyle: it follows what's already ready.",
     "moreTools": "8+ tools available",
     "composerPlaceholder": "Ask Kasy MCP…",
     "youLabel": "You",
@@ -252,16 +253,16 @@
     "modelLabel": "Composer 2.5",
     "demos": {
       "prepare": {
-        "ask": "Prepare my machine",
-        "reply": "Environment ready. Flutter and the toolchain in place."
+        "ask": "Get my computer ready so I can build the app",
+        "reply": "Done. Machine set up end to end. You're clear to start."
       },
       "create": {
-        "ask": "Create my project",
-        "reply": "Created with architecture and setup ready to ship."
+        "ask": "Create my app",
+        "reply": "App created. Full foundation, already on the path to the stores."
       },
       "screen": {
         "ask": "Build this screen for me",
-        "reply": "Built with the design system and the kit patterns."
+        "reply": "Screen ready. Kit look applied, the way the app should feel."
       }
     }
   },
