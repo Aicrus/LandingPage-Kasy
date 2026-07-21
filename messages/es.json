@@ -61,7 +61,7 @@
     "play": "Reproducir video",
     "pause": "Pausar video",
     "close": "Cerrar video",
-    "youtubeTitle": "Video de Kasy en YouTube",
+    "videoTitle": "Video de Kasy",
     "doubleClickFullscreen": "Haz doble clic para pantalla completa"
   },
   "featureHoverCards": {

@@ -1,55 +1,40 @@
 "use client";
 
-import { Pause, Play, X } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { Play, X } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import {
-  YouTubeEmbed,
-  type YouTubeEmbedHandle,
-} from "@/components/youtube-embed";
+  BunnyEmbed,
+  type BunnyEmbedHandle,
+} from "@/components/bunny-embed";
 import {
   motion,
   useReducedMotion,
   useScroll,
   useTransform,
 } from "@/lib/motion";
+import { getShowcaseVideoId } from "@/lib/bunny-stream";
 import { useMediaQuery } from "@/lib/use-media-query";
 import { cn } from "@/lib/utils";
-import { getShowcaseYouTubeId } from "@/lib/youtube";
 
 const LG_MEDIA = "(min-width: 1024px)";
 
-const CONTROLS_HIDE_DELAY_MS = 250;
-
-/** Loop de fundo — toca mudo até a pessoa dar play. */
-const LOOP_VIDEO_SRC =
-  "https://framerusercontent.com/assets/t3oWwHTiHPdqvISgXglF9dJecA.mp4";
-
-/** Fallback local se ainda não houver ID do YouTube em `YOUTUBE_SHOWCASE_VIDEO`. */
-const VIDEO_SRC =
-  "https://framerusercontent.com/assets/P3x9QvFGoxzu1AUq58rA1x2gNA.mp4";
-
-const YOUTUBE_VIDEO_ID = getShowcaseYouTubeId();
-
-/** Botão de vidro (só no loop, antes do YouTube). */
+/** Botão de vidro: só no loop, uma vez, antes do play com som. */
 const glassPlayButtonClass =
   "flex size-12 items-center justify-center rounded-xl sm:size-14 sm:rounded-2xl bg-white/15 backdrop-blur-md transition-[transform,opacity] duration-150 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110 motion-safe:group-active:scale-95";
 
 export function VideoShowcase() {
   const t = useTranslations("videoShowcase");
-  const [playing, setPlaying] = useState(false);
-  /** Depois do primeiro play, o YouTube fica montado (pause não volta ao loop). */
-  const [youtubeStarted, setYoutubeStarted] = useState(false);
-  const youtubeStartedRef = useRef(false);
-  const [controlsVisible, setControlsVisible] = useState(true);
+  const locale = useLocale();
+  const videoId = getShowcaseVideoId(locale);
+
+  /** Depois do primeiro play, só o Bunny (sem overlay nosso). */
+  const [playerStarted, setPlayerStarted] = useState(false);
   const [fullscreenOpen, setFullscreenOpen] = useState(false);
-  const hideTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
-  const inlineVideoRef = useRef<HTMLVideoElement>(null);
-  const fullscreenVideoRef = useRef<HTMLVideoElement>(null);
-  const youtubeRef = useRef<YouTubeEmbedHandle>(null);
-  const fullscreenYoutubeRef = useRef<YouTubeEmbedHandle>(null);
+  const bunnyRef = useRef<BunnyEmbedHandle>(null);
+  const fullscreenBunnyRef = useRef<BunnyEmbedHandle>(null);
   const reducedMotion = useReducedMotion();
   const isLgUp = useMediaQuery(LG_MEDIA);
 
@@ -58,120 +43,57 @@ export function VideoShowcase() {
     offset: ["start end", "center center"],
   });
   const width = useTransform(scrollYProgress, [0, 1], ["52vw", "74vw"]);
-  // Sem CSS scale no frame com YouTube: scale em iframe gera linha/hairline no pause.
-  const scaleLoop = useTransform(scrollYProgress, [0, 1], [0.55, 0.92]);
   const groupY = useTransform(scrollYProgress, [0, 1], [90, 0]);
   const groupOpacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
-  const videoOverlapMarginTop = useTransform(scrollYProgress, [0, 0.55], [36, -96]);
+  const videoOverlapMarginTop = useTransform(
+    scrollYProgress,
+    [0, 0.55],
+    [36, -96],
+  );
   const textOpacity = useTransform(scrollYProgress, [0.38, 0.72], [1, 0]);
   const textY = useTransform(scrollYProgress, [0.38, 0.72], [0, -72]);
   const widthMobile = useTransform(scrollYProgress, [0, 1], ["72vw", "82vw"]);
   const videoGapMobile = useTransform(scrollYProgress, [0, 0.55], [24, 10]);
 
-  function clearHideTimeout() {
-    if (hideTimeoutRef.current) clearTimeout(hideTimeoutRef.current);
-  }
+  useEffect(() => {
+    setPlayerStarted(false);
+    setFullscreenOpen(false);
+  }, [videoId]);
 
-  function scheduleHide() {
-    clearHideTimeout();
-    hideTimeoutRef.current = setTimeout(
-      () => setControlsVisible(false),
-      CONTROLS_HIDE_DELAY_MS,
-    );
-  }
-
-  function handleMouseMove() {
-    // Controles nossos só no loop / MP4; YouTube ativo usa chrome nativo
-    if (!playing || (YOUTUBE_VIDEO_ID && youtubeStarted)) return;
-    setControlsVisible(true);
-    scheduleHide();
-  }
-
-  /** Play inicial (vidro). Depois do 1º play no YouTube, controles nativos. */
-  function handleToggle() {
-    if (fullscreenOpen) {
-      if (YOUTUBE_VIDEO_ID) return;
-
-      const video = fullscreenVideoRef.current;
-      if (!video) return;
-
-      if (playing) {
-        video.pause();
-        setPlaying(false);
-        setControlsVisible(true);
-        clearHideTimeout();
-      } else {
-        void video.play();
-        setPlaying(true);
-        setControlsVisible(true);
-        scheduleHide();
-      }
-      return;
-    }
-
-    // YouTube já ativo: play/pause nativo no iframe
-    if (YOUTUBE_VIDEO_ID && youtubeStarted) return;
-
-    if (playing) {
-      inlineVideoRef.current?.pause();
-      setPlaying(false);
-      setControlsVisible(true);
-      clearHideTimeout();
-      return;
-    }
+  /** Play inicial (vidro). */
+  function handlePlay() {
+    if (fullscreenOpen || playerStarted) return;
 
     if (!isLgUp) {
-      youtubeStartedRef.current = true;
-      setYoutubeStarted(true);
-      setPlaying(true);
+      setPlayerStarted(true);
       setFullscreenOpen(true);
       return;
     }
 
-    // Desktop: unmute no mesmo player (já tem controls nativos)
-    youtubeStartedRef.current = true;
-    setYoutubeStarted(true);
-    setPlaying(true);
-    setControlsVisible(false);
-    if (YOUTUBE_VIDEO_ID) {
-      queueMicrotask(() => youtubeRef.current?.play());
-    } else {
-      setControlsVisible(true);
-      scheduleHide();
-    }
+    setPlayerStarted(true);
+    bunnyRef.current?.play();
   }
 
   const closeFullscreen = useCallback(() => {
-    fullscreenYoutubeRef.current?.pause();
-    fullscreenVideoRef.current?.pause();
+    fullscreenBunnyRef.current?.pause();
     setFullscreenOpen(false);
-    setPlaying(false);
-    setControlsVisible(true);
-    clearHideTimeout();
   }, []);
 
   function handleDoubleClickVideo() {
-    if (showYoutubeInline) {
-      youtubeRef.current?.toggleFullscreen();
+    if (playerStarted && !fullscreenOpen) {
+      bunnyRef.current?.toggleFullscreen();
       return;
     }
 
-    if (YOUTUBE_VIDEO_ID) {
-      youtubeStartedRef.current = true;
-      setYoutubeStarted(true);
-      setPlaying(true);
-      setControlsVisible(false);
-      if (!isLgUp) {
-        setFullscreenOpen(true);
-        return;
-      }
-      queueMicrotask(() => youtubeRef.current?.play());
-      window.setTimeout(() => youtubeRef.current?.toggleFullscreen(), 450);
+    setPlayerStarted(true);
+
+    if (!isLgUp) {
+      setFullscreenOpen(true);
       return;
     }
 
-    const video = inlineVideoRef.current;
-    if (video?.requestFullscreen) void video.requestFullscreen();
+    bunnyRef.current?.play();
+    window.setTimeout(() => bunnyRef.current?.toggleFullscreen(), 400);
   }
 
   useEffect(() => {
@@ -191,236 +113,134 @@ export function VideoShowcase() {
     };
   }, [fullscreenOpen, closeFullscreen]);
 
-  const showYoutubeInline =
-    Boolean(YOUTUBE_VIDEO_ID) && youtubeStarted && !fullscreenOpen;
-
-  /** YouTube montado cedo (loop mudo / pré-carga), mesmo antes do play. */
-  const youtubePreloadedInline =
-    Boolean(YOUTUBE_VIDEO_ID) && !fullscreenOpen;
-
-  /** Botão de vidro só no 1º play (ou no fallback MP4). */
-  const showGlassOverlay =
-    !fullscreenOpen && (!YOUTUBE_VIDEO_ID || !youtubeStarted);
+  const bunnyPreloadedInline = !fullscreenOpen;
+  /** Vidro só no loop. Sem pause. Sem segundo play. */
+  const showGlassOverlay = !fullscreenOpen && !playerStarted;
 
   return (
     <>
-    <div
-      ref={sectionRef}
-      className={cn(
-        "relative flex w-full flex-col items-center",
-        "overflow-hidden max-lg:overflow-visible",
-        "mt-[clamp(-3.5rem,-4vw,-2rem)]",
-      )}
-    >
-      <motion.div
-        style={
-          reducedMotion
-            ? undefined
-            : { y: groupY, opacity: groupOpacity }
-        }
-        className="flex w-full flex-col items-center"
+      <div
+        ref={sectionRef}
+        className={cn(
+          "relative flex w-full flex-col items-center",
+          "overflow-hidden max-lg:overflow-visible",
+          "mt-[clamp(-3.5rem,-4vw,-2rem)]",
+        )}
       >
-        <motion.p
-          aria-hidden
-          style={
-            reducedMotion
-              ? undefined
-              : { opacity: textOpacity, y: textY }
-          }
-          className={cn(
-            "pointer-events-none relative z-0 select-none whitespace-nowrap uppercase",
-            "bg-gradient-to-r from-primary to-primary/25 bg-clip-text text-transparent",
-            "font-[family-name:var(--font-syne)] font-bold leading-none tracking-tight",
-            "text-[clamp(2.75rem,10vw,8rem)]",
-          )}
-        >
-          {t("bigLabel")}
-        </motion.p>
-
         <motion.div
-          onMouseMove={handleMouseMove}
-          onDoubleClick={handleDoubleClickVideo}
-          title={showYoutubeInline ? t("doubleClickFullscreen") : undefined}
           style={
-            reducedMotion
-              ? { width: "min(82vw, 48rem)" }
-              : isLgUp
-                ? YOUTUBE_VIDEO_ID
-                  ? // YouTube (pré-carga ou ativo): sem scale (evita linha no iframe)
-                    { width, marginTop: videoOverlapMarginTop, scale: 1 }
-                  : { width, scale: scaleLoop, marginTop: videoOverlapMarginTop }
-                : { width: widthMobile, marginTop: videoGapMobile }
+            reducedMotion ? undefined : { y: groupY, opacity: groupOpacity }
           }
-          className={cn(
-            "group relative z-10 aspect-video overflow-hidden",
-            "rounded-[1.5rem] sm:rounded-[2rem]",
-            "bg-[#0b0d13]",
-            YOUTUBE_VIDEO_ID && "transform-gpu [backface-visibility:hidden]",
-          )}
+          className="flex w-full flex-col items-center"
         >
-          {youtubePreloadedInline ? (
-            <div
-              className={cn(
-                "absolute inset-0 z-0",
-                youtubeStarted ? "z-[1]" : "pointer-events-none",
-              )}
-            >
-              <YouTubeEmbed
-                ref={youtubeRef}
-                videoId={YOUTUBE_VIDEO_ID!}
-                title={t("youtubeTitle")}
-                previewLoop
-                interactive={youtubeStarted}
-                onPlayingChange={(isPlaying) => {
-                  if (youtubeStartedRef.current) setPlaying(isPlaying);
-                }}
-              />
-            </div>
-          ) : null}
+          <motion.p
+            aria-hidden
+            style={
+              reducedMotion ? undefined : { opacity: textOpacity, y: textY }
+            }
+            className={cn(
+              "pointer-events-none relative z-0 select-none whitespace-nowrap uppercase",
+              "bg-gradient-to-r from-primary to-primary/25 bg-clip-text text-transparent",
+              "font-[family-name:var(--font-syne)] font-bold leading-none tracking-tight",
+              "text-[clamp(2.75rem,10vw,8rem)]",
+            )}
+          >
+            {t("bigLabel")}
+          </motion.p>
 
-          {/* Fallback MP4 só se não houver YouTube */}
-          {!YOUTUBE_VIDEO_ID && !youtubeStarted && !fullscreenOpen ? (
-            playing ? (
-              <video
-                ref={inlineVideoRef}
-                src={VIDEO_SRC}
-                autoPlay
-                playsInline
-                onPlay={scheduleHide}
-                onEnded={() => {
-                  setPlaying(false);
-                  setControlsVisible(true);
-                  clearHideTimeout();
-                }}
-                className="absolute inset-0 z-[1] size-full object-cover"
-              />
-            ) : (
-              <video
-                src={LOOP_VIDEO_SRC}
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="absolute inset-0 z-[1] size-full object-cover"
-              />
-            )
-          ) : null}
-
-          {showGlassOverlay ? (
-            <button
-              type="button"
-              aria-label={playing ? t("pause") : t("play")}
-              onClick={handleToggle}
-              onDoubleClick={(event) => {
-                event.preventDefault();
-                event.stopPropagation();
-                handleDoubleClickVideo();
-              }}
-              className={cn(
-                "absolute inset-0 z-20 flex size-full cursor-pointer items-center justify-center outline-none",
-                "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-              )}
-            >
-              <span
+          <motion.div
+            onDoubleClick={
+              playerStarted ? handleDoubleClickVideo : undefined
+            }
+            style={
+              reducedMotion
+                ? { width: "min(82vw, 48rem)" }
+                : isLgUp
+                  ? { width, marginTop: videoOverlapMarginTop, scale: 1 }
+                  : { width: widthMobile, marginTop: videoGapMobile }
+            }
+            className={cn(
+              "group relative z-10 aspect-video overflow-hidden",
+              "rounded-[1.5rem] sm:rounded-[2rem]",
+              "bg-[#0b0d13]",
+              "transform-gpu [backface-visibility:hidden]",
+            )}
+          >
+            {bunnyPreloadedInline ? (
+              <div
                 className={cn(
-                  glassPlayButtonClass,
-                  playing && !controlsVisible ? "opacity-0" : "opacity-100",
+                  "absolute inset-0 z-0",
+                  playerStarted ? "z-[1]" : "pointer-events-none",
                 )}
               >
-                {playing ? (
-                  <Pause className="size-6 text-white sm:size-7" strokeWidth={1.75} />
-                ) : (
+                <BunnyEmbed
+                  ref={bunnyRef}
+                  videoId={videoId}
+                  title={t("videoTitle")}
+                  previewLoop
+                  interactive={playerStarted}
+                  onUserStarted={() => setPlayerStarted(true)}
+                />
+              </div>
+            ) : null}
+
+            {showGlassOverlay ? (
+              <button
+                type="button"
+                aria-label={t("play")}
+                onClick={handlePlay}
+                onDoubleClick={(event) => {
+                  event.preventDefault();
+                  event.stopPropagation();
+                  handleDoubleClickVideo();
+                }}
+                className={cn(
+                  "absolute inset-0 z-20 flex size-full cursor-pointer items-center justify-center outline-none",
+                  "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+                )}
+              >
+                <span className={glassPlayButtonClass}>
                   <Play
                     className="size-6 translate-x-0.5 text-white sm:size-7"
                     strokeWidth={1.75}
                   />
-                )}
-              </span>
-            </button>
-          ) : null}
+                </span>
+              </button>
+            ) : null}
+          </motion.div>
         </motion.div>
-      </motion.div>
-    </div>
+      </div>
 
-    {fullscreenOpen ? (
-      <div
-        className="fixed inset-0 z-50 flex items-center justify-center bg-black lg:hidden"
-        onMouseMove={handleMouseMove}
-      >
-        {YOUTUBE_VIDEO_ID ? (
+      {fullscreenOpen ? (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black lg:hidden">
           <div className="relative aspect-video w-full max-w-[100vw] max-h-[100dvh]">
-            <YouTubeEmbed
-              ref={fullscreenYoutubeRef}
-              videoId={YOUTUBE_VIDEO_ID}
-              title={t("youtubeTitle")}
+            <BunnyEmbed
+              ref={fullscreenBunnyRef}
+              videoId={videoId}
+              title={t("videoTitle")}
               autoplay
               mute={false}
               interactive
-              onPlayingChange={setPlaying}
             />
           </div>
-        ) : (
-          <video
-            ref={fullscreenVideoRef}
-            src={VIDEO_SRC}
-            autoPlay
-            playsInline
-            onPlay={() => {
-              setPlaying(true);
-              scheduleHide();
-            }}
-            onPause={() => {
-              setPlaying(false);
-              setControlsVisible(true);
-              clearHideTimeout();
-            }}
-            onEnded={closeFullscreen}
-            className="size-full object-contain"
-          />
-        )}
 
-        {!YOUTUBE_VIDEO_ID ? (
           <button
             type="button"
-            aria-label={playing ? t("pause") : t("play")}
-            onClick={handleToggle}
-            className="absolute inset-0 z-20 flex size-full items-center justify-center outline-none"
+            aria-label={t("close")}
+            onClick={(event) => {
+              event.stopPropagation();
+              closeFullscreen();
+            }}
+            className={cn(
+              "absolute top-[max(1rem,env(safe-area-inset-top))] right-[max(1rem,env(safe-area-inset-right))] z-10",
+              "flex size-11 items-center justify-center rounded-full bg-white/15 backdrop-blur-md",
+              "transition-opacity duration-150 ease-[cubic-bezier(0.22,1,0.36,1)]",
+            )}
           >
-            <span
-              className={cn(
-                glassPlayButtonClass,
-                playing && !controlsVisible ? "opacity-0" : "opacity-100",
-              )}
-            >
-              {playing ? (
-                <Pause className="size-6 text-white sm:size-7" strokeWidth={1.75} />
-              ) : (
-                <Play
-                  className="size-6 translate-x-0.5 text-white sm:size-7"
-                  strokeWidth={1.75}
-                />
-              )}
-            </span>
+            <X className="size-5 text-white" strokeWidth={1.75} />
           </button>
-        ) : null}
-
-        <button
-          type="button"
-          aria-label={t("close")}
-          onClick={(event) => {
-            event.stopPropagation();
-            closeFullscreen();
-          }}
-          className={cn(
-            "absolute top-[max(1rem,env(safe-area-inset-top))] right-[max(1rem,env(safe-area-inset-right))] z-10",
-            "flex size-11 items-center justify-center rounded-full bg-white/15 backdrop-blur-md",
-            "transition-opacity duration-150 ease-[cubic-bezier(0.22,1,0.36,1)]",
-          )}
-        >
-          <X className="size-5 text-white" strokeWidth={1.75} />
-        </button>
-      </div>
-    ) : null}
+        </div>
+      ) : null}
     </>
   );
 }
