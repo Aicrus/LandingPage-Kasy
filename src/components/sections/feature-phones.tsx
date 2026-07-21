@@ -21,25 +21,40 @@ type PhoneMeta = {
 
 const PHONES_META: PhoneMeta[] = [
   {
-    key: "auth",
+    key: "drive",
     video:
       "https://vz-fc29a166-b94.b-cdn.net/a2787388-4456-4446-88fb-c0de05d10517/play_720p.mp4",
     poster: "/images/gallery/vertical-1.jpg",
   },
   {
     key: "paywall",
-    video: "",
+    video:
+      "https://vz-fc29a166-b94.b-cdn.net/45b7d167-c2df-4537-9dbf-9bf57744b875/play_720p.mp4",
     poster: "/images/gallery/vertical-2.jpg",
   },
   {
-    key: "components",
-    video: "",
+    key: "supportChat",
+    video:
+      "https://vz-fc29a166-b94.b-cdn.net/adfa5e78-6f50-4850-853e-5971f6435eeb/play_720p.mp4",
     poster: "/images/gallery/vertical-3.jpg",
   },
   {
-    key: "cli",
-    video: "",
+    key: "featureRequests",
+    video:
+      "https://vz-fc29a166-b94.b-cdn.net/fc7f031f-04a3-47bd-88e9-7c917b87e202/play_720p.mp4",
     poster: "/images/gallery/vertical-4.jpg",
+  },
+  {
+    key: "kanban",
+    video:
+      "https://vz-fc29a166-b94.b-cdn.net/5a1557ed-ed95-43e4-b8c3-448f6771aa9a/play_720p.mp4",
+    poster: "/images/gallery/app-screen-schedule.jpg",
+  },
+  {
+    key: "fullReview",
+    video:
+      "https://vz-fc29a166-b94.b-cdn.net/72a27566-4fa5-4054-879c-e2ca652d0a99/play_720p.mp4",
+    poster: "/images/gallery/app-screen-homeapp.png",
   },
 ];
 
@@ -218,7 +233,7 @@ export function FeaturePhones() {
       <div
         className={cn(
           "grid grid-cols-2 gap-x-4 gap-y-8 sm:gap-x-6 sm:gap-y-10",
-          "lg:grid-cols-4 lg:gap-x-8",
+          "lg:grid-cols-3 lg:gap-x-8",
           "max-sm:-mx-[clamp(0.25rem,1vw,0.75rem)]",
         )}
       >

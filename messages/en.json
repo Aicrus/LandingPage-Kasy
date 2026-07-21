@@ -242,21 +242,29 @@
   "featurePhones": {
     "ariaLabel": "Feature demos on iPhone",
     "items": {
-      "auth": {
-        "title": "Login ready",
-        "description": "Google, Apple, Facebook, and email already set up."
+      "drive": {
+        "title": "Full drive flow",
+        "description": "Driver and passenger flow, ready like an Uber-style app."
       },
       "paywall": {
         "title": "Paywall included",
         "description": "RevenueCat and Stripe so you can monetize on day one."
       },
-      "components": {
-        "title": "Production UI",
-        "description": "60+ components tested on iOS, Android, and Web."
+      "supportChat": {
+        "title": "AI support chat",
+        "description": "A complete intelligent support flow inside the app."
       },
-      "cli": {
-        "title": "CLI that builds",
-        "description": "Create and update projects without breaking what you shipped."
+      "featureRequests": {
+        "title": "Request and vote on features",
+        "description": "Users suggest improvements and vote on what they want next."
+      },
+      "kanban": {
+        "title": "Project Kanban",
+        "description": "Organize app tasks in the admin area and track progress."
+      },
+      "fullReview": {
+        "title": "Complete setup",
+        "description": "A quick pass: components, AI, and the full kit ready end to end."
       }
     }
   },

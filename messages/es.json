@@ -242,21 +242,29 @@
   "featurePhones": {
     "ariaLabel": "Demostración de recursos en iPhone",
     "items": {
-      "auth": {
-        "title": "Login listo",
-        "description": "Google, Apple, Facebook y email ya configurados."
+      "drive": {
+        "title": "Drive completo",
+        "description": "Flujo de conductor y pasajero, listo como un Uber."
       },
       "paywall": {
         "title": "Paywall incluido",
         "description": "RevenueCat y Stripe para monetizar desde el día uno."
       },
-      "components": {
-        "title": "UI de producción",
-        "description": "60+ componentes probados en iOS, Android y Web."
+      "supportChat": {
+        "title": "Chat de soporte con IA",
+        "description": "Flujo completo de atención inteligente en la app."
       },
-      "cli": {
-        "title": "CLI que monta",
-        "description": "Crea y actualiza el proyecto sin romper lo que ya publicaste."
+      "featureRequests": {
+        "title": "Pide y vota mejoras",
+        "description": "Los usuarios sugieren recursos y votan lo que quieren en la app."
+      },
+      "kanban": {
+        "title": "Kanban del proyecto",
+        "description": "Organiza las tareas de la app en el admin y sigue el progreso."
+      },
+      "fullReview": {
+        "title": "Setup completo",
+        "description": "Un repaso rápido: componentes, IA y el kit listo de punta a punta."
       }
     }
   },
