@@ -30,8 +30,8 @@ export function HeroSocialProof() {
     >
       <OnlineIndicator />
       <p className="min-w-0 text-left font-rounded text-fluid-social-proof leading-[var(--text-fluid-social-proof--line-height)] sm:whitespace-nowrap">
-        <span className="font-bold text-muted-foreground">{t("prefix")} </span>
-        <span className="font-bold text-foreground">{t("count")}</span>
+        <span className="font-medium text-muted-foreground">{t("prefix")} </span>
+        <span className="font-extrabold text-foreground">{t("count")}</span>
       </p>
     </div>
   );
