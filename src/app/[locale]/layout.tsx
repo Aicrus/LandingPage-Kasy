@@ -24,13 +24,28 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "metadata" });
 
+  const siteUrl =
+    process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ?? "https://kasy.dev";
+
   return {
+    metadataBase: new URL(siteUrl),
     title: t("title"),
     description: t("description"),
     openGraph: {
       title: t("title"),
       description: t("description"),
-      images: [{ url: "/og.png", width: 1200, height: 630, alt: "Kasy" }],
+      url: `/${locale}`,
+      siteName: "Kasy",
+      images: [
+        {
+          url: "/og.png",
+          width: 1200,
+          height: 630,
+          alt: "Kasy",
+          type: "image/png",
+        },
+      ],
+      locale,
       type: "website",
     },
     twitter: {
