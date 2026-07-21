@@ -391,10 +391,10 @@
       },
       {
         "id": "q7",
-        "question": "¿Qué es el Kasy Club?",
-        "answer": "Es la comunidad y el entrenamiento práctico alrededor de Kasy: clases exclusivas, lives semanales, networking y soporte. Ideal si quieres guía además del kit.",
+        "question": "¿Qué es el Kasy Club y cuáles son los beneficios?",
+        "answer": "Es el entrenamiento y la comunidad para lanzar con Kasy. En 8 días (unas 5 clases por día) vas de la idea a la publicación, aunque no seas desarrollador. Incluye temas bonus (LLC americana, audiencia y proyectos globales), 1 año en la cuenta Apple Developer de Aicrus para publicar apps ilimitadas (luego las transfieres a la tuya), networking y lives con Paulo Morales, CTO de Aicrus y creador de Kasy.",
         "linkHref": "https://club.kasy.dev/",
-        "linkLabel": "Conocer el Kasy Club"
+        "linkLabel": "Acceder al Kasy Club"
       },
       {
         "id": "q8",
