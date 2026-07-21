@@ -13,8 +13,7 @@ import {
   type Currency,
 } from "@/lib/stripe/catalog";
 import {
-  isRegionalDiscountEligible,
-  REGIONAL_DISCOUNT_PERCENT,
+  getRegionalDiscount,
   resolveViewerCountry,
 } from "@/lib/stripe/regional-discount";
 import { cn } from "@/lib/utils";
@@ -165,7 +164,7 @@ export async function Pricing() {
   const locale = await getLocale();
   const country = resolveViewerCountry((await headers()).get("x-vercel-ip-country"));
   const currency = currencyForCountry(country);
-  const showRegionalDiscount = isRegionalDiscountEligible(country);
+  const regionalDiscount = getRegionalDiscount(country);
   const plansCopy = t.raw("plans") as Record<string, PlanCopy>;
 
   const PLANS: Plan[] = PLANS_META.map((meta) => {
@@ -181,8 +180,8 @@ export async function Pricing() {
       features: copy.features,
       currency,
       fullCents,
-      discountedCents: showRegionalDiscount
-        ? Math.round(fullCents * (1 - REGIONAL_DISCOUNT_PERCENT / 100))
+      discountedCents: regionalDiscount
+        ? Math.round(fullCents * (1 - regionalDiscount.percent / 100))
         : undefined,
     };
   });
@@ -240,12 +239,14 @@ export async function Pricing() {
         })}
       </Reveal>
 
-      {showRegionalDiscount ? <RegionalDiscountNote /> : null}
+      {regionalDiscount ? (
+        <RegionalDiscountNote code={regionalDiscount.code} />
+      ) : null}
 
       <p
         className={cn(
           "max-w-md text-center text-[0.8125rem] text-muted-foreground",
-          showRegionalDiscount ? "mt-3" : "mt-8",
+          regionalDiscount ? "mt-3" : "mt-8",
         )}
       >
         {t("checkoutNote")}

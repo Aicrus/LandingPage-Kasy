@@ -608,7 +608,7 @@
   }
 }
 
-/* Cupom regional KASY20 — brilho suave e periódico */
+/* Cupom regional (KASY20 / KASY10): brilho suave e periódico */
 @keyframes coupon-shine {
   0%,
   55% {

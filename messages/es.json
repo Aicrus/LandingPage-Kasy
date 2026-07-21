@@ -417,7 +417,7 @@
     "regionalDiscount": {
       "message": "Descuentos regionales para que Kasy sea accesible para todos. 🌎",
       "hint": "Úsalo en el checkout",
-      "copyAria": "Copiar cupón KASY20",
+      "copyAria": "Copiar cupón {code}",
       "copied": "Cupón copiado",
       "withCoupon": "Con {code}:"
     },

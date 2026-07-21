@@ -1,15 +1,23 @@
-/** Código de promoção Stripe para desconto regional (20%). */
-export const REGIONAL_COUPON_CODE = "KASY20";
+/** Cupom PPP / mercados emergentes (20%). */
+export const REGIONAL_COUPON_CODE_PPP = "KASY20";
 
-/** Percentual do cupom KASY20 no Stripe. */
-export const REGIONAL_DISCOUNT_PERCENT = 20;
+/** Cupom demais regiões (10%). */
+export const REGIONAL_COUPON_CODE_STANDARD = "KASY10";
+
+export const REGIONAL_DISCOUNT_PERCENT_PPP = 20;
+export const REGIONAL_DISCOUNT_PERCENT_STANDARD = 10;
+
+export type RegionalDiscount = {
+  code: string;
+  percent: number;
+};
 
 /**
- * Países onde mostramos o cupom regional (PPP / acessibilidade).
+ * Países PPP / acessibilidade (20%, KASY20).
  * América do Sul, América Central, Caribe, África e Ásia emergente.
  * Não inclui EUA, Canadá, Europa, Japão, Coreia, Singapura, etc.
  */
-const REGIONAL_DISCOUNT_COUNTRIES = new Set([
+const REGIONAL_DISCOUNT_COUNTRIES_PPP = new Set([
   // América do Sul
   "AR",
   "BO",
@@ -121,11 +129,32 @@ const REGIONAL_DISCOUNT_COUNTRIES = new Set([
   "VN",
 ]);
 
+/** true se o país entra no cupom PPP (KASY20). */
 export function isRegionalDiscountEligible(
   country: string | null | undefined,
 ): boolean {
-  if (!country) return false;
-  return REGIONAL_DISCOUNT_COUNTRIES.has(country.toUpperCase());
+  return getRegionalDiscount(country) != null;
+}
+
+/**
+ * Desconto regional pelo país do visitante.
+ * PPP → KASY20 (20%). Demais países conhecidos → KASY10 (10%).
+ */
+export function getRegionalDiscount(
+  country: string | null | undefined,
+): RegionalDiscount | null {
+  if (!country) return null;
+  const code = country.toUpperCase();
+  if (REGIONAL_DISCOUNT_COUNTRIES_PPP.has(code)) {
+    return {
+      code: REGIONAL_COUPON_CODE_PPP,
+      percent: REGIONAL_DISCOUNT_PERCENT_PPP,
+    };
+  }
+  return {
+    code: REGIONAL_COUPON_CODE_STANDARD,
+    percent: REGIONAL_DISCOUNT_PERCENT_STANDARD,
+  };
 }
 
 /**
