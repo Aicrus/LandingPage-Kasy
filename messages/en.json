@@ -239,6 +239,27 @@
       }
     }
   },
+  "featurePhones": {
+    "ariaLabel": "Feature demos on iPhone",
+    "items": {
+      "auth": {
+        "title": "Login ready",
+        "description": "Google, Apple, Facebook, and email already set up."
+      },
+      "paywall": {
+        "title": "Paywall included",
+        "description": "RevenueCat and Stripe so you can monetize on day one."
+      },
+      "components": {
+        "title": "Production UI",
+        "description": "60+ components tested on iOS, Android, and Web."
+      },
+      "cli": {
+        "title": "CLI that builds",
+        "description": "Create and update projects without breaking what you shipped."
+      }
+    }
+  },
   "mcpShowcase": {
     "eyebrow": "MCP Kasy",
     "worksWith": "Works with your favorite AI.",

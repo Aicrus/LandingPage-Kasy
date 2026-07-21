@@ -239,6 +239,27 @@
       }
     }
   },
+  "featurePhones": {
+    "ariaLabel": "Demostración de recursos en iPhone",
+    "items": {
+      "auth": {
+        "title": "Login listo",
+        "description": "Google, Apple, Facebook y email ya configurados."
+      },
+      "paywall": {
+        "title": "Paywall incluido",
+        "description": "RevenueCat y Stripe para monetizar desde el día uno."
+      },
+      "components": {
+        "title": "UI de producción",
+        "description": "60+ componentes probados en iOS, Android y Web."
+      },
+      "cli": {
+        "title": "CLI que monta",
+        "description": "Crea y actualiza el proyecto sin romper lo que ya publicaste."
+      }
+    }
+  },
   "mcpShowcase": {
     "eyebrow": "MCP Kasy",
     "worksWith": "Funciona con tu IA favorita.",
