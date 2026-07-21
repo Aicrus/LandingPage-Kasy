@@ -2,6 +2,7 @@
 
 import {
   Bell,
+  Car,
   CreditCard,
   KeyRound,
   LayoutGrid,
@@ -51,6 +52,7 @@ type FeatureTab = FeatureTabMeta & FeatureTabCopy;
 
 const FEATURE_TABS_META: FeatureTabMeta[] = [
   { key: "auth", icon: KeyRound, accent: "#2563eb", providers: ["Google", "Apple", "Facebook"] },
+  { key: "drive", icon: Car, accent: "#ea580c", providers: ["iOS", "Android", "Web"] },
   { key: "subs", icon: CreditCard, accent: "#7c3aed", providers: ["RevenueCat", "Stripe"] },
   { key: "notif", icon: Bell, accent: "#f59e0b", providers: ["iOS", "Android"] },
   { key: "ui", icon: LayoutGrid, accent: "#059669", providers: ["iOS", "Android", "Web"] },

@@ -126,6 +126,19 @@
           { "label": "Recuperación de contraseña" }
         ]
       },
+      "drive": {
+        "label": "Drive",
+        "tagline": { "emphasis": "Flujo de conductor y pasajero", "rest": ", listo como un Uber." },
+        "saved": "semanas menos montando una app de viajes",
+        "bullets": [
+          { "label": "Flujo de pasajero", "detail": "pedir, seguir y completar el viaje" },
+          { "label": "Flujo de conductor", "detail": "aceptar viajes y gestionar la ruta" },
+          { "label": "Mapas y ubicación en tiempo real" },
+          { "label": "Funciona en iOS, Android y Web", "detail": "una base, tres plataformas" },
+          { "label": "Listo para personalizar", "detail": "marca, pantallas y reglas de tu app" },
+          { "label": "Base completa tipo Uber", "detail": "sin montar el flujo desde cero" }
+        ]
+      },
       "subs": {
         "label": "Suscripciones",
         "tagline": { "emphasis": "Monetiza desde el primer día", "rest": " con RevenueCat y Stripe." },
@@ -241,14 +254,15 @@
   },
   "featurePhones": {
     "ariaLabel": "Demostración de recursos en iPhone",
+    "monthlyNote": "Features y componentes nuevos todos los meses.",
     "items": {
       "drive": {
         "title": "Drive completo",
-        "description": "Flujo de conductor y pasajero, listo como un Uber."
+        "description": "Flujo de conductor y pasajero, listo como un Uber. Funciona en iOS, Android y Web."
       },
       "paywall": {
         "title": "Paywall incluido",
-        "description": "RevenueCat y Stripe para monetizar desde el día uno."
+        "description": "RevenueCat en nativo, Stripe en Web. Suscripciones desde el día uno."
       },
       "supportChat": {
         "title": "Chat de soporte con IA",
@@ -264,7 +278,7 @@
       },
       "fullReview": {
         "title": "Setup completo",
-        "description": "Un repaso rápido: componentes, IA y el kit listo de punta a punta."
+        "description": "Un repaso rápido del proyecto: componentes, IA y lo que ya viene listo."
       }
     }
   },

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef } from "react";
 
 import { Reveal } from "@/components/motion/reveal";
 import { useReducedMotion } from "@/lib/motion";
@@ -16,7 +16,6 @@ type PhoneCopy = {
 type PhoneMeta = {
   key: string;
   video: string;
-  poster: string;
 };
 
 const PHONES_META: PhoneMeta[] = [
@@ -24,37 +23,31 @@ const PHONES_META: PhoneMeta[] = [
     key: "drive",
     video:
       "https://vz-fc29a166-b94.b-cdn.net/a2787388-4456-4446-88fb-c0de05d10517/play_720p.mp4",
-    poster: "/images/gallery/vertical-1.jpg",
   },
   {
     key: "paywall",
     video:
       "https://vz-fc29a166-b94.b-cdn.net/45b7d167-c2df-4537-9dbf-9bf57744b875/play_720p.mp4",
-    poster: "/images/gallery/vertical-2.jpg",
   },
   {
     key: "supportChat",
     video:
       "https://vz-fc29a166-b94.b-cdn.net/adfa5e78-6f50-4850-853e-5971f6435eeb/play_720p.mp4",
-    poster: "/images/gallery/vertical-3.jpg",
   },
   {
     key: "featureRequests",
     video:
       "https://vz-fc29a166-b94.b-cdn.net/fc7f031f-04a3-47bd-88e9-7c917b87e202/play_720p.mp4",
-    poster: "/images/gallery/vertical-4.jpg",
   },
   {
     key: "kanban",
     video:
       "https://vz-fc29a166-b94.b-cdn.net/5a1557ed-ed95-43e4-b8c3-448f6771aa9a/play_720p.mp4",
-    poster: "/images/gallery/app-screen-schedule.jpg",
   },
   {
     key: "fullReview",
     video:
       "https://vz-fc29a166-b94.b-cdn.net/72a27566-4fa5-4054-879c-e2ca652d0a99/play_720p.mp4",
-    poster: "/images/gallery/app-screen-homeapp.png",
   },
 ];
 
@@ -68,25 +61,15 @@ const PHONE_BODY_INSET = {
 
 const IPHONE_FRAME = "/assets/iphone-frame.png";
 
-function PhoneScreen({
-  video,
-  poster,
-  title,
-}: {
-  video: string;
-  poster: string;
-  title: string;
-}) {
+function PhoneScreen({ video, title }: { video: string; title: string }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const shellRef = useRef<HTMLDivElement>(null);
   const reducedMotion = useReducedMotion();
-  const [videoReady, setVideoReady] = useState(false);
-  const [inView, setInView] = useState(false);
-  const shouldLoad = Boolean(video);
+  const inViewRef = useRef(false);
 
   const tryPlay = useCallback(() => {
     const node = videoRef.current;
-    if (!node || reducedMotion) return;
+    if (!node || reducedMotion || !inViewRef.current) return;
 
     node.defaultMuted = true;
     node.muted = true;
@@ -104,23 +87,27 @@ function PhoneScreen({
     if (!el) return;
 
     const observer = new IntersectionObserver(
-      ([entry]) => setInView(entry.isIntersecting),
+      ([entry]) => {
+        inViewRef.current = entry.isIntersecting;
+        const node = videoRef.current;
+        if (!node) return;
+
+        if (!entry.isIntersecting || reducedMotion) {
+          node.pause();
+          return;
+        }
+
+        tryPlay();
+      },
       { rootMargin: "20% 0px", threshold: 0.05 },
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, []);
+  }, [reducedMotion, tryPlay]);
 
   useEffect(() => {
     const node = videoRef.current;
-    if (!node || !shouldLoad) return;
-
-    if (reducedMotion || !inView) {
-      node.pause();
-      return;
-    }
-
-    tryPlay();
+    if (!node) return;
 
     const onVisible = () => {
       if (document.visibilityState === "visible") tryPlay();
@@ -135,14 +122,7 @@ function PhoneScreen({
       window.removeEventListener("focus", tryPlay);
       window.removeEventListener("pointerdown", tryPlay);
     };
-  }, [inView, reducedMotion, shouldLoad, tryPlay]);
-
-  const onCanPlay = useCallback(() => {
-    setVideoReady(true);
-    tryPlay();
   }, [tryPlay]);
-
-  const onError = useCallback(() => setVideoReady(false), []);
 
   return (
     <div
@@ -162,39 +142,20 @@ function PhoneScreen({
           left: PHONE_BODY_INSET.left,
         }}
       >
-        <Image
-          src={poster}
-          alt=""
-          fill
-          sizes="(max-width: 640px) 42vw, (max-width: 1024px) 22vw, 15rem"
-          className={cn(
-            "object-cover transition-opacity duration-500",
-            videoReady ? "opacity-0" : "opacity-100",
-          )}
-          aria-hidden
+        <video
+          ref={videoRef}
+          className="absolute inset-0 size-full object-cover"
+          src={video}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          aria-label={title}
+          onCanPlay={tryPlay}
+          onLoadedData={tryPlay}
+          onPlaying={tryPlay}
         />
-
-        {shouldLoad ? (
-          <video
-            ref={videoRef}
-            className={cn(
-              "absolute inset-0 size-full object-cover transition-opacity duration-500",
-              videoReady ? "opacity-100" : "opacity-0",
-            )}
-            src={video}
-            poster={poster}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"
-            aria-label={title}
-            onCanPlay={onCanPlay}
-            onLoadedData={onCanPlay}
-            onPlaying={() => setVideoReady(true)}
-            onError={onError}
-          />
-        ) : null}
       </div>
 
       <Image
@@ -224,12 +185,19 @@ export function FeaturePhones() {
       id="feature-phones"
       aria-label={t("ariaLabel")}
       className={cn(
-        "mx-auto w-full",
+        "mx-auto flex w-full flex-col",
         "max-w-[min(96vw,76rem)]",
         "px-[clamp(0.75rem,2.5vw,2rem)] max-sm:px-[clamp(1rem,3.25vw,2rem)]",
         "mt-[clamp(2.5rem,5vw,4rem)] pb-[clamp(3rem,6vw,5rem)]",
+        "gap-[clamp(2.75rem,5.5vw,4rem)]",
       )}
     >
+      <Reveal className="text-center">
+        <p className="text-pretty font-rounded text-[0.9375rem] text-muted-foreground sm:text-base">
+          {t("monthlyNote")}
+        </p>
+      </Reveal>
+
       <div
         className={cn(
           "grid grid-cols-2 gap-x-4 gap-y-8 sm:gap-x-6 sm:gap-y-10",
@@ -240,11 +208,7 @@ export function FeaturePhones() {
         {phones.map((phone, index) => (
           <Reveal key={phone.key} delay={0.04 * index} className="min-w-0">
             <figure className="flex flex-col items-center gap-3.5 sm:gap-4">
-              <PhoneScreen
-                video={phone.video}
-                poster={phone.poster}
-                title={phone.title}
-              />
+              <PhoneScreen video={phone.video} title={phone.title} />
               <figcaption className="w-full max-w-[14.5rem] text-center">
                 <h3
                   className={cn(

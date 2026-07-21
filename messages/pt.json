@@ -126,6 +126,19 @@
           { "label": "Recuperação de senha" }
         ]
       },
+      "drive": {
+        "label": "Drive",
+        "tagline": { "emphasis": "Fluxo de motorista e passageiro", "rest": ", pronto como um Uber." },
+        "saved": "semanas a menos montando um app de corridas",
+        "bullets": [
+          { "label": "Fluxo de passageiro", "detail": "pedir, acompanhar e concluir a corrida" },
+          { "label": "Fluxo de motorista", "detail": "aceitar corridas e gerenciar o trajeto" },
+          { "label": "Mapas e localização em tempo real" },
+          { "label": "Roda em iOS, Android e Web", "detail": "uma base, três plataformas" },
+          { "label": "Pronto para personalizar", "detail": "marca, telas e regras do seu app" },
+          { "label": "Base completa tipo Uber", "detail": "sem montar o fluxo do zero" }
+        ]
+      },
       "subs": {
         "label": "Assinaturas",
         "tagline": { "emphasis": "Monetize desde o dia um", "rest": " com RevenueCat e Stripe." },
@@ -241,14 +254,15 @@
   },
   "featurePhones": {
     "ariaLabel": "Demonstração de recursos em iPhone",
+    "monthlyNote": "Features e componentes novos todo mês.",
     "items": {
       "drive": {
         "title": "Drive completo",
-        "description": "Fluxo de motorista e passageiro, pronto como um Uber."
+        "description": "Fluxo de motorista e passageiro, pronto como um Uber. Roda em iOS, Android e Web."
       },
       "paywall": {
         "title": "Paywall incluso",
-        "description": "RevenueCat e Stripe para monetizar no dia um."
+        "description": "RevenueCat no nativo, Stripe na Web. Assinaturas no dia um."
       },
       "supportChat": {
         "title": "Chat de suporte com IA",
@@ -264,7 +278,7 @@
       },
       "fullReview": {
         "title": "Setup completo",
-        "description": "Um passa rápido: componentes, IA e o kit pronto de ponta a ponta."
+        "description": "Um passa rápido pelo projeto: componentes, IA e o que já vem pronto."
       }
     }
   },
