@@ -288,7 +288,7 @@
     "headingPart1": "Pídelo en el chat.",
     "headingEmphasis": "El kit responde.",
     "subtitle": "En el chat, el MCP de Kasy prepara la máquina, crea la app y monta las pantallas con el estándar del kit. La IA no improvisa: sigue lo que ya está listo.",
-    "moreTools": "+8 tools disponibles",
+    "moreTools": "+40 tools disponibles",
     "composerPlaceholder": "Pídele algo al MCP Kasy…",
     "youLabel": "Tú",
     "mcpLabel": "MCP Kasy",
@@ -471,13 +471,14 @@
         "per": "por 1 año",
         "cta": "Quiero el Kit Anual",
         "features": [
-          "Firebase, Supabase y REST API",
-          "Creación y updates ilimitados · 1 año",
-          "60+ componentes · 95+ variantes",
-          "CLI con setup a medida",
-          "Preview Device en el navegador",
           "iOS, Android y Web desde el día uno",
+          "Firebase, Supabase y REST API",
           "Auth, suscripciones y push listos",
+          "60+ componentes · 95+ variantes",
+          "MCP Kasy en el chat",
+          "CLI y Preview Device",
+          "Crear y actualizar apps ilimitadas",
+          "Features nuevas todos los meses",
           "Soporte incluido"
         ]
       },
@@ -491,9 +492,11 @@
         "clubLinkHref": "https://club.kasy.dev/",
         "features": [
           "Todo el Kit Anual",
-          "Acceso al Kasy Club por 1 año",
+          "Kasy Club por 1 año",
           "Clases exclusivas y lives semanales",
+          "1 año en la Apple Developer de Aicrus",
           "Comunidad para networking y socios",
+          "Dirección de la idea a la publicación",
           "Soporte prioritario",
           "Garantía de 7 días en el Club"
         ]
