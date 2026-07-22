@@ -9,6 +9,7 @@ import {
   useRef,
   useState,
 } from "react";
+import { flushSync } from "react-dom";
 
 import { bunnyEmbedSrc } from "@/lib/bunny-stream";
 import { loadPlayerJs, type PlayerJsPlayer } from "@/lib/playerjs";
@@ -70,6 +71,8 @@ export const BunnyEmbed = forwardRef<BunnyEmbedHandle, BunnyEmbedProps>(
     onUserStartedRef.current = onUserStarted;
 
     const [previewVisible, setPreviewVisible] = useState(Boolean(previewLoop));
+    /** Fallback mobile: remonta com som se Player.js ainda não estiver ready no gesto. */
+    const [liveUnmuted, setLiveUnmuted] = useState(false);
 
     const previewSrc = useMemo(
       () =>
@@ -93,7 +96,7 @@ export const BunnyEmbed = forwardRef<BunnyEmbedHandle, BunnyEmbedProps>(
       () =>
         bunnyEmbedSrc(videoId, {
           autoplay: true,
-          muted: true,
+          muted: !liveUnmuted,
           loop: true,
           preload: true,
           compactControls: true,
@@ -101,25 +104,31 @@ export const BunnyEmbed = forwardRef<BunnyEmbedHandle, BunnyEmbedProps>(
           playsinline: true,
           rememberPosition: false,
           playerjs: true,
-          instanceKey: `${baseKey}-active`,
+          startAt: liveUnmuted ? "0s" : undefined,
+          instanceKey: liveUnmuted ? `${baseKey}-live` : `${baseKey}-active`,
         }),
-      [baseKey, videoId],
+      [baseKey, liveUnmuted, videoId],
     );
 
     const startWithSoundRef = useRef(() => {});
     startWithSoundRef.current = () => {
       const player = activePlayerRef.current;
       if (!player || !readyRef.current) {
+        // Mesmo gesto do toque: remonta com áudio (iOS não libera unmute depois).
         pendingPlayRef.current = true;
+        flushSync(() => {
+          setLiveUnmuted(true);
+          setPreviewVisible(false);
+        });
+        userStartedRef.current = true;
         onUserStartedRef.current?.();
-        // Player ainda aquecendo: tira o loop quando estiver ready (pendingPlay).
+        onPlayingChangeRef.current?.(true);
         return;
       }
 
       const first = !userStartedRef.current;
       userStartedRef.current = true;
 
-      // Só no 1º play: volta ao início. Pause/retomar continua de onde parou.
       if (first) player.setCurrentTime(0);
       if (player.supports("method", "unmute")) player.unmute();
       player.setVolume(100);
@@ -132,7 +141,6 @@ export const BunnyEmbed = forwardRef<BunnyEmbedHandle, BunnyEmbedProps>(
 
       if (!first) return;
 
-      // Só revela o active depois do 1º timeupdate (frame real, não capa).
       let revealed = false;
       const reveal = () => {
         if (revealed) return;
@@ -145,7 +153,6 @@ export const BunnyEmbed = forwardRef<BunnyEmbedHandle, BunnyEmbedProps>(
 
     useImperativeHandle(ref, () => ({
       play() {
-        onUserStartedRef.current?.();
         startWithSoundRef.current();
       },
       pause() {
@@ -184,6 +191,7 @@ export const BunnyEmbed = forwardRef<BunnyEmbedHandle, BunnyEmbedProps>(
       userStartedRef.current = false;
       pendingPlayRef.current = false;
       setPreviewVisible(Boolean(previewLoop));
+      setLiveUnmuted(false);
     }, [videoId, previewLoop]);
 
     useEffect(() => {
@@ -206,6 +214,15 @@ export const BunnyEmbed = forwardRef<BunnyEmbedHandle, BunnyEmbedProps>(
           player.on("ready", () => {
             if (cancelled) return;
             readyRef.current = true;
+
+            if (liveUnmuted) {
+              if (player.supports("method", "unmute")) player.unmute();
+              player.setVolume(100);
+              player.play();
+              onPlayingChangeRef.current?.(true);
+              return;
+            }
+
             if (player.supports("method", "mute")) player.mute();
 
             if (pendingPlayRef.current) {
@@ -218,21 +235,21 @@ export const BunnyEmbed = forwardRef<BunnyEmbedHandle, BunnyEmbedProps>(
 
           player.on("play", () => {
             if (cancelled) return;
-            if (userStartedRef.current || !previewLoop) {
+            if (userStartedRef.current || !previewLoop || liveUnmuted) {
               onPlayingChangeRef.current?.(true);
             }
           });
 
           player.on("pause", () => {
             if (cancelled) return;
-            if (userStartedRef.current || !previewLoop) {
+            if (userStartedRef.current || !previewLoop || liveUnmuted) {
               onPlayingChangeRef.current?.(false);
             }
           });
 
           player.on("ended", () => {
             if (cancelled) return;
-            if (userStartedRef.current || !previewLoop) {
+            if (userStartedRef.current || !previewLoop || liveUnmuted) {
               onPlayingChangeRef.current?.(false);
             }
           });
@@ -246,13 +263,13 @@ export const BunnyEmbed = forwardRef<BunnyEmbedHandle, BunnyEmbedProps>(
         activePlayerRef.current = null;
         readyRef.current = false;
       };
-    }, [activeSrc, autoplay, mute, previewLoop]);
+    }, [activeSrc, autoplay, liveUnmuted, mute, previewLoop]);
 
     return (
       <div
         ref={containerRef}
         className={cn(
-          "absolute inset-0 overflow-hidden bg-[#0b0d13]",
+          "absolute inset-0 overflow-hidden bg-black",
           "transform-gpu [backface-visibility:hidden]",
           className,
         )}
@@ -265,7 +282,7 @@ export const BunnyEmbed = forwardRef<BunnyEmbedHandle, BunnyEmbedProps>(
           allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen"
           allowFullScreen
           className={cn(
-            "absolute inset-0 z-0 size-full border-0 outline-none",
+            "absolute inset-0 z-0 size-full border-0 bg-black outline-none",
             // Escondido até o play: não mostra capa enquanto esquenta o buffer
             previewVisible && "invisible",
             !previewVisible && "z-[1]",
@@ -279,7 +296,7 @@ export const BunnyEmbed = forwardRef<BunnyEmbedHandle, BunnyEmbedProps>(
             title={title}
             allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen"
             allowFullScreen
-            className="pointer-events-none absolute inset-0 z-[2] size-full border-0 outline-none"
+            className="pointer-events-none absolute inset-0 z-[2] size-full border-0 bg-black outline-none"
           />
         ) : null}
       </div>
