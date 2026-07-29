@@ -409,8 +409,13 @@
       },
       {
         "id": "q2",
-        "question": "How is Kasy different from other boilerplates?",
-        "answer": "Many deliver only a technical setup (sometimes buggy) or only UI. Kasy delivers the full path: configuration, components, visual identity, subscriptions, and publishing. We're the only ones with Preview Device: build and inspect in the browser. Our CLI also creates and updates projects with an active subscription, without breaking what you already shipped."
+        "question": "Why is Kasy better than other Flutter boilerplates?",
+        "answer": "Many boilerplates deliver only a technical setup (sometimes buggy) or only UI. Kasy is the most complete setup: front-end, 60+ components, backend, authentication, subscriptions, guided configuration, and a path to publishing. We're the only ones with Preview Device to build and inspect in the browser. The CLI creates and updates unlimited apps with an active subscription, without breaking what you already shipped. On price and value, we deliver more at a more competitive price than most of the market."
+      },
+      {
+        "id": "q2b",
+        "question": "How do Quick Mode and Advanced Mode work?",
+        "answer": "When you create a project (via MCP in Cursor or with kasy new), you pick a path. In Quick Mode, the app starts with the package we consider essential for a SaaS: authentication, push, subscriptions, database rules, and the rest of the base ready so you can start fast. If something doesn't fit your idea, ask the Kasy MCP assistant to remove it (e.g. \"remove ads from my project\"). It turns off the feature for you. In Advanced Mode, you choose each feature at creation: only turn on what you want, without the default bundle. In both modes, you're not stuck with a generic template full of things you don't need: the project is yours."
       },
       {
         "id": "q3",

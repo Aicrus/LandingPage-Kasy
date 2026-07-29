@@ -409,8 +409,13 @@
       },
       {
         "id": "q2",
-        "question": "¿Cuál es la diferencia entre Kasy y otros boilerplates?",
-        "answer": "Muchos entregan solo un setup técnico (a veces con bugs) o solo UI. Kasy entrega el camino completo: configuración, componentes, identidad visual, suscripciones y publicación. Somos los únicos con Preview Device: desarrollas e inspeccionas en el navegador. Nuestra CLI además crea y actualiza proyectos con suscripción activa, sin romper lo que ya lanzaste."
+        "question": "¿Por qué Kasy es mejor que otros boilerplates Flutter?",
+        "answer": "Muchos boilerplates entregan solo un setup técnico (a veces con bugs) o solo UI. Kasy es el setup más completo: front-end, 60+ componentes, backend, autenticación, suscripciones, configuración guiada y camino hasta la publicación. Somos los únicos con Preview Device para desarrollar e inspeccionar en el navegador. La CLI crea y actualiza apps ilimitadas con suscripción activa, sin romper lo que ya está en producción. En costo-beneficio, entregamos más por un precio más competitivo que la mayoría del mercado."
+      },
+      {
+        "id": "q2b",
+        "question": "¿Cómo funcionan el Modo Rápido y el Modo Avanzado?",
+        "answer": "Al crear el proyecto (vía MCP en Cursor o con kasy new), eliges el camino. En Modo Rápido, la app ya viene con el paquete que consideramos esencial para un SaaS: autenticación, push, suscripciones, reglas de base de datos y el resto de la base lista para empezar pronto. Si algo no encaja con tu idea, pídele al asistente por el MCP Kasy que lo quite (ej.: \"quita los anuncios del proyecto\"). Él desactiva la feature por ti. En Modo Avanzado, eliges cada feature al crear: solo activas lo que quieres, sin depender del paquete por defecto. En ambos modos, no quedas atrapado en un template genérico lleno de cosas que no necesitas: el proyecto es tuyo."
       },
       {
         "id": "q3",
