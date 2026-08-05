@@ -44,6 +44,16 @@ const PLAN_METADATA: Record<CheckoutPlan, string> = {
   kitCourse: "kit_course",
 };
 
+/**
+ * Produtos reais da Stripe. O checkout precisa apontar para eles (e não criar um
+ * produto novo a cada sessão) para que cupom restrito a produto funcione —
+ * é o que separa um desconto só do Kit de um que também vale no combo com o Club.
+ */
+export const PLAN_PRODUCT_ID: Record<CheckoutPlan, string> = {
+  annual: "prod_Up1pRXx1RjEGjS", // Kasy Kit Anual
+  kitCourse: "prod_Up1pDIsWK9d0Xh", // Kasy Kit + Club
+};
+
 export const PLAN_UNIT_AMOUNT: Record<CheckoutPlan, Record<Currency, number>> = {
   annual: { usd: 12300, brl: 62300 },
   kitCourse: { usd: 18700, brl: 99700 },
@@ -76,40 +86,6 @@ export function planAmountWithPercentOff(
   return formatMoney(discounted, currency);
 }
 
-const PLAN_CHECKOUT_COPY: Record<
-  CheckoutPlan,
-  Record<SiteLocale, { name: string; description: string }>
-> = {
-  annual: {
-    pt: {
-      name: "Kasy Kit Anual",
-      description: "Kit completo Kasy: criar e atualizar apps pela CLI por 1 ano.",
-    },
-    en: {
-      name: "Kasy Annual Kit",
-      description: "Full Kasy kit: create and update apps with the CLI for 1 year.",
-    },
-    es: {
-      name: "Kasy Kit Anual",
-      description: "Kit completo de Kasy: crear y actualizar apps con la CLI por 1 año.",
-    },
-  },
-  kitCourse: {
-    pt: {
-      name: "Kasy Kit + Club",
-      description: "Kit completo (criar e atualizar por 1 ano) + Kasy Club por 1 ano.",
-    },
-    en: {
-      name: "Kasy Kit + Club",
-      description: "Full kit (create and update for 1 year) + Kasy Club for 1 year.",
-    },
-    es: {
-      name: "Kasy Kit + Club",
-      description: "Kit completo (crear y actualizar por 1 año) + Kasy Club por 1 año.",
-    },
-  },
-};
-
 const STRIPE_LOCALE: Record<SiteLocale, "pt" | "en" | "es"> = {
   pt: "pt",
   en: "en",
@@ -127,21 +103,16 @@ export function stripeLocale(locale: SiteLocale): "pt" | "en" | "es" {
 export function resolveCheckoutLineItem(
   plan: CheckoutPlan,
   country: string | null | undefined,
-  locale: SiteLocale,
 ) {
   const currency = currencyForCountry(country);
-  const copy = PLAN_CHECKOUT_COPY[plan][locale];
 
   return {
     quantity: 1,
     price_data: {
       currency,
       unit_amount: PLAN_UNIT_AMOUNT[plan][currency],
-      product_data: {
-        name: copy.name,
-        description: copy.description,
-        metadata: { plan: PLAN_METADATA[plan] },
-      },
+      // Produto real da Stripe: é o que permite cupom restrito a um plano.
+      product: PLAN_PRODUCT_ID[plan],
     },
   };
 }

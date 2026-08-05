@@ -46,7 +46,7 @@ export async function POST(request: Request) {
       mode: "payment",
       locale: stripeLocale(siteLocale),
       branding_settings: checkoutBrandingSettings(),
-      line_items: [resolveCheckoutLineItem(body.plan, country, siteLocale)],
+      line_items: [resolveCheckoutLineItem(body.plan, country)],
       allow_promotion_codes: true,
       customer_creation: "always",
       metadata: {
