@@ -423,6 +423,13 @@
         "answer": "Sí. Con la suscripción activa puedes crear y actualizar apps ilimitadas. La licencia es comercial: publica, vende tus apps y desarrolla para clientes. Lo que no puedes hacer es vender, compartir o regalar el kit. La piratería se identifica con el ID de compra y puede generar acción legal."
       },
       {
+        "id": "q3b",
+        "question": "¿Puedo usarlo en más de una computadora?",
+        "answer": "Tu clave queda activa en una computadora a la vez, y puedes cambiar de máquina cuando quieras. Solo hay un límite: cada cambio se habilita 24 horas después de la activación anterior. Quien cambia de computadora de verdad ni lo nota, porque su activación anterior ya superó ese plazo hace mucho. Lo que evita es que dos personas se turnen la misma clave. ¿Perdiste el acceso a la máquina anterior y lo necesitas antes? Lo liberamos al instante, solo escríbele al soporte.",
+        "linkHref": "https://kasy.dev/docs/referencia/licenca",
+        "linkLabel": "Cómo cambiar de computadora"
+      },
+      {
         "id": "q4",
         "question": "¿Y si ya tengo un proyecto en curso?",
         "answer": "Kasy está pensado para proyectos nuevos. En proyectos existentes, puedes copiar componentes de forma manual."
