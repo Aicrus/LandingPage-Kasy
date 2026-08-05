@@ -45,13 +45,25 @@ const PLAN_METADATA: Record<CheckoutPlan, string> = {
 };
 
 /**
- * Produtos reais da Stripe. O checkout precisa apontar para eles (e não criar um
- * produto novo a cada sessão) para que cupom restrito a produto funcione —
- * é o que separa um desconto só do Kit de um que também vale no combo com o Club.
+ * Produtos reais da Stripe, um por idioma.
+ *
+ * O checkout precisa apontar para produtos existentes (e não criar um produto novo
+ * a cada sessão) para que cupom restrito a produto funcione — é o que separa um
+ * desconto só do Kit de um que também vale no combo com o Club. Como a Stripe não
+ * traduz nome de produto, cada idioma tem o seu, e um cupom "só do Kit" precisa
+ * listar os três de PLAN_PRODUCT_ID.annual.
  */
-export const PLAN_PRODUCT_ID: Record<CheckoutPlan, string> = {
-  annual: "prod_Up1pRXx1RjEGjS", // Kasy Kit Anual
-  kitCourse: "prod_Up1pDIsWK9d0Xh", // Kasy Kit + Club
+export const PLAN_PRODUCT_ID: Record<CheckoutPlan, Record<SiteLocale, string>> = {
+  annual: {
+    pt: "prod_Up1pRXx1RjEGjS",
+    en: "prod_V1GhbXW8ARl6zb",
+    es: "prod_V1GhvbzNVBTo8I",
+  },
+  kitCourse: {
+    pt: "prod_Up1pDIsWK9d0Xh",
+    en: "prod_V1Gh2LxS8ZMvgl",
+    es: "prod_V1GhekdDQPCXmW",
+  },
 };
 
 export const PLAN_UNIT_AMOUNT: Record<CheckoutPlan, Record<Currency, number>> = {
@@ -103,6 +115,7 @@ export function stripeLocale(locale: SiteLocale): "pt" | "en" | "es" {
 export function resolveCheckoutLineItem(
   plan: CheckoutPlan,
   country: string | null | undefined,
+  locale: SiteLocale,
 ) {
   const currency = currencyForCountry(country);
 
@@ -111,8 +124,8 @@ export function resolveCheckoutLineItem(
     price_data: {
       currency,
       unit_amount: PLAN_UNIT_AMOUNT[plan][currency],
-      // Produto real da Stripe: é o que permite cupom restrito a um plano.
-      product: PLAN_PRODUCT_ID[plan],
+      // Produto real da Stripe, no idioma do comprador.
+      product: PLAN_PRODUCT_ID[plan][locale],
     },
   };
 }
