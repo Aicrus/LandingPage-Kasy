@@ -120,6 +120,8 @@ function PlanCard({
       <CheckoutButton
         plan={plan.key}
         locale={locale}
+        valueCents={plan.discountedCents ?? plan.fullCents}
+        currency={plan.currency}
         variant={plan.featured ? "default" : "outline"}
         className="mt-6 h-auto w-full justify-center rounded-full py-2.5 text-[0.9375rem]"
       >

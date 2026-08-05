@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
+import { SiteAnalytics } from "@/components/analytics/site-analytics";
 import { MotionProvider } from "@/components/motion";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -27,8 +28,16 @@ export async function generateMetadata({
   const siteUrl =
     process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ?? "https://kasy.dev";
 
+  // Código que o Meta Business pede para verificar o domínio (Aggregated Event
+  // Measurement / iOS). Sem a env, a tag simplesmente não sai.
+  const facebookDomainVerification =
+    process.env.NEXT_PUBLIC_FACEBOOK_DOMAIN_VERIFICATION;
+
   return {
     metadataBase: new URL(siteUrl),
+    ...(facebookDomainVerification
+      ? { other: { "facebook-domain-verification": facebookDomainVerification } }
+      : {}),
     title: t("title"),
     description: t("description"),
     openGraph: {
@@ -83,6 +92,7 @@ export default async function LocaleLayout({
         <script dangerouslySetInnerHTML={{ __html: themeColorHeadInitScript }} />
       </head>
       <body className="min-h-full flex flex-col font-sans">
+        <SiteAnalytics />
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider>
             <ThemeMetaSyncScript />

@@ -5,7 +5,8 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
-import type { CheckoutPlan } from "@/lib/stripe/catalog";
+import { trackBeginCheckout } from "@/lib/analytics/events";
+import type { CheckoutPlan, Currency } from "@/lib/stripe/catalog";
 import { cn } from "@/lib/utils";
 
 type CheckoutButtonProps = {
@@ -13,6 +14,9 @@ type CheckoutButtonProps = {
   locale: string;
   className?: string;
   variant?: "default" | "outline";
+  /** Valor cobrado, para o InitiateCheckout sair com valor real. */
+  valueCents?: number;
+  currency?: Currency;
   children: React.ReactNode;
 };
 
@@ -21,6 +25,8 @@ export function CheckoutButton({
   locale,
   className,
   variant = "default",
+  valueCents,
+  currency,
   children,
 }: CheckoutButtonProps) {
   const t = useTranslations("pricing");
@@ -28,6 +34,9 @@ export function CheckoutButton({
 
   async function handleCheckout() {
     setLoading(true);
+
+    // Antes do fetch: a ida ao Stripe dá tempo de sobra para os pixels saírem.
+    trackBeginCheckout({ plan, valueCents, currency });
 
     try {
       const response = await fetch("/api/checkout", {

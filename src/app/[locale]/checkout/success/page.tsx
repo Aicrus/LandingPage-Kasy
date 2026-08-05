@@ -1,8 +1,26 @@
 import { getLocale, getTranslations } from "next-intl/server";
 
 import { Link } from "@/i18n/navigation";
+import { PurchaseTracker } from "@/components/analytics/purchase-tracker";
 import { Button } from "@/components/ui/button";
 import { isCheckoutPlan } from "@/lib/stripe/catalog";
+import { getStripe } from "@/lib/stripe/server";
+
+/** Valor real pago, para as conversões. Falha aqui não quebra a página. */
+async function purchaseAmount(sessionId: string | undefined) {
+  if (!sessionId) return null;
+
+  try {
+    const session = await getStripe().checkout.sessions.retrieve(sessionId);
+    if (session.payment_status !== "paid" || session.amount_total === null) {
+      return null;
+    }
+    return { amountTotal: session.amount_total, currency: session.currency ?? "usd" };
+  } catch (error) {
+    console.error("[checkout-success]", error);
+    return null;
+  }
+}
 
 function clubLoginUrl(locale: string) {
   const base = (process.env.NEXT_PUBLIC_CLUB_URL ?? "https://club.kasy.dev").replace(
@@ -24,9 +42,18 @@ export default async function CheckoutSuccessPage({
   const t = await getTranslations(
     isCombo ? "checkout.successCombo" : "checkout.success",
   );
+  const amount = await purchaseAmount(params.session_id);
 
   return (
     <main className="mx-auto flex w-full max-w-lg flex-1 flex-col items-center justify-center px-6 py-16 text-center sm:py-24">
+      {params.session_id ? (
+        <PurchaseTracker
+          eventId={params.session_id}
+          plan={plan}
+          valueCents={amount?.amountTotal}
+          currency={amount?.currency}
+        />
+      ) : null}
       <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
         {t("eyebrow")}
       </p>
