@@ -10,6 +10,7 @@ import {
   HeroIntro,
   HeroScreenReveal,
   IntegrationsShowcase,
+  KitLivePreview,
   Marquee,
   McpShowcase,
   Pricing,
@@ -41,6 +42,7 @@ export default async function Home({
       <VideoShowcase />
       <FeatureHoverCards />
       <IntegrationsShowcase />
+      <KitLivePreview />
       <WhatYouGet />
       <FeaturePhones />
       <McpShowcase />

@@ -109,6 +109,17 @@
       "aiReady": { "title": "AI-ready", "detail": "Cursor · Claude Code · Windsurf" }
     }
   },
+  "kitLivePreview": {
+    "ariaLabel": "Kasy Kit live preview",
+    "eyebrow": "Live preview",
+    "heading": "Try the Kit in real time",
+    "subtitle": "Browse the demo app right here. Tap, scroll, and explore it like your own shipped product.",
+    "liveBadge": "Live",
+    "iframeTitle": "Interactive Kasy Kit demo",
+    "loading": "Loading the Kit…",
+    "hint": "Interact in the frame above, or open full screen for more room.",
+    "openFull": "Open in new tab"
+  },
   "whatYouGet": {
     "eyebrow": "What you get",
     "headingPart1": "Ready to ship.",
