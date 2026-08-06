@@ -427,6 +427,11 @@
         "answer": "When you create a project (via MCP in Cursor or with kasy new), you pick a path. In Quick Mode, the app starts with the package we consider essential for a SaaS: authentication, push, subscriptions, database rules, and the rest of the base ready so you can start fast. If something doesn't fit your idea, ask the Kasy MCP assistant to remove it (e.g. \"remove ads from my project\"). It turns off the feature for you. In Advanced Mode, you choose each feature at creation: only turn on what you want, without the default bundle. In both modes, you're not stuck with a generic template full of things you don't need: the project is yours."
       },
       {
+        "id": "q2c",
+        "question": "Are Kasy features independent?",
+        "answer": "Yes. One thing that makes Kasy modern and flexible is its modular architecture: every feature works on its own. You choose exactly what you want to use. Only need a few pieces? No problem. Want the full stack? That works too. And if later you decide to turn something off, you can do it with confidence, without worrying about breaking your project."
+      },
+      {
         "id": "q3",
         "question": "Can I build multiple apps and sell them?",
         "answer": "Yes. With an active subscription you can create and update unlimited apps. On every plan the license is commercial: publish, sell your apps, and build for clients. What you can't do is sell, share, or give away the kit. Piracy is tied to your purchase ID and can lead to legal action."

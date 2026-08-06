@@ -427,6 +427,11 @@
         "answer": "Al crear el proyecto (vía MCP en Cursor o con kasy new), eliges el camino. En Modo Rápido, la app ya viene con el paquete que consideramos esencial para un SaaS: autenticación, push, suscripciones, reglas de base de datos y el resto de la base lista para empezar pronto. Si algo no encaja con tu idea, pídele al asistente por el MCP Kasy que lo quite (ej.: \"quita los anuncios del proyecto\"). Él desactiva la feature por ti. En Modo Avanzado, eliges cada feature al crear: solo activas lo que quieres, sin depender del paquete por defecto. En ambos modos, no quedas atrapado en un template genérico lleno de cosas que no necesitas: el proyecto es tuyo."
       },
       {
+        "id": "q2c",
+        "question": "¿Las funcionalidades de Kasy son independientes?",
+        "answer": "Sí. Una de las características que hace a Kasy moderno y flexible es su arquitectura modular: cada funcionalidad funciona de forma independiente. Eliges exactamente lo que quieres usar. ¿Solo necesitas algunos recursos? Sin problema. ¿Quieres usar todo? También es posible. Y si en el futuro decides quitar algo, puedes hacerlo con tranquilidad, sin preocuparte de romper tu proyecto."
+      },
+      {
         "id": "q3",
         "question": "¿Puedo crear varias apps y venderlas?",
         "answer": "Sí. Con la suscripción activa puedes crear y actualizar apps ilimitadas. En todos los planes la licencia es comercial: publica, vende tus apps y desarrolla para clientes. Lo que no puedes hacer es vender, compartir o regalar el kit. La piratería se identifica con el ID de compra y puede generar acción legal."

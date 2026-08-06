@@ -1,0 +1,13 @@
+# Dependencies and generated build output
+node_modules/
+.next/
+out/
+dist/
+build/
+.turbo/
+.vercel/
+
+# Logs and caches
+*.log
+.npm/
+.cache/
