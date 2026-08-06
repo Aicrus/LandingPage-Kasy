@@ -425,7 +425,7 @@
       {
         "id": "q3b",
         "question": "Can I use it on more than one computer?",
-        "answer": "Your key stays active on one computer at a time, and you can switch machines whenever you want. There is only one limit: each switch is allowed 24 hours after the previous activation. Anyone genuinely switching computers never notices it, because their old activation is long past that window. What it prevents is two people taking turns with the same key. Lost access to the old machine and need it sooner? We unlock it right away, just contact support.",
+        "answer": "Your key stays active on one computer at a time, and you can move it when you switch machines. There is a minimum interval between one switch and the next, and repeated switching increases that interval: the limit exists to stop a key from being passed around between people, not to get in the way of someone who changed computers. Need it sooner, or lost access to the old machine? Support unlocks it right away.",
         "linkHref": "https://kasy.dev/docs/referencia/licenca",
         "linkLabel": "How to switch computers"
       },

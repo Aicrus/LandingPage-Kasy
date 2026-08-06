@@ -425,7 +425,7 @@
       {
         "id": "q3b",
         "question": "Posso usar em mais de um computador?",
-        "answer": "Sua chave fica ativa em um computador por vez, e você pode trocar de máquina quando quiser. Só existe um limite: cada troca é liberada 24 horas depois da ativação anterior. Quem troca de computador de verdade nem percebe, porque a ativação antiga já passou muito desse prazo. O que isso impede é duas pessoas revezarem a mesma chave. Perdeu o acesso à máquina antiga e precisa antes das 24h? A gente libera na hora, é só falar com o suporte.",
+        "answer": "Sua chave fica ativa em um computador por vez, e você pode movê-la quando trocar de máquina. Existe um intervalo mínimo entre uma troca e a seguinte, e trocas repetidas em sequência aumentam esse intervalo: o limite existe para impedir que uma chave seja revezada entre pessoas, não para atrapalhar quem trocou de computador. Precisa antes, ou perdeu o acesso à máquina antiga? O suporte libera na hora.",
         "linkHref": "https://kasy.dev/docs/referencia/licenca",
         "linkLabel": "Como trocar de computador"
       },

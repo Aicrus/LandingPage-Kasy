@@ -425,7 +425,7 @@
       {
         "id": "q3b",
         "question": "¿Puedo usarlo en más de una computadora?",
-        "answer": "Tu clave queda activa en una computadora a la vez, y puedes cambiar de máquina cuando quieras. Solo hay un límite: cada cambio se habilita 24 horas después de la activación anterior. Quien cambia de computadora de verdad ni lo nota, porque su activación anterior ya superó ese plazo hace mucho. Lo que evita es que dos personas se turnen la misma clave. ¿Perdiste el acceso a la máquina anterior y lo necesitas antes? Lo liberamos al instante, solo escríbele al soporte.",
+        "answer": "Tu clave queda activa en una computadora a la vez, y puedes moverla cuando cambies de máquina. Hay un intervalo mínimo entre un cambio y el siguiente, y los cambios repetidos aumentan ese intervalo: el límite existe para evitar que una clave se pase entre personas, no para molestar a quien cambió de computadora. ¿Lo necesitas antes o perdiste el acceso a la máquina anterior? El soporte lo libera al instante.",
         "linkHref": "https://kasy.dev/docs/referencia/licenca",
         "linkLabel": "Cómo cambiar de computadora"
       },
