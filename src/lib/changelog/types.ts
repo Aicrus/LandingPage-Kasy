@@ -43,6 +43,13 @@ export type ChangelogMedia =
   | ChangelogMp4Media
   | ChangelogBunnyMedia;
 
+export type ChangelogCommand = {
+  /** Shell command to show and let the user copy, e.g. "kasy update drive". */
+  text: string;
+  /** Short localized clarification of what running the command does. */
+  note: string;
+};
+
 export type ChangelogEntry = {
   id: string;
   date: string;
@@ -52,6 +59,8 @@ export type ChangelogEntry = {
   bullets?: ChangelogBullet[];
   media?: ChangelogMedia;
   docHref?: string;
+  /** How to get this into a project: `kasy upgrade` (tool itself) or `kasy update <module>` (existing project). */
+  command?: ChangelogCommand;
 };
 
 export type ChangelogPageCopy = {
@@ -62,4 +71,12 @@ export type ChangelogPageCopy = {
   docCta: string;
   copyLinkLabel: string;
   copiedLinkLabel: string;
+  versions: {
+    cliLabel: string;
+    mcpLabel: string;
+    upgradeCommand: string;
+    upgradeNote: string;
+    copyLabel: string;
+    copiedLabel: string;
+  };
 };

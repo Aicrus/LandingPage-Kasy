@@ -22,6 +22,8 @@ export function ChangelogTimeline({ copy, entries, locale }: ChangelogTimelinePr
             docCta={copy.docCta}
             copyLinkLabel={copy.copyLinkLabel}
             copiedLinkLabel={copy.copiedLinkLabel}
+            commandCopyLabel={copy.versions.copyLabel}
+            commandCopiedLabel={copy.versions.copiedLabel}
             isFirst={index === 0}
           />
         ))}

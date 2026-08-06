@@ -4,3 +4,5 @@ export {
   getChangelogEntries,
   getChangelogPageCopy,
 } from "./content";
+export type { KasyVersions } from "./versions";
+export { getKasyVersions } from "./versions";

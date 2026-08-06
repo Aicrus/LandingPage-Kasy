@@ -4,8 +4,13 @@ import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 
 import { ChangelogTimeline } from "@/components/changelog/changelog-timeline";
+import { ChangelogVersionBanner } from "@/components/changelog/changelog-version-banner";
 import { routing } from "@/i18n/routing";
-import { getChangelogEntries, getChangelogPageCopy } from "@/lib/changelog";
+import {
+  getChangelogEntries,
+  getChangelogPageCopy,
+  getKasyVersions,
+} from "@/lib/changelog";
 
 export async function generateMetadata({
   params,
@@ -36,10 +41,12 @@ export default async function ChangelogPage({
 
   const copy = getChangelogPageCopy(locale);
   const entries = getChangelogEntries(locale);
+  const versions = await getKasyVersions();
 
   return (
-    <main className="bg-background">
+    <main className="bg-background pb-14">
       <ChangelogTimeline copy={copy} entries={entries} locale={locale} />
+      <ChangelogVersionBanner copy={copy.versions} versions={versions} />
     </main>
   );
 }

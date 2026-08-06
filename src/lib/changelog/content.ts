@@ -16,6 +16,14 @@ const PAGE_COPY: Record<SiteLocale, ChangelogPageCopy> = {
     docCta: "Ver documentação",
     copyLinkLabel: "Copiar link",
     copiedLinkLabel: "Link copiado",
+    versions: {
+      cliLabel: "CLI",
+      mcpLabel: "MCP",
+      upgradeCommand: "kasy upgrade",
+      upgradeNote: "Atualiza a CLI e o MCP para a última versão.",
+      copyLabel: "Copiar comando",
+      copiedLabel: "Comando copiado",
+    },
   },
   en: {
     metadata: {
@@ -26,6 +34,14 @@ const PAGE_COPY: Record<SiteLocale, ChangelogPageCopy> = {
     docCta: "View documentation",
     copyLinkLabel: "Copy link",
     copiedLinkLabel: "Link copied",
+    versions: {
+      cliLabel: "CLI",
+      mcpLabel: "MCP",
+      upgradeCommand: "kasy upgrade",
+      upgradeNote: "Updates the CLI and MCP to the latest version.",
+      copyLabel: "Copy command",
+      copiedLabel: "Command copied",
+    },
   },
   es: {
     metadata: {
@@ -36,11 +52,44 @@ const PAGE_COPY: Record<SiteLocale, ChangelogPageCopy> = {
     docCta: "Ver documentación",
     copyLinkLabel: "Copiar enlace",
     copiedLinkLabel: "Enlace copiado",
+    versions: {
+      cliLabel: "CLI",
+      mcpLabel: "MCP",
+      upgradeCommand: "kasy upgrade",
+      upgradeNote: "Actualiza la CLI y el MCP a la última versión.",
+      copyLabel: "Copiar comando",
+      copiedLabel: "Comando copiado",
+    },
   },
 };
 
 const ENTRIES: Record<SiteLocale, ChangelogEntry[]> = {
   pt: [
+    {
+      id: "modular-kit",
+      date: "2026-08-06",
+      title: "Kit 100% modular",
+      summary:
+        "Cada funcionalidade do Kasy funciona de forma independente. Você escolhe o que usar, e pode remover depois sem medo de quebrar o projeto.",
+      paragraphs: [
+        "Auth, Settings, Push e o resto dos módulos deixaram de ser um pacote fechado. Desligue um deles e o app fica com um stub mínimo no lugar, sem import nem rota sobrando. Login social (Google, Apple, Facebook) só aparece na tela quando o provedor está de fato configurado.",
+      ],
+      bullets: [
+        {
+          label: "Você decide",
+          text: "No Rápido ou no Avançado, escolha exatamente o que entra no projeto, nos três backends.",
+        },
+        {
+          label: "Remove sem susto",
+          text: "Desligar um módulo depois não deixa import, rota ou botão morto pra trás.",
+        },
+      ],
+      docHref: "/docs/gerenciar/kasy-remove",
+      command: {
+        text: "kasy update core",
+        note: "Projeto já criado? Sincronize o core.",
+      },
+    },
     {
       id: "preview-device",
       date: "2026-05-28",
@@ -69,6 +118,10 @@ title: "Preview Device",
         height: 1680,
       },
       docHref: "/docs/referencia/guia-web",
+      command: {
+        text: "kasy upgrade",
+        note: "Já vem na CLI mais recente.",
+      },
     },
     {
       id: "home-widget",
@@ -90,6 +143,10 @@ title: "Widget na tela inicial",
         },
       ],
       docHref: "/docs/funcionalidades/widget",
+      command: {
+        text: "kasy update widget",
+        note: "Projeto já criado? Sincronize o módulo.",
+      },
     },
     {
       id: "mcp-kasy",
@@ -118,6 +175,10 @@ title: "MCP Kasy",
         loop: true,
       },
       docHref: "/docs/mcp",
+      command: {
+        text: "kasy upgrade",
+        note: "Atualiza a CLI e o MCP juntos.",
+      },
     },
     {
       id: "drive",
@@ -147,9 +208,38 @@ title: "Drive",
         loop: true,
       },
       docHref: "/docs/funcionalidades/drive",
+      command: {
+        text: "kasy update drive",
+        note: "Projeto já criado? Sincronize o módulo.",
+      },
     },
   ],
   en: [
+    {
+      id: "modular-kit",
+      date: "2026-08-06",
+      title: "100% modular kit",
+      summary:
+        "Every Kasy feature works on its own. Pick exactly what you want to use, and remove it later without worrying about breaking the project.",
+      paragraphs: [
+        "Auth, Settings, Push, and the rest of the modules stopped being a closed package. Turn one off and the app gets a minimal stub in its place, with no leftover import or route. Social login (Google, Apple, Facebook) only shows up on screen when the provider is actually configured.",
+      ],
+      bullets: [
+        {
+          label: "You decide",
+          text: "Quick or Advanced, choose exactly what goes into the project, across all three backends.",
+        },
+        {
+          label: "Remove with no surprises",
+          text: "Turning a module off later leaves no orphan import, route, or dead button behind.",
+        },
+      ],
+      docHref: "/docs/gerenciar/kasy-remove",
+      command: {
+        text: "kasy update core",
+        note: "Already have the project? Sync core.",
+      },
+    },
     {
       id: "preview-device",
       date: "2026-05-28",
@@ -178,6 +268,10 @@ title: "Preview Device",
         height: 1680,
       },
       docHref: "/docs/referencia/guia-web",
+      command: {
+        text: "kasy upgrade",
+        note: "Included in the latest CLI.",
+      },
     },
     {
       id: "home-widget",
@@ -198,6 +292,10 @@ title: "Home-screen widget",
         },
       ],
       docHref: "/docs/funcionalidades/widget",
+      command: {
+        text: "kasy update widget",
+        note: "Already have the project? Sync the module.",
+      },
     },
     {
       id: "mcp-kasy",
@@ -225,6 +323,10 @@ title: "Kasy MCP",
         loop: true,
       },
       docHref: "/docs/mcp",
+      command: {
+        text: "kasy upgrade",
+        note: "Updates the CLI and MCP together.",
+      },
     },
     {
       id: "drive",
@@ -254,9 +356,38 @@ title: "Drive",
         loop: true,
       },
       docHref: "/docs/funcionalidades/drive",
+      command: {
+        text: "kasy update drive",
+        note: "Already have the project? Sync the module.",
+      },
     },
   ],
   es: [
+    {
+      id: "modular-kit",
+      date: "2026-08-06",
+      title: "Kit 100% modular",
+      summary:
+        "Cada función de Kasy funciona de forma independiente. Eliges exactamente lo que quieres usar, y puedes quitarlo después sin miedo a romper el proyecto.",
+      paragraphs: [
+        "Auth, Settings, Push y el resto de los módulos dejaron de ser un paquete cerrado. Apaga uno y la app queda con un stub mínimo en su lugar, sin import ni ruta sobrante. El login social (Google, Apple, Facebook) solo aparece en pantalla cuando el proveedor está realmente configurado.",
+      ],
+      bullets: [
+        {
+          label: "Tú decides",
+          text: "En Rápido o en Avanzado, elige exactamente qué entra en el proyecto, en los tres backends.",
+        },
+        {
+          label: "Quita sin sustos",
+          text: "Apagar un módulo después no deja import, ruta ni botón muerto atrás.",
+        },
+      ],
+      docHref: "/docs/gerenciar/kasy-remove",
+      command: {
+        text: "kasy update core",
+        note: "¿Ya tienes el proyecto? Sincroniza el core.",
+      },
+    },
     {
       id: "preview-device",
       date: "2026-05-28",
@@ -285,6 +416,10 @@ title: "Preview Device",
         height: 1680,
       },
       docHref: "/docs/referencia/guia-web",
+      command: {
+        text: "kasy upgrade",
+        note: "Ya viene en la CLI más reciente.",
+      },
     },
     {
       id: "home-widget",
@@ -306,6 +441,10 @@ title: "Widget en la pantalla de inicio",
         },
       ],
       docHref: "/docs/funcionalidades/widget",
+      command: {
+        text: "kasy update widget",
+        note: "¿Ya tienes el proyecto? Sincroniza el módulo.",
+      },
     },
     {
       id: "mcp-kasy",
@@ -334,6 +473,10 @@ title: "MCP Kasy",
         loop: true,
       },
       docHref: "/docs/mcp",
+      command: {
+        text: "kasy upgrade",
+        note: "Actualiza la CLI y el MCP juntos.",
+      },
     },
     {
       id: "drive",
@@ -363,6 +506,10 @@ title: "Drive",
         loop: true,
       },
       docHref: "/docs/funcionalidades/drive",
+      command: {
+        text: "kasy update drive",
+        note: "¿Ya tienes el proyecto? Sincroniza el módulo.",
+      },
     },
   ],
 };

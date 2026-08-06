@@ -1,3 +1,4 @@
+import { ChangelogCommandChip } from "@/components/changelog/changelog-command-chip";
 import { ChangelogCopyLink } from "@/components/changelog/changelog-copy-link";
 import { ChangelogMediaBlock } from "@/components/changelog/changelog-media";
 import { Link } from "@/i18n/navigation";
@@ -11,6 +12,8 @@ type ChangelogEntryBlockProps = {
   docCta: string;
   copyLinkLabel: string;
   copiedLinkLabel: string;
+  commandCopyLabel: string;
+  commandCopiedLabel: string;
   isFirst?: boolean;
 };
 
@@ -20,6 +23,8 @@ export function ChangelogEntryBlock({
   docCta,
   copyLinkLabel,
   copiedLinkLabel,
+  commandCopyLabel,
+  commandCopiedLabel,
   isFirst = false,
 }: ChangelogEntryBlockProps) {
   const formattedDate = formatChangelogDate(entry.date, locale);
@@ -87,6 +92,19 @@ export function ChangelogEntryBlock({
 
         {entry.media ? (
           <ChangelogMediaBlock media={entry.media} locale={locale} />
+        ) : null}
+
+        {entry.command ? (
+          <div className="flex flex-wrap items-center gap-2.5">
+            <ChangelogCommandChip
+              command={entry.command.text}
+              copyLabel={commandCopyLabel}
+              copiedLabel={commandCopiedLabel}
+            />
+            <span className="text-[0.8125rem] text-muted-foreground xl:text-[0.875rem]">
+              {entry.command.note}
+            </span>
+          </div>
         ) : null}
 
         {entry.docHref ? (
