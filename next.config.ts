@@ -4,8 +4,9 @@ import createNextIntlPlugin from "next-intl/plugin";
 const withNextIntl = createNextIntlPlugin();
 
 const nextConfig: NextConfig = {
-  // Permite acessar o dev server pelo IP da rede (ex.: celular na mesma Wi‑Fi).
-  allowedDevOrigins: ["192.168.15.6"],
+  // Permite acessar o dev server pelo IP da rede (ex.: celular na mesma Wi‑Fi)
+  // e por 127.0.0.1 (HMR/fonts quebram se abrir só por IP sem isso).
+  allowedDevOrigins: ["192.168.15.6", "127.0.0.1"],
   async redirects() {
     return [
       {

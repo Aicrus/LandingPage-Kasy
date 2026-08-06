@@ -410,7 +410,7 @@
       {
         "id": "q2",
         "question": "Why is Kasy better than other Flutter boilerplates?",
-        "answer": "Many boilerplates deliver only a technical setup (sometimes buggy) or only UI. Kasy is the most complete setup: front-end, 60+ components, backend, authentication, subscriptions, guided configuration, and a path to publishing. We're the only ones with Preview Device to build and inspect in the browser. The CLI creates and updates unlimited apps with an active subscription, without breaking what you already shipped. On price and value, we deliver more at a more competitive price than most of the market."
+        "answer": "Many boilerplates deliver only a technical setup (sometimes buggy) or only UI, then freeze: you download once and the rest is on you. Kasy is the most complete setup (front-end, 60+ components, backend, authentication, subscriptions, guided configuration, and a path to publishing) and it keeps going: with an active subscription, the CLI creates and updates unlimited apps without breaking what you already shipped. We're the only ones with Preview Device to build and inspect in the browser. On price and value, we deliver more at a more competitive price than most of the market."
       },
       {
         "id": "q2b",
@@ -419,8 +419,8 @@
       },
       {
         "id": "q3",
-        "question": "Can I use the kit on multiple projects?",
-        "answer": "Yes. With an active subscription you can create and update unlimited apps. The license is commercial: publish, sell your apps, and build for clients. What you can't do is sell, share, or give away the kit. Piracy is tied to your purchase ID and can lead to legal action."
+        "question": "Can I build multiple apps and sell them?",
+        "answer": "Yes. With an active subscription you can create and update unlimited apps. On every plan the license is commercial: publish, sell your apps, and build for clients. What you can't do is sell, share, or give away the kit. Piracy is tied to your purchase ID and can lead to legal action."
       },
       {
         "id": "q3b",
@@ -432,7 +432,7 @@
       {
         "id": "q4",
         "question": "What if I already have a project in progress?",
-        "answer": "Kasy is designed for new projects. For existing ones, you can copy components in manually."
+        "answer": "If the project was created with Kasy, it keeps up. With an active subscription, new features and improvements land without messing up what you already built. That's one of the big differences versus boilerplates and templates you download once and then freeze. If the app wasn't born in Kasy, the full path (CLI, updates, and MCP) starts from a project created with the kit: the right move is to start a new Kasy project."
       },
       {
         "id": "q5",
@@ -447,19 +447,14 @@
       {
         "id": "q7",
         "question": "What is Kasy Club and what are the benefits?",
-        "answer": "It's the training and community to launch with Kasy. In 8 days (about 5 lessons per day) you go from idea to publish, even if you're not a developer. Includes bonus topics (US LLC, audience, and global projects), 1 year on Aicrus's Apple Developer account to publish unlimited apps (then transfer to yours), networking, and live sessions with Paulo Morales, CTO of Aicrus and creator of Kasy.",
+        "answer": "It's the training and community to launch with Kasy. In 7 days (about 5 lessons per day) you go from idea to publish, even if you're not a developer. Includes bonus topics (US LLC, audience, and global projects), 1 year on Aicrus's Apple Developer account to publish unlimited apps (then transfer to yours), networking, and live sessions with Paulo Morales, CTO of Aicrus and creator of Kasy.",
         "linkHref": "https://club.kasy.dev/",
         "linkLabel": "Access Kasy Club"
       },
       {
-        "id": "q8",
-        "question": "Can I sell the apps I build with the kit?",
-        "answer": "Yes. On every plan the license is commercial: publish, sell your apps, or build for other people. Just don't sell or share the kit itself."
-      },
-      {
         "id": "q9",
         "question": "Can I get a refund?",
-        "answer": "Kit access is digital and immediate. That's why the kit portion is non-refundable. On the Kit + Kasy Club combo, the Club has a 7-day guarantee: you can watch, join lives, and if it's not for you, request a refund for the Club difference only. Questions before buying? Email kasy@aicrus.io."
+        "answer": "The kit is digital: when you buy, access is immediate and the product becomes yours. That's why the kit portion is non-refundable. On the Kit + Kasy Club combo, the Club has a 7-day guarantee: you can watch, join lives, and if it's not for you, request a refund for the Club difference only. Questions before buying? Email kasy@aicrus.io."
       }
     ]
   },
