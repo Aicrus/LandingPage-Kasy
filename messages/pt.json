@@ -113,12 +113,19 @@
     "ariaLabel": "Preview ao vivo do Kit Kasy",
     "eyebrow": "Preview ao vivo",
     "heading": "Teste em tempo real o Kit",
-    "subtitle": "Navegue pelo app de demonstração direto aqui. Toque, role e explore como se fosse o seu produto publicado.",
+    "subtitle": "Navegue pelo app de demonstração direto aqui. Troque para Admin e veja o console com dados fictícios.",
     "liveBadge": "Ao vivo",
+    "tablistLabel": "Modo da demonstração",
+    "tabApp": "App",
+    "tabAdmin": "Admin",
     "iframeTitle": "Demonstração interativa do Kit Kasy",
+    "iframeTitleAdmin": "Demonstração do painel admin do Kit Kasy",
     "loading": "Carregando o Kit…",
-    "hint": "Interaja no quadro acima ou abra em tela cheia para mais espaço.",
-    "openFull": "Abrir em nova aba"
+    "adminLoading": "Abrindo o console…",
+    "hintApp": "Explore o app no quadro. Use Admin para ver o painel de gestão.",
+    "hintAdmin": "Demonstração com dados fictícios. Abra em nova aba para mais espaço.",
+    "openFullApp": "Abrir app em nova aba",
+    "openFullAdmin": "Abrir admin em nova aba"
   },
   "whatYouGet": {
     "eyebrow": "O que você recebe",

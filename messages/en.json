@@ -113,12 +113,19 @@
     "ariaLabel": "Kasy Kit live preview",
     "eyebrow": "Live preview",
     "heading": "Try the Kit in real time",
-    "subtitle": "Browse the demo app right here. Tap, scroll, and explore it like your own shipped product.",
+    "subtitle": "Browse the demo app right here. Switch to Admin to explore the console with sample data.",
     "liveBadge": "Live",
+    "tablistLabel": "Demo mode",
+    "tabApp": "App",
+    "tabAdmin": "Admin",
     "iframeTitle": "Interactive Kasy Kit demo",
+    "iframeTitleAdmin": "Kasy Kit admin console demo",
     "loading": "Loading the Kit…",
-    "hint": "Interact in the frame above, or open full screen for more room.",
-    "openFull": "Open in new tab"
+    "adminLoading": "Opening the console…",
+    "hintApp": "Explore the app in the frame. Switch to Admin for the management panel.",
+    "hintAdmin": "Demo with sample data. Open in a new tab for more room.",
+    "openFullApp": "Open app in new tab",
+    "openFullAdmin": "Open admin in new tab"
   },
   "whatYouGet": {
     "eyebrow": "What you get",
