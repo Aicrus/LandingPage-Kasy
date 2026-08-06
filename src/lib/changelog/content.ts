@@ -13,8 +13,6 @@ const PAGE_COPY: Record<SiteLocale, ChangelogPageCopy> = {
       description:
         "Novos recursos do kit Flutter Kasy: Drive, MCP, widget nativo e Preview Device.",
     },
-    title: "Changelog",
-    subtitle: "Lançamentos de features no kit. CLI, app e documentação.",
     docCta: "Ver documentação",
     copyLinkLabel: "Copiar link",
     copiedLinkLabel: "Link copiado",
@@ -25,8 +23,6 @@ const PAGE_COPY: Record<SiteLocale, ChangelogPageCopy> = {
       description:
         "New Kasy Flutter kit features: Drive, MCP, home widget, and Preview Device.",
     },
-    title: "Changelog",
-    subtitle: "Feature launches in the kit. CLI, app, and docs.",
     docCta: "View documentation",
     copyLinkLabel: "Copy link",
     copiedLinkLabel: "Link copied",
@@ -37,8 +33,6 @@ const PAGE_COPY: Record<SiteLocale, ChangelogPageCopy> = {
       description:
         "Nuevas funciones del kit Flutter Kasy: Drive, MCP, widget nativo y Preview Device.",
     },
-    title: "Changelog",
-    subtitle: "Lanzamientos de features en el kit. CLI, app y documentación.",
     docCta: "Ver documentación",
     copyLinkLabel: "Copiar enlace",
     copiedLinkLabel: "Enlace copiado",

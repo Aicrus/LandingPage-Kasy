@@ -118,6 +118,12 @@ export function SiteFooter() {
   const FOOTER_LINKS = [
     { href: "#precos", label: t("links.pricing") },
     { href: "/docs", label: t("links.docs") },
+    { href: "/changelog", label: t("links.changelog") },
+    {
+      href: "https://club.kasy.dev/",
+      label: t("links.club"),
+      external: true,
+    },
   ] as const;
 
   return (
@@ -171,6 +177,20 @@ export function SiteFooter() {
               {FOOTER_LINKS.map((link) => {
                 const className =
                   "text-sm font-medium text-muted-foreground transition-colors hover:text-foreground";
+
+                if ("external" in link && link.external) {
+                  return (
+                    <a
+                      key={link.href}
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={className}
+                    >
+                      {link.label}
+                    </a>
+                  );
+                }
 
                 if (link.href.startsWith("#")) {
                   return (

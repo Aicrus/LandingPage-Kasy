@@ -23,7 +23,9 @@
     },
     "links": {
       "pricing": "Precios",
-      "docs": "Documentación"
+      "docs": "Documentación",
+      "changelog": "Changelog",
+      "club": "Kasy Club"
     },
     "cta": "Quiero Kasy",
     "contactLabel": "¿Dudas?",

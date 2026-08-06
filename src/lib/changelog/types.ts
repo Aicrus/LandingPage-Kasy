@@ -59,8 +59,6 @@ export type ChangelogPageCopy = {
     title: string;
     description: string;
   };
-  title: string;
-  subtitle: string;
   docCta: string;
   copyLinkLabel: string;
   copiedLinkLabel: string;
