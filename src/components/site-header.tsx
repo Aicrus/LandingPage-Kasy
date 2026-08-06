@@ -98,6 +98,13 @@ function HeaderNav({
   return (
     <nav className={cn("flex shrink-0 items-center gap-5 sm:gap-6", className)}>
       <Link
+        href="/changelog"
+        className="font-sans text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+      >
+        <span className="sm:hidden">{t("changelogShort")}</span>
+        <span className="hidden sm:inline">{t("changelog")}</span>
+      </Link>
+      <Link
         href="/docs"
         className="font-sans text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
       >
@@ -264,6 +271,13 @@ function SiteHeaderMotion({ openWidth }: { openWidth: number }) {
           className="relative z-10 flex shrink-0 items-center"
           style={{ gap: navGap }}
         >
+          <Link
+            href="/changelog"
+            className="shrink-0 font-sans text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+          >
+            <span className="sm:hidden">{t("changelogShort")}</span>
+            <span className="hidden sm:inline">{t("changelog")}</span>
+          </Link>
           <Link
             href="/docs"
             className="shrink-0 font-sans text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"

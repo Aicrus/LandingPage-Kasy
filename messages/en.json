@@ -6,7 +6,14 @@
   "header": {
     "docs": "Documentation",
     "docsShort": "Docs",
+    "changelog": "Changelog",
+    "changelogShort": "What's new",
     "cta": "Get Kasy"
+  },
+  "changelogPage": {
+    "title": "Changelog",
+    "subtitle": "Everything shipped in the kit, in chronological order.",
+    "versionLabel": "Version {version}"
   },
   "footer": {
     "byAicrus": "by Aicrus LLC",
