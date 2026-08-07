@@ -30,6 +30,9 @@ function buildKitEmbedUrl(mode: PreviewMode, theme: CanvasTheme) {
   }
   if (mode === "admin") {
     url.searchParams.set("enter", "demo");
+  } else {
+    // Explicit preview mode keeps App guest session isolated from Admin.
+    url.searchParams.set("embed", "preview");
   }
   return url.toString();
 }
@@ -38,6 +41,12 @@ function getExternalUrl(mode: PreviewMode) {
   return mode === "admin"
     ? `${KIT_PREVIEW_ORIGIN}/?enter=demo`
     : KIT_PREVIEW_ORIGIN;
+}
+
+function embedModeFromMessage(embed: unknown): PreviewMode | null {
+  if (embed === "admin") return "admin";
+  if (embed === "preview" || embed === "app") return "app";
+  return null;
 }
 
 const FRAME_SHADOW = cn(
@@ -200,10 +209,12 @@ export function KitLivePreview() {
     [canvasTheme],
   );
 
+  // Only reset readiness when the iframe URL changes (theme), never on tab
+  // switch. Switching tabs used to clear ready while the already-booted iframe
+  // skipped a second onLoad, leaving the spinner stuck until the timeout.
   useEffect(() => {
     setReady({ app: false, admin: false });
-    setAdminSrcEnabled(mode === "admin");
-  }, [appSrc, adminSrc, mode]);
+  }, [appSrc, adminSrc]);
 
   const externalUrl = getExternalUrl(mode);
 
@@ -212,6 +223,24 @@ export function KitLivePreview() {
     if (tab === "admin" && !adminSrcEnabled) return undefined;
     return tab === "app" ? appSrc : adminSrc;
   };
+
+  useEffect(() => {
+    const onMessage = (event: MessageEvent) => {
+      if (event.origin !== KIT_PREVIEW_ORIGIN) return;
+      const data = event.data;
+      if (!data || typeof data !== "object") return;
+      const payload = data as { type?: unknown; embed?: unknown };
+      if (payload.type !== "kasy-embed-ready") return;
+      const tab = embedModeFromMessage(payload.embed);
+      if (!tab) return;
+      setReady((current) =>
+        current[tab] ? current : { ...current, [tab]: true },
+      );
+    };
+
+    window.addEventListener("message", onMessage);
+    return () => window.removeEventListener("message", onMessage);
+  }, []);
 
   useEffect(() => {
     if (!shouldLoad) return;
@@ -345,7 +374,7 @@ export function KitLivePreview() {
 
                   return (
                     <iframe
-                      key={`kit-preview-${tab}`}
+                      key={`kit-preview-${tab}-${src}`}
                       ref={
                         tab === "app"
                           ? (node) => node?.setAttribute("credentialless", "")
