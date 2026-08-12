@@ -35,17 +35,14 @@ type Plan = {
 type PlanMeta = { key: CheckoutPlan; featured?: boolean };
 
 const PLANS_META: PlanMeta[] = [
-  { key: "annual" },
-  { key: "kitCourse", featured: true },
+  { key: "starter" },
+  { key: "annual", featured: true },
 ];
 
 type PlanCopy = Omit<
   Plan,
   "key" | "fullCents" | "discountedCents" | "currency" | "featured"
-> & {
-  clubLinkLabel?: string;
-  clubLinkHref?: string;
-};
+>;
 
 const cardShadowClass = cn(
   "shadow-[0_1px_2px_rgba(4,43,89,0.04),0_6px_16px_-10px_rgba(4,43,89,0.12)]",
@@ -60,13 +57,9 @@ const featuredShadowClass = cn(
 function PlanCard({
   plan,
   locale,
-  clubLinkLabel,
-  clubLinkHref,
 }: {
   plan: Plan;
   locale: string;
-  clubLinkLabel?: string;
-  clubLinkHref?: string;
 }) {
   return (
     <div
@@ -146,16 +139,6 @@ function PlanCard({
             </li>
           ))}
         </ul>
-        {clubLinkHref && clubLinkLabel ? (
-          <a
-            href={clubLinkHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-4 inline-flex text-[0.8125rem] font-medium text-primary underline-offset-4 hover:underline"
-          >
-            {clubLinkLabel}
-          </a>
-        ) : null}
       </div>
     </div>
   );
@@ -227,18 +210,9 @@ export async function Pricing() {
         delay={0.1}
         className="grid w-full max-w-[44rem] grid-cols-1 items-stretch gap-6 sm:grid-cols-2"
       >
-        {PLANS.map((plan) => {
-          const copy = plansCopy[plan.key];
-          return (
-            <PlanCard
-              key={plan.key}
-              locale={locale}
-              plan={plan}
-              clubLinkLabel={copy.clubLinkLabel}
-              clubLinkHref={copy.clubLinkHref}
-            />
-          );
-        })}
+        {PLANS.map((plan) => (
+          <PlanCard key={plan.key} locale={locale} plan={plan} />
+        ))}
       </Reveal>
 
       {regionalDiscount ? (

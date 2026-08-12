@@ -21,6 +21,9 @@ import {
 } from "@/components/sections";
 import { routing } from "@/i18n/routing";
 
+/** Seção "Teste em tempo real" (KitLivePreview). Oculta até reativar. */
+const SHOW_KIT_LIVE_PREVIEW = false;
+
 export default async function Home({
   params,
 }: {
@@ -42,7 +45,7 @@ export default async function Home({
       <VideoShowcase />
       <FeatureHoverCards />
       <IntegrationsShowcase />
-      <KitLivePreview />
+      {SHOW_KIT_LIVE_PREVIEW ? <KitLivePreview /> : null}
       <WhatYouGet />
       <FeaturePhones />
       <McpShowcase />

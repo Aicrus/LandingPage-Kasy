@@ -1,4 +1,4 @@
-import { getLocale, getTranslations } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 
 import { Link } from "@/i18n/navigation";
 import { PurchaseTracker } from "@/components/analytics/purchase-tracker";
@@ -22,14 +22,6 @@ async function purchaseAmount(sessionId: string | undefined) {
   }
 }
 
-function clubLoginUrl(locale: string) {
-  const base = (process.env.NEXT_PUBLIC_CLUB_URL ?? "https://club.kasy.dev").replace(
-    /\/$/,
-    "",
-  );
-  return `${base}/${locale}/login`;
-}
-
 export default async function CheckoutSuccessPage({
   searchParams,
 }: {
@@ -37,11 +29,7 @@ export default async function CheckoutSuccessPage({
 }) {
   const params = await searchParams;
   const plan = isCheckoutPlan(params.plan) ? params.plan : "annual";
-  const isCombo = plan === "kitCourse";
-  const locale = await getLocale();
-  const t = await getTranslations(
-    isCombo ? "checkout.successCombo" : "checkout.success",
-  );
+  const t = await getTranslations("checkout.success");
   const amount = await purchaseAmount(params.session_id);
 
   return (
@@ -73,18 +61,6 @@ export default async function CheckoutSuccessPage({
         >
           {t("cta")}
         </Button>
-        {isCombo ? (
-          <Button
-            variant="outline"
-            nativeButton={false}
-            className="rounded-full px-6"
-            render={
-              <a href={clubLoginUrl(locale)} rel="noopener noreferrer" />
-            }
-          >
-            {t("ctaClub")}
-          </Button>
-        ) : null}
       </div>
     </main>
   );

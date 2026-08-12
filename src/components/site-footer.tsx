@@ -119,11 +119,6 @@ export function SiteFooter() {
     { href: "#precos", label: t("links.pricing") },
     { href: "/docs", label: t("links.docs") },
     { href: "/changelog", label: t("links.changelog") },
-    {
-      href: "https://club.kasy.dev/",
-      label: t("links.club"),
-      external: true,
-    },
   ] as const;
 
   return (

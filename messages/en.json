@@ -24,8 +24,7 @@
     "links": {
       "pricing": "Pricing",
       "docs": "Documentation",
-      "changelog": "Changelog",
-      "club": "Kasy Club"
+      "changelog": "Changelog"
     },
     "cta": "Get Kasy",
     "contactLabel": "Questions?",
@@ -478,22 +477,20 @@
       },
       {
         "id": "q7",
-        "question": "What is Kasy Club and what are the benefits?",
-        "answer": "It's the training and community to launch with Kasy. In 7 days (about 5 lessons per day) you go from idea to publish, even if you're not a developer. Includes bonus topics (US LLC, audience, and global projects), 1 year on Aicrus's Apple Developer account to publish unlimited apps (then transfer to yours), networking, and live sessions with Paulo Morales, CTO of Aicrus and creator of Kasy.",
-        "linkHref": "https://club.kasy.dev/",
-        "linkLabel": "Access Kasy Club"
+        "question": "What's the difference between Kit Solo and Kit Founder?",
+        "answer": "The kit itself is the same on both — the difference is the license's scope. With Solo you create 1 project and get CLI updates for 90 days, built for shipping your first app. With Founder there's no project limit and updates last 1 year, for when you already know you'll build more than one app or want new features for longer."
       },
       {
         "id": "q9",
         "question": "Can I get a refund?",
-        "answer": "The kit is digital: when you buy, access is immediate and the product becomes yours. That's why the kit portion is non-refundable. On the Kit + Kasy Club combo, the Club has a 7-day guarantee: you can watch, join lives, and if it's not for you, request a refund for the Club difference only. Questions before buying? Email kasy@aicrus.io."
+        "answer": "The kit is digital: when you buy, access is immediate and the product becomes yours. That's why it's non-refundable. Questions before buying? Email kasy@aicrus.io."
       }
     ]
   },
   "pricing": {
     "eyebrow": "Pricing",
     "heading": "Pick the plan that fits your moment",
-    "subtitle": "Both plans work for people who code and for people who never have. The difference is Kasy Club: guidance, networking, and priority support.",
+    "subtitle": "Solo is for shipping your first app. Founder has no project limit and keeps updates coming for longer.",
     "checkoutNote": "Secure checkout via Stripe. International cards accepted. Your activation key arrives by email within minutes.",
     "checkoutLoading": "Opening checkout...",
     "regionalDiscount": {
@@ -504,11 +501,28 @@
       "withCoupon": "With {code}:"
     },
     "plans": {
+      "starter": {
+        "label": "Kit Solo",
+        "description": "Ship your first app, no long commitment.",
+        "per": "for 90 days",
+        "cta": "Get Kit Solo",
+        "features": [
+          "1 project",
+          "iOS, Android, and Web on day one",
+          "Firebase, Supabase, and REST API",
+          "60+ components · 95+ variants",
+          "Kasy MCP in chat",
+          "CLI and Preview Device",
+          "Updates for 90 days",
+          "Support included"
+        ]
+      },
       "annual": {
-        "label": "Annual Kit",
-        "description": "Backend, UI, and CLI ready to ship.",
+        "label": "Kit Founder",
+        "description": "Backend, UI, and CLI ready to ship, with no project limit.",
         "per": "for 1 year",
-        "cta": "Get the Annual Kit",
+        "tag": "Most popular",
+        "cta": "Get Kit Founder",
         "features": [
           "iOS, Android, and Web on day one",
           "Firebase, Supabase, and REST API",
@@ -520,25 +534,6 @@
           "New features every month",
           "Support included"
         ]
-      },
-      "kitCourse": {
-        "label": "Kit + Kasy Club",
-        "description": "Everything in the Kit, plus classes, lives, and support.",
-        "per": "for 1 year",
-        "tag": "Most popular",
-        "cta": "Get Kit + Kasy Club",
-        "clubLinkLabel": "Explore Kasy Club",
-        "clubLinkHref": "https://club.kasy.dev/",
-        "features": [
-          "Everything in the Annual Kit",
-          "Kasy Club for 1 year",
-          "Exclusive classes and weekly lives",
-          "1 year on Aicrus's Apple Developer account",
-          "Community for networking and co-founders",
-          "Guidance from idea to publish",
-          "Priority support",
-          "7-day Club guarantee"
-        ]
       }
     }
   },
@@ -549,14 +544,6 @@
       "body": "We sent your activation key to the email you used at checkout. Install the CLI with npm install -g kasy-cli and run kasy new when you're ready.",
       "emailHint": "Check your inbox and spam folder. The email may take a few minutes.",
       "cta": "View documentation"
-    },
-    "successCombo": {
-      "eyebrow": "Payment confirmed",
-      "heading": "Kit + Kasy Club unlocked",
-      "body": "We sent your Kit activation key to the checkout email. Kasy Club access is also ready on that same email: sign in or create your account to start the lessons.",
-      "emailHint": "Check your inbox and spam folder. The Kit email may take a few minutes.",
-      "cta": "View documentation",
-      "ctaClub": "Open Kasy Club"
     }
   }
 }

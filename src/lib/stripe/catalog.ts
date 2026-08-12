@@ -1,57 +1,19 @@
-export type CheckoutPlan = "annual" | "kitCourse";
+export type CheckoutPlan = "starter" | "annual";
 
 export type Currency = "usd" | "brl";
 export type SiteLocale = "pt" | "en" | "es";
 
-export const PLAN_DISPLAY = {
-  annual: {
-    usd: { amount: "$123", perKey: "perYear" as const },
-    brl: { amount: "R$623", perKey: "perYear" as const },
-  },
-  kitCourse: {
-    usd: { amount: "$187", perKey: "oneTime" as const },
-    brl: { amount: "R$997", perKey: "oneTime" as const },
-  },
-} satisfies Record<
-  CheckoutPlan,
-  Record<Currency, { amount: string; perKey: "perYear" | "oneTime" }>
->;
-
-const PRICE_ENV_KEYS: Record<CheckoutPlan, Record<Currency, string>> = {
-  annual: {
-    usd: "STRIPE_PRICE_ANNUAL_USD",
-    brl: "STRIPE_PRICE_ANNUAL_BRL",
-  },
-  kitCourse: {
-    usd: "STRIPE_PRICE_KIT_COURSE_USD",
-    brl: "STRIPE_PRICE_KIT_COURSE_BRL",
-  },
-};
-
-const DEFAULT_PRICE_IDS: Record<CheckoutPlan, Record<Currency, string>> = {
-  annual: {
-    usd: "price_1TtC3JASZ821iIoqZ6cEpQnR",
-    brl: "price_1TtC3IASZ821iIoqw4RTjQa3",
-  },
-  kitCourse: {
-    usd: "price_1TtC3IASZ821iIoqhGAS6qJu",
-    brl: "price_1TtC3IASZ821iIoqhO51z5Pq",
-  },
-};
-
 const PLAN_METADATA: Record<CheckoutPlan, string> = {
+  starter: "starter",
   annual: "annual",
-  kitCourse: "kit_course",
 };
 
 /**
  * Produtos reais da Stripe, um por idioma.
  *
  * O checkout precisa apontar para produtos existentes (e não criar um produto novo
- * a cada sessão) para que cupom restrito a produto funcione — é o que separa um
- * desconto só do Kit de um que também vale no combo com o Club. Como a Stripe não
- * traduz nome de produto, cada idioma tem o seu, e um cupom "só do Kit" precisa
- * listar os três de PLAN_PRODUCT_ID.annual.
+ * a cada sessão) para que cupom restrito a produto funcione. Como a Stripe não
+ * traduz nome de produto, cada idioma tem o seu.
  */
 export const PLAN_PRODUCT_ID: Record<CheckoutPlan, Record<SiteLocale, string>> = {
   annual: {
@@ -59,16 +21,17 @@ export const PLAN_PRODUCT_ID: Record<CheckoutPlan, Record<SiteLocale, string>> =
     en: "prod_V1GhbXW8ARl6zb",
     es: "prod_V1GhvbzNVBTo8I",
   },
-  kitCourse: {
-    pt: "prod_Up1pDIsWK9d0Xh",
-    en: "prod_V1Gh2LxS8ZMvgl",
-    es: "prod_V1GhekdDQPCXmW",
+  starter: {
+    pt: "prod_V3a5t4CWIt3JgY",
+    en: "prod_V3a5tCdaeKMGu3",
+    es: "prod_V3a5SqiNDVac6z",
   },
 };
 
 export const PLAN_UNIT_AMOUNT: Record<CheckoutPlan, Record<Currency, number>> = {
   annual: { usd: 12300, brl: 62300 },
-  kitCourse: { usd: 18700, brl: 99700 },
+  // R$249/ano definido pelo usuário; USD proporcional ao ratio BRL/USD do annual (~5x).
+  starter: { usd: 4900, brl: 24900 },
 };
 
 /** Formata centavos Stripe para vitrine ($98.40 / R$498,40). */
@@ -138,16 +101,10 @@ export function currencyForCountry(country: string | null | undefined): Currency
   return isBrazil(country) ? "brl" : "usd";
 }
 
-export function resolvePriceId(plan: CheckoutPlan, country: string | null | undefined): string {
-  const currency = currencyForCountry(country);
-  const envKey = PRICE_ENV_KEYS[plan][currency];
-  return process.env[envKey] ?? DEFAULT_PRICE_IDS[plan][currency];
-}
-
 export function metadataPlan(plan: CheckoutPlan): string {
   return PLAN_METADATA[plan];
 }
 
 export function isCheckoutPlan(value: unknown): value is CheckoutPlan {
-  return value === "annual" || value === "kitCourse";
+  return value === "annual" || value === "starter";
 }

@@ -24,8 +24,7 @@
     "links": {
       "pricing": "Preços",
       "docs": "Documentação",
-      "changelog": "Changelog",
-      "club": "Kasy Club"
+      "changelog": "Changelog"
     },
     "cta": "Quero o Kasy",
     "contactLabel": "Dúvidas?",
@@ -478,22 +477,20 @@
       },
       {
         "id": "q7",
-        "question": "O que é o Kasy Club e quais os benefícios?",
-        "answer": "É o treinamento e a comunidade para lançar com o Kasy. Em 7 dias (cerca de 5 aulas por dia) você vai da ideia à publicação, mesmo sem ser desenvolvedor. Inclui temas bônus (LLC americana, audiência e projetos globais), 1 ano na conta Apple Developer da Aicrus para publicar apps ilimitados (depois você transfere para a sua), networking e lives com Paulo Morales, CTO da Aicrus e criador da Kasy.",
-        "linkHref": "https://club.kasy.dev/",
-        "linkLabel": "Acessar o Kasy Club"
+        "question": "Qual a diferença entre o Kit Solo e o Kit Founder?",
+        "answer": "O kit é o mesmo nos dois — a diferença é o alcance da licença. No Solo você cria 1 projeto e tem atualizações da CLI por 90 dias, pensado pra lançar o seu primeiro app. No Founder não há limite de projetos e as atualizações valem por 1 ano, pra quem já sabe que vai construir mais de um app ou quer acompanhar as novidades por mais tempo."
       },
       {
         "id": "q9",
         "question": "Posso pedir reembolso?",
-        "answer": "O kit é digital: na compra, o acesso é imediato e o produto passa a ser seu. Por isso a parte do kit não é reembolsável. No combo Kit + Kasy Club, o Club tem garantia de 7 dias: você pode assistir, participar das lives e, se não gostar, pedir a devolução só da diferença do Club. Dúvida antes de comprar? Escreva para kasy@aicrus.io."
+        "answer": "O kit é digital: na compra, o acesso é imediato e o produto passa a ser seu. Por isso não é reembolsável. Dúvida antes de comprar? Escreva para kasy@aicrus.io."
       }
     ]
   },
   "pricing": {
     "eyebrow": "Preços",
     "heading": "Escolha o plano certo para o seu momento",
-    "subtitle": "Os dois planos servem para quem programa e para quem nunca escreveu código. A diferença é o Kasy Club: direcionamento, networking e suporte prioritário.",
+    "subtitle": "O Solo é pra lançar seu primeiro app. O Founder não tem limite de projetos e mantém as atualizações por mais tempo.",
     "checkoutNote": "Checkout seguro via Stripe. Cartões internacionais aceitos. A chave de ativação chega por e-mail em minutos.",
     "checkoutLoading": "Abrindo checkout...",
     "regionalDiscount": {
@@ -504,11 +501,28 @@
       "withCoupon": "Com {code}:"
     },
     "plans": {
+      "starter": {
+        "label": "Kit Solo",
+        "description": "Pra lançar seu primeiro app, sem compromisso longo.",
+        "per": "por 90 dias",
+        "cta": "Quero o Kit Solo",
+        "features": [
+          "1 projeto",
+          "iOS, Android e Web no dia um",
+          "Firebase, Supabase e REST API",
+          "60+ componentes · 95+ variantes",
+          "MCP Kasy no chat",
+          "CLI e Preview Device",
+          "Atualizações por 90 dias",
+          "Suporte incluso"
+        ]
+      },
       "annual": {
-        "label": "Kit Anual",
-        "description": "Backend, UI e CLI prontos para lançar.",
+        "label": "Kit Founder",
+        "description": "Backend, UI e CLI prontos para lançar, sem limite de projetos.",
         "per": "por 1 ano",
-        "cta": "Quero o Kit Anual",
+        "tag": "Mais popular",
+        "cta": "Quero o Kit Founder",
         "features": [
           "iOS, Android e Web no dia um",
           "Firebase, Supabase e REST API",
@@ -520,25 +534,6 @@
           "Features novas todo mês",
           "Suporte incluso"
         ]
-      },
-      "kitCourse": {
-        "label": "Kit + Kasy Club",
-        "description": "Tudo do Kit, mais aulas, lives e suporte.",
-        "per": "por 1 ano",
-        "tag": "Mais popular",
-        "cta": "Quero o Kit + Kasy Club",
-        "clubLinkLabel": "Conhecer o Kasy Club",
-        "clubLinkHref": "https://club.kasy.dev/",
-        "features": [
-          "Tudo do Kit Anual",
-          "Kasy Club por 1 ano",
-          "Aulas exclusivas e lives semanais",
-          "1 ano na Apple Developer da Aicrus",
-          "Comunidade para networking e sócios",
-          "Direcionamento da ideia à publicação",
-          "Suporte prioritário",
-          "Garantia de 7 dias no Club"
-        ]
       }
     }
   },
@@ -549,14 +544,6 @@
       "body": "Enviamos sua chave de ativação para o e-mail do checkout. Instale a CLI com npm install -g kasy-cli e rode kasy new quando estiver pronto.",
       "emailHint": "Confira a caixa de entrada e o spam. O e-mail pode levar alguns minutos.",
       "cta": "Ver documentação"
-    },
-    "successCombo": {
-      "eyebrow": "Pagamento confirmado",
-      "heading": "Kit + Kasy Club liberados",
-      "body": "Enviamos a chave do Kit para o e-mail do checkout. O acesso ao Kasy Club também já está liberado nesse mesmo e-mail: entre ou crie sua conta para começar as aulas.",
-      "emailHint": "Confira a caixa de entrada e o spam. O e-mail do Kit pode levar alguns minutos.",
-      "cta": "Ver documentação",
-      "ctaClub": "Entrar no Kasy Club"
     }
   }
 }
