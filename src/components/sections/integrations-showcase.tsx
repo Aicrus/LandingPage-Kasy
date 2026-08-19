@@ -2,15 +2,23 @@
 
 import {
   SiAndroid,
+  SiAppstore,
   SiApple,
   SiClaude,
   SiCodemagic,
   SiCursor,
+  SiDart,
   SiFacebook,
   SiFirebase,
+  SiFlutter,
   SiGoogleadmob,
+  SiGooglegemini,
+  SiGoogleplay,
+  SiMapbox,
   SiMeta,
+  SiMixpanel,
   SiRevenuecat,
+  SiSentry,
   SiStripe,
   SiSupabase,
   SiWindsurf,
@@ -21,7 +29,7 @@ import { useTranslations } from "next-intl";
 import { Reveal } from "@/components/motion/reveal";
 import { cn } from "@/lib/utils";
 
-import { GoogleGIcon, type IconComponent } from "./brand-icons";
+import { GoogleGIcon, OpenAiIcon, type IconComponent } from "./brand-icons";
 
 type Logo = {
   name: string;
@@ -88,7 +96,6 @@ const ROW_TWO_META: CategoryMeta[] = [
   {
     key: "platforms",
     logos: [
-      { name: "iOS", Icon: SiApple, color: null },
       { name: "Android", Icon: SiAndroid, color: "#3DDC84" },
       { name: "Web", Icon: Globe, color: "#38BDF8" },
     ],
@@ -99,6 +106,38 @@ const ROW_TWO_META: CategoryMeta[] = [
       { name: "Cursor", Icon: SiCursor, color: null },
       { name: "Claude", Icon: SiClaude, color: "#D97757" },
       { name: "Windsurf", Icon: SiWindsurf, color: null },
+    ],
+  },
+  {
+    key: "aiChat",
+    logos: [
+      { name: "OpenAI", Icon: OpenAiIcon, color: null },
+      { name: "Gemini", Icon: SiGooglegemini, color: "#8E75B2" },
+    ],
+  },
+  {
+    key: "observability",
+    logos: [
+      { name: "Mixpanel", Icon: SiMixpanel, color: "#7856FF" },
+      { name: "Sentry", Icon: SiSentry, color: "#362D59" },
+    ],
+  },
+  {
+    key: "maps",
+    logos: [{ name: "Mapbox", Icon: SiMapbox, color: null }],
+  },
+  {
+    key: "stack",
+    logos: [
+      { name: "Flutter", Icon: SiFlutter, color: "#02569B" },
+      { name: "Dart", Icon: SiDart, color: "#0175C2" },
+    ],
+  },
+  {
+    key: "stores",
+    logos: [
+      { name: "App Store", Icon: SiAppstore, color: "#0D96F6" },
+      { name: "Google Play", Icon: SiGoogleplay, color: null },
     ],
   },
 ];
@@ -154,31 +193,63 @@ function CategoryCard({ category }: { category: Category }) {
   );
 }
 
+const COLUMN_COUNT = 9;
+/** Deslocamento vertical de cada coluna (rem), criando o efeito de parede desorganizada. */
+const COLUMN_OFFSETS = [0, 1.75, -1, 2.25, 0.5, -1.5, 1.25, 2.5, -0.5];
+
+const tileNeutralClass = cn(
+  "border border-border/70 bg-card",
+  cardShadowClass,
+);
+
 function LogosGrid({ categories }: { categories: Category[] }) {
   const allLogos = categories.flatMap((cat) => cat.logos);
 
+  const columns: Logo[][] = Array.from({ length: COLUMN_COUNT }, () => []);
+  allLogos.forEach((logo, i) => {
+    columns[i % COLUMN_COUNT].push(logo);
+  });
+
+  const wallMask =
+    "radial-gradient(ellipse 78% 82% at 50% 50%, black 40%, transparent 100%)";
+
   return (
-    <div className={cn(
-      "flex w-full flex-wrap items-center justify-center gap-4 sm:gap-6",
-      "px-[clamp(1rem,4vw,3.5rem)] sm:px-[clamp(1.25rem,4vw,3.5rem)]",
-    )}>
-      {allLogos.map((logo) => {
-        const glow = logo.color ?? "var(--foreground)";
-        return (
+    <div
+      className="relative w-full overflow-hidden"
+      style={{
+        maskImage: wallMask,
+        WebkitMaskImage: wallMask,
+      }}
+    >
+      <div className="flex w-full items-start justify-center gap-2 py-3 sm:gap-3.5 sm:py-5">
+        {columns.map((column, colIndex) => (
           <div
-            key={logo.name}
-            title={logo.name}
-            className="flex size-12 items-center justify-center rounded-lg sm:size-16 sm:rounded-xl transition-transform hover:scale-110"
+            key={colIndex}
+            className="flex flex-col gap-2 sm:gap-3.5"
             style={{
-              backgroundColor: `color-mix(in srgb, ${glow} 14%, transparent)`,
+              transform: `translateY(${COLUMN_OFFSETS[colIndex % COLUMN_OFFSETS.length]}rem)`,
             }}
           >
-            <span className="inline-flex origin-center scale-75 sm:scale-100">
-              <logo.Icon size={24} color={glow} />
-            </span>
+            {column.map((logo, rowIndex) => {
+              const iconColor = logo.color ?? "var(--foreground)";
+              return (
+                <div
+                  key={`${logo.name}-${colIndex}-${rowIndex}`}
+                  title={logo.name}
+                  className={cn(
+                    "flex size-12 shrink-0 items-center justify-center rounded-lg sm:size-16 sm:rounded-xl transition-transform hover:scale-110",
+                    tileNeutralClass,
+                  )}
+                >
+                  <span className="inline-flex origin-center scale-75 sm:scale-100">
+                    <logo.Icon size={24} color={iconColor} />
+                  </span>
+                </div>
+              );
+            })}
           </div>
-        );
-      })}
+        ))}
+      </div>
     </div>
   );
 }
@@ -199,18 +270,15 @@ export function IntegrationsShowcase() {
   return (
     <section
       className={cn(
-        "mx-auto flex w-full flex-col items-center relative",
+        "mx-auto flex w-full flex-col items-center relative overflow-hidden",
         "max-w-[min(96vw,76rem)]",
         "px-[clamp(0.75rem,2.5vw,2rem)] max-sm:px-[clamp(1rem,3.25vw,2rem)]",
         "mt-[var(--spacing-editor-to-features)] pb-[clamp(3rem,6vw,5rem)]",
       )}
-      style={{
-        backgroundImage: "linear-gradient(to bottom, transparent 0%, hsl(var(--background) / 0.5) 100%)",
-      }}
     >
       <Reveal
         className={cn(
-          "flex w-full flex-col items-center text-center",
+          "relative flex w-full flex-col items-center text-center",
           "gap-[clamp(0.75rem,1vw+0.25rem,1.125rem)]",
           "mb-[clamp(1.5rem,4vw,3rem)] px-[clamp(1rem,4vw,3.5rem)] sm:px-[clamp(1.25rem,4vw,3.5rem)]",
         )}
@@ -229,7 +297,7 @@ export function IntegrationsShowcase() {
         </p>
       </Reveal>
 
-      <Reveal delay={0.1} className="w-full">
+      <Reveal delay={0.1} className="relative w-full">
         <LogosGrid categories={allIntegrations} />
       </Reveal>
 

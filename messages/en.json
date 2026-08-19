@@ -105,7 +105,12 @@
       "ui": { "title": "UI components", "detail": "60+ components · 95+ variants" },
       "cicd": { "title": "CI/CD", "detail": "Codemagic" },
       "platforms": { "title": "Platforms", "detail": "iOS · Android · Web" },
-      "aiReady": { "title": "AI-ready", "detail": "Cursor · Claude Code · Windsurf" }
+      "aiReady": { "title": "AI-ready", "detail": "Cursor · Claude Code · Windsurf" },
+      "aiChat": { "title": "AI chat", "detail": "OpenAI · Google Gemini" },
+      "observability": { "title": "Observability", "detail": "Mixpanel · Sentry" },
+      "maps": { "title": "Maps", "detail": "Mapbox" },
+      "stack": { "title": "Stack", "detail": "Flutter · Dart" },
+      "stores": { "title": "Stores", "detail": "App Store · Google Play" }
     }
   },
   "kitLivePreview": {
