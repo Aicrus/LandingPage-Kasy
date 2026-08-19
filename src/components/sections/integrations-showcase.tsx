@@ -154,35 +154,31 @@ function CategoryCard({ category }: { category: Category }) {
   );
 }
 
-function MarqueeRow({
-  categories,
-  animationClass,
-}: {
-  categories: Category[];
-  animationClass: string;
-}) {
-  const items = [...categories, ...categories];
+function LogosGrid({ categories }: { categories: Category[] }) {
+  const allLogos = categories.flatMap((cat) => cat.logos);
 
   return (
-    <div
-      aria-hidden
-      className={cn(
-        "relative w-full overflow-hidden py-1 sm:py-2",
-        "[mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)]",
-        "[-webkit-mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)]",
-      )}
-    >
-      <div
-        className={cn(
-          "flex w-max gap-2 sm:gap-4",
-          "motion-safe:hover:[animation-play-state:paused]",
-          animationClass,
-        )}
-      >
-        {items.map((category, index) => (
-          <CategoryCard key={`${category.key}-${index}`} category={category} />
-        ))}
-      </div>
+    <div className={cn(
+      "flex w-full flex-wrap items-center justify-center gap-4 sm:gap-6",
+      "px-[clamp(1rem,4vw,3.5rem)] sm:px-[clamp(1.25rem,4vw,3.5rem)]",
+    )}>
+      {allLogos.map((logo) => {
+        const glow = logo.color ?? "var(--foreground)";
+        return (
+          <div
+            key={logo.name}
+            title={logo.name}
+            className="flex size-12 items-center justify-center rounded-lg sm:size-16 sm:rounded-xl transition-transform hover:scale-110"
+            style={{
+              backgroundColor: `color-mix(in srgb, ${glow} 14%, transparent)`,
+            }}
+          >
+            <span className="inline-flex origin-center scale-75 sm:scale-100">
+              <logo.Icon size={24} color={glow} />
+            </span>
+          </div>
+        );
+      })}
     </div>
   );
 }
@@ -203,11 +199,14 @@ export function IntegrationsShowcase() {
   return (
     <section
       className={cn(
-        "mx-auto flex w-full flex-col items-center",
+        "mx-auto flex w-full flex-col items-center relative",
         "max-w-[min(96vw,76rem)]",
         "px-[clamp(0.75rem,2.5vw,2rem)] max-sm:px-[clamp(1rem,3.25vw,2rem)]",
         "mt-[var(--spacing-editor-to-features)] pb-[clamp(3rem,6vw,5rem)]",
       )}
+      style={{
+        backgroundImage: "linear-gradient(to bottom, transparent 0%, hsl(var(--background) / 0.5) 100%)",
+      }}
     >
       <Reveal
         className={cn(
@@ -230,15 +229,8 @@ export function IntegrationsShowcase() {
         </p>
       </Reveal>
 
-      <Reveal delay={0.1} className="relative flex w-full flex-col gap-0 sm:gap-0.5">
-        <MarqueeRow
-          categories={ROW_ONE}
-          animationClass="motion-safe:animate-[marquee-left_46s_linear_infinite]"
-        />
-        <MarqueeRow
-          categories={ROW_TWO}
-          animationClass="motion-safe:animate-[marquee-right_40s_linear_infinite]"
-        />
+      <Reveal delay={0.1} className="w-full">
+        <LogosGrid categories={allIntegrations} />
       </Reveal>
 
       <ul className="sr-only">
