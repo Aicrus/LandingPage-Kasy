@@ -524,13 +524,13 @@
         "tag": "Most popular",
         "cta": "Get Kit Founder",
         "features": [
+          "Create and update apps without limits",
           "iOS, Android, and Web on day one",
           "Firebase, Supabase, and REST API",
           "Auth, subscriptions, and push ready",
           "60+ components · 95+ variants",
           "Kasy MCP in chat",
           "CLI and Preview Device",
-          "Create and update unlimited apps",
           "New features every month",
           "Support included"
         ]
