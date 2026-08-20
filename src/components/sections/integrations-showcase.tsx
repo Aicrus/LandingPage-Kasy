@@ -210,8 +210,18 @@ function LogosGrid({ categories }: { categories: Category[] }) {
     columns[i % COLUMN_COUNT].push(logo);
   });
 
+  // `closest-side` garante que o gradiente chega a 100% transparente
+  // exatamente na borda da caixa (percentuais explícitos, ex. "78%", são
+  // relativos à dimensão inteira da caixa, não à metade — o ponto
+  // totalmente transparente ficava fora da caixa e o overflow-hidden
+  // cortava conteúdo ainda opaco, gerando um corte seco em vez de fade).
   const wallMask =
-    "radial-gradient(ellipse 78% 82% at 50% 50%, black 40%, transparent 100%)";
+    "radial-gradient(ellipse closest-side at 50% 50%, black 40%, transparent 100%)";
+  // `translateY` não altera a altura de layout: sem padding extra, colunas
+  // deslocadas para baixo/cima são cortadas pelo overflow-hidden antes da
+  // máscara conseguir aplicar o fade, gerando um corte seco em vez de gradiente.
+  const maxColumnOffset = Math.max(...COLUMN_OFFSETS, 0);
+  const minColumnOffset = Math.min(...COLUMN_OFFSETS, 0);
 
   return (
     <div
@@ -221,7 +231,13 @@ function LogosGrid({ categories }: { categories: Category[] }) {
         WebkitMaskImage: wallMask,
       }}
     >
-      <div className="flex w-full items-start justify-center gap-2 py-3 sm:gap-3.5 sm:py-5">
+      <div
+        className="flex w-full items-start justify-center gap-2 sm:gap-3.5"
+        style={{
+          paddingTop: `calc(0.75rem + ${minColumnOffset < 0 ? -minColumnOffset : 0}rem)`,
+          paddingBottom: `calc(0.75rem + ${maxColumnOffset}rem)`,
+        }}
+      >
         {columns.map((column, colIndex) => (
           <div
             key={colIndex}
