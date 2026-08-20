@@ -213,6 +213,31 @@ title: "Drive",
         note: "Projeto já criado? Sincronize o módulo.",
       },
     },
+    {
+      id: "background-location",
+      date: "2026-08-19",
+      title: "Localização em segundo plano",
+      summary:
+        "GPS continua atualizando mesmo com o app fechado ou minimizado, módulo independente, plugável no Drive.",
+      paragraphs: [
+        "Novo módulo standalone: rastreamento em background pra iOS e Android, sem depender do Drive. Se o Drive também estiver no projeto, ele passa a usar automaticamente. Sem lib paga, construído em cima do geolocator que já vem no kit.",
+      ],
+      bullets: [
+        {
+          label: "Funciona sozinho",
+          text: "Não precisa do Drive, dá pra usar em qualquer app que precise saber a posição do usuário fora do app.",
+        },
+        {
+          label: "Liga no Drive automaticamente",
+          text: "Com os dois módulos ativos, o Drive passa a rastrear em background sem precisar mexer em mais nada.",
+        },
+      ],
+      docHref: "/docs/funcionalidades/background-location",
+      command: {
+        text: "kasy add background_location",
+        note: "Ativa o módulo, com as permissões nativas já configuradas.",
+      },
+    },
   ],
   en: [
     {
@@ -359,6 +384,31 @@ title: "Drive",
       command: {
         text: "kasy update drive",
         note: "Already have the project? Sync the module.",
+      },
+    },
+    {
+      id: "background-location",
+      date: "2026-08-19",
+      title: "Background location",
+      summary:
+        "GPS keeps updating even with the app closed or minimized, a standalone module, pluggable into Drive.",
+      paragraphs: [
+        "New standalone module: background tracking for iOS and Android, with no dependency on Drive. If Drive is also in the project, it's used automatically. No paid library, built on top of the geolocator package already in the kit.",
+      ],
+      bullets: [
+        {
+          label: "Works on its own",
+          text: "Doesn't need Drive, usable in any app that needs to know the user's position outside the app.",
+        },
+        {
+          label: "Wires into Drive automatically",
+          text: "With both modules active, Drive starts tracking in the background with nothing else to configure.",
+        },
+      ],
+      docHref: "/docs/funcionalidades/background-location",
+      command: {
+        text: "kasy add background_location",
+        note: "Enables the module, with native permissions already configured.",
       },
     },
   ],
@@ -509,6 +559,31 @@ title: "Drive",
       command: {
         text: "kasy update drive",
         note: "¿Ya tienes el proyecto? Sincroniza el módulo.",
+      },
+    },
+    {
+      id: "background-location",
+      date: "2026-08-19",
+      title: "Ubicación en segundo plano",
+      summary:
+        "El GPS sigue actualizando incluso con la app cerrada o minimizada, módulo independiente, conectable al Drive.",
+      paragraphs: [
+        "Nuevo módulo independiente: rastreo en segundo plano para iOS y Android, sin depender del Drive. Si el Drive también está en el proyecto, se usa automáticamente. Sin librería paga, construido sobre el geolocator que ya viene en el kit.",
+      ],
+      bullets: [
+        {
+          label: "Funciona solo",
+          text: "No necesita el Drive, se puede usar en cualquier app que necesite saber la posición del usuario fuera de la app.",
+        },
+        {
+          label: "Se conecta al Drive automáticamente",
+          text: "Con los dos módulos activos, el Drive empieza a rastrear en segundo plano sin nada más que configurar.",
+        },
+      ],
+      docHref: "/docs/funcionalidades/background-location",
+      command: {
+        text: "kasy add background_location",
+        note: "Activa el módulo, con los permisos nativos ya configurados.",
       },
     },
   ],
