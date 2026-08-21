@@ -238,6 +238,29 @@ title: "Drive",
         note: "Ativa o módulo, com as permissões nativas já configuradas.",
       },
     },
+    {
+      id: "wasm-web",
+      date: "2026-08-20",
+      title: "Web compilando em WebAssembly",
+      summary:
+        "Flutter 3.47 no kit, com o app compilando com flutter build web --wasm: até 2x mais rápido em tela com muita animação, com fallback automático pra JavaScript em navegador sem suporte.",
+      paragraphs: [
+        "O bloqueio pro Wasm era o bart, a lib de terceiro que cuidava da barra inferior e da sidebar do app. Trocamos pela navegação nativa do próprio go_router (o mesmo padrão já usado no Admin console), sem fork de dependência, sem gambiarra.",
+        "O ganho é real e vem de dois lados: o compilador (dart2wasm) já acelera sozinho, sem configuração nenhuma. O ganho extra de renderização em múltiplas threads (skwasm) exige headers de servidor que podem interferir em login social via popup, então isso fica como opção manual, documentada, não como padrão forçado.",
+        "Vale só pra projeto criado a partir de agora (kasy new). Projeto já existente segue no build normal (JavaScript) até a gente desenhar o caminho de atualização.",
+      ],
+      bullets: [
+        {
+          label: "Até 2x mais rápido",
+          text: "Medido pelo próprio time do Flutter em tela com bastante reconstrução de widget.",
+        },
+        {
+          label: "Sem risco pra quem não ativar",
+          text: "--wasm é opcional; o build padrão continua JavaScript, sem mudança de comportamento.",
+        },
+      ],
+      docHref: "/docs/publicar/web#webassembly-wasm",
+    },
   ],
   en: [
     {
@@ -410,6 +433,29 @@ title: "Drive",
         text: "kasy add background_location",
         note: "Enables the module, with native permissions already configured.",
       },
+    },
+    {
+      id: "wasm-web",
+      date: "2026-08-20",
+      title: "Web now compiles to WebAssembly",
+      summary:
+        "Flutter 3.47 in the kit, with the app compiling via flutter build web --wasm: up to 2x faster on screens with heavy animation, with an automatic fallback to JavaScript on browsers without support.",
+      paragraphs: [
+        "The blocker for Wasm was bart, the third-party library handling the app's bottom bar and sidebar. We replaced it with go_router's own native navigation (the same pattern already used in the Admin console), no forked dependency, no workaround.",
+        "The gain is real and comes from two places: the compiler (dart2wasm) already speeds things up on its own, no configuration needed. The extra multithreaded rendering gain (skwasm) requires server headers that can interfere with social login via popup, so that stays a documented, manual opt-in rather than a forced default.",
+        "This only applies to projects created from now on (kasy new). Existing projects keep building with JavaScript until we design an upgrade path.",
+      ],
+      bullets: [
+        {
+          label: "Up to 2x faster",
+          text: "Measured by the Flutter team itself on screens with heavy widget rebuilds.",
+        },
+        {
+          label: "No risk if you don't opt in",
+          text: "--wasm is optional; the default build stays JavaScript, no behavior change.",
+        },
+      ],
+      docHref: "/docs/publicar/web#webassembly-wasm",
     },
   ],
   es: [
@@ -585,6 +631,29 @@ title: "Drive",
         text: "kasy add background_location",
         note: "Activa el módulo, con los permisos nativos ya configurados.",
       },
+    },
+    {
+      id: "wasm-web",
+      date: "2026-08-20",
+      title: "La web ahora compila a WebAssembly",
+      summary:
+        "Flutter 3.47 en el kit, con la app compilando vía flutter build web --wasm: hasta 2x más rápido en pantallas con mucha animación, con respaldo automático a JavaScript en navegadores sin soporte.",
+      paragraphs: [
+        "El bloqueo para Wasm era bart, la librería de terceros que manejaba la barra inferior y el sidebar de la app. La reemplazamos por la navegación nativa del propio go_router (el mismo patrón ya usado en la consola de Admin), sin fork de dependencia, sin parche.",
+        "La ganancia es real y viene de dos lados: el compilador (dart2wasm) ya acelera solo, sin configuración. La ganancia extra de renderizado multithread (skwasm) exige headers de servidor que pueden interferir con el login social vía popup, así que queda como opción manual documentada, no como predeterminado forzado.",
+        "Esto solo aplica a proyectos creados desde ahora (kasy new). Los proyectos existentes siguen compilando en JavaScript hasta que diseñemos un camino de actualización.",
+      ],
+      bullets: [
+        {
+          label: "Hasta 2x más rápido",
+          text: "Medido por el propio equipo de Flutter en pantallas con mucha reconstrucción de widgets.",
+        },
+        {
+          label: "Sin riesgo si no lo activas",
+          text: "--wasm es opcional; el build predeterminado sigue en JavaScript, sin cambio de comportamiento.",
+        },
+      ],
+      docHref: "/docs/publicar/web#webassembly-wasm",
     },
   ],
 };
