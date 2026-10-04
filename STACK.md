@@ -263,4 +263,4 @@ npx skills add anthropics/skills --skill frontend-design
 
 ---
 
-*Última atualização: julho de 2026*
+*Última atualização: outubro de 2026*
