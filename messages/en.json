@@ -550,5 +550,9 @@
       "emailHint": "Check your inbox and spam folder. The email may take a few minutes.",
       "cta": "View documentation"
     }
+  },
+  "componentPreview": {
+    "loading": "Loading the component…",
+    "iframeTitleTemplate": "Live preview of the {name} component"
   }
 }

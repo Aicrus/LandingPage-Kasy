@@ -550,5 +550,9 @@
       "emailHint": "Confira a caixa de entrada e o spam. O e-mail pode levar alguns minutos.",
       "cta": "Ver documentação"
     }
+  },
+  "componentPreview": {
+    "loading": "Carregando o componente…",
+    "iframeTitleTemplate": "Preview ao vivo do componente {name}"
   }
 }
