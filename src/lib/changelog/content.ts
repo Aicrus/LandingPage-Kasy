@@ -66,6 +66,36 @@ const PAGE_COPY: Record<SiteLocale, ChangelogPageCopy> = {
 const ENTRIES: Record<SiteLocale, ChangelogEntry[]> = {
   pt: [
     {
+      id: "storyboard-visual",
+      date: "2026-10-04",
+      title: "Storyboard visual do app",
+      summary:
+        "Veja todas as telas, rotas e navegações do seu app em um canvas visual, direto no preview de desenvolvimento.",
+      paragraphs: [
+        "O Storyboard ajuda você e a IA a entenderem o app inteiro de uma vez: cada tela aparece como miniatura viva, as setas mostram como uma tela leva para outra e o painel lateral deixa abrir, recarregar ou copiar contexto para pedir mudanças com precisão.",
+        "É uma forma muito mais fácil de revisar fluxo, encontrar telas perdidas e explicar navegação sem ficar pulando rota por rota. Já está disponível hoje no kit.",
+      ],
+      bullets: [
+        {
+          label: "Mapa vivo",
+          text: "Telas novas entram no canvas a partir das rotas; telas removidas somem.",
+        },
+        {
+          label: "Navegação visível",
+          text: "Setas mostram os caminhos entre telas, incluindo navegações aprendidas enquanto você usa o app.",
+        },
+        {
+          label: "Feito para IA",
+          text: "Use Copiar para IA para mandar o contexto certo da tela que você quer alterar.",
+        },
+      ],
+      docHref: "/docs/funcionalidades/storyboard",
+      command: {
+        text: "kasy update core",
+        note: "Projeto já criado? Sincronize o core para receber o Storyboard.",
+      },
+    },
+    {
       id: "modular-kit",
       date: "2026-08-06",
       title: "Kit 100% modular",
@@ -264,6 +294,36 @@ title: "Drive",
   ],
   en: [
     {
+      id: "storyboard-visual",
+      date: "2026-10-04",
+      title: "Visual app Storyboard",
+      summary:
+        "See every screen, route, and navigation in your app on a visual canvas, directly from the development preview.",
+      paragraphs: [
+        "Storyboard helps you and the AI understand the whole app at once: each screen appears as a live thumbnail, arrows show how one screen leads to another, and the side panel lets you open, reload, or copy context to request changes precisely.",
+        "It's a much easier way to review flows, find missing screens, and explain navigation without jumping route by route. It's available in the kit today.",
+      ],
+      bullets: [
+        {
+          label: "Live map",
+          text: "New screens enter the canvas from your routes; deleted screens disappear.",
+        },
+        {
+          label: "Visible navigation",
+          text: "Arrows show paths between screens, including navigations learned while you use the app.",
+        },
+        {
+          label: "Built for AI",
+          text: "Use Copy for AI to send the right context for the screen you want changed.",
+        },
+      ],
+      docHref: "/docs/funcionalidades/storyboard",
+      command: {
+        text: "kasy update core",
+        note: "Already have a project? Sync core to receive Storyboard.",
+      },
+    },
+    {
       id: "modular-kit",
       date: "2026-08-06",
       title: "100% modular kit",
@@ -459,6 +519,36 @@ title: "Drive",
     },
   ],
   es: [
+    {
+      id: "storyboard-visual",
+      date: "2026-10-04",
+      title: "Storyboard visual de la app",
+      summary:
+        "Ve todas las pantallas, rutas y navegaciones de tu app en un canvas visual, directamente desde el preview de desarrollo.",
+      paragraphs: [
+        "Storyboard ayuda a ti y a la IA a entender toda la app de una vez: cada pantalla aparece como miniatura viva, las flechas muestran cómo una pantalla lleva a otra y el panel lateral permite abrir, recargar o copiar contexto para pedir cambios con precisión.",
+        "Es una forma mucho más fácil de revisar flujos, encontrar pantallas perdidas y explicar navegación sin saltar ruta por ruta. Ya está disponible hoy en el kit.",
+      ],
+      bullets: [
+        {
+          label: "Mapa vivo",
+          text: "Las pantallas nuevas entran al canvas desde tus rutas; las pantallas borradas desaparecen.",
+        },
+        {
+          label: "Navegación visible",
+          text: "Las flechas muestran los caminos entre pantallas, incluidas navegaciones aprendidas mientras usas la app.",
+        },
+        {
+          label: "Hecho para IA",
+          text: "Usa Copiar para IA para enviar el contexto correcto de la pantalla que quieres cambiar.",
+        },
+      ],
+      docHref: "/docs/funcionalidades/storyboard",
+      command: {
+        text: "kasy update core",
+        note: "¿Ya tienes un proyecto? Sincroniza el core para recibir Storyboard.",
+      },
+    },
     {
       id: "modular-kit",
       date: "2026-08-06",
