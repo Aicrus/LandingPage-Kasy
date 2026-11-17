@@ -1,4 +1,13 @@
 {
+  "promoBar": {
+    "aria": "Black Friday: {percent}% off",
+    "tag": "Black Friday",
+    "percent": "{percent}% OFF",
+    "limited": "for a limited time",
+    "copyAria": "Copy coupon {code}",
+    "note": "Black Friday: {percent}% OFF for a limited time",
+    "copied": "Coupon copied"
+  },
   "metadata": {
     "title": "Kasy | Ship your Flutter app in 7 days",
     "description": "The complete Flutter kit for people with an idea, not months of setup. Backend, auth, payments, UI, and CLI ready. iOS, Android, and Web on day one."

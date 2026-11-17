@@ -4,11 +4,13 @@ import { getMessages, getTranslations, setRequestLocale } from "next-intl/server
 import { notFound } from "next/navigation";
 import { SiteAnalytics } from "@/components/analytics/site-analytics";
 import { MotionProvider } from "@/components/motion";
+import { PromoBar } from "@/components/promo-bar";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { ThemeMetaSyncScript } from "@/components/theme-meta-sync";
 import { ThemeProvider } from "@/components/theme-provider";
 import { fontVariables } from "@/lib/fonts";
+import { ACTIVE_PROMO } from "@/lib/promo";
 import { routing } from "@/i18n/routing";
 import { themeColorHeadInitScript } from "@/lib/theme-color";
 import "../globals.css";
@@ -85,7 +87,7 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale}
-      className={`${fontVariables} h-full antialiased`}
+      className={`${fontVariables} h-full antialiased${ACTIVE_PROMO ? " has-promo-bar" : ""}`}
       suppressHydrationWarning
     >
       <head>
@@ -98,6 +100,7 @@ export default async function LocaleLayout({
             <ThemeMetaSyncScript />
             <MotionProvider>
               <div className="flex min-h-dvh flex-col">
+                {ACTIVE_PROMO ? <PromoBar promo={ACTIVE_PROMO} /> : null}
                 <SiteHeader />
                 <div className="flex min-h-0 flex-1 flex-col">{children}</div>
                 <SiteFooter />

@@ -16,6 +16,7 @@ import {
   getRegionalDiscount,
   resolveViewerCountry,
 } from "@/lib/stripe/regional-discount";
+import { ACTIVE_PROMO } from "@/lib/promo";
 import { cn } from "@/lib/utils";
 
 type Plan = {
@@ -146,10 +147,14 @@ function PlanCard({
 
 export async function Pricing() {
   const t = await getTranslations("pricing");
+  const tPromo = await getTranslations("promoBar");
   const locale = await getLocale();
   const country = resolveViewerCountry((await headers()).get("x-vercel-ip-country"));
   const currency = currencyForCountry(country);
-  const regionalDiscount = getRegionalDiscount(country);
+  // Campanha ativa (ex.: Black Friday 40%) manda no preço e esconde a nota
+  // regional, para não mostrar dois cupons. Sem campanha, volta o regional.
+  const regionalDiscount = ACTIVE_PROMO ? null : getRegionalDiscount(country);
+  const discountPercent = ACTIVE_PROMO?.percent ?? regionalDiscount?.percent;
   const plansCopy = t.raw("plans") as Record<string, PlanCopy>;
 
   const PLANS: Plan[] = PLANS_META.map((meta) => {
@@ -165,8 +170,8 @@ export async function Pricing() {
       features: copy.features,
       currency,
       fullCents,
-      discountedCents: regionalDiscount
-        ? Math.round(fullCents * (1 - regionalDiscount.percent / 100))
+      discountedCents: discountPercent
+        ? Math.round(fullCents * (1 - discountPercent / 100))
         : undefined,
     };
   });
@@ -179,7 +184,7 @@ export async function Pricing() {
         "max-w-[min(96vw,76rem)]",
         "px-[clamp(0.75rem,2.5vw,2rem)] max-sm:px-[clamp(1rem,3.25vw,2rem)]",
         "mt-[var(--spacing-editor-to-features)] pb-[clamp(3rem,6vw,5rem)]",
-        "scroll-mt-[calc(var(--header-height-mobile)+0.75rem)] sm:scroll-mt-24",
+        "scroll-mt-[calc(var(--header-height-mobile)+0.75rem)] sm:scroll-mt-[calc(6rem+var(--promo-bar-h))]",
       )}
     >
       <Reveal
@@ -215,14 +220,19 @@ export async function Pricing() {
         ))}
       </Reveal>
 
-      {regionalDiscount ? (
+      {ACTIVE_PROMO ? (
+        <RegionalDiscountNote
+          code={ACTIVE_PROMO.code}
+          message={tPromo("note", { percent: ACTIVE_PROMO.percent })}
+        />
+      ) : regionalDiscount ? (
         <RegionalDiscountNote code={regionalDiscount.code} />
       ) : null}
 
       <p
         className={cn(
           "max-w-md text-center text-[0.8125rem] text-muted-foreground",
-          regionalDiscount ? "mt-3" : "mt-8",
+          ACTIVE_PROMO || regionalDiscount ? "mt-3" : "mt-8",
         )}
       >
         {t("checkoutNote")}

@@ -6,8 +6,17 @@ import { useTranslations } from "next-intl";
 
 import { cn } from "@/lib/utils";
 
-/** Nota única abaixo dos planos: mensagem + cupom (KASY20 ou KASY10). */
-export function RegionalDiscountNote({ code }: { code: string }) {
+/**
+ * Nota única abaixo dos planos: mensagem + cupom (KASY20 ou KASY10).
+ * Em campanha (Black Friday), `message` troca o texto regional pelo da campanha.
+ */
+export function RegionalDiscountNote({
+  code,
+  message,
+}: {
+  code: string;
+  message?: string;
+}) {
   const t = useTranslations("pricing.regionalDiscount");
   const [copied, setCopied] = useState(false);
 
@@ -29,7 +38,7 @@ export function RegionalDiscountNote({ code }: { code: string }) {
       )}
       role="note"
     >
-      <span>{t("message")}</span>
+      <span>{message ?? t("message")}</span>
       <span className="mx-1.5 text-border" aria-hidden>
         ·
       </span>

@@ -723,3 +723,46 @@
     transform: translateY(-2px);
   }
 }
+
+/* Faixa de promoção fixa no topo (PromoBar). Escura nos dois temas (Black Friday).
+   --promo-bar-h vale 0 sem campanha; o layout liga `has-promo-bar` no <html>,
+   que empurra o menu (top) e os offsets do menu fixo no mobile. */
+:root {
+  --promo-bar-h: 0px;
+  --promo-bar-bg: #07090f;
+  --promo-bar-fg: #f5f7fb;
+  --promo-bar-muted: #a3acbd;
+  --promo-bar-line: rgb(255 255 255 / 9%);
+  --promo-bar-accent: #ffd166;
+}
+
+html.has-promo-bar {
+  --promo-bar-h: 2.25rem;
+  --header-height-mobile: calc(
+    var(--header-brand-slot) + 1.25rem + var(--promo-bar-h)
+  );
+}
+
+.promo-bar {
+  color: var(--promo-bar-fg);
+  background:
+    radial-gradient(60% 140% at 50% 0%, rgb(255 209 102 / 10%), transparent 70%),
+    var(--promo-bar-bg);
+  border-bottom: 1px solid var(--promo-bar-line);
+}
+
+.promo-bar-tag {
+  color: var(--promo-bar-bg);
+  background: var(--promo-bar-accent);
+}
+
+.promo-bar-chip {
+  color: var(--promo-bar-fg);
+  background: rgb(255 255 255 / 6%);
+  border: 1px dashed rgb(255 255 255 / 28%);
+}
+
+.promo-bar-chip:hover {
+  background: rgb(255 255 255 / 11%);
+  border-color: rgb(255 255 255 / 45%);
+}

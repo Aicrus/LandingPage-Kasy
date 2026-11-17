@@ -139,7 +139,7 @@ function HeaderNav({
 /** Mobile — fixo, fundo sólido, sem morph nem blur; o conteúdo rola por baixo. */
 function SiteHeaderMobile() {
   return (
-    <header className="fixed inset-x-0 top-0 z-50 bg-background px-3.5">
+    <header className="fixed inset-x-0 top-[var(--promo-bar-h)] z-50 bg-background px-3.5">
       <div className="flex w-full items-center justify-between py-2.5">
         <HeaderBrand />
         <HeaderNav className="gap-3" flatCta />
@@ -151,7 +151,7 @@ function SiteHeaderMobile() {
 /** Placeholder pré-hidratação — mesma aparência expandida do desktop, sem animação. */
 function SiteHeaderPlaceholder({ openWidth }: { openWidth: number }) {
   return (
-    <header className="sticky top-0 z-50 w-full px-page-x">
+    <header className="sticky top-[var(--promo-bar-h)] z-50 w-full px-page-x">
       <div
         className="mx-auto flex w-full items-center justify-between py-4"
         style={{ maxWidth: openWidth }}
@@ -244,7 +244,7 @@ function SiteHeaderMotion({ openWidth }: { openWidth: number }) {
 
   return (
     <motion.header
-      className="sticky top-0 z-50 w-full px-page-x"
+      className="sticky top-[var(--promo-bar-h)] z-50 w-full px-page-x"
       style={{ paddingTop: topOffset }}
     >
       <motion.div
@@ -323,7 +323,7 @@ function SiteHeaderStatic({ openWidth }: { openWidth: number }) {
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 w-full px-page-x",
+        "sticky top-[var(--promo-bar-h)] z-50 w-full px-page-x",
         isCompact ? "pt-3" : "",
       )}
     >

@@ -1,4 +1,13 @@
 {
+  "promoBar": {
+    "aria": "Black Friday: {percent}% de descuento",
+    "tag": "Black Friday",
+    "percent": "{percent}% OFF",
+    "limited": "por tiempo limitado",
+    "copyAria": "Copiar cupón {code}",
+    "note": "Black Friday: {percent}% OFF por tiempo limitado",
+    "copied": "Cupón copiado"
+  },
   "metadata": {
     "title": "Kasy | Publica tu app Flutter en 7 días",
     "description": "El kit Flutter completo para quien tiene una idea y no quiere perder meses en setup. Backend, auth, pagos, UI y CLI listos. iOS, Android y Web desde el día uno."
