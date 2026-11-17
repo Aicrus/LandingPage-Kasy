@@ -35,6 +35,11 @@ export function CheckoutButton({
   async function handleCheckout() {
     setLoading(true);
 
+    // Checkout em nova aba para a LP continuar aberta. A aba precisa abrir
+    // AGORA, no clique: aberta depois do fetch, o Safari trata como pop-up e
+    // bloqueia. Ela recebe o link da Stripe quando ele chegar.
+    const checkoutTab = openPendingTab(t("checkoutLoading"));
+
     // Antes do fetch: a ida ao Stripe dá tempo de sobra para os pixels saírem.
     trackBeginCheckout({ plan, valueCents, currency });
 
@@ -51,9 +56,16 @@ export function CheckoutButton({
         throw new Error(data.error ?? "checkout_failed");
       }
 
-      window.location.assign(data.url);
+      if (checkoutTab && !checkoutTab.closed) {
+        checkoutTab.location.href = data.url;
+        setLoading(false);
+      } else {
+        // Navegador bloqueou a aba nova: segue na mesma aba (comportamento antigo).
+        window.location.assign(data.url);
+      }
     } catch (error) {
       console.error("[checkout-button]", error);
+      checkoutTab?.close();
       setLoading(false);
     }
   }
@@ -77,4 +89,20 @@ export function CheckoutButton({
       )}
     </Button>
   );
+}
+
+/** Abre uma aba em branco com um aviso de carregamento (null se bloqueada). */
+function openPendingTab(message: string): Window | null {
+  const tab = window.open("", "_blank");
+  if (!tab) return null;
+  try {
+    tab.opener = null;
+    tab.document.title = message;
+    tab.document.body.style.cssText =
+      "margin:0;height:100vh;display:flex;align-items:center;justify-content:center;font:15px system-ui,sans-serif;color:#6b7a90;background:#f2f6fc";
+    tab.document.body.textContent = message;
+  } catch {
+    // Aba em branco sem aviso: não impede o checkout.
+  }
+  return tab;
 }
