@@ -553,6 +553,8 @@
   },
   "componentPreview": {
     "loading": "Loading the component…",
-    "iframeTitleTemplate": "Live preview of the {name} component"
+    "iframeTitleTemplate": "Live preview of the {name} component",
+    "tapToInteract": "Tap to interact",
+    "doneInteracting": "Done"
   }
 }

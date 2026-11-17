@@ -553,6 +553,8 @@
   },
   "componentPreview": {
     "loading": "Cargando el componente…",
-    "iframeTitleTemplate": "Vista previa en vivo del componente {name}"
+    "iframeTitleTemplate": "Vista previa en vivo del componente {name}",
+    "tapToInteract": "Toca para interactuar",
+    "doneInteracting": "Listo"
   }
 }
