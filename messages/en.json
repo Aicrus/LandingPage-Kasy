@@ -602,12 +602,12 @@
     "success": {
       "eyebrow": "Payment confirmed",
       "heading": "Welcome to Kasy",
-      "body": "We sent your activation key to the email you used at checkout. Now it's just 3 steps to build your first app.",
+      "body": "Your activation key is on its way to your email. Check your spam folder too.",
       "emailHint": "Check your inbox and spam folder. The email may take a few minutes.",
       "steps": [
         {
           "title": "Install the MCP",
-          "body": "Run it in your terminal. It installs the CLI and the MCP and sets up Cursor and Claude Desktop for you (macOS and Linux)."
+          "body": "Run it in your terminal. It installs the CLI and the MCP and sets up Cursor and Claude Desktop for you."
         },
         {
           "title": "Ask your assistant",
@@ -619,6 +619,8 @@
           "body": "When the assistant asks, paste the activation key from your email."
         }
       ],
+      "installMac": "macOS / Linux",
+      "installWin": "Windows (PowerShell)",
       "ctaInstall": "See the step-by-step (includes Windows)",
       "ctaFlows": "Explore Flows",
       "flowsNote": "Your Flows access is already unlocked: ready-made screens and flows to install in your app, through the MCP or the CLI.",

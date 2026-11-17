@@ -29,6 +29,7 @@ async function purchaseAmount(sessionId: string | undefined) {
 type Step = { title: string; body: string; prompt?: string };
 
 const INSTALL_COMMAND = "curl -fsSL https://kasy.dev/install | bash";
+const INSTALL_COMMAND_WINDOWS = "irm https://kasy.dev/install.ps1 | iex";
 const FLOWS_URL = "https://flows.kasy.dev";
 
 export default async function CheckoutSuccessPage({
@@ -55,18 +56,12 @@ export default async function CheckoutSuccessPage({
       ) : null}
 
       <SuccessBadge />
-      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-        {t("eyebrow")}
-      </p>
-      <h1 className="mt-3 font-heading text-3xl font-bold tracking-[-0.02em] text-foreground sm:text-4xl">
+      <h1 className="mt-5 font-heading text-3xl font-bold tracking-[-0.02em] text-foreground sm:text-4xl">
         {t("heading")}
       </h1>
-      <p className="mt-4 max-w-md text-pretty text-muted-foreground">{t("body")}</p>
-      <p className="mt-2 text-pretty text-[0.8125rem] text-muted-foreground/80">
-        {t("emailHint")}
-      </p>
+      <p className="mt-3 max-w-sm text-pretty text-muted-foreground">{t("body")}</p>
 
-      <ol className="mt-9 flex w-full flex-col gap-3 text-left">
+      <ol className="mt-10 flex w-full flex-col gap-3 text-left">
         {steps.map((step, i) => (
           <li
             key={step.title}
@@ -83,12 +78,26 @@ export default async function CheckoutSuccessPage({
                 {step.body}
               </p>
               {i === 0 ? (
-                <CopyCommand
-                  value={INSTALL_COMMAND}
-                  copyLabel={t("copy")}
-                  copiedLabel={t("copied")}
-                  className="mt-3"
-                />
+                <>
+                  <p className="mt-3 text-xs font-medium text-muted-foreground">
+                    {t("installMac")}
+                  </p>
+                  <CopyCommand
+                    value={INSTALL_COMMAND}
+                    copyLabel={t("copy")}
+                    copiedLabel={t("copied")}
+                    className="mt-1.5"
+                  />
+                  <p className="mt-3 text-xs font-medium text-muted-foreground">
+                    {t("installWin")}
+                  </p>
+                  <CopyCommand
+                    value={INSTALL_COMMAND_WINDOWS}
+                    copyLabel={t("copy")}
+                    copiedLabel={t("copied")}
+                    className="mt-1.5"
+                  />
+                </>
               ) : null}
               {step.prompt ? (
                 <CopyCommand
@@ -103,7 +112,7 @@ export default async function CheckoutSuccessPage({
         ))}
       </ol>
 
-      <div className="mt-6 flex w-full flex-col items-stretch gap-3 sm:flex-row sm:justify-center">
+      <div className="mt-8 flex w-full flex-col items-stretch gap-3 sm:flex-row sm:justify-center">
         <Button
           nativeButton={false}
           className="rounded-full px-6"
@@ -122,11 +131,8 @@ export default async function CheckoutSuccessPage({
         </Button>
       </div>
 
-      <p className="mt-6 max-w-md text-pretty text-[0.8125rem] text-muted-foreground">
-        {t("flowsNote")}
-      </p>
       {plan === "annual" ? (
-        <p className="mt-2 max-w-md text-pretty text-[0.75rem] text-muted-foreground/75">
+        <p className="mt-6 max-w-sm text-pretty text-[0.75rem] text-muted-foreground/70">
           {t("renewal")}
         </p>
       ) : null}

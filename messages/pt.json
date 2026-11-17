@@ -602,12 +602,12 @@
     "success": {
       "eyebrow": "Pagamento confirmado",
       "heading": "Bem-vindo ao Kasy",
-      "body": "Enviamos sua chave de ativação para o e-mail do checkout. Agora são só 3 passos para criar seu primeiro app.",
+      "body": "Sua chave de ativação está a caminho do seu e-mail. Confira também o spam.",
       "emailHint": "Confira a caixa de entrada e o spam. O e-mail pode levar alguns minutos.",
       "steps": [
         {
           "title": "Instale o MCP",
-          "body": "Rode no terminal. Ele instala a CLI e o MCP e configura o Cursor e o Claude Desktop sozinho (macOS e Linux)."
+          "body": "Rode no terminal. Ele instala a CLI e o MCP e configura o Cursor e o Claude Desktop sozinho."
         },
         {
           "title": "Peça ao assistente",
@@ -619,6 +619,8 @@
           "body": "Quando o assistente pedir, cole a chave de ativação que chegou no seu e-mail."
         }
       ],
+      "installMac": "macOS / Linux",
+      "installWin": "Windows (PowerShell)",
       "ctaInstall": "Ver passo a passo (inclui Windows)",
       "ctaFlows": "Explorar o Flows",
       "flowsNote": "Seu acesso ao Flows já está liberado: telas e fluxos prontos para instalar no seu app, pelo MCP ou pela CLI.",
