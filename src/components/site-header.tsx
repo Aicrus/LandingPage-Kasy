@@ -99,6 +99,8 @@ function HeaderNav({
     <nav className={cn("flex shrink-0 items-center gap-5 sm:gap-6", className)}>
       <a
         href="https://flows.kasy.dev"
+        target="_blank"
+        rel="noopener noreferrer"
         className="font-sans text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
       >
         {t("flows")}

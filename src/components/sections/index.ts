@@ -2,7 +2,6 @@ export { AppShowcase } from "./app-showcase";
 export { Faq } from "./faq";
 export { FeatureHoverCards } from "./feature-hover-cards";
 export { FeaturePhones } from "./feature-phones";
-export { FlowsShowcase } from "./flows-showcase";
 export { HeroIntro } from "./hero-intro";
 export { HeroScreenReveal } from "./hero-screen-reveal";
 export { IntegrationsShowcase } from "./integrations-showcase";

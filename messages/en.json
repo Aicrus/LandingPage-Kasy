@@ -287,6 +287,8 @@
   "featurePhones": {
     "ariaLabel": "Feature demos on iPhone",
     "monthlyNote": "New features and components every month.",
+    "flowsNote": "Includes Flows: ready-made screens and flows.",
+    "flowsCta": "Explore Flows",
     "items": {
       "drive": {
         "title": "Full drive flow",
@@ -395,27 +397,6 @@
       "note": "Direct install, no Play Store needed."
     },
     "desktopHint": "On a computer? Open this page on your phone to install."
-  },
-  "flowsShowcase": {
-    "eyebrow": "Flows",
-    "headingPart1": "Ready-made screens and flows.",
-    "headingEmphasis": "Included with Kasy.",
-    "subtitle": "Flows is our library of complete screens and flows: login, onboarding, home, checkout and more. Preview each one, then install it in your app with one command, through the CLI or the MCP in chat. Included in Kit Solo and Kit Founder at no extra cost.",
-    "cards": {
-      "preview": {
-        "title": "Preview before using",
-        "description": "Every Flow has a preview of the real result. Decide in seconds if it fits."
-      },
-      "install": {
-        "title": "One command, screen in your app",
-        "description": "Through the CLI or the MCP in chat. The screen lands in your project already in the kit's standard."
-      },
-      "growing": {
-        "title": "Always growing",
-        "description": "New screens and flows join the catalog and are already included in your plan."
-      }
-    },
-    "cta": "Explore Flows"
   },
   "marquee": {
     "phrases": [

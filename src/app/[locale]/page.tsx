@@ -7,7 +7,6 @@ import {
   Faq,
   FeatureHoverCards,
   FeaturePhones,
-  FlowsShowcase,
   HeroIntro,
   HeroScreenReveal,
   IntegrationsShowcase,
@@ -51,7 +50,6 @@ export default async function Home({
       <WhatYouGet />
       <FeaturePhones />
       <McpShowcase />
-      <FlowsShowcase />
       <AppShowcase />
       <TryTheApp />
       <QualityStrip />

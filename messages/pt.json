@@ -287,6 +287,8 @@
   "featurePhones": {
     "ariaLabel": "Demonstração de recursos em iPhone",
     "monthlyNote": "Features e componentes novos todo mês.",
+    "flowsNote": "Inclui o Flows: telas e fluxos prontos.",
+    "flowsCta": "Explorar o Flows",
     "items": {
       "drive": {
         "title": "Drive completo",
@@ -395,27 +397,6 @@
       "note": "Instalação direta, sem passar pela Play Store."
     },
     "desktopHint": "Está no computador? Abra esta página no celular para instalar."
-  },
-  "flowsShowcase": {
-    "eyebrow": "Flows",
-    "headingPart1": "Telas e fluxos prontos.",
-    "headingEmphasis": "Incluídos na Kasy.",
-    "subtitle": "O Flows é o nosso acervo de telas e fluxos completos: login, onboarding, home, checkout e mais. Veja cada um antes de usar e instale no seu app com um comando, pela CLI ou pelo MCP no chat. Vem no Kit Solo e no Kit Founder, sem custo extra.",
-    "cards": {
-      "preview": {
-        "title": "Veja antes de usar",
-        "description": "Cada Flow tem uma prévia do resultado real. Você decide em segundos se serve."
-      },
-      "install": {
-        "title": "Um comando, tela no app",
-        "description": "Pela CLI ou pelo MCP no chat. A tela entra no seu projeto já no padrão do kit."
-      },
-      "growing": {
-        "title": "Sempre crescendo",
-        "description": "Telas e fluxos novos entram no catálogo e já estão incluídos no seu plano."
-      }
-    },
-    "cta": "Explorar o Flows"
   },
   "marquee": {
     "phrases": [

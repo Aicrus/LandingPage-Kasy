@@ -194,7 +194,15 @@ export function FeaturePhones() {
     >
       <Reveal className="text-center">
         <p className="text-pretty font-rounded text-[0.9375rem] text-muted-foreground sm:text-base">
-          {t("monthlyNote")}
+          {t("monthlyNote")} {t("flowsNote")}{" "}
+          <a
+            href="https://flows.kasy.dev"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="whitespace-nowrap font-medium text-foreground underline-offset-4 hover:underline"
+          >
+            {t("flowsCta")} ↗
+          </a>
         </p>
       </Reveal>
 
