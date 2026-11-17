@@ -6,7 +6,9 @@ import {
   isCheckoutPlan,
   isSiteLocale,
   metadataPlan,
-  resolveCheckoutLineItem,
+  isSubscriptionPlan,
+  renewalSubmitMessage,
+  resolveCheckoutLineItems,
   stripeLocale,
 } from "@/lib/stripe/catalog";
 import { resolveViewerCountry } from "@/lib/stripe/regional-discount";
@@ -42,21 +44,33 @@ export async function POST(request: Request) {
 
   try {
     const stripe = getStripe();
+    const metadata = {
+      // source distinguishes Kit LP vs Club LP when both share one Stripe account/webhook.
+      source: "kit_lp",
+      plan: metadataPlan(body.plan),
+      // Only kit plans are sold on this LP now (Club is a separate product/site).
+      products: "kit",
+      locale: siteLocale,
+    };
+    const subscription = isSubscriptionPlan(body.plan);
+
     const session = await stripe.checkout.sessions.create({
-      mode: "payment",
+      // Founder = assinatura anual (renova no cartão); Solo = pagamento único.
+      mode: subscription ? "subscription" : "payment",
       locale: stripeLocale(siteLocale),
       branding_settings: checkoutBrandingSettings(),
-      line_items: [resolveCheckoutLineItem(body.plan, country, siteLocale)],
+      line_items: resolveCheckoutLineItems(body.plan, country, siteLocale),
       allow_promotion_codes: true,
-      customer_creation: "always",
-      metadata: {
-        // source distinguishes Kit LP vs Club LP when both share one Stripe account/webhook.
-        source: "kit_lp",
-        plan: metadataPlan(body.plan),
-        // Only kit plans are sold on this LP now (Club is a separate product/site).
-        products: "kit",
-        locale: siteLocale,
-      },
+      // Em modo assinatura o cliente já é sempre criado (o parâmetro é recusado).
+      ...(subscription
+        ? {
+            subscription_data: { metadata },
+            custom_text: {
+              submit: { message: renewalSubmitMessage(country, siteLocale) },
+            },
+          }
+        : { customer_creation: "always" as const }),
+      metadata,
       success_url: `${siteUrl}/${locale}/checkout/success?session_id={CHECKOUT_SESSION_ID}&plan=${body.plan}`,
       cancel_url: `${siteUrl}/${locale}/#precos`,
     });

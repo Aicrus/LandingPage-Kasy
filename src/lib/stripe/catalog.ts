@@ -29,10 +29,74 @@ export const PLAN_PRODUCT_ID: Record<CheckoutPlan, Record<SiteLocale, string>> =
 };
 
 export const PLAN_UNIT_AMOUNT: Record<CheckoutPlan, Record<Currency, number>> = {
-  annual: { usd: 12300, brl: 62300 },
-  // R$249/ano definido pelo usuário; USD proporcional ao ratio BRL/USD do annual (~5x).
-  starter: { usd: 4900, brl: 24900 },
+  annual: { usd: 9900, brl: 49700 },
+  // Solo R$197, Founder R$497 (reduzidos em 2026-11-17); USD ~5x menor que o BRL.
+  starter: { usd: 3900, brl: 19700 },
 };
+
+/**
+ * Kit Founder é assinatura anual (renova sozinho no cartão). A renovação custa
+ * menos que o 1º ano: quem já é cliente paga o valor de renovação. No Checkout
+ * isso vira 2 itens: a assinatura (valor de renovação) + a "adesão" do 1º ano
+ * (diferença, cobrada uma única vez). Solo continua pagamento único (90 dias).
+ */
+export const FOUNDER_RENEWAL_AMOUNT: Record<Currency, number> = { usd: 7900, brl: 39700 };
+
+export function isSubscriptionPlan(plan: CheckoutPlan): boolean {
+  return plan === "annual";
+}
+
+const FIRST_YEAR_ITEM_NAME: Record<SiteLocale, string> = {
+  pt: "Kit Founder: adesão do 1º ano (cobrança única)",
+  en: "Kit Founder: first-year setup (one-time)",
+  es: "Kit Founder: alta del 1.er año (pago único)",
+};
+
+/** Texto no botão de pagar do Checkout: deixa a renovação explícita. */
+export function renewalSubmitMessage(country: string | null | undefined, locale: SiteLocale): string {
+  const currency = currencyForCountry(country);
+  const price = formatMoney(FOUNDER_RENEWAL_AMOUNT[currency], currency);
+  if (locale === "pt") {
+    return `Renova sozinho a cada ano por ${price}, no mesmo cartão. Cancele quando quiser, sem login, pelo link no e-mail da compra.`;
+  }
+  if (locale === "es") {
+    return `Se renueva solo cada año por ${price}, en la misma tarjeta. Cancela cuando quieras, sin iniciar sesión, desde el enlace del correo de compra.`;
+  }
+  return `Renews automatically every year for ${price} on the same card. Cancel anytime, no login, from the link in your purchase email.`;
+}
+
+/** Itens do Checkout: 1 item (pagamento único) ou 2 (assinatura + adesão do 1º ano). */
+export function resolveCheckoutLineItems(
+  plan: CheckoutPlan,
+  country: string | null | undefined,
+  locale: SiteLocale,
+) {
+  if (!isSubscriptionPlan(plan)) {
+    return [resolveCheckoutLineItem(plan, country, locale)];
+  }
+  const currency = currencyForCountry(country);
+  const renewal = FOUNDER_RENEWAL_AMOUNT[currency];
+  const firstYearExtra = PLAN_UNIT_AMOUNT[plan][currency] - renewal;
+  return [
+    {
+      quantity: 1,
+      price_data: {
+        currency,
+        unit_amount: renewal,
+        product: PLAN_PRODUCT_ID[plan][locale],
+        recurring: { interval: "year" as const },
+      },
+    },
+    {
+      quantity: 1,
+      price_data: {
+        currency,
+        unit_amount: firstYearExtra,
+        product_data: { name: FIRST_YEAR_ITEM_NAME[locale] },
+      },
+    },
+  ];
+}
 
 /** Formata centavos Stripe para vitrine ($98.40 / R$498,40). */
 export function formatMoney(cents: number, currency: Currency): string {

@@ -97,6 +97,12 @@ function HeaderNav({
 
   return (
     <nav className={cn("flex shrink-0 items-center gap-5 sm:gap-6", className)}>
+      <a
+        href="https://flows.kasy.dev"
+        className="font-sans text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+      >
+        {t("flows")}
+      </a>
       <Link
         href="/changelog"
         className="font-sans text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"

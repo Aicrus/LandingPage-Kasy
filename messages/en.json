@@ -4,6 +4,7 @@
     "description": "The complete Flutter kit for people with an idea, not months of setup. Backend, auth, payments, UI, and CLI ready. iOS, Android, and Web on day one."
   },
   "header": {
+    "flows": "Flows",
     "docs": "Documentation",
     "docsShort": "Docs",
     "changelog": "Changelog",
@@ -318,7 +319,7 @@
     "worksWith": "Works with your favorite AI.",
     "headingPart1": "Ask in chat.",
     "headingEmphasis": "The kit answers.",
-    "subtitle": "In chat, Kasy MCP sets up your machine, creates the app, and builds screens in the kit standard. The AI doesn't freestyle: it follows what's already ready.",
+    "subtitle": "In chat, Kasy MCP sets up your machine, creates the app, and builds ready-made screens and flows from Flows, our library included in both plans, in the kit standard. The AI doesn't freestyle: it follows what's already ready.",
     "moreTools": "40+ tools available",
     "composerPlaceholder": "Ask Kasy MCP…",
     "youLabel": "You",
@@ -348,6 +349,73 @@
     "centerCard": "Show this app in focus",
     "prev": "Previous",
     "next": "Next"
+  },
+  "tryTheApp": {
+    "eyebrow": "Try it now",
+    "heading": "Try the app on your phone.",
+    "subtitle": "It's the same app you get when you create a project with Kasy. Install it, create an account and explore.",
+    "ios": {
+      "title": "iPhone",
+      "badge": "TestFlight",
+      "steps": [
+        {
+          "title": "Install TestFlight",
+          "body": "Apple's free app for testing apps before they reach the App Store."
+        },
+        {
+          "title": "Open the invite on your iPhone",
+          "body": "Tap Open invite, then Accept inside TestFlight."
+        },
+        {
+          "title": "Install and create your account",
+          "body": "Purchases in the beta are simulated: you are never charged."
+        }
+      ],
+      "cta": "Open invite",
+      "secondaryCta": "Get TestFlight"
+    },
+    "android": {
+      "title": "Android",
+      "badge": "APK",
+      "steps": [
+        {
+          "title": "Download the APK on your phone",
+          "body": "Tap Download APK in your Android browser."
+        },
+        {
+          "title": "Allow the install",
+          "body": "If Android asks, allow installing apps from your browser."
+        },
+        {
+          "title": "Install and create your account",
+          "body": "Open the downloaded file, confirm the install and you're in."
+        }
+      ],
+      "cta": "Download APK",
+      "note": "Direct install, no Play Store needed."
+    },
+    "desktopHint": "On a computer? Open this page on your phone to install."
+  },
+  "flowsShowcase": {
+    "eyebrow": "Flows",
+    "headingPart1": "Ready-made screens and flows.",
+    "headingEmphasis": "Included with Kasy.",
+    "subtitle": "Flows is our library of complete screens and flows: login, onboarding, home, checkout and more. Preview each one, then install it in your app with one command, through the CLI or the MCP in chat. Included in Kit Solo and Kit Founder at no extra cost.",
+    "cards": {
+      "preview": {
+        "title": "Preview before using",
+        "description": "Every Flow has a preview of the real result. Decide in seconds if it fits."
+      },
+      "install": {
+        "title": "One command, screen in your app",
+        "description": "Through the CLI or the MCP in chat. The screen lands in your project already in the kit's standard."
+      },
+      "growing": {
+        "title": "Always growing",
+        "description": "New screens and flows join the catalog and are already included in your plan."
+      }
+    },
+    "cta": "Explore Flows"
   },
   "marquee": {
     "phrases": [
@@ -472,8 +540,8 @@
       },
       {
         "id": "q5",
-        "question": "What happens when my annual access expires?",
-        "answer": "The app you already shipped keeps working as usual. When access expires, the CLI stops creating new projects and delivering updates. To renew, email kasy@aicrus.io. Renewal includes a US$50 increase over the plan price."
+        "question": "How does Kit Founder renewal work and how do I cancel?",
+        "answer": "Kit Founder costs US$99 the first year (R$497 in Brazil) and renews automatically every year for US$79 (R$397), on the card you paid with. Coupons only apply to the first year: renewal is always US$79. No login needed: to cancel, change the card or see receipts, use the \"manage subscription\" link in your key email. If you cancel, access lasts until the end of the paid year. The app you already shipped keeps working as usual. Kit Solo doesn't renew: it lasts 90 days with no automatic charge."
       },
       {
         "id": "q6",
@@ -483,12 +551,17 @@
       {
         "id": "q7",
         "question": "What's the difference between Kit Solo and Kit Founder?",
-        "answer": "The kit itself is the same on both — the difference is the license's scope. With Solo you create 1 project and get CLI updates for 90 days, built for shipping your first app. With Founder there's no project limit and updates last 1 year, for when you already know you'll build more than one app or want new features for longer."
+        "answer": "The kit itself is the same on both — the difference is the license's scope. With Solo you create 1 project and get CLI updates for 90 days, built for shipping your first app. With Founder there's no project limit and updates last 1 year, for when you already know you'll build more than one app or want new features for longer. Flows, our library of ready-made screens and flows, is included in both."
       },
       {
         "id": "q9",
         "question": "Can I get a refund?",
-        "answer": "The kit is digital: when you buy, access is immediate and the product becomes yours. That's why it's non-refundable. Questions before buying? Email kasy@aicrus.io."
+        "answer": "Yes. Both plans come with a 7-day guarantee. If Kasy isn't what you expected, email kasy@aicrus.io within 7 days of purchase and we'll refund you in full. The license is deactivated with the refund."
+      },
+      {
+        "id": "q10",
+        "question": "What is Flows, and is it included in my plan?",
+        "answer": "Flows is our library of ready-made screens and flows (login, onboarding, home, checkout and more), built on Kasy's design system. You preview each one and install it in your project with one command, through the CLI or the MCP in chat. It's included in Kit Solo and Kit Founder at no extra cost. Explore it at flows.kasy.dev."
       }
     ]
   },
@@ -496,7 +569,7 @@
     "eyebrow": "Pricing",
     "heading": "Pick the plan that fits your moment",
     "subtitle": "Solo is for shipping your first app. Founder has no project limit and keeps updates coming for longer.",
-    "checkoutNote": "Secure checkout via Stripe. International cards accepted. Your activation key arrives by email within minutes.",
+    "checkoutNote": "Secure checkout via Stripe. International cards accepted. Your activation key arrives by email within minutes. 7-day guarantee on both plans.",
     "checkoutLoading": "Opening checkout...",
     "regionalDiscount": {
       "message": "Regional discounts so Kasy stays accessible to everyone. 🌎",
@@ -517,6 +590,7 @@
           "Firebase, Supabase, and REST API",
           "60+ components · 95+ variants",
           "Kasy MCP in chat",
+          "Flows: ready-made screens and flows included",
           "CLI and Preview Device",
           "Updates for 90 days",
           "Support included"
@@ -525,7 +599,7 @@
       "annual": {
         "label": "Kit Founder",
         "description": "Backend, UI, and CLI ready to ship, with no project limit.",
-        "per": "for 1 year",
+        "per": "first year, renews at a discount",
         "tag": "Most popular",
         "cta": "Get Kit Founder",
         "features": [
@@ -535,6 +609,7 @@
           "Auth, subscriptions, and push ready",
           "60+ components · 95+ variants",
           "Kasy MCP in chat",
+          "Flows: ready-made screens and flows included",
           "CLI and Preview Device",
           "New features every month",
           "Support included"

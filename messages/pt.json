@@ -4,6 +4,7 @@
     "description": "Kit Flutter completo para quem tem uma ideia e não quer perder meses em setup. Backend, auth, pagamentos, UI e CLI prontos. iOS, Android e Web no dia um."
   },
   "header": {
+    "flows": "Flows",
     "docs": "Documentação",
     "docsShort": "Docs",
     "changelog": "Changelog",
@@ -318,7 +319,7 @@
     "worksWith": "Funciona com a IA favorita.",
     "headingPart1": "Peça no chat.",
     "headingEmphasis": "O kit responde.",
-    "subtitle": "No chat, o MCP da Kasy prepara a máquina, cria o app e monta as telas no padrão do kit. A IA não improvisa: ela segue o que já está pronto.",
+    "subtitle": "No chat, o MCP da Kasy prepara a máquina, cria o app e monta telas e fluxos prontos do Flows, o nosso acervo incluído nos dois planos, no padrão do kit. A IA não improvisa: ela segue o que já está pronto.",
     "moreTools": "+40 tools disponíveis",
     "composerPlaceholder": "Peça algo ao MCP Kasy…",
     "youLabel": "Você",
@@ -348,6 +349,73 @@
     "centerCard": "Ver este app em destaque",
     "prev": "Anterior",
     "next": "Próximo"
+  },
+  "tryTheApp": {
+    "eyebrow": "Teste agora",
+    "heading": "Experimente o app no seu celular.",
+    "subtitle": "É o mesmo app que você recebe ao criar um projeto com Kasy. Instale, crie sua conta e explore à vontade.",
+    "ios": {
+      "title": "iPhone",
+      "badge": "TestFlight",
+      "steps": [
+        {
+          "title": "Instale o TestFlight",
+          "body": "É o app gratuito da Apple para testar apps antes de chegarem à App Store."
+        },
+        {
+          "title": "Abra o convite no iPhone",
+          "body": "Toque em Abrir convite e depois em Aceitar dentro do TestFlight."
+        },
+        {
+          "title": "Instale e crie sua conta",
+          "body": "Compras feitas no teste são simuladas: nada é cobrado."
+        }
+      ],
+      "cta": "Abrir convite",
+      "secondaryCta": "Baixar o TestFlight"
+    },
+    "android": {
+      "title": "Android",
+      "badge": "APK",
+      "steps": [
+        {
+          "title": "Baixe o APK no celular",
+          "body": "Toque em Baixar APK pelo navegador do seu Android."
+        },
+        {
+          "title": "Permita a instalação",
+          "body": "Se o Android pedir, autorize instalar apps vindos do navegador."
+        },
+        {
+          "title": "Instale e crie sua conta",
+          "body": "Abra o arquivo baixado, confirme a instalação e pronto."
+        }
+      ],
+      "cta": "Baixar APK",
+      "note": "Instalação direta, sem passar pela Play Store."
+    },
+    "desktopHint": "Está no computador? Abra esta página no celular para instalar."
+  },
+  "flowsShowcase": {
+    "eyebrow": "Flows",
+    "headingPart1": "Telas e fluxos prontos.",
+    "headingEmphasis": "Incluídos na Kasy.",
+    "subtitle": "O Flows é o nosso acervo de telas e fluxos completos: login, onboarding, home, checkout e mais. Veja cada um antes de usar e instale no seu app com um comando, pela CLI ou pelo MCP no chat. Vem no Kit Solo e no Kit Founder, sem custo extra.",
+    "cards": {
+      "preview": {
+        "title": "Veja antes de usar",
+        "description": "Cada Flow tem uma prévia do resultado real. Você decide em segundos se serve."
+      },
+      "install": {
+        "title": "Um comando, tela no app",
+        "description": "Pela CLI ou pelo MCP no chat. A tela entra no seu projeto já no padrão do kit."
+      },
+      "growing": {
+        "title": "Sempre crescendo",
+        "description": "Telas e fluxos novos entram no catálogo e já estão incluídos no seu plano."
+      }
+    },
+    "cta": "Explorar o Flows"
   },
   "marquee": {
     "phrases": [
@@ -472,8 +540,8 @@
       },
       {
         "id": "q5",
-        "question": "O que acontece quando meu acesso anual vence?",
-        "answer": "O app que você já publicou continua funcionando normalmente. Com o acesso vencido, a CLI deixa de criar projetos novos e de trazer atualizações. Para renovar, escreva para kasy@aicrus.io. A renovação tem um acréscimo de US$ 50 em relação ao valor do plano."
+        "question": "Como funciona a renovação do Kit Founder e como cancelo?",
+        "answer": "O Kit Founder custa R$497 no primeiro ano (US$99 fora do Brasil) e renova sozinho a cada ano por R$397 (US$79), no cartão da compra. Cupom de desconto vale só no primeiro ano: a renovação é sempre R$397. Você não precisa fazer login: para cancelar, trocar o cartão ou ver recibos, use o link \"gerenciar assinatura\" do e-mail da sua chave. Cancelando, o acesso vai até o fim do ano pago. O app que você já publicou continua funcionando normalmente. O Kit Solo não renova: dura 90 dias e não tem cobrança automática."
       },
       {
         "id": "q6",
@@ -483,12 +551,17 @@
       {
         "id": "q7",
         "question": "Qual a diferença entre o Kit Solo e o Kit Founder?",
-        "answer": "O kit é o mesmo nos dois — a diferença é o alcance da licença. No Solo você cria 1 projeto e tem atualizações da CLI por 90 dias, pensado pra lançar o seu primeiro app. No Founder não há limite de projetos e as atualizações valem por 1 ano, pra quem já sabe que vai construir mais de um app ou quer acompanhar as novidades por mais tempo."
+        "answer": "O kit é o mesmo nos dois — a diferença é o alcance da licença. No Solo você cria 1 projeto e tem atualizações da CLI por 90 dias, pensado pra lançar o seu primeiro app. No Founder não há limite de projetos e as atualizações valem por 1 ano, pra quem já sabe que vai construir mais de um app ou quer acompanhar as novidades por mais tempo. O Flows, nosso acervo de telas e fluxos prontos, vem incluído nos dois."
       },
       {
         "id": "q9",
         "question": "Posso pedir reembolso?",
-        "answer": "O kit é digital: na compra, o acesso é imediato e o produto passa a ser seu. Por isso não é reembolsável. Dúvida antes de comprar? Escreva para kasy@aicrus.io."
+        "answer": "Sim. Os dois planos têm 7 dias de garantia. Se o Kasy não for o que você esperava, escreva para kasy@aicrus.io em até 7 dias após a compra e devolvemos o valor integral. Com o reembolso, a licença é desativada."
+      },
+      {
+        "id": "q10",
+        "question": "O que é o Flows e está incluído no meu plano?",
+        "answer": "O Flows é o nosso acervo de telas e fluxos prontos (login, onboarding, home, checkout e mais), no padrão do design system da Kasy. Você vê cada um antes de usar e instala no seu projeto com um comando, pela CLI ou pelo MCP no chat. Está incluído no Kit Solo e no Kit Founder, sem custo extra. Explore em flows.kasy.dev."
       }
     ]
   },
@@ -496,7 +569,7 @@
     "eyebrow": "Preços",
     "heading": "Escolha o plano certo para o seu momento",
     "subtitle": "O Solo é pra lançar seu primeiro app. O Founder não tem limite de projetos e mantém as atualizações por mais tempo.",
-    "checkoutNote": "Checkout seguro via Stripe. Cartões internacionais aceitos. A chave de ativação chega por e-mail em minutos.",
+    "checkoutNote": "Checkout seguro via Stripe. Cartões internacionais aceitos. A chave de ativação chega por e-mail em minutos. Garantia de 7 dias nos dois planos.",
     "checkoutLoading": "Abrindo checkout...",
     "regionalDiscount": {
       "message": "Descontos regionais para o Kasy ser acessível a todos. 🌎",
@@ -517,6 +590,7 @@
           "Firebase, Supabase e REST API",
           "60+ componentes · 95+ variantes",
           "MCP Kasy no chat",
+          "Flows: telas e fluxos prontos incluídos",
           "CLI e Preview Device",
           "Atualizações por 90 dias",
           "Suporte incluso"
@@ -525,7 +599,7 @@
       "annual": {
         "label": "Kit Founder",
         "description": "Backend, UI e CLI prontos para lançar, sem limite de projetos.",
-        "per": "por 1 ano",
+        "per": "no 1º ano, renova com desconto",
         "tag": "Mais popular",
         "cta": "Quero o Kit Founder",
         "features": [
@@ -535,6 +609,7 @@
           "Auth, assinaturas e push prontos",
           "60+ componentes · 95+ variantes",
           "MCP Kasy no chat",
+          "Flows: telas e fluxos prontos incluídos",
           "CLI e Preview Device",
           "Features novas todo mês",
           "Suporte incluso"

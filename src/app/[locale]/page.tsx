@@ -7,6 +7,7 @@ import {
   Faq,
   FeatureHoverCards,
   FeaturePhones,
+  FlowsShowcase,
   HeroIntro,
   HeroScreenReveal,
   IntegrationsShowcase,
@@ -16,6 +17,7 @@ import {
   Pricing,
   QualityStrip,
   Testimonials,
+  TryTheApp,
   VideoShowcase,
   WhatYouGet,
 } from "@/components/sections";
@@ -49,7 +51,9 @@ export default async function Home({
       <WhatYouGet />
       <FeaturePhones />
       <McpShowcase />
+      <FlowsShowcase />
       <AppShowcase />
+      <TryTheApp />
       <QualityStrip />
       <Testimonials />
       <Pricing />
