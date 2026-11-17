@@ -2,7 +2,9 @@
 
 import Image from "next/image";
 import { useTheme } from "next-themes";
+import { X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 
 import { bunnyEmbedSrc } from "@/lib/bunny-stream";
 import type { ChangelogMedia } from "@/lib/changelog";
@@ -17,10 +19,18 @@ type ChangelogMediaBlockProps = {
 const mediaFrameClass =
   "overflow-hidden rounded-xl border border-border/60 bg-muted/20 xl:rounded-2xl";
 
+const closeLabel: Record<string, string> = {
+  pt: "Fechar",
+  en: "Close",
+  es: "Cerrar",
+};
+
 function ChangelogImage({
   media,
+  locale,
 }: {
   media: Extract<ChangelogMedia, { type: "image" }>;
+  locale: string;
 }) {
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -35,12 +45,31 @@ function ChangelogImage({
       : media.src;
 
   const isPhone = media.layout === "phone";
+  const [zoomed, setZoomed] = useState(false);
+
+  useEffect(() => {
+    if (!zoomed) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setZoomed(false);
+    };
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [zoomed]);
 
   return (
     <figure className={cn("not-prose", isPhone && "flex justify-center")}>
-      <div
+      <button
+        type="button"
+        onClick={() => setZoomed(true)}
+        aria-label={media.alt}
         className={cn(
           mediaFrameClass,
+          "block cursor-zoom-in text-left transition-[border-color,box-shadow] hover:border-border hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
           isPhone ? "w-full max-w-[17.5rem] p-3 md:max-w-[19rem] md:p-4 xl:max-w-[22rem] xl:p-5 2xl:max-w-[24rem]" : "w-full",
         )}
       >
@@ -59,7 +88,34 @@ function ChangelogImage({
               : "(max-width: 768px) 100vw, (max-width: 1280px) 736px, (max-width: 1536px) 704px, 768px"
           }
         />
-      </div>
+      </button>
+      {zoomed && mounted
+        ? createPortal(
+            <div
+              role="dialog"
+              aria-modal="true"
+              aria-label={media.alt}
+              onClick={() => setZoomed(false)}
+              className="fixed inset-0 z-[100] flex cursor-zoom-out items-center justify-center bg-black/85 p-4 backdrop-blur-sm animate-in fade-in-0 md:p-10"
+            >
+              <button
+                type="button"
+                onClick={() => setZoomed(false)}
+                aria-label={closeLabel[locale] ?? closeLabel.en}
+                className="absolute right-4 top-4 flex size-10 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20 md:right-6 md:top-6"
+              >
+                <X className="size-5" />
+              </button>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={src}
+                alt={media.alt}
+                className="max-h-full max-w-full rounded-lg object-contain shadow-2xl md:rounded-xl"
+              />
+            </div>,
+            document.body,
+          )
+        : null}
     </figure>
   );
 }
@@ -280,7 +336,7 @@ function ChangelogBunny({
 
 export function ChangelogMediaBlock({ media, locale }: ChangelogMediaBlockProps) {
   if (media.type === "image") {
-    return <ChangelogImage media={media} />;
+    return <ChangelogImage media={media} locale={locale} />;
   }
 
   if (media.type === "mp4") {
