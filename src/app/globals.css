@@ -736,7 +736,9 @@
   --promo-bar-accent: #ffd166;
 }
 
-html.has-promo-bar {
+/* :has() cobre o kasy-v3, cujo layout (cola do deploy) não põe a classe no <html>. */
+html.has-promo-bar,
+html:has(.promo-bar) {
   --promo-bar-h: 2.25rem;
   --header-height-mobile: calc(
     var(--header-brand-slot) + 1.25rem + var(--promo-bar-h)
