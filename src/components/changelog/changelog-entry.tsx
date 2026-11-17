@@ -107,14 +107,26 @@ export function ChangelogEntryBlock({
           </div>
         ) : null}
 
-        {entry.docHref ? (
-          <p>
-            <Link
-              href={entry.docHref}
-              className="text-[0.8125rem] font-medium text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline xl:text-[0.875rem]"
-            >
-              {docCta}
-            </Link>
+        {entry.docHref || entry.externalLink ? (
+          <p className="flex flex-wrap items-center gap-x-4 gap-y-1">
+            {entry.externalLink ? (
+              <a
+                href={entry.externalLink.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[0.8125rem] font-medium text-foreground underline underline-offset-4 transition-colors hover:text-muted-foreground xl:text-[0.875rem]"
+              >
+                {entry.externalLink.label}
+              </a>
+            ) : null}
+            {entry.docHref ? (
+              <Link
+                href={entry.docHref}
+                className="text-[0.8125rem] font-medium text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline xl:text-[0.875rem]"
+              >
+                {docCta}
+              </Link>
+            ) : null}
           </p>
         ) : null}
       </div>

@@ -59,6 +59,8 @@ export type ChangelogEntry = {
   bullets?: ChangelogBullet[];
   media?: ChangelogMedia;
   docHref?: string;
+  /** Optional outbound link (e.g. a product site) shown next to the doc link. */
+  externalLink?: { href: string; label: string };
   /** How to get this into a project: `kasy upgrade` (tool itself) or `kasy update <module>` (existing project). */
   command?: ChangelogCommand;
 };

@@ -11,7 +11,7 @@ const PAGE_COPY: Record<SiteLocale, ChangelogPageCopy> = {
     metadata: {
       title: "Changelog | Kasy",
       description:
-        "Novos recursos do kit Flutter Kasy: Drive, MCP, widget nativo e Preview Device.",
+        "Novos recursos do kit Flutter Kasy: Flows, Drive, MCP, widget nativo e Preview Device.",
     },
     docCta: "Ver documentação",
     copyLinkLabel: "Copiar link",
@@ -29,7 +29,7 @@ const PAGE_COPY: Record<SiteLocale, ChangelogPageCopy> = {
     metadata: {
       title: "Changelog | Kasy",
       description:
-        "New Kasy Flutter kit features: Drive, MCP, home widget, and Preview Device.",
+        "New Kasy Flutter kit features: Flows, Drive, MCP, home widget, and Preview Device.",
     },
     docCta: "View documentation",
     copyLinkLabel: "Copy link",
@@ -47,7 +47,7 @@ const PAGE_COPY: Record<SiteLocale, ChangelogPageCopy> = {
     metadata: {
       title: "Changelog | Kasy",
       description:
-        "Nuevas funciones del kit Flutter Kasy: Drive, MCP, widget nativo y Preview Device.",
+        "Nuevas funciones del kit Flutter Kasy: Flows, Drive, MCP, widget nativo y Preview Device.",
     },
     docCta: "Ver documentación",
     copyLinkLabel: "Copiar enlace",
@@ -65,6 +65,40 @@ const PAGE_COPY: Record<SiteLocale, ChangelogPageCopy> = {
 
 const ENTRIES: Record<SiteLocale, ChangelogEntry[]> = {
   pt: [
+    {
+      id: "kasy-flows",
+      date: "2026-11-17",
+      title: "Kasy Flows liberado para todos os clientes",
+      summary:
+        "Um catálogo de telas, fluxos e recursos prontos para colocar no seu projeto, agora aberto para todos os clientes Kasy em flows.kasy.dev.",
+      paragraphs: [
+        "O Kasy Flows reúne telas e fluxos completos feitos no padrão do kit: login, onboarding, home, checkout, perfil e muito mais. Você testa cada um ao vivo no navegador, escolhe o que quer e instala no projeto com um comando, já no design system do seu app. O catálogo cresce toda semana e vai chegar a centenas de telas e recursos.",
+        "O Flows também alimenta o MCP do Kasy. Quando você pede uma tela nova para a IA, ela procura primeiro no catálogo a referência que mais combina e constrói a partir dela, em vez de começar do zero. Cada Flow novo deixa as telas criadas pela IA melhores.",
+      ],
+      bullets: [
+        {
+          label: "Prévia ao vivo",
+          text: "Navegue por cada Flow no navegador, do jeito que ele roda no app, antes de instalar.",
+        },
+        {
+          label: "Um comando",
+          text: "kasy add flows <id> traz as telas para o projeto, prontas para usar.",
+        },
+        {
+          label: "Base da IA",
+          text: "O MCP usa o catálogo como referência para toda tela nova que cria.",
+        },
+      ],
+      externalLink: {
+        href: "https://flows.kasy.dev",
+        label: "Abrir o Kasy Flows",
+      },
+      docHref: "/docs/mcp",
+      command: {
+        text: "kasy upgrade",
+        note: "Atualize a CLI e o MCP para instalar Flows e usar o catálogo nas telas da IA.",
+      },
+    },
     {
       id: "storyboard-visual",
       date: "2026-10-04",
@@ -294,6 +328,40 @@ title: "Drive",
   ],
   en: [
     {
+      id: "kasy-flows",
+      date: "2026-11-17",
+      title: "Kasy Flows now open to every customer",
+      summary:
+        "A catalog of ready-made screens, flows and features you can drop into your project, now available to every Kasy customer at flows.kasy.dev.",
+      paragraphs: [
+        "Kasy Flows brings together complete screens and flows built the kit way: login, onboarding, home, checkout, profile and more. Try each one live in the browser, pick what you need and install it with a single command, already in your app's design system. The catalog grows every week and is heading toward hundreds of screens and features.",
+        "Flows also powers the Kasy MCP. When you ask the AI for a new screen, it first searches the catalog for the closest reference and builds from it instead of starting from scratch. Every new Flow makes the screens the AI creates better.",
+      ],
+      bullets: [
+        {
+          label: "Live preview",
+          text: "Walk through each Flow in the browser, exactly as it runs in the app, before installing.",
+        },
+        {
+          label: "One command",
+          text: "kasy add flows <id> brings the screens into your project, ready to use.",
+        },
+        {
+          label: "AI foundation",
+          text: "The MCP uses the catalog as the reference for every new screen it creates.",
+        },
+      ],
+      externalLink: {
+        href: "https://flows.kasy.dev",
+        label: "Open Kasy Flows",
+      },
+      docHref: "/docs/mcp",
+      command: {
+        text: "kasy upgrade",
+        note: "Update the CLI and MCP to install Flows and use the catalog in AI-built screens.",
+      },
+    },
+    {
       id: "storyboard-visual",
       date: "2026-10-04",
       title: "Visual app Storyboard",
@@ -519,6 +587,40 @@ title: "Drive",
     },
   ],
   es: [
+    {
+      id: "kasy-flows",
+      date: "2026-11-17",
+      title: "Kasy Flows disponible para todos los clientes",
+      summary:
+        "Un catálogo de pantallas, flujos y recursos listos para sumar a tu proyecto, ahora abierto para todos los clientes Kasy en flows.kasy.dev.",
+      paragraphs: [
+        "Kasy Flows reúne pantallas y flujos completos hechos con el estándar del kit: login, onboarding, home, checkout, perfil y mucho más. Pruebas cada uno en vivo en el navegador, eliges lo que quieres y lo instalas en el proyecto con un comando, ya en el design system de tu app. El catálogo crece cada semana y va a llegar a cientos de pantallas y recursos.",
+        "Flows también alimenta el MCP de Kasy. Cuando le pides una pantalla nueva a la IA, primero busca en el catálogo la referencia que mejor encaja y construye a partir de ella, en lugar de empezar de cero. Cada Flow nuevo mejora las pantallas que crea la IA.",
+      ],
+      bullets: [
+        {
+          label: "Vista previa en vivo",
+          text: "Recorre cada Flow en el navegador, tal como funciona en la app, antes de instalarlo.",
+        },
+        {
+          label: "Un comando",
+          text: "kasy add flows <id> trae las pantallas a tu proyecto, listas para usar.",
+        },
+        {
+          label: "Base de la IA",
+          text: "El MCP usa el catálogo como referencia para cada pantalla nueva que crea.",
+        },
+      ],
+      externalLink: {
+        href: "https://flows.kasy.dev",
+        label: "Abrir Kasy Flows",
+      },
+      docHref: "/docs/mcp",
+      command: {
+        text: "kasy upgrade",
+        note: "Actualiza la CLI y el MCP para instalar Flows y usar el catálogo en las pantallas de la IA.",
+      },
+    },
     {
       id: "storyboard-visual",
       date: "2026-10-04",
