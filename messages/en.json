@@ -602,9 +602,29 @@
     "success": {
       "eyebrow": "Payment confirmed",
       "heading": "Welcome to Kasy",
-      "body": "We sent your activation key to the email you used at checkout. Install the CLI with npm install -g kasy-cli and run kasy new when you're ready.",
+      "body": "We sent your activation key to the email you used at checkout. Now it's just 3 steps to build your first app.",
       "emailHint": "Check your inbox and spam folder. The email may take a few minutes.",
-      "cta": "View documentation"
+      "steps": [
+        {
+          "title": "Install the MCP",
+          "body": "Run it in your terminal. It installs the CLI and the MCP and sets up Cursor and Claude Desktop for you (macOS and Linux)."
+        },
+        {
+          "title": "Ask your assistant",
+          "body": "Fully quit and reopen Cursor or Claude, then say:",
+          "prompt": "Get my machine ready with Kasy"
+        },
+        {
+          "title": "Paste your key",
+          "body": "When the assistant asks, paste the activation key from your email."
+        }
+      ],
+      "ctaInstall": "See the step-by-step (includes Windows)",
+      "ctaFlows": "Explore Flows",
+      "flowsNote": "Your Flows access is already unlocked: ready-made screens and flows to install in your app, through the MCP or the CLI.",
+      "renewal": "Your Kit Founder renews automatically every year on the card you paid with. To cancel, use the \"manage subscription\" link in your key email.",
+      "copy": "Copy",
+      "copied": "Copied"
     }
   },
   "componentPreview": {

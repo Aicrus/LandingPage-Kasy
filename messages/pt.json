@@ -602,9 +602,29 @@
     "success": {
       "eyebrow": "Pagamento confirmado",
       "heading": "Bem-vindo ao Kasy",
-      "body": "Enviamos sua chave de ativação para o e-mail do checkout. Instale a CLI com npm install -g kasy-cli e rode kasy new quando estiver pronto.",
+      "body": "Enviamos sua chave de ativação para o e-mail do checkout. Agora são só 3 passos para criar seu primeiro app.",
       "emailHint": "Confira a caixa de entrada e o spam. O e-mail pode levar alguns minutos.",
-      "cta": "Ver documentação"
+      "steps": [
+        {
+          "title": "Instale o MCP",
+          "body": "Rode no terminal. Ele instala a CLI e o MCP e configura o Cursor e o Claude Desktop sozinho (macOS e Linux)."
+        },
+        {
+          "title": "Peça ao assistente",
+          "body": "Feche e abra o Cursor ou o Claude de verdade e diga:",
+          "prompt": "Prepara minha máquina com o Kasy"
+        },
+        {
+          "title": "Cole sua chave",
+          "body": "Quando o assistente pedir, cole a chave de ativação que chegou no seu e-mail."
+        }
+      ],
+      "ctaInstall": "Ver passo a passo (inclui Windows)",
+      "ctaFlows": "Explorar o Flows",
+      "flowsNote": "Seu acesso ao Flows já está liberado: telas e fluxos prontos para instalar no seu app, pelo MCP ou pela CLI.",
+      "renewal": "Seu Kit Founder renova sozinho a cada ano no cartão da compra. Para cancelar, use o link \"gerenciar assinatura\" do e-mail da chave.",
+      "copy": "Copiar",
+      "copied": "Copiado"
     }
   },
   "componentPreview": {

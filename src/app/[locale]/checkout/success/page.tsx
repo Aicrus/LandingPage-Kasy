@@ -1,6 +1,10 @@
 import { getTranslations } from "next-intl/server";
 
+import { ArrowUpRight } from "lucide-react";
+
 import { Link } from "@/i18n/navigation";
+import { Confetti, SuccessBadge } from "@/components/checkout/confetti";
+import { CopyCommand } from "@/components/checkout/copy-command";
 import { PurchaseTracker } from "@/components/analytics/purchase-tracker";
 import { Button } from "@/components/ui/button";
 import { isCheckoutPlan } from "@/lib/stripe/catalog";
@@ -22,6 +26,11 @@ async function purchaseAmount(sessionId: string | undefined) {
   }
 }
 
+type Step = { title: string; body: string; prompt?: string };
+
+const INSTALL_COMMAND = "curl -fsSL https://kasy.dev/install | bash";
+const FLOWS_URL = "https://flows.kasy.dev";
+
 export default async function CheckoutSuccessPage({
   searchParams,
 }: {
@@ -31,9 +40,11 @@ export default async function CheckoutSuccessPage({
   const plan = isCheckoutPlan(params.plan) ? params.plan : "annual";
   const t = await getTranslations("checkout.success");
   const amount = await purchaseAmount(params.session_id);
+  const steps = t.raw("steps") as Step[];
 
   return (
-    <main className="mx-auto flex w-full max-w-lg flex-1 flex-col items-center justify-center px-6 py-16 text-center sm:py-24">
+    <main className="mx-auto flex w-full max-w-xl flex-1 flex-col items-center px-6 py-14 text-center sm:py-20">
+      <Confetti />
       {params.session_id ? (
         <PurchaseTracker
           eventId={params.session_id}
@@ -42,26 +53,83 @@ export default async function CheckoutSuccessPage({
           currency={amount?.currency}
         />
       ) : null}
+
+      <SuccessBadge />
       <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
         {t("eyebrow")}
       </p>
-      <h1 className="mt-4 font-heading text-3xl font-bold tracking-[-0.02em] text-foreground">
+      <h1 className="mt-3 font-heading text-3xl font-bold tracking-[-0.02em] text-foreground sm:text-4xl">
         {t("heading")}
       </h1>
-      <p className="mt-4 text-pretty text-muted-foreground">{t("body")}</p>
-      <p className="mt-3 text-pretty text-[0.875rem] text-muted-foreground/80">
+      <p className="mt-4 max-w-md text-pretty text-muted-foreground">{t("body")}</p>
+      <p className="mt-2 text-pretty text-[0.8125rem] text-muted-foreground/80">
         {t("emailHint")}
       </p>
 
-      <div className="mt-8 flex w-full flex-col items-stretch gap-3 sm:w-auto sm:flex-row sm:items-center">
+      <ol className="mt-9 flex w-full flex-col gap-3 text-left">
+        {steps.map((step, i) => (
+          <li
+            key={step.title}
+            className="flex gap-4 rounded-2xl border border-border/70 bg-card p-5 shadow-[0_1px_2px_rgba(4,43,89,0.04),0_6px_16px_-10px_rgba(4,43,89,0.12)] dark:shadow-none"
+          >
+            <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-primary/10 text-sm font-semibold text-primary">
+              {i + 1}
+            </span>
+            <div className="min-w-0 flex-1">
+              <h2 className="font-heading text-[0.9375rem] font-semibold text-foreground">
+                {step.title}
+              </h2>
+              <p className="mt-1 text-[0.875rem] leading-snug text-muted-foreground">
+                {step.body}
+              </p>
+              {i === 0 ? (
+                <CopyCommand
+                  value={INSTALL_COMMAND}
+                  copyLabel={t("copy")}
+                  copiedLabel={t("copied")}
+                  className="mt-3"
+                />
+              ) : null}
+              {step.prompt ? (
+                <CopyCommand
+                  value={step.prompt}
+                  copyLabel={t("copy")}
+                  copiedLabel={t("copied")}
+                  className="mt-3"
+                />
+              ) : null}
+            </div>
+          </li>
+        ))}
+      </ol>
+
+      <div className="mt-6 flex w-full flex-col items-stretch gap-3 sm:flex-row sm:justify-center">
         <Button
           nativeButton={false}
           className="rounded-full px-6"
-          render={<Link href="/docs" />}
+          render={<Link href="/docs/instalar-cli#1-caminho-recomendado-mcp" />}
         >
-          {t("cta")}
+          {t("ctaInstall")}
+        </Button>
+        <Button
+          variant="outline"
+          nativeButton={false}
+          className="gap-1.5 rounded-full px-6"
+          render={<a href={FLOWS_URL} target="_blank" rel="noopener noreferrer" />}
+        >
+          {t("ctaFlows")}
+          <ArrowUpRight className="size-4" />
         </Button>
       </div>
+
+      <p className="mt-6 max-w-md text-pretty text-[0.8125rem] text-muted-foreground">
+        {t("flowsNote")}
+      </p>
+      {plan === "annual" ? (
+        <p className="mt-2 max-w-md text-pretty text-[0.75rem] text-muted-foreground/75">
+          {t("renewal")}
+        </p>
+      ) : null}
     </main>
   );
 }
