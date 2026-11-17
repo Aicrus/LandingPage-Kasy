@@ -36,16 +36,17 @@ export function CopyCommand({
         className,
       )}
     >
-      <code className="min-w-0 flex-1 select-all break-all text-left font-mono text-[0.8125rem] text-foreground">
+      <code className="min-w-0 flex-1 select-all text-left font-mono text-[11px] leading-relaxed text-foreground [overflow-wrap:anywhere] sm:text-[0.8125rem]">
         {value}
       </code>
       <button
         type="button"
         onClick={copy}
-        className="inline-flex shrink-0 items-center gap-1.5 rounded-lg px-2 py-1 text-xs font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+        aria-label={copied ? copiedLabel : copyLabel}
+        className="inline-flex size-8 shrink-0 items-center justify-center gap-1.5 rounded-lg text-xs font-medium sm:size-auto sm:px-2 sm:py-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
       >
         {copied ? <Check className="size-3.5" /> : <Copy className="size-3.5" />}
-        {copied ? copiedLabel : copyLabel}
+        <span className="hidden sm:inline">{copied ? copiedLabel : copyLabel}</span>
       </button>
     </div>
   );

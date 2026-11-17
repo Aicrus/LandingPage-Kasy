@@ -44,7 +44,7 @@ export default async function CheckoutSuccessPage({
   const steps = t.raw("steps") as Step[];
 
   return (
-    <main className="mx-auto flex w-full max-w-xl flex-1 flex-col items-center px-6 py-14 text-center sm:py-20">
+    <main className="mx-auto flex w-full max-w-xl flex-1 flex-col items-center px-4 pb-14 pt-[calc(var(--header-height-mobile)+1.75rem)] text-center sm:px-6 sm:py-20">
       <Confetti />
       {params.session_id ? (
         <PurchaseTracker
@@ -65,7 +65,7 @@ export default async function CheckoutSuccessPage({
         {steps.map((step, i) => (
           <li
             key={step.title}
-            className="flex gap-4 rounded-2xl border border-border/70 bg-card p-5 shadow-[0_1px_2px_rgba(4,43,89,0.04),0_6px_16px_-10px_rgba(4,43,89,0.12)] dark:shadow-none"
+            className="flex gap-2.5 rounded-2xl border border-border/70 bg-card p-4 sm:gap-4 sm:p-5 shadow-[0_1px_2px_rgba(4,43,89,0.04),0_6px_16px_-10px_rgba(4,43,89,0.12)] dark:shadow-none"
           >
             <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-primary/10 text-sm font-semibold text-primary">
               {i + 1}
