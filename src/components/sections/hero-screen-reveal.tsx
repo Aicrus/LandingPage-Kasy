@@ -13,12 +13,12 @@ const HERO_EDITOR_REVEAL_DELAY = 1.06;
 
 const HERO_KIT_IMAGES = {
   light: {
-    src: "/assets/hero-light.png",
+    src: "/assets/hero-light.webp",
     width: 2944,
     height: 1648,
   },
   dark: {
-    src: "/assets/hero-dark.png",
+    src: "/assets/hero-dark.webp",
     width: 2944,
     height: 1648,
   },

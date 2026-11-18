@@ -13,8 +13,8 @@ import { cn } from "@/lib/utils";
 
 /** Mesma dupla claro/escuro do hero — aqui só a base da paisagem, sutil, atrás do conteúdo. */
 const FOOTER_ART_IMAGES = {
-  light: { src: "/assets/hero-light.png", width: 2944, height: 1648 },
-  dark: { src: "/assets/hero-dark.png", width: 2944, height: 1648 },
+  light: { src: "/assets/hero-light.webp", width: 2944, height: 1648 },
+  dark: { src: "/assets/hero-dark.webp", width: 2944, height: 1648 },
 } as const;
 
 const footerArtImageClass = "object-cover object-[50%_78%] scale-[1.15]";
